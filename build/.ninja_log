@@ -1,0 +1,6 @@
+# ninja log v5
+5	730	1775279863869311994	CMakeFiles/PokemonSimulator.dir/src/main.cpp.o	38dd1c3c519d19ce
+4	693	1775279863831956387	CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o	e12b798d5a0f60c9
+891	1326	1775279864454549844	PokemonSimulator	a8fe5b7a81d4336e
+3	891	1775279864031186293	CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o	8b4f53fab8f4f893
+5	760	1775279863898366355	CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o	51355cdbfedabe11
