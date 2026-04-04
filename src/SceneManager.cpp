@@ -1,16 +1,20 @@
 #include"SceneManager.h"
+#include"Scenes/BattleScene.h"
 
 Scene* SceneManager::currentScene = nullptr;
 SceneManager::SceneID SceneManager::currentSceneID = SceneManager::SceneID::None;
 bool SceneManager::isLoaded = false;
 
 void SceneManager::Init() {
-    SceneManager::ChangeScene(SceneManager::SceneID::Game);
+    SceneManager::ChangeScene(SceneManager::SceneID::Battle);
 }
 
 void SceneManager::ChangeScene(SceneID newSceneID) {
     Clean();
     switch (newSceneID) {
+    case SceneID::Battle:
+        currentScene = new BattleScene();
+        break;
     default:
         currentScene = nullptr;
         break;

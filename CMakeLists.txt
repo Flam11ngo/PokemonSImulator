@@ -2,6 +2,17 @@ cmake_minimum_required(VERSION 3.10)
 project(PokemonSimulator)
 set(CMAKE_CXX_STANDARD 17)
 
+include(FetchContent)
+
+# Fetch Google Test
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+# For Windows: Prevent overriding the parent project's compiler/linker on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
 include(FindPkgConfig)
 
 # Check SDL2 libraries
@@ -25,12 +36,17 @@ include_directories(${SDL2_NET_INCLUDE_DIRS})
 include_directories(${SDL2_TTF_INCLUDE_DIRS})
 include_directories(${CURL_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/Battle)
+
 # Source files
 file(GLOB SOURCES src/*.cpp)
+file(GLOB SOURCES_BATTLE src/Battle/*.cpp)
+file(GLOB SOURCES_GUI src/GUI/*.cpp)
+file(GLOB SOURCES_GUIUTILS src/GUIUtils/*.cpp)
+file(GLOB SOURCES_SCENES src/Scenes/*.cpp)
 
 # Executable
-add_executable(PokemonSimulator ${SOURCES})
-
+add_executable(PokemonSimulator ${SOURCES} ${SOURCES_BATTLE} ${SOURCES_GUI} ${SOURCES_GUIUTILS} ${SOURCES_SCENES})
 
 # Link libraries
 target_link_libraries(PokemonSimulator
@@ -43,5 +59,11 @@ target_link_libraries(PokemonSimulator
     nlohmann_json::nlohmann_json
     CURL::libcurl
 )
+
+# Enable testing
+enable_testing()
+
+# Add subdirectories
+add_subdirectory(src/Battle)
 
 

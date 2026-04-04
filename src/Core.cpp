@@ -1,5 +1,6 @@
 #include"Core.h"
 #include "Image.h"
+#include "SceneManager.h"
 
 SDL_Window* Core::window = nullptr;
 SDL_Renderer* Core::renderer = nullptr;
@@ -33,9 +34,15 @@ void Core::init() {
     }
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     Image::ImgInit(renderer);
+    
+    // 初始化场景管理器
+    SceneManager::Init();
 }
 
 void Core::quit() {
+    // 清理场景管理器
+    SceneManager::Clean();
+    
     if (renderer) {
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;
@@ -54,15 +61,33 @@ void Core::quit() {
 void Core::mainLoop() {
     bool quit = false;
     SDL_Event e;
+    Uint32 lastTime = SDL_GetTicks();
 
     while (!quit) {
+        // 计算deltaTime
+        Uint32 currentTime = SDL_GetTicks();
+        float deltaTime = (currentTime - lastTime) / 1000.0f;
+        lastTime = currentTime;
+        
+        // 处理事件
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 quit = true;
+            } else {
+                SceneManager::HandleEvents(e);
             }
         }
+        
+        // 更新场景
+        SceneManager::Update(deltaTime);
+        
+        // 渲染场景
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+        SceneManager::Render(renderer);
         SDL_RenderPresent(renderer);
+        
+        // 延迟
+        SDL_Delay(16); // 约60 FPS
     }
 }

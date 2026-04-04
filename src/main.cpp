@@ -1,6 +1,6 @@
-#include<Core.h>
+#include"Core.h"
 
-int main(int argc, char* argv[]) {
+int main(){
     Core::init();
     Core::mainLoop();
     Core::quit();
