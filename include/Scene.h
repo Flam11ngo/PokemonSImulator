@@ -1,6 +1,6 @@
 #pragma once
 #include<SDLH.h>
-#include"GUI/Button.h"
+#include"GUIUtils/Button.h"
 
 class Scene {
 	public:

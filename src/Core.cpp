@@ -2,7 +2,7 @@
 #include "Image.h"
 
 SDL_Window* Core::window = nullptr;
-std::shared_ptr<SDL_Renderer> Core::renderer = nullptr;
+SDL_Renderer* Core::renderer = nullptr;
 
 void Core::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -31,25 +31,14 @@ void Core::init() {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
         return;
     }
-
-    SDL_Renderer* rawRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (!rawRenderer) {
-        SDL_Log("SDL_CreateRenderer failed: %s", SDL_GetError());
-        return;
-    }
-
-    renderer = std::shared_ptr<SDL_Renderer>(rawRenderer, [](SDL_Renderer* r) {
-        if (r) {
-            SDL_DestroyRenderer(r);
-        }
-    });
-
-    Image::ImgInit(renderer.get());
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    Image::ImgInit(renderer);
 }
 
 void Core::quit() {
     if (renderer) {
-        renderer.reset();
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
     }
     if (window) {
         SDL_DestroyWindow(window);
@@ -65,11 +54,6 @@ void Core::quit() {
 void Core::mainLoop() {
     bool quit = false;
     SDL_Event e;
-    SDL_Renderer* rawRenderer = renderer.get();
-    if (!rawRenderer) {
-        SDL_Log("Renderer is not initialized.");
-        return;
-    }
 
     while (!quit) {
         while (SDL_PollEvent(&e)) {
@@ -77,13 +61,8 @@ void Core::mainLoop() {
                 quit = true;
             }
         }
-
-        SDL_SetRenderDrawColor(rawRenderer, 0, 0, 0, 255);
-        SDL_RenderClear(rawRenderer);
-        SDL_RenderPresent(rawRenderer);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+        SDL_RenderPresent(renderer);
     }
-}
-
-std::shared_ptr<SDL_Renderer> Core::getRenderer() {
-    return renderer;
 }

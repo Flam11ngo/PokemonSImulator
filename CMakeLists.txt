@@ -31,6 +31,7 @@ file(GLOB SOURCES src/*.cpp)
 # Executable
 add_executable(PokemonSimulator ${SOURCES})
 
+
 # Link libraries
 target_link_libraries(PokemonSimulator
     ${SDL2_LIBRARIES}
