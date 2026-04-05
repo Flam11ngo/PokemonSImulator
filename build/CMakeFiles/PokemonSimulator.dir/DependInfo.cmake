@@ -26,11 +26,14 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/qzz/PokemonSimulator/src/Battle/Weather.cpp" "CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/Core.cpp" "CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/GUIUtils/Button.cpp" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o.d"
+  "/home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o.d"
+  "/home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/Image.cpp" "CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/SceneManager.cpp" "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp" "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o.d"
+  "/home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp" "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/main.cpp" "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o.d"
   )
 

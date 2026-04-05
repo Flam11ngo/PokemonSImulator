@@ -12,4 +12,5 @@ public:
     static void quit();
     static void mainLoop();
     static SDL_Renderer* getRenderer() { return renderer; }
+    static void getWindowSize(int& width, int& height);
 };

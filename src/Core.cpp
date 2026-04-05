@@ -58,6 +58,15 @@ void Core::quit() {
     SDL_Quit();
 }
 
+void Core::getWindowSize(int& width, int& height) {
+    if (window) {
+        SDL_GetWindowSize(window, &width, &height);
+    } else {
+        width = 1280;
+        height = 720;
+    }
+}
+
 void Core::mainLoop() {
     bool quit = false;
     SDL_Event e;

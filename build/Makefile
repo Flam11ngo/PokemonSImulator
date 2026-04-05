@@ -681,6 +681,30 @@ src/GUIUtils/Button.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.s
 .PHONY : src/GUIUtils/Button.cpp.s
 
+src/GUIUtils/Dialog.o: src/GUIUtils/Dialog.cpp.o
+.PHONY : src/GUIUtils/Dialog.o
+
+# target to build an object file
+src/GUIUtils/Dialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o
+.PHONY : src/GUIUtils/Dialog.cpp.o
+
+src/GUIUtils/Dialog.i: src/GUIUtils/Dialog.cpp.i
+.PHONY : src/GUIUtils/Dialog.i
+
+# target to preprocess a source file
+src/GUIUtils/Dialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.i
+.PHONY : src/GUIUtils/Dialog.cpp.i
+
+src/GUIUtils/Dialog.s: src/GUIUtils/Dialog.cpp.s
+.PHONY : src/GUIUtils/Dialog.s
+
+# target to generate assembly for a file
+src/GUIUtils/Dialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.s
+.PHONY : src/GUIUtils/Dialog.cpp.s
+
 src/GUIUtils/Label.o: src/GUIUtils/Label.cpp.o
 .PHONY : src/GUIUtils/Label.o
 
@@ -728,6 +752,30 @@ src/GUIUtils/Message.s: src/GUIUtils/Message.cpp.s
 src/GUIUtils/Message.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.s
 .PHONY : src/GUIUtils/Message.cpp.s
+
+src/GUIUtils/TextBox.o: src/GUIUtils/TextBox.cpp.o
+.PHONY : src/GUIUtils/TextBox.o
+
+# target to build an object file
+src/GUIUtils/TextBox.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o
+.PHONY : src/GUIUtils/TextBox.cpp.o
+
+src/GUIUtils/TextBox.i: src/GUIUtils/TextBox.cpp.i
+.PHONY : src/GUIUtils/TextBox.i
+
+# target to preprocess a source file
+src/GUIUtils/TextBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.i
+.PHONY : src/GUIUtils/TextBox.cpp.i
+
+src/GUIUtils/TextBox.s: src/GUIUtils/TextBox.cpp.s
+.PHONY : src/GUIUtils/TextBox.s
+
+# target to generate assembly for a file
+src/GUIUtils/TextBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.s
+.PHONY : src/GUIUtils/TextBox.cpp.s
 
 src/Image.o: src/Image.cpp.o
 .PHONY : src/Image.o
@@ -800,6 +848,30 @@ src/Scenes/BattleScene.s: src/Scenes/BattleScene.cpp.s
 src/Scenes/BattleScene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.s
 .PHONY : src/Scenes/BattleScene.cpp.s
+
+src/Scenes/TestScene.o: src/Scenes/TestScene.cpp.o
+.PHONY : src/Scenes/TestScene.o
+
+# target to build an object file
+src/Scenes/TestScene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o
+.PHONY : src/Scenes/TestScene.cpp.o
+
+src/Scenes/TestScene.i: src/Scenes/TestScene.cpp.i
+.PHONY : src/Scenes/TestScene.i
+
+# target to preprocess a source file
+src/Scenes/TestScene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.i
+.PHONY : src/Scenes/TestScene.cpp.i
+
+src/Scenes/TestScene.s: src/Scenes/TestScene.cpp.s
+.PHONY : src/Scenes/TestScene.s
+
+# target to generate assembly for a file
+src/Scenes/TestScene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.s
+.PHONY : src/Scenes/TestScene.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -898,12 +970,18 @@ help:
 	@echo "... src/GUIUtils/Button.o"
 	@echo "... src/GUIUtils/Button.i"
 	@echo "... src/GUIUtils/Button.s"
+	@echo "... src/GUIUtils/Dialog.o"
+	@echo "... src/GUIUtils/Dialog.i"
+	@echo "... src/GUIUtils/Dialog.s"
 	@echo "... src/GUIUtils/Label.o"
 	@echo "... src/GUIUtils/Label.i"
 	@echo "... src/GUIUtils/Label.s"
 	@echo "... src/GUIUtils/Message.o"
 	@echo "... src/GUIUtils/Message.i"
 	@echo "... src/GUIUtils/Message.s"
+	@echo "... src/GUIUtils/TextBox.o"
+	@echo "... src/GUIUtils/TextBox.i"
+	@echo "... src/GUIUtils/TextBox.s"
 	@echo "... src/Image.o"
 	@echo "... src/Image.i"
 	@echo "... src/Image.s"
@@ -913,6 +991,9 @@ help:
 	@echo "... src/Scenes/BattleScene.o"
 	@echo "... src/Scenes/BattleScene.i"
 	@echo "... src/Scenes/BattleScene.s"
+	@echo "... src/Scenes/TestScene.o"
+	@echo "... src/Scenes/TestScene.i"
+	@echo "... src/Scenes/TestScene.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -27,12 +27,12 @@ void Label::Render(SDL_Renderer* render) {
     int width, height;
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     
-    // 计算文本居中的位置
+    // 左对齐文本
     SDL_Rect destRect = drect;
     destRect.w = width;
     destRect.h = height;
-    destRect.x += (drect.w - width) / 2;
-    destRect.y += (drect.h - height) / 2;
+    destRect.x += 5; // 左边距
+    destRect.y += (drect.h - height) / 2; // 垂直居中
     
     SDL_RenderCopy(render, texture, nullptr, &destRect);
     

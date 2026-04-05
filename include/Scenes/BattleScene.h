@@ -21,7 +21,8 @@ private:
     // 初始化方法
     void initializeButtons();
     void handleMoveSelection();
-    
+    SDL_Rect PlayerPokemonRect = {150, 300, 200, 200};
+    SDL_Rect OpponentPokemonRect = {900, 50, 200, 200};
     // 辅助方法
     std::string getTypeString(Type type);
     

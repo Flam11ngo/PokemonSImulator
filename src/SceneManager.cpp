@@ -1,12 +1,15 @@
 #include"SceneManager.h"
 #include"Scenes/BattleScene.h"
+#include"Scenes/TestScene.h"
+#include"Core.h"
+#include<iostream>
 
 Scene* SceneManager::currentScene = nullptr;
 SceneManager::SceneID SceneManager::currentSceneID = SceneManager::SceneID::None;
 bool SceneManager::isLoaded = false;
 
 void SceneManager::Init() {
-    SceneManager::ChangeScene(SceneManager::SceneID::Battle);
+    SceneManager::ChangeScene(SceneManager::SceneID::Test);
 }
 
 void SceneManager::ChangeScene(SceneID newSceneID) {
@@ -15,11 +18,21 @@ void SceneManager::ChangeScene(SceneID newSceneID) {
     case SceneID::Battle:
         currentScene = new BattleScene();
         break;
+    case SceneID::Test:
+        currentScene = new TestScene();
+        break;
     default:
         currentScene = nullptr;
         break;
     }
     if (currentScene != nullptr) {
+        // 获取窗口大小并设置到场景
+        int width, height;
+        Core::getWindowSize(width, height);
+        currentScene->SetWindowSize(width, height);
+		//std::cout << "Setting window width: " << width << ", height: " << height << std::endl;
+        // 先加载资源，再调用Enter
+        LoadResources(Core::getRenderer());
         currentScene->Enter();
         currentSceneID = newSceneID;
     } else {

@@ -17,6 +17,7 @@ public:
 	Image(const Image& other);
 	Image& operator=(const Image& other);
 	Image(Image&& other) noexcept;
+	~Image();
 	void CleanUp();
 	void Render(SDL_Renderer* renderer,SDL_Rect*destRect);
 	SDL_Texture* getTexture() { return texture; }

@@ -363,10 +363,24 @@ CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/GUIUtils/Button.cpp -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.s
 
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o: /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp
+
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp > CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.i
+
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.s
+
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o: /home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp
 
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.i: cmake_force
@@ -380,7 +394,7 @@ CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.s: cmake_force
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o: /home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp
 
 CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.i: cmake_force
@@ -391,10 +405,24 @@ CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.s
 
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o: /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp
+
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp > CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.i
+
+CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.s
+
 CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
 CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o: /home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp
 CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o -c /home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp
 
 CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.i: cmake_force
@@ -404,6 +432,20 @@ CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.i: cmake_force
 CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp -o CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.s
+
+CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: CMakeFiles/PokemonSimulator.dir/flags.make
+CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp
+CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: CMakeFiles/PokemonSimulator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o -MF CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o.d -o CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o -c /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp
+
+CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp > CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.i
+
+CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp -o CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.s
 
 # Object files for target PokemonSimulator
 PokemonSimulator_OBJECTS = \
@@ -428,9 +470,12 @@ PokemonSimulator_OBJECTS = \
 "CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o" \
 "CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o" \
 "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o" \
+"CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o" \
 "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o" \
 "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o" \
-"CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o"
+"CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o" \
+"CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o" \
+"CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o"
 
 # External object files for target PokemonSimulator
 PokemonSimulator_EXTERNAL_OBJECTS =
@@ -456,13 +501,16 @@ PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o
+PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o
+PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o
+PokemonSimulator: CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/build.make
 PokemonSimulator: /usr/lib/x86_64-linux-gnu/libcurl.so
 PokemonSimulator: CMakeFiles/PokemonSimulator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Linking CXX executable PokemonSimulator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/qzz/PokemonSimulator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Linking CXX executable PokemonSimulator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PokemonSimulator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -4,15 +4,18 @@
 class Scene;
 class SceneManager {
     friend class Scene;
-private:
+public:
 	enum class SceneID {
 		None,
 		Title,
 		Game,
 		Menu,
 		Battle,
-		Backpack
+		Backpack,
+		Test
 	};
+
+private:
 	static Scene* currentScene;
 	static SceneID currentSceneID;
 	static bool isLoaded;

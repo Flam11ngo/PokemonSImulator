@@ -11,6 +11,8 @@ Image::Image(SDL_Renderer* renderer, std::string filepath) {
 
 Image::Image(const Image& other) {
     if (this == &other) return;
+    // 先释放当前资源
+    CleanUp();
     // 拷贝文件路径
     filepath = other.filepath;
 
@@ -29,7 +31,7 @@ Image::Image(const Image& other) {
             if (!texture) {
                 SDL_FreeSurface(surface);
                 surface = nullptr;
-				SDL_Log("Faild to create texture");
+				SDL_Log("Failed to create texture");
             }
 
             // 初始化 srcRect
@@ -44,6 +46,8 @@ Image::Image(const Image& other) {
 Image& Image::operator=(const Image& other) {
     if (this == &other) return *this;
 
+    // 先释放当前资源
+    CleanUp();
     // 拷贝文件路径
     filepath = other.filepath;
 
@@ -85,6 +89,9 @@ Image::Image(Image&& other) noexcept
 	other.filepath.clear();
 }
 
+Image::~Image() {
+    CleanUp();
+}
 
 void Image::ImgInit(SDL_Renderer *renderer) {
 	rendererStatic = renderer;

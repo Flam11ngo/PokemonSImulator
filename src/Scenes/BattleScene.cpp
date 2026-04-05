@@ -7,9 +7,65 @@
 #include"Battle/Abilities.h"
 #include<iostream>
 
-BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), battleActive(false) {
-    initializeButtons();
+BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), battleActive(false) {}
+
+BattleScene::~BattleScene() {
+    if (battle) {
+        delete battle;
+        battle = nullptr;
+    }
+}
+
+void BattleScene::initializeButtons() {
+    // 初始化技能按钮
+    moveButtons.reserve(4);
     
+    // 技能按钮的位置和大小，根据窗口大小均匀分布
+    int buttonWidth = windowRect.w / 5; // 宽度为窗口的1/5
+    int buttonHeight = windowRect.h / 10; // 高度为窗口的1/10
+    int buttonSpacingX = windowRect.w / 20; // 水平间距为窗口宽度的1/20
+    int startX = (windowRect.w - 4 * buttonWidth - 3 * buttonSpacingX) / 2; // 水平居中
+    int startY = windowRect.h - buttonHeight - 50; // 底部留出50像素
+    std::cout << "startX: " << startX << ", startY: " << startY << std::endl;
+    for (int i = 0; i < 4; i++) {
+        SDL_Rect rect = {startX + i * (buttonWidth + buttonSpacingX), startY, buttonWidth, buttonHeight};
+        Image buttonImage;
+        moveButtons.emplace_back(rect, [this, i]() { selectedMoveIndex = i; handleMoveSelection(); }, buttonImage);
+    }
+}
+
+void BattleScene::LoadResources(SDL_Renderer* renderer) {
+    // 加载背景图片
+    background.LoadImage(renderer, "../assets/battle/background.png");
+    
+    // 加载宝可梦图片
+    playerPokemon.LoadImage(renderer, "../assets/pokemon/charizard.png");
+    opponentPokemon.LoadImage(renderer, "../assets/pokemon/blastoise.png");
+    
+    // 加载技能按钮背景板图片
+    moveButtonBackgrounds.clear();
+    std::vector<Type> types = {
+        Type::Normal, Type::Fire, Type::Water, Type::Electric, Type::Grass,
+        Type::Ice, Type::Fighting, Type::Poison, Type::Ground, Type::Flying,
+        Type::Psychic, Type::Bug, Type::Rock, Type::Ghost, Type::Dragon,
+        Type::Dark, Type::Steel, Type::Fairy
+    };
+    
+    for (Type type : types) {
+        std::string typeString = getTypeString(type);
+        std::string path = "../assets/move/" + typeString + "-panel.png";
+        Image image(renderer, path.c_str());
+        moveButtonBackgrounds.push_back(image);
+    }
+    // 这些代码移到Enter方法中执行，因为battle对象在Enter方法中才创建
+    // auto moves = battle->getSideA().getActivePokemon()->getMoves();
+    // for (int i = 0; i < 4; i++) {
+    //     moveButtons[i].SetBackground(moveButtonBackgrounds[static_cast<int>(moves[i].getType())]);
+    // }
+}
+
+void BattleScene::Enter() {
+    std::cout << "Entering Battle Scene!" << std::endl;
     // 创建默认战斗实例
     // 创建宝可梦物种
     Species charizardSpecies{
@@ -44,7 +100,7 @@ BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), battleActive
     std::array<int, static_cast<int>(StatIndex::Count)> ivs{};
     std::array<int, static_cast<int>(StatIndex::Count)> evs{};
     ivs.fill(31);
-    evs.fill(0);
+    evs.fill(31);
 
     Pokemon* charizard = new Pokemon(&charizardSpecies, Nature::Adamant, AbilityType::Blaze, 50, ivs, evs);
     Pokemon* blastoise = new Pokemon(&blastoiseSpecies, Nature::Modest, AbilityType::Torrent, 50, ivs, evs);
@@ -65,74 +121,46 @@ BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), battleActive
     Side sideB("Opponent");
     sideA.addPokemon(charizard);
     sideB.addPokemon(blastoise);
+
     // 创建战斗
     battle = new Battle(sideA, sideB);
     battleActive = true;
-
-}
-
-BattleScene::~BattleScene() {
-    if (battle) {
-        delete battle;
-        battle = nullptr;
+    initializeButtons();
+    
+    // 设置技能按钮的背景图片
+    if (battle && !moveButtonBackgrounds.empty()) {
+        auto moves = battle->getSideA().getActivePokemon()->getMoves();
+        for (int i = 0; i < 4 && i < moves.size(); i++) {
+            if (i < moveButtons.size()) {
+                moveButtons[i].SetBackground(moveButtonBackgrounds[static_cast<int>(moves[i].getType())]);
+            }
+        }
     }
-}
-
-void BattleScene::initializeButtons() {
-    // 初始化技能按钮
-    moveButtons.reserve(4);
-    
-    // 技能按钮的位置
-    int buttonWidth = 150;
-    int buttonHeight = 50;
-    int buttonSpacing = 20;
-    int startX = 50;
-    int startY = 450;
-    
-    for (int i = 0; i < 4; i++) {
-        SDL_Rect rect = {startX + (i % 2) * (buttonWidth + buttonSpacing), startY + (i / 2) * (buttonHeight + buttonSpacing), buttonWidth, buttonHeight};
-        Image buttonImage;
-        moveButtons.emplace_back(rect, [this, i]() { selectedMoveIndex = i; handleMoveSelection(); }, buttonImage);
-    }
-}
-
-void BattleScene::LoadResources(SDL_Renderer* renderer) {
-    // 加载背景图片
-    background.LoadImage(renderer, "../assets/battle/background.png");
-    
-    // 加载宝可梦图片
-    playerPokemon.LoadImage(renderer, "../assets/pokemon/charizard.png");
-    opponentPokemon.LoadImage(renderer, "../assets/pokemon/blastoise.png");
-    
-    // 加载技能按钮背景板图片
-    moveButtonBackgrounds.clear();
-    std::vector<Type> types = {
-        Type::Normal, Type::Fire, Type::Water, Type::Electric, Type::Grass,
-        Type::Ice, Type::Fighting, Type::Poison, Type::Ground, Type::Flying,
-        Type::Psychic, Type::Bug, Type::Rock, Type::Ghost, Type::Dragon,
-        Type::Dark, Type::Steel, Type::Fairy
-    };
-    
-    for (Type type : types) {
-        std::string typeString = getTypeString(type);
-        std::string path = "../assets/move/" + typeString + "-panel.png";
-        Image image(renderer, path.c_str());
-        moveButtonBackgrounds.push_back(image);
-    }
-    auto moves = battle->getSideA().getActivePokemon()->getMoves();
-    for (int i = 0; i < 4; i++) {
-        moveButtons[i].SetBackground(moveButtonBackgrounds[static_cast<int>(moves[i].getType())]);
-    }
-}
-
-void BattleScene::Enter() {
-    std::cout << "Entering Battle Scene!" << std::endl;
-    battleActive = true;
 }
 
 void BattleScene::Exit() {
     std::cout << "Exiting Battle Scene!" << std::endl;
     battleActive = false;
+    
+    // 释放资源
+    if (battle) {
+        delete battle;
+        battle = nullptr;
+    }
+    
+    // 释放图片资源
+    background.CleanUp();
+    playerPokemon.CleanUp();
+    opponentPokemon.CleanUp();
+    
+    // 释放技能按钮背景图片资源
+    for (auto& image : moveButtonBackgrounds) {
+        image.CleanUp();
+    }
+    moveButtonBackgrounds.clear();
+    
+    // 清空按钮
+    moveButtons.clear();
 }
 
 void BattleScene::Update(float deltaTime) {
@@ -159,14 +187,13 @@ void BattleScene::Render(SDL_Renderer* renderer) {
     // 渲染玩家宝可梦
     Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
     if (playerPokemonPtr) {
-        SDL_Rect playerRect = {50, 300, 200, 200};
         // 检查宝可梦图片是否加载成功
         if (playerPokemon.getTexture()) {
-            playerPokemon.Render(renderer, &playerRect);
+            playerPokemon.Render(renderer, &PlayerPokemonRect);
         } else {
             // 图片加载失败，使用默认颜色填充
             SDL_SetRenderDrawColor(renderer, 255, 100, 100, 255);
-            SDL_RenderFillRect(renderer, &playerRect);
+            SDL_RenderFillRect(renderer, &PlayerPokemonRect);
         }
         
         // 渲染玩家宝可梦信息
@@ -182,16 +209,14 @@ void BattleScene::Render(SDL_Renderer* renderer) {
     // 渲染对手宝可梦
     Pokemon* opponentPokemonPtr = battle->getSideB().getActivePokemon();
     if (opponentPokemonPtr) {
-        SDL_Rect opponentRect = {800, 50, 200, 200};
         // 检查宝可梦图片是否加载成功
         if (opponentPokemon.getTexture()) {
-            opponentPokemon.Render(renderer, &opponentRect);
+            opponentPokemon.Render(renderer, &OpponentPokemonRect);
         } else {
             // 图片加载失败，使用默认颜色填充
             SDL_SetRenderDrawColor(renderer, 100, 100, 255, 255);
-            SDL_RenderFillRect(renderer, &opponentRect);
+            SDL_RenderFillRect(renderer, &OpponentPokemonRect); 
         }
-        
         // 渲染对手宝可梦信息
         std::string opponentName = opponentPokemonPtr->getName();
         std::string opponentHP = "HP: " + std::to_string(opponentPokemonPtr->getCurrentHP()) + "/" + std::to_string(opponentPokemonPtr->getMaxHP());
@@ -218,7 +243,7 @@ void BattleScene::Render(SDL_Renderer* renderer) {
             }
         }
     }
-}
+};
 
 void BattleScene::HandleEvents(SDL_Event& event) {
     if (!battleActive || !battle) return;
@@ -292,7 +317,8 @@ void BattleScene::handleMoveSelection() {
         if (playerPokemonPtr->isFainted() || opponentPokemonPtr->isFainted()) {
             battleActive = false;
             std::cout << "Battle ended!" << std::endl;
-            // 这里可以添加战斗结束的处理
+            // 战斗结束后切换到TestScene
+            SceneManager::ChangeScene(SceneManager::SceneID::Test);
         }
     }
 }
