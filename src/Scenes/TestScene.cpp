@@ -16,6 +16,10 @@ void TestScene::LoadResources(SDL_Renderer* renderer) {
     if (!font) {
         std::cout << "Failed to load font: " << TTF_GetError() << std::endl;
     }
+    
+    // 加载测试动画（使用Pikachu图集）
+    bool loaded = testAnimation.LoadAnimation(renderer, "../assets/pokemon/Pikachu", true);
+    testAnimation.Play();
 }
 
 void TestScene::Enter() {
@@ -82,12 +86,21 @@ void TestScene::Exit() {
     
     // 清空对话框
     testDialog = Dialog();
+    
+    // 清理动画资源
+    testAnimation.CleanUp();
 }
 
 void TestScene::Update(float deltaTime) {
     // 更新文本框，处理光标闪烁
     testTextBox.Update(deltaTime);
     passwordTextBox.Update(deltaTime);
+    
+    // 更新对话框，处理文本逐字显示
+    testDialog.Update();
+    
+    // 更新测试动画
+    testAnimation.Update(deltaTime);
 }
 
 void TestScene::Render(SDL_Renderer* renderer) {
@@ -105,6 +118,10 @@ void TestScene::Render(SDL_Renderer* renderer) {
     
     // 渲染对话框
     testDialog.Render(renderer);
+    
+    // 渲染动画
+    SDL_Rect animationRect = {100, 100, 200, 200};
+    testAnimation.Render(renderer, &animationRect);
     
     // 渲染按钮文本
     if (font) {

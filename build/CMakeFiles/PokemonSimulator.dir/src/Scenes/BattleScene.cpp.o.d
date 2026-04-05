@@ -337,6 +337,7 @@ CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o: \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
+ /home/qzz/PokemonSimulator/include/Animated.h \
  /home/qzz/PokemonSimulator/include/SceneManager.h \
  /home/qzz/PokemonSimulator/include/Core.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/ostream /usr/include/c++/13/ios \

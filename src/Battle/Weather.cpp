@@ -39,6 +39,16 @@ float Weather::applyDamageModifier(Type targetType) const {
             if (targetType == Type::Water) return 0.5f;
             if (targetType == Type::Fire) return 1.5f;
             break;
+        case WeatherType::Sandstorm:
+            // 沙尘暴对岩石、地面、钢属性技能无影响
+            break;
+        case WeatherType::Hail:
+            // 冰雹对冰属性技能无影响
+            break;
+        case WeatherType::Snow:
+            // 雪对冰属性技能有增强效果
+            if (targetType == Type::Ice) return 1.5f;
+            break;
         default:
             break;
     }

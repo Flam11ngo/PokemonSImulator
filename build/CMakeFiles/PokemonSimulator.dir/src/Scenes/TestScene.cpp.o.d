@@ -291,6 +291,7 @@ CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: \
  /home/qzz/PokemonSimulator/include/GUIUtils/Dialog.h \
  /home/qzz/PokemonSimulator/include/GUIUtils/Label.h \
  /home/qzz/PokemonSimulator/include/GUIUtils/TextBox.h \
+ /home/qzz/PokemonSimulator/include/Animated.h \
  /home/qzz/PokemonSimulator/include/Core.h \
  /home/qzz/PokemonSimulator/include/SceneManager.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \

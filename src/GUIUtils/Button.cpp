@@ -1,4 +1,5 @@
 #include"GUIUtils/Button.h"
+#include <sstream>
 
 void Button::SetCallback(std::function<void()> callback) {
     this->callback = std::move(callback);
@@ -20,7 +21,16 @@ void Button::SetTextColor(SDL_Color color) {
     this->textColor = color;
 }
 
+void Button::setVisible(bool visible) {
+    this->visible = visible;
+}
+
+bool Button::isVisible() const {
+    return visible;
+}
+
 void Button::HandleEvents(SDL_Event& event) {
+    if (!visible) return;
     int mouseX, mouseY;
     SDL_GetMouseState(&mouseX, &mouseY);
     
@@ -52,6 +62,8 @@ void Button::Update(const float deltaTime) {
 }
 
 void Button::Render(SDL_Renderer* render) {
+    if (!visible) return;
+    
     // 渲染按钮背景
     background.Render(render, &drect);
     
@@ -80,24 +92,34 @@ void Button::Render(SDL_Renderer* render) {
     
     // 渲染按钮文本
     if (!text.empty() && font) {
-        SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), textColor);
-        if (surface) {
-            SDL_Texture* texture = SDL_CreateTextureFromSurface(render, surface);
-            if (texture) {
-                int width, height;
-                SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
-                
-                // 计算文本居中的位置
-                SDL_Rect destRect = drect;
-                destRect.w = width;
-                destRect.h = height;
-                destRect.x += (drect.w - width) / 2;
-                destRect.y += (drect.h - height) / 2;
-                
-                SDL_RenderCopy(render, texture, nullptr, &destRect);
-                SDL_DestroyTexture(texture);
+        // 支持多行文本，按换行符分割
+        std::string line;
+        std::istringstream stream(text);
+        int lineHeight = 20; // 每行文本的高度
+        int startY = drect.y + 10; // 文本起始Y坐标
+        
+        while (std::getline(stream, line)) {
+            SDL_Surface* surface = TTF_RenderText_Solid(font, line.c_str(), textColor);
+            if (surface) {
+                SDL_Texture* texture = SDL_CreateTextureFromSurface(render, surface);
+                if (texture) {
+                    int width, height;
+                    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+                    
+                    // 计算文本居中的位置
+                    SDL_Rect destRect = {
+                        drect.x + (drect.w - width) / 2,
+                        startY,
+                        width,
+                        height
+                    };
+                    
+                    SDL_RenderCopy(render, texture, nullptr, &destRect);
+                    SDL_DestroyTexture(texture);
+                }
+                SDL_FreeSurface(surface);
             }
-            SDL_FreeSurface(surface);
+            startY += lineHeight; // 下移到下一行
         }
     }
 }

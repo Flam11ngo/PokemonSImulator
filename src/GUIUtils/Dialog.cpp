@@ -1,15 +1,29 @@
 #include"GUIUtils/Dialog.h"
 
-Dialog::Dialog() : visible(false), backgroundColor({0, 0, 0, 200}), borderColor({255, 255, 255, 255}) {
+Dialog::Dialog() : 
+    visible(false), 
+    backgroundColor({0, 0, 0, 200}), 
+    borderColor({255, 255, 255, 255}),
+    currentCharIndex(0),
+    lastUpdateTime(0),
+    charDelay(50),
+    textComplete(false) {
 }
 
 Dialog::Dialog(SDL_Rect rect, std::string title, std::string message, TTF_Font* font) : 
     drect(rect), 
     titleLabel({rect.x + 10, rect.y + 10, rect.w - 20, 30}, title, {255, 255, 255, 255}, font), 
-    messageLabel({rect.x + 10, rect.y + 50, rect.w - 20, rect.h - 100}, message, {255, 255, 255, 255}, font), 
+    messageLabel({rect.x + 10, rect.y + 50, rect.w - 20, rect.h - 100}, "", {255, 255, 255, 255}, font), 
     visible(true), 
     backgroundColor({0, 0, 0, 200}), 
-    borderColor({255, 255, 255, 255}) {
+    borderColor({255, 255, 255, 255}),
+    fullMessage(message),
+    currentCharIndex(0),
+    lastUpdateTime(SDL_GetTicks()),
+    charDelay(50),
+    textComplete(false) {
+    // 初始显示第一个字符
+    messageLabel.SetText(fullMessage.substr(0, 1));
 }
 
 void Dialog::addButton(std::string text, std::function<void()> callback, TTF_Font* font) {
@@ -33,11 +47,25 @@ void Dialog::setTitle(std::string title) {
 }
 
 void Dialog::setMessage(std::string message) {
-    messageLabel.SetText(message);
+    fullMessage = message;
+    currentCharIndex = 0;
+    lastUpdateTime = SDL_GetTicks();
+    textComplete = false;
+    if (!fullMessage.empty()) {
+        messageLabel.SetText(fullMessage.substr(0, 1));
+    } else {
+        messageLabel.SetText("");
+    }
 }
 
 void Dialog::setVisible(bool visible) {
     this->visible = visible;
+    if (visible && !fullMessage.empty()) {
+        currentCharIndex = 0;
+        lastUpdateTime = SDL_GetTicks();
+        textComplete = false;
+        messageLabel.SetText(fullMessage.substr(0, 1));
+    }
 }
 
 bool Dialog::isVisible() const {
@@ -47,8 +75,38 @@ bool Dialog::isVisible() const {
 void Dialog::HandleEvents(SDL_Event& event) {
     if (!visible) return;
     
+    // 处理鼠标点击事件，左键点击跳过文本
+    if (event.type == SDL_MOUSEBUTTONDOWN) {
+        if (event.button.button == SDL_BUTTON_LEFT) {
+            SkipText();
+        }
+    }
+    
     for (auto& button : buttons) {
         button.HandleEvents(event);
+    }
+}
+
+void Dialog::Update() {
+    if (!visible || textComplete) return;
+    
+    Uint32 currentTime = SDL_GetTicks();
+    if (currentTime - lastUpdateTime >= charDelay) {
+        currentCharIndex++;
+        if (currentCharIndex >= fullMessage.length()) {
+            textComplete = true;
+        } else {
+            messageLabel.SetText(fullMessage.substr(0, currentCharIndex + 1));
+            lastUpdateTime = currentTime;
+        }
+    }
+}
+
+void Dialog::SkipText() {
+    if (!textComplete) {
+        currentCharIndex = fullMessage.length() - 1;
+        messageLabel.SetText(fullMessage);
+        textComplete = true;
     }
 }
 

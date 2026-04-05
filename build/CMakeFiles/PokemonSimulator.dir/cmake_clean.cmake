@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o"
+  "CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o.d"
   "CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o"
   "CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o.d"
   "CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o"

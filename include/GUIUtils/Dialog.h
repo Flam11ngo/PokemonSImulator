@@ -14,6 +14,13 @@ private:
     bool visible;
     SDL_Color backgroundColor;
     SDL_Color borderColor;
+    
+    // 逐字显示相关
+    std::string fullMessage;
+    int currentCharIndex;
+    Uint32 lastUpdateTime;
+    int charDelay; // 每个字符显示的延迟时间（毫秒）
+    bool textComplete;
 
 public:
     Dialog();
@@ -26,5 +33,7 @@ public:
     bool isVisible() const;
     
     void HandleEvents(SDL_Event& event);
+    void Update();
     void Render(SDL_Renderer* renderer);
+    void SkipText(); // 跳过文本显示
 };

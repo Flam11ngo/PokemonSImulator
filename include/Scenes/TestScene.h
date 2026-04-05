@@ -4,6 +4,7 @@
 #include"GUIUtils/TextBox.h"
 #include"GUIUtils/Button.h"
 #include"SDLH.h"
+#include"Animated.h"
 
 class TestScene : public Scene {
 private:
@@ -14,6 +15,7 @@ private:
     Button submitButton;
     TTF_Font* font;
     bool dialogVisible;
+    Animated testAnimation;
 
 public:
     TestScene();

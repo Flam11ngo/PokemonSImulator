@@ -249,6 +249,30 @@ BattleTest/fast:
 	$(MAKE) $(MAKESILENT) -f src/Battle/CMakeFiles/BattleTest.dir/build.make src/Battle/CMakeFiles/BattleTest.dir/build
 .PHONY : BattleTest/fast
 
+src/Animated.o: src/Animated.cpp.o
+.PHONY : src/Animated.o
+
+# target to build an object file
+src/Animated.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o
+.PHONY : src/Animated.cpp.o
+
+src/Animated.i: src/Animated.cpp.i
+.PHONY : src/Animated.i
+
+# target to preprocess a source file
+src/Animated.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.i
+.PHONY : src/Animated.cpp.i
+
+src/Animated.s: src/Animated.cpp.s
+.PHONY : src/Animated.s
+
+# target to generate assembly for a file
+src/Animated.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.s
+.PHONY : src/Animated.cpp.s
+
 src/Battle/Abilities.o: src/Battle/Abilities.cpp.o
 .PHONY : src/Battle/Abilities.o
 
@@ -916,6 +940,9 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... src/Animated.o"
+	@echo "... src/Animated.i"
+	@echo "... src/Animated.s"
 	@echo "... src/Battle/Abilities.o"
 	@echo "... src/Battle/Abilities.i"
 	@echo "... src/Battle/Abilities.s"

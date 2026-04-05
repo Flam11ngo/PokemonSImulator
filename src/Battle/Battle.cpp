@@ -183,7 +183,14 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
 
     float base = ((2.0f * attacker->getLevel() / 5.0f + 2.0f) * move.getPower() * attackStat / defenseStat) / 50.0f + 2.0f;
     float modifier = attacker->getTypeEffectiveness(move.getType());
-    modifier *= weather.applyDamageModifier(move.getType());
+    
+    // 应用天气加成并输出日志
+    float weatherModifier = weather.applyDamageModifier(move.getType());
+    if (weatherModifier != 1.0f) {
+        std::cout << weather.getName() << " boosted " << move.getName() << "!" << std::endl;
+    }
+    modifier *= weatherModifier;
+    
     return static_cast<int>(std::lround(base * modifier));
 }
 
@@ -282,15 +289,88 @@ void Battle::applyWeatherEffects() {
             continue;
         }
 
-        if (weather.getName() == "Sandstorm" && active->getType1() != Type::Rock && active->getType1() != Type::Ground && active->getType1() != Type::Steel && active->getType2() != Type::Rock && active->getType2() != Type::Ground && active->getType2() != Type::Steel) {
-            int damage = std::max(1, active->getMaxHP() / 16);
-            active->setCurrentHP(active->getCurrentHP() - damage);
+        switch (weather.type) {
+            case WeatherType::Sandstorm:
+                // 沙尘暴：对非岩石、地面、钢属性的宝可梦造成伤害
+                if (active->getType1() != Type::Rock && active->getType1() != Type::Ground && active->getType1() != Type::Steel && 
+                    active->getType2() != Type::Rock && active->getType2() != Type::Ground && active->getType2() != Type::Steel) {
+                    int damage = std::max(1, active->getMaxHP() / 16);
+                    active->setCurrentHP(active->getCurrentHP() - damage);
+                    std::cout << active->getName() << " took damage from the sandstorm!" << std::endl;
+                }
+                break;
+            case WeatherType::Hail:
+                // 冰雹：对非冰属性的宝可梦造成伤害
+                if (active->getType1() != Type::Ice && active->getType2() != Type::Ice) {
+                    int damage = std::max(1, active->getMaxHP() / 16);
+                    active->setCurrentHP(active->getCurrentHP() - damage);
+                    std::cout << active->getName() << " took damage from hail!" << std::endl;
+                }
+                break;
+            case WeatherType::Snow:
+                // 雪：对冰属性以外的宝可梦造成少量伤害
+                if (active->getType1() != Type::Ice && active->getType2() != Type::Ice) {
+                    int damage = std::max(1, active->getMaxHP() / 32);
+                    active->setCurrentHP(active->getCurrentHP() - damage);
+                    std::cout << active->getName() << " took damage from the snow!" << std::endl;
+                }
+                break;
+            case WeatherType::Rain:
+                // 雨天：无直接伤害效果
+                break;
+            case WeatherType::Sun:
+                // 晴天：无直接伤害效果
+                break;
+            default:
+                break;
         }
     }
 }
 
 void Battle::applyFieldEffects() {
-    (void)field;
+    if (!field.isActive()) {
+        return;
+    }
+
+    for (Side* side : {&sideA, &sideB}) {
+        Pokemon* active = side->getActivePokemon();
+        if (!active || active->isFainted()) {
+            continue;
+        }
+
+        switch (field.type) {
+            case FieldType::Psychic: {
+                // 精神场地：降低地面上宝可梦受到的物理伤害
+                std::cout << "Psychic Terrain is active!" << std::endl;
+                break;
+            }
+            case FieldType::Electric: {
+                // 电气场地：提高地面上宝可梦的电属性技能威力
+                std::cout << "Electric Terrain is active!" << std::endl;
+                break;
+            }
+            case FieldType::Grassy: {
+                // 青草场地：地面上的宝可梦每回合恢复少量HP
+                int grassHeal = std::max(1, active->getMaxHP() / 16);
+                active->setCurrentHP(active->getCurrentHP() + grassHeal);
+                std::cout << active->getName() << " recovered HP from Grassy Terrain!" << std::endl;
+                break;
+            }
+            case FieldType::Misty: {
+                // 薄雾场地：降低地面上宝可梦受到的龙属性伤害，防止状态异常
+                std::cout << "Misty Terrain is active!" << std::endl;
+                break;
+            }
+            case FieldType::TrickRoom: {
+                // 戏法空间：速度慢的宝可梦先行动
+                std::cout << "Trick Room is active!" << std::endl;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
 }
 
 void Battle::triggerAbility(Pokemon* pokemon, Trigger trigger, Pokemon* opponent, void* context) {

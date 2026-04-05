@@ -17,6 +17,7 @@ private:
 	std::string text;
 	TTF_Font* font;
 	SDL_Color textColor;
+	bool visible = true; // 按钮是否可见
 public:
 	Button(){};
 	Button(SDL_Rect rect, std::function<void()> callback, Image background) :drect(rect), background(background) { this->callback = std::move(callback); }
@@ -28,6 +29,8 @@ public:
 	void SetText(std::string text);
 	void SetFont(TTF_Font* font);
 	void SetTextColor(SDL_Color color);
+	void setVisible(bool visible);
+	bool isVisible() const;
 	void HandleEvents(SDL_Event& event);
 	void Update(const float deltaTime);
 	void Render(SDL_Renderer* render);
