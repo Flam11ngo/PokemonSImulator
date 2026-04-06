@@ -1,7 +1,7 @@
 {
   "actor": "Blastoise",
   "event": "action_start",
-  "move": "Hydro Pump",
+  "move": "Ice Beam",
   "priority": 98,
   "target": "Charizard",
   "type": "attack"

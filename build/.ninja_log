@@ -1,17 +1,20 @@
 # ninja log v5
-1	2611	1775450738664273101	CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o	53ca439d5fe3cc83
-7	91	1775450736145056741	CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o	c09154fab46b9e51
-4	1984	1775451386823576301	CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o	ce886414a7b17b6e
-1338	2721	1775450738778965496	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o	92c2bec6d99af79d
-5	3639	1775451388472493229	CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o	2421dc43d1018ed2
+3	2212	1775450738271042026	CMakeFiles/PokemonSimulator.dir/src/main.cpp.o	f876b16e450f804a
+6	2216	1775453377480103478	CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o	f25bb98c096ddcbb
+6	3497	1775451388332335291	CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o	f4c28e61fe49fed9
+2216	2595	1775453377861449525	PokemonSimulator	d2c2a5628e32e1b4
+5	1267	1775451386106297437	CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o	d5d612114f00bdc8
 1500	2924	1775450738983773347	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o	26979759adb571f7
+5	3639	1775451388472493229	CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o	2421dc43d1018ed2
 1846	3380	1775450739438446775	CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o	62d5f3484f8a042a
 1548	2863	1775450738918234835	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o	8e0efefbdc8952e0
-6	1090	1775451385929038866	CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o	8fc95d6e80eb75ef
 1137	2912	1775450738971484876	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o	a1496046e44c019b
 5	584	1775450736643390071	CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o	b25a7a4703f0026f
-5	1267	1775451386106297437	CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o	d5d612114f00bdc8
-2216	2595	1775453377861449525	PokemonSimulator	d2c2a5628e32e1b4
+6	1090	1775451385929038866	CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o	8fc95d6e80eb75ef
+1338	2721	1775450738778965496	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o	92c2bec6d99af79d
+4	1984	1775451386823576301	CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o	ce886414a7b17b6e
+7	91	1775450736145056741	CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o	c09154fab46b9e51
+1	2611	1775450738664273101	CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o	53ca439d5fe3cc83
 800	869	1775450736916390070	CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o	a18daeb36ba46306
 5	827	1775451066633975088	CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o	9b512bd0cfbcc8a5
 8	65	1775450736123390075	CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o	b4ddbfaa895608c2
@@ -28,6 +31,3 @@
 5	1013	1775451385850715312	CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o	9867bf2ad607e74d
 8	1210	1775451386048585344	CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o	6cbcb218f82f2110
 2	2154	1775450738210618785	CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o	8fba80ea2dc42122
-6	3497	1775451388332335291	CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o	f4c28e61fe49fed9
-6	2216	1775453377480103478	CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o	f25bb98c096ddcbb
-3	2212	1775450738271042026	CMakeFiles/PokemonSimulator.dir/src/main.cpp.o	f876b16e450f804a

@@ -14,6 +14,7 @@ private:
     Image playerPokemon;
     Image opponentPokemon;
     Animated opponentPokemonAnimated;
+    Animated rainAnimation;
     std::vector<Button> moveButtons;
     std::vector<Button> switchButtons; // 切换宝可梦的按钮
     std::vector<Image> moveButtonBackgrounds;

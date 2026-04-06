@@ -50,4 +50,8 @@ public:
     
     // 清理资源
     void CleanUp();
+    
+    // 设置位置和大小
+    void setPosition(int x, int y);
+    void setSize(int w, int h);
 };

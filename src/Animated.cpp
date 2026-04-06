@@ -257,6 +257,16 @@ bool Animated::IsLooping() const {
     return isLooping;
 }
 
+void Animated::setPosition(int x, int y) {
+    destRect.x = x;
+    destRect.y = y;
+}
+
+void Animated::setSize(int w, int h) {
+    destRect.w = w;
+    destRect.h = h;
+}
+
 void Animated::CleanUp() {
     for (auto texture : frames) {
         if (texture) {

@@ -1,0 +1,8 @@
+{
+  "actor": "Charizard",
+  "event": "action_start",
+  "move": "Protect",
+  "priority": 152,
+  "target": "Pikachu",
+  "type": "attack"
+}

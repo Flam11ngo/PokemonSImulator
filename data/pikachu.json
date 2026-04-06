@@ -1,13 +1,5 @@
 {
-  "id": 25,
-  "name": "Pikachu",
-  "type1": "electric",
-  "type2": "count",
-  "baseStats": [35, 55, 40, 50, 50, 90],
-  "maleRatio": 0.5,
-  "nextEvolutionID": 26,
-  "evolutionLevel": 25,
-  "abilities": ["static"],
+  "speciesID": 25,
   "level": 50,
   "nature": "timid",
   "ability": "static",
@@ -27,38 +19,5 @@
     "specialDefense": 0,
     "speed": 252
   },
-  "moves": [
-    {
-      "name": "Thunderbolt",
-      "type": "electric",
-      "power": 90,
-      "accuracy": 100,
-      "pp": 15,
-      "maxPP": 15
-    },
-    {
-      "name": "Quick Attack",
-      "type": "normal",
-      "power": 40,
-      "accuracy": 100,
-      "pp": 30,
-      "maxPP": 30
-    },
-    {
-      "name": "Iron Tail",
-      "type": "steel",
-      "power": 100,
-      "accuracy": 75,
-      "pp": 15,
-      "maxPP": 15
-    },
-    {
-      "name": "Thunder Wave",
-      "type": "electric",
-      "power": 0,
-      "accuracy": 90,
-      "pp": 20,
-      "maxPP": 20
-    }
-  ]
+  "moves": [4, 4, 4, 4]
 }

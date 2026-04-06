@@ -8,8 +8,15 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 #include <iostream>
+#include <map>
 
 using json = nlohmann::json;
+
+// 函数声明
+std::map<int, Species> loadSpeciesFromFile();
+std::map<int, Ability> loadAbilitiesFromFile();
+std::map<int, Item> loadItemsFromFile();
+std::map<int, Move> loadMovesFromFile();
 
 // 辅助函数：从字符串转换为Type枚举
 Type stringToType(const std::string& typeStr) {
@@ -80,6 +87,14 @@ ItemType stringToItem(const std::string& itemStr) {
     return ItemType::None;
 }
 
+// 辅助函数：从字符串转换为EggGroup枚举
+EggGroup stringToEggGroup(const std::string& eggGroupStr) {
+    if (eggGroupStr == "Monster") return EggGroup::Monster;
+    if (eggGroupStr == "Water1") return EggGroup::Water1;
+    if (eggGroupStr == "Dragon") return EggGroup::Dragon;
+    return EggGroup::Monster; // 默认值
+}
+
 // 从Json创建Species对象
 Species BuildFromJson::buildSpecies(const json& jsonData) {
     Species species;
@@ -87,6 +102,8 @@ Species BuildFromJson::buildSpecies(const json& jsonData) {
     // 基本信息
     species.id = jsonData.value("id", 0);
     species.name = jsonData.value("name", "");
+    species.height = jsonData.value("height", 0);
+    species.weight = jsonData.value("weight", 0);
     species.type1 = stringToType(jsonData.value("type1", "normal"));
     species.type2 = stringToType(jsonData.value("type2", "count"));
     
@@ -101,22 +118,94 @@ Species BuildFromJson::buildSpecies(const json& jsonData) {
     // 蛋群
     if (jsonData.contains("eggGroups")) {
         for (const auto& eggGroup : jsonData["eggGroups"]) {
-            // 简化处理，实际需要更多蛋群类型
-            species.eggGroups.push_back(EggGroup::Monster);
+            species.eggGroups.push_back(stringToEggGroup(eggGroup.get<std::string>()));
+        }
+    }
+    
+    // 特性
+    if (jsonData.contains("abilities")) {
+        // 加载特性信息
+        std::map<int, Ability> abilityMap = loadAbilitiesFromFile();
+        
+        for (const auto& abilityId : jsonData["abilities"]) {
+            int id = abilityId.get<int>();
+            // 通过switch case获取特性实例
+            AbilityType abilityType;
+            switch (id) {
+                case 1:
+                    abilityType = AbilityType::Blaze;
+                    break;
+                case 2:
+                    abilityType = AbilityType::Torrent;
+                    break;
+                case 3:
+                    abilityType = AbilityType::Overgrow; // 暂时使用Overgrow代替Solar Power
+                    break;
+                case 4:
+                    abilityType = AbilityType::Intimidate; // 暂时使用Intimidate代替Rain Dish
+                    break;
+                default:
+                    abilityType = AbilityType::None;
+                    break;
+            }
+            species.abilities.push_back(abilityType);
+        }
+        
+        // 设置隐藏特性（假设abilities数组的最后一个元素是隐藏特性）
+        if (jsonData["abilities"].size() > 1) {
+            int hiddenAbilityId = jsonData["abilities"][1].get<int>();
+            switch (hiddenAbilityId) {
+                case 3:
+                    species.hiddenAbility = AbilityType::Overgrow; // 暂时使用Overgrow代替Solar Power
+                    break;
+                case 4:
+                    species.hiddenAbility = AbilityType::Intimidate; // 暂时使用Intimidate代替Rain Dish
+                    break;
+                default:
+                    species.hiddenAbility = AbilityType::None;
+                    break;
+            }
         }
     }
     
     // 可学习技能
     if (jsonData.contains("learnableMoves")) {
-        for (const auto& moveData : jsonData["learnableMoves"]) {
-            std::string moveName = moveData.value("name", "");
-            Type moveType = stringToType(moveData.value("type", "normal"));
-            Category moveCategory = Category::Physical; // 默认值
-            int movePower = moveData.value("power", 0);
-            int moveAccuracy = moveData.value("accuracy", 100);
-            int movePP = moveData.value("pp", 10);
-            
-            Move move(moveName, moveType, moveCategory, movePower, moveAccuracy, movePP);
+        // 加载技能信息
+        std::map<int, Move> moveMap = loadMovesFromFile();
+        
+        for (const auto& moveId : jsonData["learnableMoves"]) {
+            int id = moveId.get<int>();
+            // 通过switch case获取技能实例
+            Move move;
+            switch (id) {
+                case 1:
+                    move = Move("Ember", Type::Fire, Category::Special, 40, 100, 25);
+                    break;
+                case 2:
+                    move = Move("Dragon Claw", Type::Dragon, Category::Physical, 80, 100, 15);
+                    break;
+                case 3:
+                    move = Move("Fly", Type::Flying, Category::Physical, 90, 95, 15);
+                    break;
+                case 4:
+                    move = Move("Earthquake", Type::Ground, Category::Physical, 100, 100, 10);
+                    break;
+                case 5:
+                    move = Move("Water Gun", Type::Water, Category::Special, 40, 100, 25);
+                    break;
+                case 6:
+                    move = Move("Hydro Pump", Type::Water, Category::Special, 110, 80, 5);
+                    break;
+                case 7:
+                    move = Move("Ice Beam", Type::Ice, Category::Special, 90, 100, 10);
+                    break;
+                case 8:
+                    move = Move("Protect", Type::Normal, Category::Status, 0, 100, 10, MoveEffect::Safeguard, 100);
+                    break;
+                default:
+                    move = Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35);
+                    break;
+            }
             species.learnableMoves.push_back(move);
         }
     }
@@ -128,18 +217,11 @@ Species BuildFromJson::buildSpecies(const json& jsonData) {
     species.nextEvolutionID = jsonData.value("nextEvolutionID", -1);
     species.evolutionLevel = jsonData.value("evolutionLevel", 0);
     
-    // 特性
-    if (jsonData.contains("abilities")) {
-        for (const auto& abilityStr : jsonData["abilities"]) {
-            species.abilities.push_back(stringToAbility(abilityStr.get<std::string>()));
-        }
-    }
-    
     return species;
 }
 
 // 从Json创建Pokemon对象
-Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species* species) {
+Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species& species) {
     // 初始化IVs和EVs
     std::array<int, static_cast<int>(StatIndex::Count)> ivs;
     std::array<int, static_cast<int>(StatIndex::Count)> evs;
@@ -175,8 +257,11 @@ Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species* species
     AbilityType ability = stringToAbility(jsonData.value("ability", "none"));
     int level = jsonData.value("level", 50);
     
+    // 判断是否为隐藏特性
+    bool isHiddenAbil = (species.hiddenAbility == ability);
+    
     // 创建Pokemon对象
-    Pokemon pokemon(species, nature, ability, level, ivs, evs);
+    Pokemon pokemon(species, nature, ability, isHiddenAbil, level, ivs, evs);
     
     // 设置持有物品
     if (jsonData.contains("item")) {
@@ -185,20 +270,287 @@ Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species* species
     
     // 设置技能
     if (jsonData.contains("moves")) {
-        for (const auto& moveData : jsonData["moves"]) {
-            std::string moveName = moveData.value("name", "");
-            Type moveType = stringToType(moveData.value("type", "normal"));
-            Category moveCategory = Category::Physical; // 默认值
-            int movePower = moveData.value("power", 0);
-            int moveAccuracy = moveData.value("accuracy", 100);
-            int movePP = moveData.value("pp", 10);
-            
-            Move move(moveName, moveType, moveCategory, movePower, moveAccuracy, movePP);
+        // 加载技能信息
+        std::map<int, Move> moveMap = loadMovesFromFile();
+        
+        for (const auto& moveId : jsonData["moves"]) {
+            int id = moveId.get<int>();
+            // 通过switch case获取技能实例
+            Move move;
+            switch (id) {
+                case 1:
+                    move = Move("Ember", Type::Fire, Category::Special, 40, 100, 25);
+                    break;
+                case 2:
+                    move = Move("Dragon Claw", Type::Dragon, Category::Physical, 80, 100, 15);
+                    break;
+                case 3:
+                    move = Move("Fly", Type::Flying, Category::Physical, 90, 95, 15);
+                    break;
+                case 4:
+                    move = Move("Earthquake", Type::Ground, Category::Physical, 100, 100, 10);
+                    break;
+                case 5:
+                    move = Move("Water Gun", Type::Water, Category::Special, 40, 100, 25);
+                    break;
+                case 6:
+                    move = Move("Hydro Pump", Type::Water, Category::Special, 110, 80, 5);
+                    break;
+                case 7:
+                    move = Move("Ice Beam", Type::Ice, Category::Special, 90, 100, 10);
+                    break;
+                case 8:
+                    move = Move("Protect", Type::Normal, Category::Status, 0, 100, 10, MoveEffect::Safeguard, 100);
+                    break;
+                default:
+                    move = Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35);
+                    break;
+            }
             pokemon.addMove(move);
         }
     }
     
     return pokemon;
+}
+
+// 从species.json加载所有种族信息
+std::map<int, Species> loadSpeciesFromFile() {
+    std::map<int, Species> speciesMap;
+    
+    // 尝试使用不同的路径
+    std::string paths[] = {
+        "data/species.json",
+        "../data/species.json",
+        "../../data/species.json"
+    };
+    
+    std::ifstream file;
+    bool fileOpened = false;
+    
+    for (const auto& path : paths) {
+        file.open(path);
+        if (file.is_open()) {
+            fileOpened = true;
+            break;
+        }
+        file.close();
+    }
+    
+    if (!fileOpened) {
+        std::cerr << "Error: Could not open species.json file" << std::endl;
+        return speciesMap;
+    }
+    
+    json jsonData;
+    file >> jsonData;
+    file.close();
+    
+    if (jsonData.contains("species")) {
+        for (const auto& speciesData : jsonData["species"]) {
+            Species species = BuildFromJson::buildSpecies(speciesData);
+            speciesMap[species.id] = species;
+        }
+    }
+    
+    return speciesMap;
+}
+
+// 从abilities.json加载所有特性信息
+std::map<int, Ability> loadAbilitiesFromFile() {
+    std::map<int, Ability> abilityMap;
+    
+    // 尝试使用不同的路径
+    std::string paths[] = {
+        "data/abilities.json",
+        "../data/abilities.json",
+        "../../data/abilities.json"
+    };
+    
+    std::ifstream file;
+    bool fileOpened = false;
+    
+    for (const auto& path : paths) {
+        file.open(path);
+        if (file.is_open()) {
+            fileOpened = true;
+            break;
+        }
+        file.close();
+    }
+    
+    if (!fileOpened) {
+        std::cerr << "Error: Could not open abilities.json file" << std::endl;
+        return abilityMap;
+    }
+    
+    json jsonData;
+    file >> jsonData;
+    file.close();
+    
+    if (jsonData.contains("abilities")) {
+        for (const auto& abilityData : jsonData["abilities"]) {
+            int id = abilityData.value("id", 0);
+            std::string name = abilityData.value("name", "");
+            std::string description = abilityData.value("description", "");
+            
+            // 通过switch case获取特性实例
+            Ability ability;
+            switch (id) {
+                case 1:
+                    ability = getAbility(AbilityType::Blaze);
+                    break;
+                case 2:
+                    ability = getAbility(AbilityType::Torrent);
+                    break;
+                case 3:
+                    ability = getAbility(AbilityType::Overgrow); // 暂时使用Overgrow代替Solar Power
+                    break;
+                case 4:
+                    ability = getAbility(AbilityType::Intimidate); // 暂时使用Intimidate代替Rain Dish
+                    break;
+                default:
+                    ability = getAbility(AbilityType::None);
+                    break;
+            }
+            
+            abilityMap[id] = ability;
+        }
+    }
+    
+    return abilityMap;
+}
+
+// 从items.json加载所有物品信息
+std::map<int, Item> loadItemsFromFile() {
+    std::map<int, Item> itemMap;
+    
+    // 尝试使用不同的路径
+    std::string paths[] = {
+        "data/items.json",
+        "../data/items.json",
+        "../../data/items.json"
+    };
+    
+    std::ifstream file;
+    bool fileOpened = false;
+    
+    for (const auto& path : paths) {
+        file.open(path);
+        if (file.is_open()) {
+            fileOpened = true;
+            break;
+        }
+        file.close();
+    }
+    
+    if (!fileOpened) {
+        std::cerr << "Error: Could not open items.json file" << std::endl;
+        return itemMap;
+    }
+    
+    json jsonData;
+    file >> jsonData;
+    file.close();
+    
+    if (jsonData.contains("items")) {
+        for (const auto& itemData : jsonData["items"]) {
+            int id = itemData.value("id", 0);
+            std::string name = itemData.value("name", "");
+            std::string description = itemData.value("description", "");
+            
+            // 通过switch case获取物品实例
+            Item item;
+            switch (id) {
+                case 1:
+                    item = getItem(ItemType::None); // 暂时使用None代替Leppa Berry
+                    break;
+                default:
+                    item = getItem(ItemType::None);
+                    break;
+            }
+            
+            itemMap[id] = item;
+        }
+    }
+    
+    return itemMap;
+}
+
+// 从moves.json加载所有技能信息
+std::map<int, Move> loadMovesFromFile() {
+    std::map<int, Move> moveMap;
+    
+    // 尝试使用不同的路径
+    std::string paths[] = {
+        "data/moves.json",
+        "../data/moves.json",
+        "../../data/moves.json"
+    };
+    
+    std::ifstream file;
+    bool fileOpened = false;
+    
+    for (const auto& path : paths) {
+        file.open(path);
+        if (file.is_open()) {
+            fileOpened = true;
+            break;
+        }
+        file.close();
+    }
+    
+    if (!fileOpened) {
+        std::cerr << "Error: Could not open moves.json file" << std::endl;
+        return moveMap;
+    }
+    
+    json jsonData;
+    file >> jsonData;
+    file.close();
+    
+    if (jsonData.contains("moves")) {
+        for (const auto& moveData : jsonData["moves"]) {
+            int id = moveData.value("id", 0);
+            std::string name = moveData.value("name", "");
+            std::string description = moveData.value("description", "");
+            
+            // 通过switch case获取技能实例
+            Move move;
+            switch (id) {
+                case 1:
+                    move = Move("Ember", Type::Fire, Category::Special, 40, 100, 25);
+                    break;
+                case 2:
+                    move = Move("Dragon Claw", Type::Dragon, Category::Physical, 80, 100, 15);
+                    break;
+                case 3:
+                    move = Move("Fly", Type::Flying, Category::Physical, 90, 95, 15);
+                    break;
+                case 4:
+                    move = Move("Earthquake", Type::Ground, Category::Physical, 100, 100, 10);
+                    break;
+                case 5:
+                    move = Move("Water Gun", Type::Water, Category::Special, 40, 100, 25);
+                    break;
+                case 6:
+                    move = Move("Hydro Pump", Type::Water, Category::Special, 110, 80, 5);
+                    break;
+                case 7:
+                    move = Move("Ice Beam", Type::Ice, Category::Special, 90, 100, 10);
+                    break;
+                case 8:
+                    move = Move("Protect", Type::Normal, Category::Status, 0, 100, 10, MoveEffect::Safeguard, 100);
+                    break;
+                default:
+                    move = Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35);
+                    break;
+            }
+            
+            moveMap[id] = move;
+        }
+    }
+    
+    return moveMap;
 }
 
 // 从Json文件加载宝可梦数据
@@ -225,8 +577,8 @@ Pokemon BuildFromJson::loadPokemonFromFile(const std::string& filePath) {
     if (!fileOpened) {
         std::cerr << "Error: Could not open file " << filePath << std::endl;
         // 返回一个默认的宝可梦
-        Species* defaultSpecies = new Species();
-        Pokemon pokemon(defaultSpecies, Nature::Hardy, AbilityType::None, 50, {}, {});
+        Species defaultSpecies;
+        Pokemon pokemon(defaultSpecies, Nature::Hardy, AbilityType::None, false, 50, {}, {});
         return pokemon;
     }
     
@@ -234,8 +586,20 @@ Pokemon BuildFromJson::loadPokemonFromFile(const std::string& filePath) {
     file >> jsonData;
     file.close();
     
-    // 构建Species
-    Species* species = new Species(buildSpecies(jsonData));
+    // 加载种族信息
+    std::map<int, Species> speciesMap = loadSpeciesFromFile();
+    
+    // 从宝可梦数据中获取speciesID
+    int speciesID = jsonData.value("speciesID", 0);
+    
+    // 查找对应的种族
+    Species species;
+    if (speciesMap.find(speciesID) != speciesMap.end()) {
+        species = speciesMap[speciesID];
+    } else {
+        std::cerr << "Error: Species with ID " << speciesID << " not found" << std::endl;
+        // 使用默认的种族
+    }
     
     // 构建Pokemon
     Pokemon pokemon = buildPokemon(jsonData, species);
@@ -246,8 +610,20 @@ Pokemon BuildFromJson::loadPokemonFromFile(const std::string& filePath) {
 Pokemon BuildFromJson::loadPokemonFromString(const std::string& jsonString) {
     json jsonData = json::parse(jsonString);
     
-    // 构建Species
-    Species* species = new Species(buildSpecies(jsonData));
+    // 加载种族信息
+    std::map<int, Species> speciesMap = loadSpeciesFromFile();
+    
+    // 从宝可梦数据中获取speciesID
+    int speciesID = jsonData.value("speciesID", 0);
+    
+    // 查找对应的种族
+    Species species;
+    if (speciesMap.find(speciesID) != speciesMap.end()) {
+        species = speciesMap[speciesID];
+    } else {
+        std::cerr << "Error: Species with ID " << speciesID << " not found" << std::endl;
+        // 使用默认的种族
+    }
     
     // 构建Pokemon
     Pokemon pokemon = buildPokemon(jsonData, species);

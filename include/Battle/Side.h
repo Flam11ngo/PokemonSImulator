@@ -28,6 +28,11 @@ public:
 
     const std::array<Pokemon*, 6>& getTeam() const { return team; }
     int getPokemonCount() const { return count; }
+    
+    // 连续守护相关方法
+    int getProtectCount() const { return protectCount; }
+    void setProtectCount(int count) { protectCount = count; }
+    void resetProtectCount() { protectCount = 0; }
 
 private:
     std::string name;
@@ -35,4 +40,5 @@ private:
     int count = 0;
     int activeIndex = 0;
     std::vector<FieldEffect> fieldEffects;
+    int protectCount = 0; // 连续守护的次数
 };

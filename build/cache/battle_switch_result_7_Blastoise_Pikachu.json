@@ -1,0 +1,14 @@
+{
+  "event": "switch_result",
+  "new_pokemon": "Pikachu",
+  "old_pokemon": "Blastoise",
+  "side_a": {
+    "active_pokemon": "Charizard",
+    "name": "Player"
+  },
+  "side_b": {
+    "active_pokemon": "Pikachu",
+    "name": "Opponent"
+  },
+  "turn": 7
+}

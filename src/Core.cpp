@@ -32,6 +32,8 @@ void Core::init() {
         SDL_Log("SDL_CreateWindow failed: %s", SDL_GetError());
         return;
     }
+    // 禁止窗口缩放
+    SDL_SetWindowResizable(window, SDL_FALSE);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     Image::ImgInit(renderer);
     

@@ -21,7 +21,6 @@ Item getItem(ItemType type) {
                 if (!self) return;
                 int heal = std::max(1, self->getMaxHP() / 16);
                 self->setCurrentHP(self->getCurrentHP() + heal);
-                std::cout << self->getName() << " healed a little with Leftovers!" << std::endl;
             });
             break;
 
@@ -58,20 +57,10 @@ Item getItem(ItemType type) {
             item.isConsumable = true;
             item.addEffect(ItemTrigger::OnDamage, [](Pokemon* self, Pokemon* opponent, Battle& battle, void* context) {
                 if (!self || !opponent) return;
-                std::cout << self->getName() << "'s Red Card activated!" << std::endl;
-                std::cout << opponent->getName() << " was forced to switch out by Red Card!" << std::endl;
                 // 强制对手交换宝可梦
                 Side* opponentSide = Battle::findSideForPokemon(battle, opponent);
                 if (opponentSide) {
-                    std::cout << "Found opponent side: " << opponentSide->getName() << std::endl;
-                    bool switched = opponentSide->autoSwitchNext();
-                    if (switched) {
-                        std::cout << "Successfully switched!" << std::endl;
-                    } else {
-                        std::cout << "Failed to switch!" << std::endl;
-                    }
-                } else {
-                    std::cout << "Could not find opponent side!" << std::endl;
+                    opponentSide->autoSwitchNext();
                 }
             });
             break;
@@ -258,23 +247,13 @@ Item createRedCard() {
     Item item(ItemType::RedCard, "Red Card");
     item.isConsumable = true;
     item.addEffect(ItemTrigger::OnDamage, [](Pokemon* self, Pokemon* opponent, Battle& battle, void* context) {
-        if (!self || !opponent) return;
-        std::cout << self->getName() << "'s Red Card activated!" << std::endl;
-        std::cout << opponent->getName() << " was forced to switch out by Red Card!" << std::endl;
-        // 强制对手交换宝可梦
-        Side* opponentSide = Battle::findSideForPokemon(battle, opponent);
-        if (opponentSide) {
-            std::cout << "Found opponent side: " << opponentSide->getName() << std::endl;
-            bool switched = opponentSide->autoSwitchNext();
-            if (switched) {
-                std::cout << "Successfully switched!" << std::endl;
-            } else {
-                std::cout << "Failed to switch!" << std::endl;
-            }
-        } else {
-            std::cout << "Could not find opponent side!" << std::endl;
-        }
-    });
+                if (!self || !opponent) return;
+                // 强制对手交换宝可梦
+                Side* opponentSide = Battle::findSideForPokemon(battle, opponent);
+                if (opponentSide) {
+                    opponentSide->autoSwitchNext();
+                }
+            });
     return item;
 }
 

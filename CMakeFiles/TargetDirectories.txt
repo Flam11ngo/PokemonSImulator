@@ -1,0 +1,3 @@
+/home/qzz/PokemonSimulator/CMakeFiles/PokemonSimulator.dir
+/home/qzz/PokemonSimulator/CMakeFiles/edit_cache.dir
+/home/qzz/PokemonSimulator/CMakeFiles/rebuild_cache.dir

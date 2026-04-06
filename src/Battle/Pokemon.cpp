@@ -1,15 +1,15 @@
 #include "Battle/Pokemon.h"
 #include "Battle/Utils.h"
 
-Pokemon::Pokemon(const Species* species, Nature nat, AbilityType abil,
+Pokemon::Pokemon(const Species& species, Nature nat, AbilityType abil, bool isHiddenAbil,
                  int lvl,
                  const std::array<int, static_cast<int>(StatIndex::Count)>& ivs,
                  const std::array<int, static_cast<int>(StatIndex::Count)>& evs)
-    : species(species), name(species ? species->name : "Unknown"),
-      type1(species ? species->type1 : Type::Normal),
-      type2(species ? species->type2 : Type::Count),
-      nature(nat), ability(abil), itemType(ItemType::None), level(lvl), statuses(),
-      ivs(ivs), evs(evs) {
+    : species(species), name(species.name),
+      type1(species.type1),
+      type2(species.type2),
+      nature(nat), ability(abil), isHiddenAbility(isHiddenAbil), itemType(ItemType::None), level(lvl), statuses(),
+      ivs(ivs), evs(evs), isProtected(false) {
     recalculateStats();
     currentHP = maxHP;
 }
@@ -27,18 +27,12 @@ int Pokemon::calculateStat(int base, int iv, int ev, int level, float natureModi
 }
 
 void Pokemon::recalculateStats() {
-    if (!species) {
-        maxHP = currentHP = 1;
-        attack = defense = specialAttack = specialDefense = speed = 1;
-        return;
-    }
-
-    maxHP = calculateStat(species->baseStats[0], ivs[static_cast<int>(StatIndex::HP)], evs[static_cast<int>(StatIndex::HP)], level, 1.0f, true);
-    attack = calculateStat(species->baseStats[1], ivs[static_cast<int>(StatIndex::Attack)], evs[static_cast<int>(StatIndex::Attack)], level, getNatureModifier(static_cast<int>(StatIndex::Attack) - 1), false);
-    defense = calculateStat(species->baseStats[2], ivs[static_cast<int>(StatIndex::Defense)], evs[static_cast<int>(StatIndex::Defense)], level, getNatureModifier(static_cast<int>(StatIndex::Defense) - 1), false);
-    specialAttack = calculateStat(species->baseStats[3], ivs[static_cast<int>(StatIndex::SpecialAttack)], evs[static_cast<int>(StatIndex::SpecialAttack)], level, getNatureModifier(static_cast<int>(StatIndex::SpecialAttack) - 1), false);
-    specialDefense = calculateStat(species->baseStats[4], ivs[static_cast<int>(StatIndex::SpecialDefense)], evs[static_cast<int>(StatIndex::SpecialDefense)], level, getNatureModifier(static_cast<int>(StatIndex::SpecialDefense) - 1), false);
-    speed = calculateStat(species->baseStats[5], ivs[static_cast<int>(StatIndex::Speed)], evs[static_cast<int>(StatIndex::Speed)], level, getNatureModifier(static_cast<int>(StatIndex::Speed) - 1), false);
+    maxHP = calculateStat(species.baseStats[0], ivs[static_cast<int>(StatIndex::HP)], evs[static_cast<int>(StatIndex::HP)], level, 1.0f, true);
+    attack = calculateStat(species.baseStats[1], ivs[static_cast<int>(StatIndex::Attack)], evs[static_cast<int>(StatIndex::Attack)], level, getNatureModifier(static_cast<int>(StatIndex::Attack) - 1), false);
+    defense = calculateStat(species.baseStats[2], ivs[static_cast<int>(StatIndex::Defense)], evs[static_cast<int>(StatIndex::Defense)], level, getNatureModifier(static_cast<int>(StatIndex::Defense) - 1), false);
+    specialAttack = calculateStat(species.baseStats[3], ivs[static_cast<int>(StatIndex::SpecialAttack)], evs[static_cast<int>(StatIndex::SpecialAttack)], level, getNatureModifier(static_cast<int>(StatIndex::SpecialAttack) - 1), false);
+    specialDefense = calculateStat(species.baseStats[4], ivs[static_cast<int>(StatIndex::SpecialDefense)], evs[static_cast<int>(StatIndex::SpecialDefense)], level, getNatureModifier(static_cast<int>(StatIndex::SpecialDefense) - 1), false);
+    speed = calculateStat(species.baseStats[5], ivs[static_cast<int>(StatIndex::Speed)], evs[static_cast<int>(StatIndex::Speed)], level, getNatureModifier(static_cast<int>(StatIndex::Speed) - 1), false);
 }
 
 float Pokemon::getTypeEffectiveness(Type attackType) const {
@@ -86,6 +80,7 @@ Pokemon::Pokemon(const Pokemon& other) :
     type2(other.type2),
     nature(other.nature),
     ability(other.ability),
+    isHiddenAbility(other.isHiddenAbility),
     itemType(other.itemType),
     level(other.level),
     maxHP(other.maxHP),
@@ -98,5 +93,6 @@ Pokemon::Pokemon(const Pokemon& other) :
     statuses(other.statuses),
     moves(other.moves),
     ivs(other.ivs),
-    evs(other.evs) {
+    evs(other.evs),
+    isProtected(other.isProtected) {
 }

@@ -10,7 +10,6 @@ Ability getAbility(AbilityType type) {
             ability.type = AbilityType::Intimidate;
             ability.effects[Trigger::OnEntry] = [](Pokemon* self, Pokemon* opponent, void* context) {
                 if (!opponent || !self) return;
-                std::cout << self->getName() << "'s Intimidate lowered the opponent's Attack!" << std::endl;
                 // 降低对手攻击
                 // 这里需要实现降低对手攻击的逻辑
                 // 由于Pokemon类没有直接修改攻击的方法，这里暂时使用占位符
@@ -23,7 +22,6 @@ Ability getAbility(AbilityType type) {
                 if (!self) return;
                 // 检查HP是否低于33%
                 if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    std::cout << self->getName() << "'s Overgrow boosted the power of Grass-type moves!" << std::endl;
                     // 草系技能威力提升50%
                     // 这里需要在伤害计算中实现
                 }
@@ -36,7 +34,6 @@ Ability getAbility(AbilityType type) {
                 if (!self) return;
                 // 检查HP是否低于33%
                 if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    std::cout << self->getName() << "'s Blaze boosted the power of Fire-type moves!" << std::endl;
                     // 火系技能威力提升50%
                     // 这里需要在伤害计算中实现
                 }
@@ -49,7 +46,6 @@ Ability getAbility(AbilityType type) {
                 if (!self) return;
                 // 检查HP是否低于33%
                 if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    std::cout << self->getName() << "'s Torrent boosted the power of Water-type moves!" << std::endl;
                     // 水系技能威力提升50%
                     // 这里需要在伤害计算中实现
                 }
@@ -62,7 +58,6 @@ Ability getAbility(AbilityType type) {
                 if (!self) return;
                 // 检查是否满血
                 if (self->getCurrentHP() == self->getMaxHP()) {
-                    std::cout << self->getName() << "'s Multiscale reduced the damage taken!" << std::endl;
                     // 受到的伤害减少50%
                     // 这里需要在伤害计算中实现
                 }

@@ -66,7 +66,6 @@ void Battle::processTurn() {
     // 输出回合开始的Json
     json turnStartJson = BattleToJson::battleToJson(*this);
     turnStartJson["event"] = "turn_start";
-    std::cout << turnStartJson.dump(2) << std::endl;
     
     // 写入到cache文件
     BattleToJson::writeToCache(turnStartJson, "battle_turn_start_" + std::to_string(turnNumber) + ".json");
@@ -91,10 +90,20 @@ void Battle::processTurn() {
     // 输出回合结束的Json
     json turnEndJson = BattleToJson::battleToJson(*this);
     turnEndJson["event"] = "turn_end";
-    std::cout << turnEndJson.dump(2) << std::endl;
     
     // 写入到cache文件
     BattleToJson::writeToCache(turnEndJson, "battle_turn_end_" + std::to_string(turnNumber) + ".json");
+    
+    // 重置所有宝可梦的保护状态（但不重置保护计数）
+    Pokemon* activeA = sideA.getActivePokemon();
+    if (activeA) {
+        activeA->setIsProtected(false);
+    }
+    
+    Pokemon* activeB = sideB.getActivePokemon();
+    if (activeB) {
+        activeB->setIsProtected(false);
+    }
 }
 
 void Battle::resolveNextAction() {
@@ -106,7 +115,6 @@ void Battle::resolveNextAction() {
     // 输出行动开始的Json
     json actionStartJson = BattleToJson::actionToJson(action);
     actionStartJson["event"] = "action_start";
-    std::cout << actionStartJson.dump(2) << std::endl;
     
     // 写入到cache文件
     BattleToJson::writeToCache(actionStartJson, "battle_action_start_" + std::to_string(turnNumber) + "_" + actionStartJson["type"].get<std::string>() + ".json");
@@ -125,13 +133,8 @@ void Battle::resolveNextAction() {
             int damage = calculateDamage(action.actor, action.target, action.move);
             
             // 输出攻击信息
-            std::cout << action.actor->getName() << " used " << action.move.getName() << "!" << std::endl;
-            
             // 应用伤害
             action.target->setCurrentHP(action.target->getCurrentHP() - damage);
-            
-            // 输出伤害信息
-            std::cout << "It dealt " << damage << " damage!" << std::endl;
             
             // 触发受到伤害时的效果
             triggerAbilities(Trigger::OnDamage, action.target);
@@ -139,9 +142,10 @@ void Battle::resolveNextAction() {
             
             // 检查目标是否濒死
             if (action.target->isFainted()) {
-                std::cout << action.target->getName() << " fainted!" << std::endl;
                 Side* targetSide = findSideForPokemon(*this, action.target);
                 if (targetSide) {
+                    // 宝可梦死亡时重置保护计数
+                    targetSide->resetProtectCount();
                     targetSide->autoSwitchNext();
                 }
             }
@@ -159,7 +163,6 @@ void Battle::resolveNextAction() {
             attackResultJson["actor"] = action.actor->getName();
             attackResultJson["target"] = action.target->getName();
             attackResultJson["move"] = action.move.getName();
-            std::cout << attackResultJson.dump(2) << std::endl;
             
             // 写入到cache文件
             BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
@@ -179,7 +182,6 @@ void Battle::resolveNextAction() {
                 
                 if (switched) {
                     Pokemon* newPokemon = side->getActivePokemon();
-                    std::cout << oldPokemon->getName() << " was switched out for " << newPokemon->getName() << "!" << std::endl;
                     
                     // 触发出场时的效果
                     // 获取对手的活跃宝可梦
@@ -192,7 +194,6 @@ void Battle::resolveNextAction() {
                     switchResultJson["event"] = "switch_result";
                     switchResultJson["old_pokemon"] = oldPokemon->getName();
                     switchResultJson["new_pokemon"] = newPokemon->getName();
-                    std::cout << switchResultJson.dump(2) << std::endl;
                     
                     // 写入到cache文件
                     BattleToJson::writeToCache(switchResultJson, "battle_switch_result_" + std::to_string(turnNumber) + "_" + oldPokemon->getName() + "_" + newPokemon->getName() + ".json");
@@ -206,7 +207,6 @@ void Battle::resolveNextAction() {
             }
             Item held = action.actor->getHeldItem();
             if (held.type == action.item) {
-                std::cout << action.actor->getName() << " used " << held.name << "!" << std::endl;
                 held.executeTrigger(ItemTrigger::OnEat, action.actor, action.target, *this);
                 
                 // 输出使用物品结果的Json
@@ -214,7 +214,6 @@ void Battle::resolveNextAction() {
                 itemResultJson["event"] = "item_result";
                 itemResultJson["actor"] = action.actor->getName();
                 itemResultJson["item"] = BattleToJson::itemTypeToString(action.item);
-                std::cout << itemResultJson.dump(2) << std::endl;
                 
                 // 写入到cache文件
                 BattleToJson::writeToCache(itemResultJson, "battle_item_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + ".json");
@@ -222,13 +221,11 @@ void Battle::resolveNextAction() {
             break;
         }
         case ActionType::Pass: {
-            std::cout << action.actor->getName() << " did nothing!" << std::endl;
             
             // 输出跳过结果的Json
             json passResultJson = BattleToJson::battleToJson(*this);
             passResultJson["event"] = "pass_result";
             passResultJson["actor"] = action.actor->getName();
-            std::cout << passResultJson.dump(2) << std::endl;
             
             // 写入到cache文件
             BattleToJson::writeToCache(passResultJson, "battle_pass_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + ".json");
@@ -244,6 +241,11 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
         return 0;
     }
 
+    // 检查目标是否处于保护状态
+    if (defender->getIsProtected()) {
+        return 0;
+    }
+
     float attackStat = (move.getCategory() == Category::Physical) ? attacker->getAttack() : attacker->getSpecialAttack();
     float defenseStat = (move.getCategory() == Category::Physical) ? defender->getDefense() : defender->getSpecialDefense();
     if (defenseStat <= 0.0f) {
@@ -255,9 +257,6 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
     
     // 应用天气加成并输出日志
     float weatherModifier = weather.applyDamageModifier(move.getType());
-    if (weatherModifier != 1.0f) {
-        std::cout << weather.getName() << " boosted " << move.getName() << "!" << std::endl;
-    }
     modifier *= weatherModifier;
     
     // 添加随机数影响，伤害在85%到100%之间波动
@@ -267,7 +266,12 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
 }
 
 bool Battle::switchPokemon(Side& side, int newIndex) {
-    return side.switchActive(newIndex);
+    bool switched = side.switchActive(newIndex);
+    if (switched) {
+        // 切换宝可梦时重置保护计数
+        side.resetProtectCount();
+    }
+    return switched;
 }
 
 void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move& move) {
@@ -287,31 +291,24 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
     // 处理不同的追加效果
     switch (effect) {
         case MoveEffect::Paralyze:
-            std::cout << defender->getName() << " was paralyzed!" << std::endl;
             defender->addStatus(StatusType::Paralysis);
             break;
         case MoveEffect::Sleep:
-            std::cout << defender->getName() << " fell asleep!" << std::endl;
             defender->addStatus(StatusType::Sleep);
             break;
         case MoveEffect::Freeze:
-            std::cout << defender->getName() << " was frozen solid!" << std::endl;
             defender->addStatus(StatusType::Freeze);
             break;
         case MoveEffect::Burn:
-            std::cout << defender->getName() << " was burned!" << std::endl;
             defender->addStatus(StatusType::Burn);
             break;
         case MoveEffect::Poison:
-            std::cout << defender->getName() << " was poisoned!" << std::endl;
             defender->addStatus(StatusType::Poison);
             break;
         case MoveEffect::Confuse:
-            std::cout << defender->getName() << " became confused!" << std::endl;
             // 这里应该添加混乱状态的处理，但StatusType枚举中没有Confusion成员
             break;
         case MoveEffect::Flinch:
-            std::cout << defender->getName() << " flinched and couldn't move!" << std::endl;
             // 这里应该添加畏缩状态的处理
             break;
         case MoveEffect::Recoil:
@@ -321,7 +318,6 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
                     int actualRecoil = attacker->getMaxHP() * recoilDamage / 100;
                     if (actualRecoil < 1) actualRecoil = 1;
                     attacker->setCurrentHP(attacker->getCurrentHP() - actualRecoil);
-                    std::cout << attacker->getName() << " took " << actualRecoil << " recoil damage!" << std::endl;
                 }
             }
             break;
@@ -333,7 +329,6 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
                     int drainAmount = damageDealt * drainPercentage / 100;
                     if (drainAmount < 1) drainAmount = 1;
                     attacker->setCurrentHP(attacker->getCurrentHP() + drainAmount);
-                    std::cout << attacker->getName() << " drained " << drainAmount << " HP!" << std::endl;
                 }
             }
             break;
@@ -342,7 +337,36 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
                 int statIndex = move.getEffectParam1();
                 int changeAmount = move.getEffectParam2();
                 // 这里应该添加能力变化的处理
-                std::cout << defender->getName() << "'s stat changed!" << std::endl;
+            }
+            break;
+        case MoveEffect::Safeguard:
+            {
+                // 获取攻击者所在的Side
+                Side* side = findSideForPokemon(*this, attacker);
+                if (!side) break;
+                
+                // 计算保护的成功率
+                int protectCount = side->getProtectCount();
+                float successRate = 1.0f;
+                if (protectCount > 0) {
+                    // 连续使用保护，成功率降低（每多一次减少2/3的成功率）
+                    for (int i = 0; i < protectCount; i++) {
+                        successRate *= (1.0f / 3.0f);
+                    }
+                }
+                
+                // 使用随机数生成器来决定是否成功
+                bool success = PRNG::nextFloat(0.0f, 1.0f) <= successRate;
+                
+                if (success) {
+                    attacker->setIsProtected(true);
+                    side->setProtectCount(protectCount + 1);
+                    std::cerr << attacker->getName() << " used Protect!" << std::endl;
+                } else {
+                    // 守护失败，将计数器调回0
+                    side->resetProtectCount();
+                    std::cerr << attacker->getName() << "'s Protect failed!" << std::endl;
+                }
             }
             break;
         default:
@@ -368,7 +392,6 @@ void Battle::applyWeatherEffects() {
                     active->getType2() != Type::Rock && active->getType2() != Type::Ground && active->getType2() != Type::Steel) {
                     int damage = std::max(1, active->getMaxHP() / 16);
                     active->setCurrentHP(active->getCurrentHP() - damage);
-                    std::cout << active->getName() << " took damage from the sandstorm!" << std::endl;
                 }
                 break;
             case WeatherType::Hail:
@@ -376,7 +399,6 @@ void Battle::applyWeatherEffects() {
                 if (active->getType1() != Type::Ice && active->getType2() != Type::Ice) {
                     int damage = std::max(1, active->getMaxHP() / 16);
                     active->setCurrentHP(active->getCurrentHP() - damage);
-                    std::cout << active->getName() << " took damage from hail!" << std::endl;
                 }
                 break;
             case WeatherType::Snow:
@@ -384,7 +406,6 @@ void Battle::applyWeatherEffects() {
                 if (active->getType1() != Type::Ice && active->getType2() != Type::Ice) {
                     int damage = std::max(1, active->getMaxHP() / 32);
                     active->setCurrentHP(active->getCurrentHP() - damage);
-                    std::cout << active->getName() << " took damage from the snow!" << std::endl;
                 }
                 break;
             case WeatherType::Rain:
@@ -413,29 +434,24 @@ void Battle::applyFieldEffects() {
         switch (field.type) {
             case FieldType::Psychic: {
                 // 精神场地：降低地面上宝可梦受到的物理伤害
-                std::cout << "Psychic Terrain is active!" << std::endl;
                 break;
             }
             case FieldType::Electric: {
                 // 电气场地：提高地面上宝可梦的电属性技能威力
-                std::cout << "Electric Terrain is active!" << std::endl;
                 break;
             }
             case FieldType::Grassy: {
                 // 青草场地：地面上的宝可梦每回合恢复少量HP
                 int grassHeal = std::max(1, active->getMaxHP() / 16);
                 active->setCurrentHP(active->getCurrentHP() + grassHeal);
-                std::cout << active->getName() << " recovered HP from Grassy Terrain!" << std::endl;
                 break;
             }
             case FieldType::Misty: {
                 // 薄雾场地：降低地面上宝可梦受到的龙属性伤害，防止状态异常
-                std::cout << "Misty Terrain is active!" << std::endl;
                 break;
             }
             case FieldType::TrickRoom: {
                 // 戏法空间：速度慢的宝可梦先行动
-                std::cout << "Trick Room is active!" << std::endl;
                 break;
             }
             default: {
@@ -473,7 +489,6 @@ void Battle::triggerItemEffect(Pokemon* pokemon, ItemTrigger trigger, Pokemon* o
     if (item.type == ItemType::None) return;
     
     if (item.hasTrigger(trigger)) {
-        std::cout << pokemon->getName() << "'s " << item.name << " activated!" << std::endl;
         item.executeTrigger(trigger, pokemon, opponent, *this, context);
     }
 }

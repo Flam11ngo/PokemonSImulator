@@ -1,0 +1,15 @@
+{
+  "actor": "Charizard",
+  "event": "attack_result",
+  "move": "Protect",
+  "side_a": {
+    "active_pokemon": "Charizard",
+    "name": "Player"
+  },
+  "side_b": {
+    "active_pokemon": "Blastoise",
+    "name": "Opponent"
+  },
+  "target": "Blastoise",
+  "turn": 37
+}

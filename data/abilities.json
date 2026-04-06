@@ -1,0 +1,24 @@
+{
+  "abilities": [
+    {
+      "id": 1,
+      "name": "blaze",
+      "description": "When HP is below 1/3, Fire-type moves do 1.5x damage"
+    },
+    {
+      "id": 2,
+      "name": "torrent",
+      "description": "When HP is below 1/3, Water-type moves do 1.5x damage"
+    },
+    {
+      "id": 3,
+      "name": "solar-power",
+      "description": "In sunlight, Special Attack is increased by 50% but HP decreases each turn"
+    },
+    {
+      "id": 4,
+      "name": "rain-dish",
+      "description": "Restores HP in rain"
+    }
+  ]
+}

@@ -207,6 +207,4 @@ void BattleToJson::writeToCache(const json& data, const std::string& filename) {
     // 写入Json数据
     file << data.dump(2);
     file.close();
-    
-    std::cout << "Data written to cache file: " << filePath << std::endl;
 }

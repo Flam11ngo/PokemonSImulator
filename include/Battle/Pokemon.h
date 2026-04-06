@@ -23,12 +23,13 @@ enum class StatIndex {
 
 class Pokemon {
 private:
-    const Species* species;
+    Species species;
     std::string name;
     Type type1;
     Type type2; // Use Type::Count for no second type
     Nature nature;
     AbilityType ability;
+    bool isHiddenAbility;
     ItemType itemType;
     int level;
     int maxHP;
@@ -42,21 +43,26 @@ private:
     std::vector<Move> moves;
     std::array<int, static_cast<int>(StatIndex::Count)> ivs;
     std::array<int, static_cast<int>(StatIndex::Count)> evs;
+    bool isProtected; // 保护状态
 
     int calculateStat(int base, int iv, int ev, int level, float natureModifier, bool isHP) const;
     void recalculateStats();
 
 public:
-    Pokemon(const Species* species, Nature nat, AbilityType abil,
+    Pokemon(const Species& species, Nature nat, AbilityType abil, bool isHiddenAbil,
             int lvl,
             const std::array<int, static_cast<int>(StatIndex::Count)>& ivs,
             const std::array<int, static_cast<int>(StatIndex::Count)>& evs);
     
     // 拷贝构造函数
     Pokemon(const Pokemon& other);
+    
+    // 保护状态相关方法
+    bool getIsProtected() const { return isProtected; }
+    void setIsProtected(bool protectedStatus) { isProtected = protectedStatus; }
 
     // Getters
-    const Species* getSpecies() const { return species; }
+    const Species& getSpecies() const { return species; }
     std::string getName() const { return name; }
     Type getType1() const { return type1; }
     Type getType2() const { return type2; }

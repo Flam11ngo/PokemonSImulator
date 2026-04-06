@@ -1,13 +1,5 @@
 {
-  "id": 3,
-  "name": "Venusaur",
-  "type1": "grass",
-  "type2": "poison",
-  "baseStats": [80, 82, 83, 100, 100, 80],
-  "maleRatio": 0.5,
-  "nextEvolutionID": -1,
-  "evolutionLevel": 0,
-  "abilities": ["overgrow"],
+  "speciesID": 3,
   "level": 50,
   "nature": "modest",
   "ability": "overgrow",
@@ -27,38 +19,5 @@
     "specialDefense": 252,
     "speed": 0
   },
-  "moves": [
-    {
-      "name": "Solar Beam",
-      "type": "grass",
-      "power": 120,
-      "accuracy": 100,
-      "pp": 10,
-      "maxPP": 10
-    },
-    {
-      "name": "Sludge Bomb",
-      "type": "poison",
-      "power": 90,
-      "accuracy": 100,
-      "pp": 10,
-      "maxPP": 10
-    },
-    {
-      "name": "Sleep Powder",
-      "type": "grass",
-      "power": 0,
-      "accuracy": 75,
-      "pp": 15,
-      "maxPP": 15
-    },
-    {
-      "name": "Leech Seed",
-      "type": "grass",
-      "power": 0,
-      "accuracy": 90,
-      "pp": 10,
-      "maxPP": 10
-    }
-  ]
+  "moves": [4, 4, 4, 4]
 }

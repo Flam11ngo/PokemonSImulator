@@ -1,0 +1,44 @@
+{
+  "moves": [
+    {
+      "id": 1,
+      "name": "Ember",
+      "description": "A small fire attack that may burn the target"
+    },
+    {
+      "id": 2,
+      "name": "Dragon Claw",
+      "description": "A sharp claw attack with dragon power"
+    },
+    {
+      "id": 3,
+      "name": "Fly",
+      "description": "Flies up on the first turn, attacks on the second"
+    },
+    {
+      "id": 4,
+      "name": "Earthquake",
+      "description": "A powerful ground attack that hits all Pokemon on the field"
+    },
+    {
+      "id": 5,
+      "name": "Water Gun",
+      "description": "A basic water attack"
+    },
+    {
+      "id": 6,
+      "name": "Hydro Pump",
+      "description": "A powerful water attack with low accuracy"
+    },
+    {
+      "id": 7,
+      "name": "Ice Beam",
+      "description": "An ice attack that may freeze the target"
+    },
+    {
+      "id": 8,
+      "name": "Protect",
+      "description": "Protects the user from attacks for one turn"
+    }
+  ]
+}

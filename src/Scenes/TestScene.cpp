@@ -13,9 +13,6 @@ TestScene::~TestScene() {
 void TestScene::LoadResources(SDL_Renderer* renderer) {
     // 加载字体
     font = TTF_OpenFont("../assets/fonts/arial.ttf", 24);
-    if (!font) {
-        std::cout << "Failed to load font: " << TTF_GetError() << std::endl;
-    }
     
     // 加载测试动画（使用Pikachu图集）
     bool loaded = testAnimation.LoadAnimation(renderer, "../assets/pokemon/Pikachu", true);
@@ -23,8 +20,6 @@ void TestScene::LoadResources(SDL_Renderer* renderer) {
 }
 
 void TestScene::Enter() {
-    std::cout << "Entering Test Scene!" << std::endl;
-    
     // 初始化对话框
     SDL_Rect dialogRect = {windowRect.w / 2 - 200, windowRect.h / 2 - 150, 400, 300};
     testDialog = Dialog(dialogRect, "Test Dialog", "This is a test dialog box with buttons.", font);
@@ -60,34 +55,17 @@ void TestScene::Enter() {
     // 初始化提交按钮
     SDL_Rect submitButtonRect = {windowRect.w / 2 - 100, windowRect.h / 2 + 160, 200, 40};
     submitButton = Button(submitButtonRect, [this]() {
-        std::cout << "Text input: " << testTextBox.getText() << std::endl;
-        std::cout << "Password input: " << passwordTextBox.getText() << std::endl;
         // 切换到BattleScene
         SceneManager::ChangeScene(SceneManager::SceneID::Battle);
     }, buttonImage);
 }
 
 void TestScene::Exit() {
-    std::cout << "Exiting Test Scene!" << std::endl;
-    
-    // 释放字体资源
+    // 释放资源
     if (font) {
         TTF_CloseFont(font);
         font = nullptr;
     }
-    
-    // 清空按钮
-    showDialogButton = Button();
-    submitButton = Button();
-    
-    // 清空文本框
-    testTextBox = TextBox();
-    passwordTextBox = TextBox();
-    
-    // 清空对话框
-    testDialog = Dialog();
-    
-    // 清理动画资源
     testAnimation.CleanUp();
 }
 

@@ -1,13 +1,5 @@
 {
-  "id": 9,
-  "name": "Blastoise",
-  "type1": "water",
-  "type2": "count",
-  "baseStats": [79, 83, 100, 85, 105, 78],
-  "maleRatio": 0.5,
-  "nextEvolutionID": -1,
-  "evolutionLevel": 0,
-  "abilities": ["torrent"],
+  "speciesID": 9,
   "level": 50,
   "nature": "modest",
   "ability": "torrent",
@@ -27,38 +19,5 @@
     "specialDefense": 252,
     "speed": 0
   },
-  "moves": [
-    {
-      "name": "Hydro Pump",
-      "type": "water",
-      "power": 110,
-      "accuracy": 80,
-      "pp": 5,
-      "maxPP": 5
-    },
-    {
-      "name": "Ice Beam",
-      "type": "ice",
-      "power": 90,
-      "accuracy": 100,
-      "pp": 10,
-      "maxPP": 10
-    },
-    {
-      "name": "Earthquake",
-      "type": "ground",
-      "power": 100,
-      "accuracy": 100,
-      "pp": 10,
-      "maxPP": 10
-    },
-    {
-      "name": "Rapid Spin",
-      "type": "normal",
-      "power": 20,
-      "accuracy": 100,
-      "pp": 40,
-      "maxPP": 40
-    }
-  ]
+  "moves": [6, 7, 4, 5]
 }

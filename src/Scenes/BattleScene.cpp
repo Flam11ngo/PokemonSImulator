@@ -1,20 +1,22 @@
 #include"Scenes/BattleScene.h"
 #include"SceneManager.h"
-#include"Core.h"
 #include"Battle/Species.h"
 #include"Battle/Types.h"
-#include"Battle/Natures.h"
 #include"Battle/Abilities.h"
 #include"Battle/Weather.h"
 #include"Battle/Field.h"
 #include"Battle/BuildFromJson.h"
 #include<iostream>
 
-BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), selectedSwitchIndex(0), battleActive(false), playerActionSet(false), opponentActionSet(false), isPlayerTurn(true), isSwitching(false), isBagOpen(false) {}
+BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), selectedSwitchIndex(0), battleActive(false), playerActionSet(false), opponentActionSet(false), isPlayerTurn(true), isSwitching(false), isBagOpen(false) {
+    std::cerr << "BattleScene constructor called" << std::endl;
+}
 
 BattleScene::~BattleScene() {
+    std::cerr << "BattleScene destructor called" << std::endl;
     // 不再在析构函数中删除battle对象，因为它已经在Exit方法中被删除了
     // 这样可以避免双重删除导致的Segmentation fault
+    std::cerr << "BattleScene destructor finished" << std::endl;
 }
 
 void BattleScene::initializeButtons() {
@@ -27,7 +29,6 @@ void BattleScene::initializeButtons() {
     int buttonSpacingX = windowRect.w / 20; // 水平间距为窗口宽度的1/20
     int startX = (windowRect.w - 4 * buttonWidth - 3 * buttonSpacingX) / 2; // 水平居中
     int startY = windowRect.h - buttonHeight - 50; // 底部留出50像素
-    std::cout << "startX: " << startX << ", startY: " << startY << std::endl;
     
     // 加载字体
     TTF_Font* font = TTF_OpenFont("../assets/fonts/arial.ttf", 12);
@@ -61,12 +62,10 @@ void BattleScene::initializeButtons() {
                     
                     // 标记对手操作已设置
                     opponentActionSet = true;
-                    std::cout << "Opponent action set: " << selectedMove.getName() << std::endl;
                     
                     // 切换回玩家回合
                     isPlayerTurn = true;
                     updateMoveButtons(true);
-                    std::cout << "Opponent action completed, back to player's turn..." << std::endl;
                 }
             }
         }, buttonImage, "", font, textColor);
@@ -81,7 +80,6 @@ void BattleScene::initializeButtons() {
     Image bagButtonImage;
     bagButton = Button(bagButtonRect, [this]() {
         isBagOpen = !isBagOpen; // 切换背包状态
-        std::cout << "Bag button clicked, isBagOpen: " << isBagOpen << std::endl;
     }, bagButtonImage, "Bag", font, textColor);
 }
 
@@ -136,10 +134,15 @@ void BattleScene::LoadResources(SDL_Renderer* renderer) {
         Image image(renderer, path.c_str());
         moveButtonBackgrounds.push_back(image);
     }
+    
+    // 加载雨水动画
+    rainAnimation.LoadAnimation(renderer, "../assets/weather/rainy");
+    rainAnimation.setPosition(0, 0);
+    rainAnimation.setSize(1280, 720);
+    rainAnimation.Play();
 }
 
 void BattleScene::Enter() {
-    std::cout << "Entering Battle Scene!" << std::endl;
     // 重置操作状态
     playerActionSet = false;
     opponentActionSet = false;
@@ -150,6 +153,8 @@ void BattleScene::Enter() {
     Species blastoiseSpecies{
         9,
         "Blastoise",
+        160,
+        855,
         Type::Water,
         Type::Count,
         {79, 83, 100, 85, 105, 78},
@@ -158,7 +163,8 @@ void BattleScene::Enter() {
         0.875f,
         -1,
         0,
-        {AbilityType::Torrent}
+        {AbilityType::Torrent},
+        AbilityType::None
     };
 
     // 创建宝可梦
@@ -167,36 +173,27 @@ void BattleScene::Enter() {
     ivs.fill(31);
     evs.fill(31);
 
-    // 创建额外的宝可梦物种
-    Species venusaurSpecies{
-        3,
-        "Venusaur",
-        Type::Grass,
-        Type::Poison,
-        {80, 82, 83, 100, 100, 80},
-        {EggGroup::Monster, EggGroup::Grass},
-        {},
-        0.875f,
-        -1,
-        0,
-        {AbilityType::Intimidate}
-    };
-
     // 从JSON文件加载宝可梦
-    Pokemon* charizard = new Pokemon(BuildFromJson::loadPokemonFromFile("data/charizard.json"));
-    Pokemon* pikachu = new Pokemon(BuildFromJson::loadPokemonFromFile("data/pikachu.json"));
-    Pokemon* blastoise = new Pokemon(BuildFromJson::loadPokemonFromFile("data/blastoise.json"));
-    Pokemon* venusaur = new Pokemon(BuildFromJson::loadPokemonFromFile("data/venusaur.json"));
+    Pokemon charizard = BuildFromJson::loadPokemonFromFile("data/charizard.json");
+    Pokemon pikachu = BuildFromJson::loadPokemonFromFile("data/pikachu.json");
+    Pokemon blastoise = BuildFromJson::loadPokemonFromFile("data/blastoise.json");
+    Pokemon venusaur = BuildFromJson::loadPokemonFromFile("data/venusaur.json");
+    
+    // 创建宝可梦指针
+    Pokemon* charizardPtr = new Pokemon(charizard);
+    Pokemon* pikachuPtr = new Pokemon(pikachu);
+    Pokemon* blastoisePtr = new Pokemon(blastoise);
+    Pokemon* venusaurPtr = new Pokemon(venusaur);
 
     // 技能已经从JSON文件中加载，不需要手动添加
 
     // 创建队伍
     Side sideA("Player");
     Side sideB("Opponent");
-    sideA.addPokemon(charizard);
-    sideA.addPokemon(venusaur);
-    sideB.addPokemon(blastoise);
-    sideB.addPokemon(pikachu);
+    sideA.addPokemon(charizardPtr);
+    sideA.addPokemon(venusaurPtr);
+    sideB.addPokemon(blastoisePtr);
+    sideB.addPokemon(pikachuPtr);
 
     // 创建战斗
     battle = new Battle(sideA, sideB);
@@ -210,42 +207,51 @@ void BattleScene::Enter() {
     // 设置测试天气和场地效果
     battle->getWeather().setWeather(WeatherType::Rain, 5);
     battle->getField().setField(FieldType::Grassy, 8);
-    std::cout << "Weather set to: " << battle->getWeather().getName() << std::endl;
-    std::cout << "Field set to: " << battle->getField().getName() << std::endl;
     
     // 更新技能按钮
     updateMoveButtons(true);
 }
 
 void BattleScene::Exit() {
-    std::cout << "Exiting Battle Scene!" << std::endl;
+    std::cerr << "BattleScene Exit called" << std::endl;
     battleActive = false;
     
     // 释放图片资源
+    std::cerr << "BattleScene cleaning up images" << std::endl;
     background.CleanUp();
     playerPokemon.CleanUp();
     opponentPokemon.CleanUp();
     
     // 清理动画资源
+    std::cerr << "BattleScene cleaning up animations" << std::endl;
     opponentPokemonAnimated.CleanUp();
-    
-    // 释放技能按钮背景图片资源
-    for (auto& image : moveButtonBackgrounds) {
-        image.CleanUp();
-    }
-    moveButtonBackgrounds.clear();
+    rainAnimation.CleanUp();
     
     // 清空按钮
+    std::cerr << "BattleScene clearing buttons" << std::endl;
     moveButtons.clear();
     switchButtons.clear();
     
+    // 释放技能按钮背景图片资源
+    std::cerr << "BattleScene cleaning up move button backgrounds" << std::endl;
+    std::cerr << "moveButtonBackgrounds size: " << moveButtonBackgrounds.size() << std::endl;
+    for (size_t i = 0; i < moveButtonBackgrounds.size(); i++) {
+        std::cerr << "Cleaning up image " << i << std::endl;
+        moveButtonBackgrounds[i].CleanUp();
+        std::cerr << "Image " << i << " cleaned up" << std::endl;
+    }
+    moveButtonBackgrounds.clear();
+    std::cerr << "moveButtonBackgrounds cleared" << std::endl;
+    
     // 释放资源
+    std::cerr << "BattleScene cleaning up battle" << std::endl;
     if (battle) {
+        std::cerr << "Deleting battle..." << std::endl;
         delete battle;
+        std::cerr << "Battle deleted, setting to nullptr" << std::endl;
         battle = nullptr;
     }
-    
-    std::cout << "Battle Scene cleaned up!" << std::endl;
+    std::cerr << "BattleScene Exit finished" << std::endl;
 }
 
 void BattleScene::Update(float deltaTime) {
@@ -253,6 +259,11 @@ void BattleScene::Update(float deltaTime) {
     
     // 取消Opponents的动画更新
     // opponentPokemonAnimated.Update(deltaTime);
+    
+    // 更新雨水动画
+    if (battle->getWeather().type == WeatherType::Rain) {
+        rainAnimation.Update(deltaTime);
+    }
     
     // 血条更新
     Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
@@ -265,10 +276,9 @@ void BattleScene::Update(float deltaTime) {
     updateHealthBar(opponentHealthBar, opponentPokemonPtr, lastOpponentPokemon, deltaTime);
     
     // 检查双方是否都已设置操作
-    if (playerActionSet && opponentActionSet) {
-        std::cout << "Both actions set, processing turn..." << std::endl;
-        
-        // 处理回合
+        if (playerActionSet && opponentActionSet) {
+            
+            // 处理回合
         battle->processTurn();
         
         // 检查宝可梦是否切换，如果切换则立即更新血条
@@ -299,7 +309,6 @@ void BattleScene::Update(float deltaTime) {
         
         if (playerPokemonPtr->isFainted() || opponentPokemonPtr->isFainted()) {
             battleActive = false;
-            std::cout << "Battle ended!" << std::endl;
             // 战斗结束后切换到TestScene
             SceneManager::ChangeScene(SceneManager::SceneID::Test);
             return; // 立即返回，避免使用已删除的对象
@@ -309,7 +318,6 @@ void BattleScene::Update(float deltaTime) {
             opponentActionSet = false;
             isPlayerTurn = true; // 下一回合开始时，先让玩家行动
             updateMoveButtons(true); // 更新为玩家的技能按钮
-            std::cout << "Turn ended, waiting for player's action..." << std::endl;
         }
     } else if (isPlayerTurn && !playerActionSet) {
         // 玩家回合，等待玩家操作
@@ -319,12 +327,10 @@ void BattleScene::Update(float deltaTime) {
         // 对手回合，等待对手操作
         // 确保显示的是对手的技能按钮
         updateMoveButtons(false);
-        std::cout << "Opponent's turn, waiting for opponent's action..." << std::endl;
     } else if (playerActionSet && !opponentActionSet) {
         // 玩家已设置操作，切换到对手回合
         isPlayerTurn = false;
         updateMoveButtons(false); // 更新为对手的技能按钮
-        std::cout << "Player action completed, opponent's turn..." << std::endl;
     }
 }
 
@@ -436,6 +442,11 @@ void BattleScene::Render(SDL_Renderer* renderer) {
     
     // 渲染背包按钮（在虚化效果之上）
     bagButton.Render(renderer);
+    
+    // 渲染雨水动画
+    if (battle->getWeather().type == WeatherType::Rain) {
+        rainAnimation.Render(renderer);
+    }
 };
 void BattleScene::HandleEvents(SDL_Event& event) {
     if (!battleActive || !battle) return;
@@ -496,12 +507,10 @@ void BattleScene::HandleEvents(SDL_Event& event) {
                         
                         // 标记对手操作已设置
                         opponentActionSet = true;
-                        std::cout << "Opponent action set: " << selectedMove.getName() << std::endl;
                         
                         // 切换回玩家回合
                         isPlayerTurn = true;
                         updateMoveButtons(true);
-                        std::cout << "Opponent action completed, back to player's turn..." << std::endl;
                     }
                 }
                 break;
@@ -510,9 +519,6 @@ void BattleScene::HandleEvents(SDL_Event& event) {
                 isSwitching = !isSwitching;
                 if (isSwitching) {
                     updateSwitchButtons(isPlayerTurn);
-                    std::cout << "Entering switch mode..." << std::endl;
-                } else {
-                    std::cout << "Exiting switch mode..." << std::endl;
                 }
                 break;
             case SDLK_ESCAPE:
@@ -566,8 +572,7 @@ void BattleScene::handleMoveSelection() {
         battle->enqueueAction(action);
         
         // 标记玩家操作已设置
-        playerActionSet = true;
-        std::cout << "Player action set: " << selectedMove.getName() << std::endl;
+            playerActionSet = true;
     }
 }
 
@@ -597,7 +602,6 @@ void BattleScene::handleOpponentAction() {
         
         // 标记对手操作已设置
         opponentActionSet = true;
-        std::cout << "Opponent action set: " << selectedMove.getName() << std::endl;
     }
 }
 
@@ -684,12 +688,8 @@ void BattleScene::handleSwitchSelection() {
         // 标记操作已设置
         if (isPlayerTurn) {
             playerActionSet = true;
-            std::cout << "Player switched to: " << team[selectedSwitchIndex]->getName() << std::endl;
-            std::cout << "Player cannot use moves this turn after switching!" << std::endl;
         } else {
             opponentActionSet = true;
-            std::cout << "Opponent switched to: " << team[selectedSwitchIndex]->getName() << std::endl;
-            std::cout << "Opponent cannot use moves this turn after switching!" << std::endl;
         }
         
         // 退出切换模式
@@ -704,7 +704,6 @@ void BattleScene::startBattle(Battle& battle) {
     playerActionSet = false;
     opponentActionSet = false;
     isPlayerTurn = true;
-    std::cout << "Battle started in BattleScene!" << std::endl;
 }
 
 std::string BattleScene::getTypeString(Type type) {
@@ -839,15 +838,13 @@ void BattleScene::handlePokemonSwitchEvents(SDL_Event& event, bool isPlayer) {
                     // 标记操作已设置
                     if (isPlayer) {
                         playerActionSet = true;
-                        std::cout << "Player switched to: " << team[i]->getName() << std::endl;
                     } else {
                         opponentActionSet = true;
-                        std::cout << "Opponent switched to: " << team[i]->getName() << std::endl;
+
                     }
                     
                     // 关闭背包
                     isBagOpen = false;
-                    std::cout << "Bag closed after switching pokemon" << std::endl;
                     break;
                 }
             }
