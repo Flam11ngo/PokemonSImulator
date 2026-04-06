@@ -6,7 +6,7 @@
 
 SDL_Renderer* Animated::rendererStatic = nullptr;
 
-Animated::Animated() : currentFrame(0), lastFrameTime(0), isPlaying(false), isLooping(true), isGif(false) {
+Animated::Animated() : currentFrame(0), lastFrameTime(0), elapsedTime(0.0f), isPlaying(false), isLooping(true), isGif(false) {
     srcRect = {0, 0, 0, 0};
     destRect = {0, 0, 0, 0};
 }
@@ -16,7 +16,8 @@ Animated::Animated(SDL_Renderer* renderer, std::string filepath, bool looping) :
 }
 
 Animated::~Animated() {
-    CleanUp();
+    // 不再在析构函数中调用CleanUp()，因为它已经在Scene的Exit方法中被调用了
+    // 这样可以避免双重清理导致的Segmentation fault
 }
 
 void Animated::AnimatedInit(SDL_Renderer* renderer) {
@@ -72,8 +73,42 @@ bool Animated::loadFromDirectory(SDL_Renderer* renderer, const std::string& dirP
         return false;
     }
 
-    // 对文件进行排序
-    std::sort(imageFiles.begin(), imageFiles.end());
+    // 对文件进行排序，确保按数字顺序排列
+    std::sort(imageFiles.begin(), imageFiles.end(), [](const std::string& a, const std::string& b) {
+        // 提取文件名（不含路径）
+        std::string filenameA = a.substr(a.find_last_of('/') + 1);
+        std::string filenameB = b.substr(b.find_last_of('/') + 1);
+        
+        // 提取数字部分
+        size_t numStartA = 0;
+        while (numStartA < filenameA.size() && !isdigit(filenameA[numStartA])) {
+            numStartA++;
+        }
+        size_t numEndA = numStartA;
+        while (numEndA < filenameA.size() && isdigit(filenameA[numEndA])) {
+            numEndA++;
+        }
+        
+        size_t numStartB = 0;
+        while (numStartB < filenameB.size() && !isdigit(filenameB[numStartB])) {
+            numStartB++;
+        }
+        size_t numEndB = numStartB;
+        while (numEndB < filenameB.size() && isdigit(filenameB[numEndB])) {
+            numEndB++;
+        }
+        
+        // 转换为数字进行比较
+        int numA = 0, numB = 0;
+        if (numStartA < numEndA) {
+            numA = std::stoi(filenameA.substr(numStartA, numEndA - numStartA));
+        }
+        if (numStartB < numEndB) {
+            numB = std::stoi(filenameB.substr(numStartB, numEndB - numStartB));
+        }
+        
+        return numA < numB;
+    });
 
     // 加载所有图片作为帧
     for (const auto& file : imageFiles) {
@@ -179,7 +214,6 @@ void Animated::Update(float deltaTime) {
     }
 
     // 累积时间
-    static float elapsedTime = 0.0f;
     elapsedTime += deltaTime * 1000; // 转换为毫秒
     
     if (elapsedTime >= frameDelays[currentFrame]) {
@@ -233,6 +267,7 @@ void Animated::CleanUp() {
     frameDelays.clear();
     currentFrame = 0;
     lastFrameTime = 0;
+    elapsedTime = 0.0f;
     isPlaying = false;
     isLooping = true;
     isGif = false;

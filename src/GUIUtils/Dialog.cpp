@@ -33,7 +33,7 @@ void Dialog::addButton(std::string text, std::function<void()> callback, TTF_Fon
     int startX = drect.x + (drect.w - (buttons.size() + 1) * buttonWidth - buttons.size() * buttonSpacing) / 2;
     int buttonY = drect.y + drect.h - buttonHeight - 20;
     
-    SDL_Rect buttonRect = {startX + buttons.size() * (buttonWidth + buttonSpacing), buttonY, buttonWidth, buttonHeight};
+    SDL_Rect buttonRect = {startX + static_cast<int>(buttons.size()) * (buttonWidth + buttonSpacing), buttonY, buttonWidth, buttonHeight};
     
     // 创建一个临时的Image作为按钮背景
     Image buttonImage;

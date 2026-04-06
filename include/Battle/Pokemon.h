@@ -51,6 +51,9 @@ public:
             int lvl,
             const std::array<int, static_cast<int>(StatIndex::Count)>& ivs,
             const std::array<int, static_cast<int>(StatIndex::Count)>& evs);
+    
+    // 拷贝构造函数
+    Pokemon(const Pokemon& other);
 
     // Getters
     const Species* getSpecies() const { return species; }

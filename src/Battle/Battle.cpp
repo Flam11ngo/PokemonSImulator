@@ -1,5 +1,7 @@
 #include "Battle/Battle.h"
 #include "Battle/Items.h"
+#include "Battle/PRNG.h"
+#include "Battle/BattleToJson.h"
 #include <iostream>
 #include <cmath>
 #include <algorithm>
@@ -61,6 +63,14 @@ void Battle::processTurn() {
     ++turnNumber;
     queue.setTrickRoom(field.isTrickRoom());
     
+    // 输出回合开始的Json
+    json turnStartJson = BattleToJson::battleToJson(*this);
+    turnStartJson["event"] = "turn_start";
+    std::cout << turnStartJson.dump(2) << std::endl;
+    
+    // 写入到cache文件
+    BattleToJson::writeToCache(turnStartJson, "battle_turn_start_" + std::to_string(turnNumber) + ".json");
+    
     // 触发回合开始时的效果
     triggerAbilities(Trigger::OnTurnStart, nullptr);
     triggerItemEffects(ItemTrigger::OnTurnStart, nullptr);
@@ -77,6 +87,14 @@ void Battle::processTurn() {
     applyFieldEffects();
     field.tick();
     weather.tick();
+    
+    // 输出回合结束的Json
+    json turnEndJson = BattleToJson::battleToJson(*this);
+    turnEndJson["event"] = "turn_end";
+    std::cout << turnEndJson.dump(2) << std::endl;
+    
+    // 写入到cache文件
+    BattleToJson::writeToCache(turnEndJson, "battle_turn_end_" + std::to_string(turnNumber) + ".json");
 }
 
 void Battle::resolveNextAction() {
@@ -84,6 +102,14 @@ void Battle::resolveNextAction() {
     if (action.actor == nullptr) {
         return;
     }
+    
+    // 输出行动开始的Json
+    json actionStartJson = BattleToJson::actionToJson(action);
+    actionStartJson["event"] = "action_start";
+    std::cout << actionStartJson.dump(2) << std::endl;
+    
+    // 写入到cache文件
+    BattleToJson::writeToCache(actionStartJson, "battle_action_start_" + std::to_string(turnNumber) + "_" + actionStartJson["type"].get<std::string>() + ".json");
 
     switch (action.type) {
         case ActionType::Attack: {
@@ -127,6 +153,17 @@ void Battle::resolveNextAction() {
             triggerAbilities(Trigger::OnDealDamage, action.actor);
             triggerItemEffects(ItemTrigger::OnDealDamage, action.actor);
             
+            // 输出攻击结果的Json
+            json attackResultJson = BattleToJson::battleToJson(*this);
+            attackResultJson["event"] = "attack_result";
+            attackResultJson["actor"] = action.actor->getName();
+            attackResultJson["target"] = action.target->getName();
+            attackResultJson["move"] = action.move.getName();
+            std::cout << attackResultJson.dump(2) << std::endl;
+            
+            // 写入到cache文件
+            BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+            
             break;
         }
         case ActionType::Switch: {
@@ -145,8 +182,20 @@ void Battle::resolveNextAction() {
                     std::cout << oldPokemon->getName() << " was switched out for " << newPokemon->getName() << "!" << std::endl;
                     
                     // 触发出场时的效果
-                    triggerAbilities(Trigger::OnEntry, newPokemon);
-                    triggerItemEffects(ItemTrigger::OnEntry, newPokemon);
+                    // 获取对手的活跃宝可梦
+                    Pokemon* opponentPokemon = (side == &sideA) ? sideB.getActivePokemon() : sideA.getActivePokemon();
+                    triggerAbility(newPokemon, Trigger::OnEntry, opponentPokemon);
+                    triggerItemEffect(newPokemon, ItemTrigger::OnEntry, opponentPokemon);
+                    
+                    // 输出切换结果的Json
+                    json switchResultJson = BattleToJson::battleToJson(*this);
+                    switchResultJson["event"] = "switch_result";
+                    switchResultJson["old_pokemon"] = oldPokemon->getName();
+                    switchResultJson["new_pokemon"] = newPokemon->getName();
+                    std::cout << switchResultJson.dump(2) << std::endl;
+                    
+                    // 写入到cache文件
+                    BattleToJson::writeToCache(switchResultJson, "battle_switch_result_" + std::to_string(turnNumber) + "_" + oldPokemon->getName() + "_" + newPokemon->getName() + ".json");
                 }
             }
             break;
@@ -159,12 +208,32 @@ void Battle::resolveNextAction() {
             if (held.type == action.item) {
                 std::cout << action.actor->getName() << " used " << held.name << "!" << std::endl;
                 held.executeTrigger(ItemTrigger::OnEat, action.actor, action.target, *this);
+                
+                // 输出使用物品结果的Json
+                json itemResultJson = BattleToJson::battleToJson(*this);
+                itemResultJson["event"] = "item_result";
+                itemResultJson["actor"] = action.actor->getName();
+                itemResultJson["item"] = BattleToJson::itemTypeToString(action.item);
+                std::cout << itemResultJson.dump(2) << std::endl;
+                
+                // 写入到cache文件
+                BattleToJson::writeToCache(itemResultJson, "battle_item_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + ".json");
             }
             break;
         }
-        case ActionType::Pass:
+        case ActionType::Pass: {
             std::cout << action.actor->getName() << " did nothing!" << std::endl;
+            
+            // 输出跳过结果的Json
+            json passResultJson = BattleToJson::battleToJson(*this);
+            passResultJson["event"] = "pass_result";
+            passResultJson["actor"] = action.actor->getName();
+            std::cout << passResultJson.dump(2) << std::endl;
+            
+            // 写入到cache文件
+            BattleToJson::writeToCache(passResultJson, "battle_pass_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + ".json");
             break;
+        }
         default:
             break;
     }
@@ -191,7 +260,10 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
     }
     modifier *= weatherModifier;
     
-    return static_cast<int>(std::lround(base * modifier));
+    // 添加随机数影响，伤害在85%到100%之间波动
+    float randomFactor = PRNG::nextFloat(0.85f, 1.0f);
+    
+    return static_cast<int>(std::lround(base * modifier * randomFactor));
 }
 
 bool Battle::switchPokemon(Side& side, int newIndex) {

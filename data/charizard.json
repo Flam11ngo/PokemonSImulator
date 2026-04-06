@@ -1,0 +1,64 @@
+{
+  "id": 6,
+  "name": "Charizard",
+  "type1": "fire",
+  "type2": "flying",
+  "baseStats": [78, 84, 78, 109, 85, 100],
+  "maleRatio": 0.5,
+  "nextEvolutionID": -1,
+  "evolutionLevel": 0,
+  "abilities": ["blaze"],
+  "level": 50,
+  "nature": "adamant",
+  "ability": "blaze",
+  "ivs": {
+    "hp": 31,
+    "attack": 31,
+    "defense": 31,
+    "specialAttack": 31,
+    "specialDefense": 31,
+    "speed": 31
+  },
+  "evs": {
+    "hp": 0,
+    "attack": 252,
+    "defense": 0,
+    "specialAttack": 0,
+    "specialDefense": 0,
+    "speed": 252
+  },
+  "moves": [
+    {
+      "name": "DamnFire",
+      "type": "fire",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 15,
+      "maxPP": 15
+    },
+    {
+      "name": "Dragon Claw",
+      "type": "dragon",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 15,
+      "maxPP": 15
+    },
+    {
+      "name": "Fly",
+      "type": "flying",
+      "power": 90,
+      "accuracy": 95,
+      "pp": 15,
+      "maxPP": 15
+    },
+    {
+      "name": "Earthquake",
+      "type": "ground",
+      "power": 100,
+      "accuracy": 100,
+      "pp": 10,
+      "maxPP": 10
+    }
+  ]
+}

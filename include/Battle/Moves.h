@@ -58,19 +58,21 @@ public:
     Move();
     Move(std::string name, Type type, Category category, int power, int accuracy, int pp);
     Move(std::string name, Type type, Category category, int power, int accuracy, int pp, MoveEffect effect, int effectChance, int effectParam1 = 0, int effectParam2 = 0);
-
+    Move(const Move& other);
+    Move& operator=(const Move& other);
+    ~Move();
     // Getters
-    std::string getName() const { return name; }
-    Type getType() const { return type; }
-    Category getCategory() const { return category; }
-    int getPower() const { return power; }
-    int getAccuracy() const { return accuracy; }
-    int getPP() const { return pp; }
-    int getMaxPP() const { return maxPP; }
-    MoveEffect getEffect() const { return effect; }
-    int getEffectChance() const { return effectChance; }
-    int getEffectParam1() const { return effectParam1; }
-    int getEffectParam2() const { return effectParam2; }
+    const std::string& getName() const { return name; }
+    const Type& getType() const { return type; }
+    const Category& getCategory() const { return category; }
+    const int& getPower() const { return power; }
+    const int& getAccuracy() const { return accuracy; }
+    const int& getPP() const { return pp; }
+    const int& getMaxPP() const { return maxPP; }
+    const MoveEffect& getEffect() const { return effect; }
+    const int& getEffectChance() const { return effectChance; }
+    const int& getEffectParam1() const { return effectParam1; }
+    const int& getEffectParam2() const { return effectParam2; }
 
     // Setters
     void setPP(int p) { pp = p; if (pp < 0) pp = 0; if (pp > maxPP) pp = maxPP; }

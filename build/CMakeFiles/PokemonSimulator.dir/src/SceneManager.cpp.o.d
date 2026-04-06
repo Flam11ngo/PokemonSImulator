@@ -338,6 +338,7 @@ CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o: \
  /usr/include/c++/13/backward/auto_ptr.h \
  /usr/include/c++/13/pstl/glue_memory_defs.h \
  /usr/include/c++/13/pstl/execution_defs.h \
+ /home/qzz/PokemonSimulator/include/GUIUtils/HealthBar.h \
  /home/qzz/PokemonSimulator/include/Animated.h \
  /home/qzz/PokemonSimulator/include/Scenes/TestScene.h \
  /home/qzz/PokemonSimulator/include/GUIUtils/Dialog.h \

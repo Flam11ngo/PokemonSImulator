@@ -7,15 +7,14 @@
 #include"Battle/Abilities.h"
 #include"Battle/Weather.h"
 #include"Battle/Field.h"
+#include"Battle/BuildFromJson.h"
 #include<iostream>
 
-BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), selectedSwitchIndex(0), battleActive(false), playerActionSet(false), opponentActionSet(false), isPlayerTurn(true), isSwitching(false) {}
+BattleScene::BattleScene() : battle(nullptr), selectedMoveIndex(0), selectedSwitchIndex(0), battleActive(false), playerActionSet(false), opponentActionSet(false), isPlayerTurn(true), isSwitching(false), isBagOpen(false) {}
 
 BattleScene::~BattleScene() {
-    if (battle) {
-        delete battle;
-        battle = nullptr;
-    }
+    // 不再在析构函数中删除battle对象，因为它已经在Exit方法中被删除了
+    // 这样可以避免双重删除导致的Segmentation fault
 }
 
 void BattleScene::initializeButtons() {
@@ -72,6 +71,18 @@ void BattleScene::initializeButtons() {
             }
         }, buttonImage, "", font, textColor);
     }
+    
+    // 初始化背包按钮
+    int bagButtonWidth = 100;
+    int bagButtonHeight = 50;
+    int bagButtonX = windowRect.w - bagButtonWidth - 20; // 右上角，右边距20像素
+    int bagButtonY = 20; // 上边距20像素
+    SDL_Rect bagButtonRect = {bagButtonX, bagButtonY, bagButtonWidth, bagButtonHeight};
+    Image bagButtonImage;
+    bagButton = Button(bagButtonRect, [this]() {
+        isBagOpen = !isBagOpen; // 切换背包状态
+        std::cout << "Bag button clicked, isBagOpen: " << isBagOpen << std::endl;
+    }, bagButtonImage, "Bag", font, textColor);
 }
 
 void BattleScene::initializeSwitchButtons() {
@@ -110,10 +121,6 @@ void BattleScene::LoadResources(SDL_Renderer* renderer) {
     playerPokemon.LoadImage(renderer, "../assets/pokemon/blastoise.png");
     opponentPokemon.LoadImage(renderer, "../assets/pokemon/charizard.png");
     
-    // 加载对手的pichu.gif动画
-    opponentPokemonAnimated.LoadAnimation(renderer, "../assets/pokemon/pichu.gif", true);
-    opponentPokemonAnimated.Play();
-    
     // 加载技能按钮背景板图片
     moveButtonBackgrounds.clear();
     std::vector<Type> types = {
@@ -129,11 +136,6 @@ void BattleScene::LoadResources(SDL_Renderer* renderer) {
         Image image(renderer, path.c_str());
         moveButtonBackgrounds.push_back(image);
     }
-    // 这些代码移到Enter方法中执行，因为battle对象在Enter方法中才创建
-    // auto moves = battle->getSideA().getActivePokemon()->getMoves();
-    // for (int i = 0; i < 4; i++) {
-    //     moveButtons[i].SetBackground(moveButtonBackgrounds[static_cast<int>(moves[i].getType())]);
-    // }
 }
 
 void BattleScene::Enter() {
@@ -145,20 +147,6 @@ void BattleScene::Enter() {
     
     // 创建默认战斗实例
     // 创建宝可梦物种
-    Species charizardSpecies{
-        6,
-        "Charizard",
-        Type::Fire,
-        Type::Flying,
-        {78, 84, 78, 109, 85, 100},
-        {EggGroup::Monster, EggGroup::Dragon},
-        {},
-        0.875f,
-        -1,
-        0,
-        {AbilityType::Blaze}
-    };
-
     Species blastoiseSpecies{
         9,
         "Blastoise",
@@ -191,49 +179,16 @@ void BattleScene::Enter() {
         0.875f,
         -1,
         0,
-        {AbilityType::Overgrow}
+        {AbilityType::Intimidate}
     };
 
-    Species pikachuSpecies{
-        25,
-        "Pikachu",
-        Type::Electric,
-        Type::Count,
-        {35, 55, 40, 50, 50, 90},
-        {EggGroup::Field, EggGroup::Fairy},
-        {},
-        0.4f,
-        -1,
-        0,
-        {AbilityType::None}
-    };
+    // 从JSON文件加载宝可梦
+    Pokemon* charizard = new Pokemon(BuildFromJson::loadPokemonFromFile("data/charizard.json"));
+    Pokemon* pikachu = new Pokemon(BuildFromJson::loadPokemonFromFile("data/pikachu.json"));
+    Pokemon* blastoise = new Pokemon(BuildFromJson::loadPokemonFromFile("data/blastoise.json"));
+    Pokemon* venusaur = new Pokemon(BuildFromJson::loadPokemonFromFile("data/venusaur.json"));
 
-    // 创建宝可梦
-    Pokemon* charizard = new Pokemon(&charizardSpecies, Nature::Adamant, AbilityType::Blaze, 50, ivs, evs);
-    Pokemon* blastoise = new Pokemon(&blastoiseSpecies, Nature::Modest, AbilityType::Torrent, 50, ivs, evs);
-    Pokemon* venusaur = new Pokemon(&venusaurSpecies, Nature::Modest, AbilityType::Overgrow, 50, ivs, evs);
-    Pokemon* pikachu = new Pokemon(&pikachuSpecies, Nature::Timid, AbilityType::None, 50, ivs, evs);
-
-    // 添加技能
-    charizard->addMove(Move{"Flamethrower", Type::Fire, Category::Special, 90, 100, 15, MoveEffect::Burn, 10});
-    charizard->addMove(Move{"Dragon Claw", Type::Dragon, Category::Physical, 80, 100, 15});
-    charizard->addMove(Move{"Fly", Type::Flying, Category::Physical, 90, 95, 15});
-    charizard->addMove(Move{"Earthquake", Type::Ground, Category::Physical, 100, 100, 10});
-
-    blastoise->addMove(Move{"Hydro Pump", Type::Water, Category::Special, 110, 80, 5, MoveEffect::Paralyze, 10});
-    blastoise->addMove(Move{"Ice Beam", Type::Ice, Category::Special, 90, 100, 10});
-    blastoise->addMove(Move{"Earthquake", Type::Ground, Category::Physical, 100, 100, 10});
-    blastoise->addMove(Move{"Rapid Spin", Type::Normal, Category::Physical, 20, 100, 40});
-
-    venusaur->addMove(Move{"Solar Beam", Type::Grass, Category::Special, 120, 100, 10});
-    venusaur->addMove(Move{"Sludge Bomb", Type::Poison, Category::Special, 90, 100, 10, MoveEffect::Poison, 30});
-    venusaur->addMove(Move{"Earthquake", Type::Ground, Category::Physical, 100, 100, 10});
-    venusaur->addMove(Move{"Sleep Powder", Type::Grass, Category::Status, 0, 75, 15, MoveEffect::Sleep, 100});
-
-    pikachu->addMove(Move{"Thunderbolt", Type::Electric, Category::Special, 90, 100, 15, MoveEffect::Paralyze, 10});
-    pikachu->addMove(Move{"Quick Attack", Type::Normal, Category::Physical, 40, 100, 30});
-    pikachu->addMove(Move{"Iron Tail", Type::Steel, Category::Physical, 100, 75, 15, MoveEffect::StatChange, 30});
-    pikachu->addMove(Move{"Thunder Wave", Type::Electric, Category::Status, 0, 90, 20, MoveEffect::Paralyze, 100});
+    // 技能已经从JSON文件中加载，不需要手动添加
 
     // 创建队伍
     Side sideA("Player");
@@ -249,32 +204,22 @@ void BattleScene::Enter() {
     initializeButtons();
     initializeSwitchButtons();
     
+    // 初始化血条对象
+    initializeHealthBars();
+    
     // 设置测试天气和场地效果
     battle->getWeather().setWeather(WeatherType::Rain, 5);
     battle->getField().setField(FieldType::Grassy, 8);
     std::cout << "Weather set to: " << battle->getWeather().getName() << std::endl;
     std::cout << "Field set to: " << battle->getField().getName() << std::endl;
     
-    // 设置技能按钮的背景图片
-    if (battle && !moveButtonBackgrounds.empty()) {
-        auto moves = battle->getSideA().getActivePokemon()->getMoves();
-        for (int i = 0; i < 4 && i < moves.size(); i++) {
-            if (i < moveButtons.size()) {
-                moveButtons[i].SetBackground(moveButtonBackgrounds[static_cast<int>(moves[i].getType())]);
-            }
-        }
-    }
+    // 更新技能按钮
+    updateMoveButtons(true);
 }
 
 void BattleScene::Exit() {
     std::cout << "Exiting Battle Scene!" << std::endl;
     battleActive = false;
-    
-    // 释放资源
-    if (battle) {
-        delete battle;
-        battle = nullptr;
-    }
     
     // 释放图片资源
     background.CleanUp();
@@ -293,13 +238,31 @@ void BattleScene::Exit() {
     // 清空按钮
     moveButtons.clear();
     switchButtons.clear();
+    
+    // 释放资源
+    if (battle) {
+        delete battle;
+        battle = nullptr;
+    }
+    
+    std::cout << "Battle Scene cleaned up!" << std::endl;
 }
 
 void BattleScene::Update(float deltaTime) {
     if (!battleActive || !battle) return;
     
-    // 更新对手宝可梦动画
-    opponentPokemonAnimated.Update(deltaTime);
+    // 取消Opponents的动画更新
+    // opponentPokemonAnimated.Update(deltaTime);
+    
+    // 血条更新
+    Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
+    Pokemon* opponentPokemonPtr = battle->getSideB().getActivePokemon();
+    
+    static Pokemon* lastPlayerPokemon = nullptr;
+    static Pokemon* lastOpponentPokemon = nullptr;
+    
+    updateHealthBar(playerHealthBar, playerPokemonPtr, lastPlayerPokemon, deltaTime);
+    updateHealthBar(opponentHealthBar, opponentPokemonPtr, lastOpponentPokemon, deltaTime);
     
     // 检查双方是否都已设置操作
     if (playerActionSet && opponentActionSet) {
@@ -308,15 +271,38 @@ void BattleScene::Update(float deltaTime) {
         // 处理回合
         battle->processTurn();
         
-        // 检查战斗是否结束
+        // 检查宝可梦是否切换，如果切换则立即更新血条
+        static Pokemon* lastPlayerPokemon = nullptr;
+        static Pokemon* lastOpponentPokemon = nullptr;
+        
         Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
         Pokemon* opponentPokemonPtr = battle->getSideB().getActivePokemon();
+        
+        // 直接更新血条，不使用动画效果
+        if (playerPokemonPtr) {
+            if (lastPlayerPokemon != playerPokemonPtr) {
+                playerHealthBar.setMaxHealth(playerPokemonPtr->getMaxHP());
+                playerHealthBar.setCurrentHealthImmediately(playerPokemonPtr->getCurrentHP());
+                lastPlayerPokemon = playerPokemonPtr;
+            }
+        }
+        
+        if (opponentPokemonPtr) {
+            if (lastOpponentPokemon != opponentPokemonPtr) {
+                opponentHealthBar.setMaxHealth(opponentPokemonPtr->getMaxHP());
+                opponentHealthBar.setCurrentHealthImmediately(opponentPokemonPtr->getCurrentHP());
+                lastOpponentPokemon = opponentPokemonPtr;
+            }
+        }
+        
+        // 检查战斗是否结束
         
         if (playerPokemonPtr->isFainted() || opponentPokemonPtr->isFainted()) {
             battleActive = false;
             std::cout << "Battle ended!" << std::endl;
             // 战斗结束后切换到TestScene
             SceneManager::ChangeScene(SceneManager::SceneID::Test);
+            return; // 立即返回，避免使用已删除的对象
         } else {
             // 重置操作状态，开始下一回合
             playerActionSet = false;
@@ -344,7 +330,7 @@ void BattleScene::Update(float deltaTime) {
 
 void BattleScene::Render(SDL_Renderer* renderer) {
     if (!battleActive || !battle) return;
-    
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     // 渲染背景
     SDL_Rect backgroundRect = {0, 0, 1280, 720};
     // 检查背景图片是否加载成功
@@ -359,38 +345,13 @@ void BattleScene::Render(SDL_Renderer* renderer) {
     // 渲染玩家宝可梦
     Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
     if (playerPokemonPtr) {
-        // 检查宝可梦图片是否加载成功
-        if (playerPokemon.getTexture()) {
-            playerPokemon.Render(renderer, &PlayerPokemonRect);
-        } else {
-            // 图片加载失败，使用默认颜色填充
-            SDL_SetRenderDrawColor(renderer, 255, 100, 100, 255);
-            SDL_RenderFillRect(renderer, &PlayerPokemonRect);
-        }
-        
-        // 渲染玩家宝可梦信息
-        std::string playerName = playerPokemonPtr->getName();
-        std::string playerHP = "HP: " + std::to_string(playerPokemonPtr->getCurrentHP()) + "/" + std::to_string(playerPokemonPtr->getMaxHP());
-        
-        // 这里应该使用Text类来渲染文本，现在使用占位符
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_Rect textRect = {50, 280, 200, 20};
-        SDL_RenderDrawRect(renderer, &textRect);
+        renderPokemon(renderer, playerPokemonPtr, PlayerPokemonRect, playerHealthBar);
     }
     
     // 渲染对手宝可梦
     Pokemon* opponentPokemonPtr = battle->getSideB().getActivePokemon();
     if (opponentPokemonPtr) {
-        // 渲染pichu.gif动画
-        opponentPokemonAnimated.Render(renderer, &OpponentPokemonRect);
-        // 渲染对手宝可梦信息
-        std::string opponentName = opponentPokemonPtr->getName();
-        std::string opponentHP = "HP: " + std::to_string(opponentPokemonPtr->getCurrentHP()) + "/" + std::to_string(opponentPokemonPtr->getMaxHP());
-        
-        // 这里应该使用Text类来渲染文本，现在使用占位符
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        SDL_Rect textRect = {800, 30, 200, 20};
-        SDL_RenderDrawRect(renderer, &textRect);
+        renderPokemon(renderer, opponentPokemonPtr, OpponentPokemonRect, opponentHealthBar);
     }
     
     // 渲染技能按钮
@@ -456,8 +417,26 @@ void BattleScene::Render(SDL_Renderer* renderer) {
             }
         }
     }
+    
+    // 检查是否需要虚化战斗场景
+    bool needBlur = isSwitching || isBagOpen;
+    
+    // 如果需要虚化战斗场景
+    if (needBlur) {
+        // 绘制半透明白色矩形，实现虚化效果
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 180);
+        SDL_Rect blurRect = {0, 0, windowRect.w, windowRect.h};
+        SDL_RenderFillRect(renderer, &blurRect);
+        
+        // 如果是打开背包，渲染背包界面
+        if (isBagOpen) {
+            renderBag(renderer, isPlayerTurn);
+        }
+    }
+    
+    // 渲染背包按钮（在虚化效果之上）
+    bagButton.Render(renderer);
 };
-
 void BattleScene::HandleEvents(SDL_Event& event) {
     if (!battleActive || !battle) return;
     
@@ -543,14 +522,24 @@ void BattleScene::HandleEvents(SDL_Event& event) {
         }
     }
     
-    // 处理按钮事件
-    for (int i = 0; i < moveButtons.size(); i++) {
-        moveButtons[i].HandleEvents(event);
-    }
+    // 处理背包按钮事件
+    bagButton.HandleEvents(event);
     
-    // 处理切换宝可梦的按钮事件
-    for (int i = 0; i < switchButtons.size(); i++) {
-        switchButtons[i].HandleEvents(event);
+    if (battle) {
+        // 处理按钮事件
+        for (int i = 0; i < moveButtons.size(); i++) {
+            moveButtons[i].HandleEvents(event);
+        }
+        
+        // 处理切换宝可梦的按钮事件
+        for (int i = 0; i < switchButtons.size(); i++) {
+            switchButtons[i].HandleEvents(event);
+        }
+        
+        // 处理背包中宝可梦切换按钮的事件
+        if (isBagOpen) {
+            handlePokemonSwitchEvents(event, isPlayerTurn);
+        }
     }
 }
 
@@ -674,7 +663,6 @@ void BattleScene::updateSwitchButtons(bool isPlayer) {
         }
     }
 }
-
 void BattleScene::handleSwitchSelection() {
     if (!battle) return;
     
@@ -741,4 +729,252 @@ std::string BattleScene::getTypeString(Type type) {
         case Type::Fairy: return "fairy";
         default: return "normal";
     }
+}
+
+void BattleScene::renderPokemonButtons(SDL_Renderer* renderer, bool isPlayer) {
+    if (!battle) return;
+    
+    const auto& team = isPlayer ? battle->getSideA().getTeam() : battle->getSideB().getTeam();
+    
+    // 宝可梦按钮的位置和大小
+    int buttonWidth = windowRect.w / 8;
+    int buttonHeight = windowRect.h / 12;
+    int buttonSpacingX = windowRect.w / 40;
+    int buttonSpacingY = windowRect.h / 60;
+    int startX = windowRect.w / 4 + 20;
+    int startY = windowRect.h / 4 + 60;
+    
+    // 定义不同的按钮颜色
+    SDL_Color buttonColors[] = {
+        {100, 100, 255, 255},  // 蓝色
+        {100, 255, 100, 255},  // 绿色
+        {255, 100, 100, 255},  // 红色
+        {255, 255, 100, 255},  // 黄色
+        {255, 100, 255, 255},  // 紫色
+        {100, 255, 255, 255}   // 青色
+    };
+    
+    // 加载字体
+    TTF_Font* font = TTF_OpenFont("../assets/fonts/arial.ttf", 12);
+    SDL_Color textColor = {0, 0, 0, 255};
+    
+    for (int i = 0; i < team.size(); i++) {
+        if (team[i] && !team[i]->isFainted()) {
+            int row = i / 2;
+            int col = i % 2;
+            SDL_Rect rect = {startX + col * (buttonWidth + buttonSpacingX), startY + row * (buttonHeight + buttonSpacingY), buttonWidth, buttonHeight};
+            
+            // 绘制按钮背景颜色
+            SDL_Color color = buttonColors[i % 6];
+            SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+            SDL_RenderFillRect(renderer, &rect);
+            
+            // 绘制按钮边框
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderDrawRect(renderer, &rect);
+            
+            // 渲染宝可梦名字
+            if (font) {
+                std::string pokemonName = team[i]->getName();
+                std::string hpText = "HP: " + std::to_string(team[i]->getCurrentHP()) + "/" + std::to_string(team[i]->getMaxHP());
+                std::string buttonText = pokemonName + "\n" + hpText;
+                
+                SDL_Surface* surface = TTF_RenderText_Solid(font, buttonText.c_str(), textColor);
+                if (surface) {
+                    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+                    if (texture) {
+                        int textWidth, textHeight;
+                        SDL_QueryTexture(texture, nullptr, nullptr, &textWidth, &textHeight);
+                        SDL_Rect textRect = {
+                            rect.x + (rect.w - textWidth) / 2,
+                            rect.y + (rect.h - textHeight) / 2,
+                            textWidth,
+                            textHeight
+                        };
+                        SDL_RenderCopy(renderer, texture, nullptr, &textRect);
+                        SDL_DestroyTexture(texture);
+                    }
+                    SDL_FreeSurface(surface);
+                }
+            }
+        }
+    }
+    
+    if (font) {
+        TTF_CloseFont(font);
+    }
+}
+
+void BattleScene::handlePokemonSwitchEvents(SDL_Event& event, bool isPlayer) {
+    if (!battle) return;
+    
+    const auto& team = isPlayer ? battle->getSideA().getTeam() : battle->getSideB().getTeam();
+    
+    // 宝可梦按钮的位置和大小
+    int buttonWidth = windowRect.w / 8;
+    int buttonHeight = windowRect.h / 12;
+    int buttonSpacingX = windowRect.w / 40;
+    int buttonSpacingY = windowRect.h / 60;
+    int startX = windowRect.w / 4 + 20;
+    int startY = windowRect.h / 4 + 60;
+    
+    if (event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+        int mouseX = event.button.x;
+        int mouseY = event.button.y;
+        
+        for (int i = 0; i < team.size(); i++) {
+            if (team[i] && !team[i]->isFainted()) {
+                int row = i / 2;
+                int col = i % 2;
+                SDL_Rect rect = {startX + col * (buttonWidth + buttonSpacingX), startY + row * (buttonHeight + buttonSpacingY), buttonWidth, buttonHeight};
+                
+                if (mouseX >= rect.x && mouseX <= rect.x + rect.w && mouseY >= rect.y && mouseY <= rect.y + rect.h) {
+                    // 创建切换动作
+                    Side* side = isPlayer ? &battle->getSideA() : &battle->getSideB();
+                    BattleAction action = BattleAction::makeSwitch(side->getActivePokemon(), i);
+                    
+                    // 入队动作
+                    battle->enqueueAction(action);
+                    
+                    // 标记操作已设置
+                    if (isPlayer) {
+                        playerActionSet = true;
+                        std::cout << "Player switched to: " << team[i]->getName() << std::endl;
+                    } else {
+                        opponentActionSet = true;
+                        std::cout << "Opponent switched to: " << team[i]->getName() << std::endl;
+                    }
+                    
+                    // 关闭背包
+                    isBagOpen = false;
+                    std::cout << "Bag closed after switching pokemon" << std::endl;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void BattleScene::updateHealthBar(HealthBar& healthBar, Pokemon* pokemon, Pokemon*& lastPokemon, float deltaTime) {
+    if (pokemon) {
+        // 检查宝可梦是否更换
+        if (lastPokemon != pokemon) {
+            // 宝可梦更换，直接设置血条，跳过动画
+            healthBar.setMaxHealth(pokemon->getMaxHP());
+            healthBar.setCurrentHealthImmediately(pokemon->getCurrentHP());
+            lastPokemon = pokemon;
+        } else {
+            // 宝可梦未更换，使用动画效果
+            healthBar.setCurrentHealth(pokemon->getCurrentHP());
+            healthBar.update(deltaTime);
+        }
+    }
+}
+
+void BattleScene::initializeHealthBars() {
+    if (battle) {
+        Pokemon* playerPokemonPtr = battle->getSideA().getActivePokemon();
+        Pokemon* opponentPokemonPtr = battle->getSideB().getActivePokemon();
+        
+        // 玩家宝可梦血条 - 锁定在宝可梦头上
+        if (playerPokemonPtr) {
+            SDL_Rect playerHpBarRect = {PlayerPokemonRect.x, PlayerPokemonRect.y - 20, PlayerPokemonRect.w, 10};
+            playerHealthBar = HealthBar(playerHpBarRect, playerPokemonPtr->getMaxHP());
+            playerHealthBar.setCurrentHealth(playerPokemonPtr->getCurrentHP());
+        }
+        
+        // 对手宝可梦血条 - 锁定在宝可梦头上
+        if (opponentPokemonPtr) {
+            SDL_Rect opponentHpBarRect = {OpponentPokemonRect.x, OpponentPokemonRect.y - 20, OpponentPokemonRect.w, 10};
+            opponentHealthBar = HealthBar(opponentHpBarRect, opponentPokemonPtr->getMaxHP());
+            opponentHealthBar.setCurrentHealth(opponentPokemonPtr->getCurrentHP());
+        }
+    }
+}
+
+void BattleScene::renderPokemon(SDL_Renderer* renderer, Pokemon* pokemon, const SDL_Rect& rect, HealthBar& healthBar) {
+    if (!pokemon) return;
+    
+    // 渲染宝可梦图片
+    if (playerPokemon.getTexture() && rect.x == PlayerPokemonRect.x && rect.y == PlayerPokemonRect.y && rect.w == PlayerPokemonRect.w && rect.h == PlayerPokemonRect.h) {
+        playerPokemon.Render(renderer, const_cast<SDL_Rect*>(&rect));
+    } else if (opponentPokemon.getTexture() && rect.x == OpponentPokemonRect.x && rect.y == OpponentPokemonRect.y && rect.w == OpponentPokemonRect.w && rect.h == OpponentPokemonRect.h) {
+        opponentPokemon.Render(renderer, const_cast<SDL_Rect*>(&rect));
+    } else {
+        // 图片加载失败，使用默认颜色填充
+        SDL_SetRenderDrawColor(renderer, 255, 100, 100, 255);
+        SDL_RenderFillRect(renderer, const_cast<SDL_Rect*>(&rect));
+    }
+    
+    // 更新血条位置，确保它始终在宝可梦头上
+    healthBar.setPosition(rect.x, rect.y - 20);
+    healthBar.setSize(rect.w, 10);
+    
+    // 渲染宝可梦名字（在血条上方）
+    TTF_Font* font = TTF_OpenFont("../assets/fonts/arial.ttf", 14);
+    if (font) {
+        SDL_Color textColor = {0, 0, 0, 255}; // 黑色字体
+        std::string pokemonName = pokemon->getName();
+        
+        SDL_Surface* surface = TTF_RenderText_Solid(font, pokemonName.c_str(), textColor);
+        if (surface) {
+            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+            if (texture) {
+                int textWidth, textHeight;
+                SDL_QueryTexture(texture, nullptr, nullptr, &textWidth, &textHeight);
+                SDL_Rect textRect = {
+                    rect.x + (rect.w - textWidth) / 2,
+                    rect.y - 40,
+                    textWidth,
+                    textHeight
+                };
+                SDL_RenderCopy(renderer, texture, nullptr, &textRect);
+                SDL_DestroyTexture(texture);
+            }
+            SDL_FreeSurface(surface);
+        }
+        TTF_CloseFont(font);
+    }
+    
+    // 渲染血条
+    healthBar.render(renderer);
+}
+
+void BattleScene::renderBag(SDL_Renderer* renderer, bool isPlayer) {
+    // 渲染背包背景
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+    SDL_Rect bagRect = {windowRect.w / 4, windowRect.h / 4, windowRect.w / 2, windowRect.h / 2};
+    SDL_RenderFillRect(renderer, &bagRect);
+    
+    // 渲染背包标题
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_Rect titleRect = {windowRect.w / 4 + 10, windowRect.h / 4 + 10, windowRect.w / 2 - 20, 40};
+    SDL_RenderDrawRect(renderer, &titleRect);
+    
+    // 渲染背包标题文本
+    TTF_Font* font = TTF_OpenFont("../assets/fonts/arial.ttf", 24);
+    if (font) {
+        SDL_Color textColor = {0, 0, 0, 255};
+        SDL_Surface* surface = TTF_RenderText_Solid(font, "Bag", textColor);
+        if (surface) {
+            SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+            if (texture) {
+                int width, height;
+                SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+                SDL_Rect textRect = {
+                    windowRect.w / 4 + (windowRect.w / 2 - width) / 2,
+                    windowRect.h / 4 + 15,
+                    width,
+                    height
+                };
+                SDL_RenderCopy(renderer, texture, nullptr, &textRect);
+                SDL_DestroyTexture(texture);
+            }
+            SDL_FreeSurface(surface);
+        }
+        TTF_CloseFont(font);
+    }
+    
+    // 渲染宝可梦按钮
+    renderPokemonButtons(renderer, isPlayer);
 }

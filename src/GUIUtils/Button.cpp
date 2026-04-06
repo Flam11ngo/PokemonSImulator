@@ -1,6 +1,37 @@
 #include"GUIUtils/Button.h"
 #include <sstream>
 
+// 绘制圆角矩形的辅助函数
+void drawRoundedRect(SDL_Renderer* renderer, SDL_Rect rect, int radius, SDL_Color color) {
+    // 设置颜色
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    
+    // 绘制中间的矩形
+    SDL_Rect middleRect = {rect.x + radius, rect.y, rect.w - 2 * radius, rect.h};
+    SDL_RenderFillRect(renderer, &middleRect);
+    
+    // 绘制顶部和底部的矩形
+    SDL_Rect topRect = {rect.x, rect.y + radius, rect.w, rect.h - 2 * radius};
+    SDL_RenderFillRect(renderer, &topRect);
+    
+    // 绘制四个角的圆形
+    for (int i = 0; i < 4; i++) {
+        int x = rect.x + (i % 2) * (rect.w - 2 * radius) + radius;
+        int y = rect.y + (i / 2) * (rect.h - 2 * radius) + radius;
+        
+        // 绘制一个填充的圆形
+        for (int w = 0; w < 2 * radius; w++) {
+            for (int h = 0; h < 2 * radius; h++) {
+                int dx = radius - w;
+                int dy = radius - h;
+                if (dx * dx + dy * dy <= radius * radius) {
+                    SDL_RenderDrawPoint(renderer, x - radius + w, y - radius + h);
+                }
+            }
+        }
+    }
+}
+
 void Button::SetCallback(std::function<void()> callback) {
     this->callback = std::move(callback);
 }
@@ -64,30 +95,33 @@ void Button::Update(const float deltaTime) {
 void Button::Render(SDL_Renderer* render) {
     if (!visible) return;
     
-    // 渲染按钮背景
-    background.Render(render, &drect);
+    // 计算按钮的渲染矩形
+    SDL_Rect renderRect = drect;
     
-    // 根据按钮状态渲染不同的效果
-    switch (ButtonState) {
-        case ButtonStates::Normal:
-            // 渲染正常状态
-            break;
-        case ButtonStates::Hover:
-            // 渲染悬停状态 - 加厚白色边框
-            SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
-            for (int i = 0; i < 3; i++) {
-                SDL_Rect borderRect = {drect.x - i, drect.y - i, drect.w + 2 * i, drect.h + 2 * i};
-                SDL_RenderDrawRect(render, &borderRect);
-            }
-            break;
-        case ButtonStates::Pressed:
-            // 渲染按下状态 - 加厚白色边框
-            SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
-            for (int i = 0; i < 3; i++) {
-                SDL_Rect borderRect = {drect.x - i, drect.y - i, drect.w + 2 * i, drect.h + 2 * i};
-                SDL_RenderDrawRect(render, &borderRect);
-            }
-            break;
+    // 根据按钮状态调整渲染矩形
+    if (ButtonState == ButtonStates::Hover) {
+        // 悬停状态 - 稍微放大按钮
+        int scale = 5; // 放大的像素数
+        renderRect.x -= scale;
+        renderRect.y -= scale;
+        renderRect.w += 2 * scale;
+        renderRect.h += 2 * scale;
+    } else if (ButtonState == ButtonStates::Pressed) {
+        // 按下状态 - 稍微缩小按钮
+        int scale = 2; // 缩小的像素数
+        renderRect.x += scale;
+        renderRect.y += scale;
+        renderRect.w -= 2 * scale;
+        renderRect.h -= 2 * scale;
+    }
+    
+    // 渲染按钮背景 - 优先使用背景图
+    if (background.getTexture()) {
+        background.Render(render, &renderRect);
+    } else {
+        // 如果没有背景图，使用圆角矩形
+        SDL_Color bgColor = {100, 100, 100, 255}; // 灰色背景
+        drawRoundedRect(render, renderRect, 10, bgColor);
     }
     
     // 渲染按钮文本
@@ -96,7 +130,7 @@ void Button::Render(SDL_Renderer* render) {
         std::string line;
         std::istringstream stream(text);
         int lineHeight = 20; // 每行文本的高度
-        int startY = drect.y + 10; // 文本起始Y坐标
+        int startY = renderRect.y + 10; // 文本起始Y坐标
         
         while (std::getline(stream, line)) {
             SDL_Surface* surface = TTF_RenderText_Solid(font, line.c_str(), textColor);
@@ -108,7 +142,7 @@ void Button::Render(SDL_Renderer* render) {
                     
                     // 计算文本居中的位置
                     SDL_Rect destRect = {
-                        drect.x + (drect.w - width) / 2,
+                        renderRect.x + (renderRect.w - width) / 2,
                         startY,
                         width,
                         height

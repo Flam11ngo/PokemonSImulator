@@ -77,3 +77,26 @@ bool Pokemon::hasStatus(StatusType s) const {
                            return status.first == s;
                        });
 }
+
+// 拷贝构造函数实现
+Pokemon::Pokemon(const Pokemon& other) :
+    species(other.species),
+    name(other.name),
+    type1(other.type1),
+    type2(other.type2),
+    nature(other.nature),
+    ability(other.ability),
+    itemType(other.itemType),
+    level(other.level),
+    maxHP(other.maxHP),
+    currentHP(other.currentHP),
+    attack(other.attack),
+    defense(other.defense),
+    specialAttack(other.specialAttack),
+    specialDefense(other.specialDefense),
+    speed(other.speed),
+    statuses(other.statuses),
+    moves(other.moves),
+    ivs(other.ivs),
+    evs(other.evs) {
+}

@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/qzz/PokemonSimulator/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target test
-test:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
-	/usr/bin/ctest --force-new-ctest-process $(ARGS)
-.PHONY : test
-
-# Special rule for the target test
-test/fast: test
-.PHONY : test/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -94,51 +84,6 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -183,71 +128,6 @@ PokemonSimulator: cmake_check_build_system
 PokemonSimulator/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/build
 .PHONY : PokemonSimulator/fast
-
-#=============================================================================
-# Target rules for targets named gmock
-
-# Build rule for target.
-gmock: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
-.PHONY : gmock
-
-# fast build rule for target.
-gmock/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
-.PHONY : gmock/fast
-
-#=============================================================================
-# Target rules for targets named gmock_main
-
-# Build rule for target.
-gmock_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
-.PHONY : gmock_main
-
-# fast build rule for target.
-gmock_main/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
-.PHONY : gmock_main/fast
-
-#=============================================================================
-# Target rules for targets named gtest
-
-# Build rule for target.
-gtest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
-.PHONY : gtest
-
-# fast build rule for target.
-gtest/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
-.PHONY : gtest/fast
-
-#=============================================================================
-# Target rules for targets named gtest_main
-
-# Build rule for target.
-gtest_main: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
-.PHONY : gtest_main
-
-# fast build rule for target.
-gtest_main/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
-.PHONY : gtest_main/fast
-
-#=============================================================================
-# Target rules for targets named BattleTest
-
-# Build rule for target.
-BattleTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 BattleTest
-.PHONY : BattleTest
-
-# fast build rule for target.
-BattleTest/fast:
-	$(MAKE) $(MAKESILENT) -f src/Battle/CMakeFiles/BattleTest.dir/build.make src/Battle/CMakeFiles/BattleTest.dir/build
-.PHONY : BattleTest/fast
 
 src/Animated.o: src/Animated.cpp.o
 .PHONY : src/Animated.o
@@ -368,6 +248,54 @@ src/Battle/BattleQueue.s: src/Battle/BattleQueue.cpp.s
 src/Battle/BattleQueue.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.s
 .PHONY : src/Battle/BattleQueue.cpp.s
+
+src/Battle/BattleToJson.o: src/Battle/BattleToJson.cpp.o
+.PHONY : src/Battle/BattleToJson.o
+
+# target to build an object file
+src/Battle/BattleToJson.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o
+.PHONY : src/Battle/BattleToJson.cpp.o
+
+src/Battle/BattleToJson.i: src/Battle/BattleToJson.cpp.i
+.PHONY : src/Battle/BattleToJson.i
+
+# target to preprocess a source file
+src/Battle/BattleToJson.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.i
+.PHONY : src/Battle/BattleToJson.cpp.i
+
+src/Battle/BattleToJson.s: src/Battle/BattleToJson.cpp.s
+.PHONY : src/Battle/BattleToJson.s
+
+# target to generate assembly for a file
+src/Battle/BattleToJson.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.s
+.PHONY : src/Battle/BattleToJson.cpp.s
+
+src/Battle/BuildFromJson.o: src/Battle/BuildFromJson.cpp.o
+.PHONY : src/Battle/BuildFromJson.o
+
+# target to build an object file
+src/Battle/BuildFromJson.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o
+.PHONY : src/Battle/BuildFromJson.cpp.o
+
+src/Battle/BuildFromJson.i: src/Battle/BuildFromJson.cpp.i
+.PHONY : src/Battle/BuildFromJson.i
+
+# target to preprocess a source file
+src/Battle/BuildFromJson.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.i
+.PHONY : src/Battle/BuildFromJson.cpp.i
+
+src/Battle/BuildFromJson.s: src/Battle/BuildFromJson.cpp.s
+.PHONY : src/Battle/BuildFromJson.s
+
+# target to generate assembly for a file
+src/Battle/BuildFromJson.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.s
+.PHONY : src/Battle/BuildFromJson.cpp.s
 
 src/Battle/Effect.o: src/Battle/Effect.cpp.o
 .PHONY : src/Battle/Effect.o
@@ -729,6 +657,30 @@ src/GUIUtils/Dialog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.s
 .PHONY : src/GUIUtils/Dialog.cpp.s
 
+src/GUIUtils/HealthBar.o: src/GUIUtils/HealthBar.cpp.o
+.PHONY : src/GUIUtils/HealthBar.o
+
+# target to build an object file
+src/GUIUtils/HealthBar.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o
+.PHONY : src/GUIUtils/HealthBar.cpp.o
+
+src/GUIUtils/HealthBar.i: src/GUIUtils/HealthBar.cpp.i
+.PHONY : src/GUIUtils/HealthBar.i
+
+# target to preprocess a source file
+src/GUIUtils/HealthBar.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.i
+.PHONY : src/GUIUtils/HealthBar.cpp.i
+
+src/GUIUtils/HealthBar.s: src/GUIUtils/HealthBar.cpp.s
+.PHONY : src/GUIUtils/HealthBar.s
+
+# target to generate assembly for a file
+src/GUIUtils/HealthBar.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.s
+.PHONY : src/GUIUtils/HealthBar.cpp.s
+
 src/GUIUtils/Label.o: src/GUIUtils/Label.cpp.o
 .PHONY : src/GUIUtils/Label.o
 
@@ -928,18 +880,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... test"
-	@echo "... BattleTest"
 	@echo "... PokemonSimulator"
-	@echo "... gmock"
-	@echo "... gmock_main"
-	@echo "... gtest"
-	@echo "... gtest_main"
 	@echo "... src/Animated.o"
 	@echo "... src/Animated.i"
 	@echo "... src/Animated.s"
@@ -955,6 +897,12 @@ help:
 	@echo "... src/Battle/BattleQueue.o"
 	@echo "... src/Battle/BattleQueue.i"
 	@echo "... src/Battle/BattleQueue.s"
+	@echo "... src/Battle/BattleToJson.o"
+	@echo "... src/Battle/BattleToJson.i"
+	@echo "... src/Battle/BattleToJson.s"
+	@echo "... src/Battle/BuildFromJson.o"
+	@echo "... src/Battle/BuildFromJson.i"
+	@echo "... src/Battle/BuildFromJson.s"
 	@echo "... src/Battle/Effect.o"
 	@echo "... src/Battle/Effect.i"
 	@echo "... src/Battle/Effect.s"
@@ -1000,6 +948,9 @@ help:
 	@echo "... src/GUIUtils/Dialog.o"
 	@echo "... src/GUIUtils/Dialog.i"
 	@echo "... src/GUIUtils/Dialog.s"
+	@echo "... src/GUIUtils/HealthBar.o"
+	@echo "... src/GUIUtils/HealthBar.i"
+	@echo "... src/GUIUtils/HealthBar.s"
 	@echo "... src/GUIUtils/Label.o"
 	@echo "... src/GUIUtils/Label.i"
 	@echo "... src/GUIUtils/Label.s"

@@ -1,0 +1,15 @@
+{
+  "actor": "Venusaur",
+  "event": "attack_result",
+  "move": "Solar Beam",
+  "side_a": {
+    "active_pokemon": "Venusaur",
+    "name": "Player"
+  },
+  "side_b": {
+    "active_pokemon": "Blastoise",
+    "name": "Opponent"
+  },
+  "target": "Blastoise",
+  "turn": 5
+}

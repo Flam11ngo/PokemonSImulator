@@ -1,0 +1,15 @@
+{
+  "actor": "Blastoise",
+  "event": "attack_result",
+  "move": "Ice Beam",
+  "side_a": {
+    "active_pokemon": "Venusaur",
+    "name": "Player"
+  },
+  "side_b": {
+    "active_pokemon": "Blastoise",
+    "name": "Opponent"
+  },
+  "target": "Venusaur",
+  "turn": 5
+}

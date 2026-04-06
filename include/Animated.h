@@ -9,6 +9,7 @@ private:
     std::vector<int> frameDelays; // 每帧的延迟时间（毫秒）
     int currentFrame; 
     Uint32 lastFrameTime;
+    float elapsedTime; // 累积时间（毫秒）
     bool isPlaying;
     bool isLooping;
     SDL_Rect srcRect;
