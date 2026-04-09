@@ -1,0 +1,5 @@
+if(EXISTS "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests[1]_tests.cmake")
+  include("/home/qzz/PokemonSimulator/build/PokemonSimulatorTests[1]_tests.cmake")
+else()
+  add_test(PokemonSimulatorTests_NOT_BUILT PokemonSimulatorTests_NOT_BUILT)
+endif()

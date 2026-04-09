@@ -3,6 +3,6 @@
   "event": "action_start",
   "move": "Hydro Pump",
   "priority": 98,
-  "target": "Charizard",
+  "target": "Venusaur",
   "type": "attack"
 }

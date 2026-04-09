@@ -4,8 +4,6 @@
 #include "Battle/Abilities.h"
 #include "Battle/Items.h"
 #include "Battle/Status.h"
-#include "Battle/Weather.h"
-#include "Battle/Field.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -86,14 +84,55 @@ std::string BattleToJson::abilityTypeToString(AbilityType ability) {
         case AbilityType::Torrent: return "torrent";
         case AbilityType::Overgrow: return "overgrow";
         case AbilityType::Intimidate: return "intimidate";
+        case AbilityType::Multiscale: return "multiscale";
+        case AbilityType::Levitate: return "levitate";
+        case AbilityType::WaterAbsorb: return "water-absorb";
+        case AbilityType::VoltAbsorb: return "volt-absorb";
+        case AbilityType::FlashFire: return "flash-fire";
+        case AbilityType::Static: return "static";
         default: return "none";
     }
 }
 
 // 将ItemType转换为字符串
 std::string BattleToJson::itemTypeToString(ItemType item) {
-    switch (item) {
-        case ItemType::None: return "none";
+    if (item == ItemType::None) {
+        return "none";
+    }
+    return getItemName(item);
+}
+
+std::string BattleToJson::statusTypeToString(StatusType status) {
+    switch (status) {
+        case StatusType::Burn: return "burn";
+        case StatusType::Freeze: return "freeze";
+        case StatusType::Paralysis: return "paralysis";
+        case StatusType::Poison: return "poison";
+        case StatusType::Sleep: return "sleep";
+        case StatusType::ToxicPoison: return "toxic_poison";
+        case StatusType::Confusion: return "confusion";
+        default: return "none";
+    }
+}
+
+std::string BattleToJson::weatherTypeToString(WeatherType weather) {
+    switch (weather) {
+        case WeatherType::Rain: return "rain";
+        case WeatherType::Sun: return "sun";
+        case WeatherType::Sandstorm: return "sandstorm";
+        case WeatherType::Hail: return "hail";
+        case WeatherType::Snow: return "snow";
+        default: return "clear";
+    }
+}
+
+std::string BattleToJson::fieldTypeToString(FieldType field) {
+    switch (field) {
+        case FieldType::Psychic: return "psychic";
+        case FieldType::Electric: return "electric";
+        case FieldType::Grassy: return "grassy";
+        case FieldType::Misty: return "misty";
+        case FieldType::TrickRoom: return "trick_room";
         default: return "none";
     }
 }
@@ -132,6 +171,9 @@ json BattleToJson::pokemonToJson(const Pokemon* pokemon) {
     json jsonPokemon;
     jsonPokemon["name"] = pokemon->getName();
     jsonPokemon["level"] = pokemon->getLevel();
+    jsonPokemon["current_hp"] = pokemon->getCurrentHP();
+    jsonPokemon["max_hp"] = pokemon->getMaxHP();
+    jsonPokemon["is_fainted"] = pokemon->isFainted();
     
     // 类型
     jsonPokemon["type1"] = typeToString(pokemon->getType1());
@@ -159,6 +201,31 @@ json BattleToJson::pokemonToJson(const Pokemon* pokemon) {
         movesArray.push_back(moveJson);
     }
     jsonPokemon["moves"] = movesArray;
+
+    json statStages;
+    statStages["attack"] = pokemon->getStatStage(StatIndex::Attack);
+    statStages["defense"] = pokemon->getStatStage(StatIndex::Defense);
+    statStages["special_attack"] = pokemon->getStatStage(StatIndex::SpecialAttack);
+    statStages["special_defense"] = pokemon->getStatStage(StatIndex::SpecialDefense);
+    statStages["speed"] = pokemon->getStatStage(StatIndex::Speed);
+    jsonPokemon["stat_stages"] = statStages;
+
+    json statuses = json::array();
+    for (const auto& statusEntry : pokemon->getStatuses()) {
+        json one;
+        one["type"] = statusTypeToString(statusEntry.first);
+        one["duration"] = statusEntry.second;
+        statuses.push_back(one);
+    }
+    jsonPokemon["statuses"] = statuses;
+
+    json stats;
+    stats["attack"] = pokemon->getAttack();
+    stats["defense"] = pokemon->getDefense();
+    stats["special_attack"] = pokemon->getSpecialAttack();
+    stats["special_defense"] = pokemon->getSpecialDefense();
+    stats["speed"] = pokemon->getSpeed();
+    jsonPokemon["stats"] = stats;
     
     return jsonPokemon;
 }
@@ -167,11 +234,20 @@ json BattleToJson::pokemonToJson(const Pokemon* pokemon) {
 json BattleToJson::sideToJson(const Side& side) {
     json jsonSide;
     jsonSide["name"] = side.getName();
+    jsonSide["active_index"] = side.getActiveIndex();
+    jsonSide["pokemon_count"] = side.getPokemonCount();
     
     // 当前活跃的宝可梦
     if (side.getActivePokemon()) {
-        jsonSide["active_pokemon"] = side.getActivePokemon()->getName();
+        jsonSide["active_pokemon"] = pokemonToJson(side.getActivePokemon());
     }
+
+    json team = json::array();
+    const auto& all = side.getTeam();
+    for (int i = 0; i < side.getPokemonCount(); ++i) {
+        team.push_back(pokemonToJson(all[i]));
+    }
+    jsonSide["team"] = team;
     
     return jsonSide;
 }
@@ -184,6 +260,16 @@ json BattleToJson::battleToJson(Battle& battle) {
     // 双方
     jsonBattle["side_a"] = sideToJson(battle.getSideA());
     jsonBattle["side_b"] = sideToJson(battle.getSideB());
+
+    json fieldJson;
+    fieldJson["type"] = fieldTypeToString(battle.getField().type);
+    fieldJson["duration"] = battle.getField().duration;
+    jsonBattle["field"] = fieldJson;
+
+    json weatherJson;
+    weatherJson["type"] = weatherTypeToString(battle.getWeather().type);
+    weatherJson["duration"] = battle.getWeather().duration;
+    jsonBattle["weather"] = weatherJson;
     
     return jsonBattle;
 }

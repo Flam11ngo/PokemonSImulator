@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <array>
+#include <limits>
 
 Side* Battle::findSideForPokemon(Battle& battle, Pokemon* pokemon) {
     if (battle.getSideA().getActivePokemon() == pokemon) return &battle.getSideA();
@@ -56,7 +58,13 @@ const EventSystem& Battle::getEventSystem() const {
 }
 
 void Battle::enqueueAction(const BattleAction& action) {
-    queue.push(action, field.isTrickRoom());
+    BattleAction adjusted = action;
+    if (adjusted.type == ActionType::Attack && adjusted.actor && adjusted.actor->getItemType() == ItemType::QuickClaw) {
+        if (PRNG::nextFloat(0.0f, 1.0f) < 0.2f) {
+            adjusted.priority = std::numeric_limits<int>::max() / 4;
+        }
+    }
+    queue.push(adjusted, field.isTrickRoom());
 }
 
 void Battle::processTurn() {
@@ -131,6 +139,13 @@ void Battle::resolveNextAction() {
             
             // 计算伤害
             int damage = calculateDamage(action.actor, action.target, action.move);
+            ItemDamageContext damageContext;
+            damageContext.move = &action.move;
+            damageContext.damage = damage;
+            damageContext.hpBeforeDamage = action.target->getCurrentHP();
+            damageContext.wasSuperEffective = action.target->getTypeEffectiveness(action.move.getType()) > 1.0f;
+            damageContext.isDamagingMove = action.move.getCategory() != Category::Status;
+            damageContext.isContact = action.move.getCategory() == Category::Physical;
             
             // 输出攻击信息
             // 应用伤害
@@ -138,7 +153,7 @@ void Battle::resolveNextAction() {
             
             // 触发受到伤害时的效果
             triggerAbilities(Trigger::OnDamage, action.target);
-            triggerItemEffect(action.target, ItemTrigger::OnDamage, action.actor);
+            triggerItemEffect(action.target, ItemTrigger::OnDamage, action.actor, &damageContext);
             
             // 检查目标是否濒死
             if (action.target->isFainted()) {
@@ -155,7 +170,7 @@ void Battle::resolveNextAction() {
             
             // 触发攻击后的效果
             triggerAbilities(Trigger::OnDealDamage, action.actor);
-            triggerItemEffects(ItemTrigger::OnDealDamage, action.actor);
+            triggerItemEffect(action.actor, ItemTrigger::OnDealDamage, action.target, &damageContext);
             
             // 输出攻击结果的Json
             json attackResultJson = BattleToJson::battleToJson(*this);
@@ -246,23 +261,85 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
         return 0;
     }
 
+    const AbilityType atkAbility = attacker->getAbility();
+    const AbilityType defAbility = defender->getAbility();
+
+    // 当前引擎可稳定实现的属性免疫/吸收能力。
+    if (defAbility == AbilityType::Levitate && move.getType() == Type::Ground) {
+        return 0;
+    }
+    if (defAbility == AbilityType::WaterAbsorb && move.getType() == Type::Water) {
+        defender->setCurrentHP(defender->getCurrentHP() + std::max(1, defender->getMaxHP() / 4));
+        return 0;
+    }
+    if (defAbility == AbilityType::VoltAbsorb && move.getType() == Type::Electric) {
+        defender->setCurrentHP(defender->getCurrentHP() + std::max(1, defender->getMaxHP() / 4));
+        return 0;
+    }
+    if (defAbility == AbilityType::FlashFire && move.getType() == Type::Fire) {
+        return 0;
+    }
+
+    auto stageMultiplier = [](int stage) -> float {
+        if (stage >= 0) {
+            return static_cast<float>(2 + stage) / 2.0f;
+        }
+        return 2.0f / static_cast<float>(2 - stage);
+    };
+
     float attackStat = (move.getCategory() == Category::Physical) ? attacker->getAttack() : attacker->getSpecialAttack();
     float defenseStat = (move.getCategory() == Category::Physical) ? defender->getDefense() : defender->getSpecialDefense();
+
+    if (move.getCategory() == Category::Physical) {
+        attackStat *= stageMultiplier(attacker->getStatStage(StatIndex::Attack));
+        defenseStat *= stageMultiplier(defender->getStatStage(StatIndex::Defense));
+    } else if (move.getCategory() == Category::Special) {
+        attackStat *= stageMultiplier(attacker->getStatStage(StatIndex::SpecialAttack));
+        defenseStat *= stageMultiplier(defender->getStatStage(StatIndex::SpecialDefense));
+    }
+
     if (defenseStat <= 0.0f) {
         defenseStat = 1.0f;
     }
 
     float base = ((2.0f * attacker->getLevel() / 5.0f + 2.0f) * move.getPower() * attackStat / defenseStat) / 50.0f + 2.0f;
-    float modifier = attacker->getTypeEffectiveness(move.getType());
+    float modifier = defender->getTypeEffectiveness(move.getType());
     
     // 应用天气加成并输出日志
     float weatherModifier = weather.applyDamageModifier(move.getType());
     modifier *= weatherModifier;
     
+    float damage = base * modifier;
+
+    if (atkAbility == AbilityType::Blaze && move.getType() == Type::Fire && attacker->getCurrentHP() * 3 <= attacker->getMaxHP()) {
+        damage *= 1.5f;
+    }
+    if (atkAbility == AbilityType::Torrent && move.getType() == Type::Water && attacker->getCurrentHP() * 3 <= attacker->getMaxHP()) {
+        damage *= 1.5f;
+    }
+    if (atkAbility == AbilityType::Overgrow && move.getType() == Type::Grass && attacker->getCurrentHP() * 3 <= attacker->getMaxHP()) {
+        damage *= 1.5f;
+    }
+    if (defAbility == AbilityType::Multiscale && defender->getCurrentHP() == defender->getMaxHP()) {
+        damage *= 0.5f;
+    }
+    if (atkAbility == AbilityType::FlashFire && move.getType() == Type::Fire) {
+        damage *= 1.5f;
+    }
+
+    // 应用攻击方/防守方道具的伤害修正
+    const Item attackerItem = attacker->getHeldItem();
+    damage = attackerItem.applyDamageModifier(damage, attacker, defender, move, true);
+    const Item defenderItem = defender->getHeldItem();
+    damage = defenderItem.applyDamageModifier(damage, defender, attacker, move, false);
+
     // 添加随机数影响，伤害在85%到100%之间波动
     float randomFactor = PRNG::nextFloat(0.85f, 1.0f);
-    
-    return static_cast<int>(std::lround(base * modifier * randomFactor));
+    int finalDamage = static_cast<int>(std::lround(damage * randomFactor));
+    if (finalDamage < 0) {
+        finalDamage = 0;
+    }
+    return finalDamage;
 }
 
 bool Battle::switchPokemon(Side& side, int newIndex) {
@@ -284,8 +361,16 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
     // 检查效果是否触发
     int chance = move.getEffectChance();
     if (chance < 100) {
-        // 这里应该使用随机数生成器来决定是否触发效果
-        // 为了测试，我们假设效果总是触发
+        if (PRNG::nextFloat(0.0f, 100.0f) > static_cast<float>(chance)) {
+            return;
+        }
+    }
+
+    if (move.getName() == "Dragon Dance") {
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::Speed, 1);
+        triggerItemEffect(attacker, ItemTrigger::OnStatChange, defender);
+        return;
     }
     
     // 处理不同的追加效果
@@ -303,10 +388,14 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
             defender->addStatus(StatusType::Burn);
             break;
         case MoveEffect::Poison:
-            defender->addStatus(StatusType::Poison);
+            if (move.getEffectParam1() == 2) {
+                defender->addStatus(StatusType::ToxicPoison);
+            } else {
+                defender->addStatus(StatusType::Poison);
+            }
             break;
         case MoveEffect::Confuse:
-            // 这里应该添加混乱状态的处理，但StatusType枚举中没有Confusion成员
+            defender->addStatus(StatusType::Confusion);
             break;
         case MoveEffect::Flinch:
             // 这里应该添加畏缩状态的处理
@@ -334,9 +423,22 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
             break;
         case MoveEffect::StatChange:
             {
-                int statIndex = move.getEffectParam1();
-                int changeAmount = move.getEffectParam2();
-                // 这里应该添加能力变化的处理
+                const int encodedIndex = move.getEffectParam1();
+                const int changeAmount = move.getEffectParam2();
+                const bool affectSelf = encodedIndex < 0;
+                const int absIndex = std::abs(encodedIndex);
+                if (changeAmount == 0 || absIndex <= 0 || absIndex >= static_cast<int>(StatIndex::Count)) {
+                    break;
+                }
+
+                Pokemon* target = affectSelf ? attacker : defender;
+                Pokemon* itemOpponent = affectSelf ? defender : attacker;
+                const int beforeStage = target->getStatStage(static_cast<StatIndex>(absIndex));
+                target->changeStatStage(static_cast<StatIndex>(absIndex), changeAmount);
+                const int afterStage = target->getStatStage(static_cast<StatIndex>(absIndex));
+                if (afterStage != beforeStage) {
+                    triggerItemEffect(target, ItemTrigger::OnStatChange, itemOpponent);
+                }
             }
             break;
         case MoveEffect::Safeguard:
@@ -463,12 +565,46 @@ void Battle::applyFieldEffects() {
 
 void Battle::triggerAbility(Pokemon* pokemon, Trigger trigger, Pokemon* opponent, void* context) {
     if (!pokemon) return;
+
+    auto snapshotStages = [](Pokemon* target) {
+        std::array<int, 5> stages = {0, 0, 0, 0, 0};
+        if (!target) {
+            return stages;
+        }
+        stages[0] = target->getStatStage(StatIndex::Attack);
+        stages[1] = target->getStatStage(StatIndex::Defense);
+        stages[2] = target->getStatStage(StatIndex::SpecialAttack);
+        stages[3] = target->getStatStage(StatIndex::SpecialDefense);
+        stages[4] = target->getStatStage(StatIndex::Speed);
+        return stages;
+    };
+
+    auto statChanged = [](Pokemon* target, const std::array<int, 5>& before) {
+        if (!target) {
+            return false;
+        }
+        return target->getStatStage(StatIndex::Attack) != before[0]
+            || target->getStatStage(StatIndex::Defense) != before[1]
+            || target->getStatStage(StatIndex::SpecialAttack) != before[2]
+            || target->getStatStage(StatIndex::SpecialDefense) != before[3]
+            || target->getStatStage(StatIndex::Speed) != before[4];
+    };
+
+    const std::array<int, 5> selfBefore = snapshotStages(pokemon);
+    const std::array<int, 5> opponentBefore = snapshotStages(opponent);
     
     AbilityType abilityType = pokemon->getAbility();
     Ability ability = getAbility(abilityType);
     
     if (ability.hasTrigger(trigger)) {
         ability.executeTrigger(trigger, pokemon, opponent, context);
+    }
+
+    if (statChanged(pokemon, selfBefore)) {
+        triggerItemEffect(pokemon, ItemTrigger::OnStatChange, opponent);
+    }
+    if (statChanged(opponent, opponentBefore)) {
+        triggerItemEffect(opponent, ItemTrigger::OnStatChange, pokemon);
     }
 }
 

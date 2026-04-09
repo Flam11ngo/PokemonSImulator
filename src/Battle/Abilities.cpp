@@ -1,71 +1,94 @@
 #include "Abilities.h"
 #include "Pokemon.h" // For Pokemon class
-#include <iostream>
+#include <cctype>
+
+std::string getAbilityName(AbilityType type) {
+    switch (type) {
+        case AbilityType::Intimidate: return "Intimidate";
+        case AbilityType::Overgrow: return "Overgrow";
+        case AbilityType::Blaze: return "Blaze";
+        case AbilityType::Torrent: return "Torrent";
+        case AbilityType::Multiscale: return "Multiscale";
+        case AbilityType::Levitate: return "Levitate";
+        case AbilityType::WaterAbsorb: return "Water Absorb";
+        case AbilityType::VoltAbsorb: return "Volt Absorb";
+        case AbilityType::FlashFire: return "Flash Fire";
+        case AbilityType::Static: return "Static";
+        default: return "None";
+    }
+}
+
+AbilityType getAbilityTypeByName(const std::string& name) {
+    std::string key;
+    key.reserve(name.size());
+    for (char ch : name) {
+        if (ch == ' ' || ch == '-' || ch == '_' || ch == '\'') {
+            continue;
+        }
+        key.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(ch))));
+    }
+
+    if (key == "intimidate") return AbilityType::Intimidate;
+    if (key == "overgrow") return AbilityType::Overgrow;
+    if (key == "blaze") return AbilityType::Blaze;
+    if (key == "torrent") return AbilityType::Torrent;
+    if (key == "multiscale") return AbilityType::Multiscale;
+    if (key == "levitate") return AbilityType::Levitate;
+    if (key == "waterabsorb") return AbilityType::WaterAbsorb;
+    if (key == "voltabsorb") return AbilityType::VoltAbsorb;
+    if (key == "flashfire") return AbilityType::FlashFire;
+    if (key == "static") return AbilityType::Static;
+    return AbilityType::None;
+}
 
 Ability getAbility(AbilityType type) {
-    Ability ability;
+    AbilityData abilityData = getAbilityData(type);
+    if (abilityData.type == AbilityType::None && type != AbilityType::None) {
+        abilityData.type = type;
+    }
+    if (abilityData.name.empty() || abilityData.name == "None") {
+        abilityData.name = getAbilityName(type);
+    }
+
+    Ability ability(abilityData);
+    ability.damageModifier = {1.0f, true};
+
     switch (type) {
         case AbilityType::Intimidate:
-            ability.name = "Intimidate";
-            ability.type = AbilityType::Intimidate;
             ability.effects[Trigger::OnEntry] = [](Pokemon* self, Pokemon* opponent, void* context) {
                 if (!opponent || !self) return;
-                // 降低对手攻击
-                // 这里需要实现降低对手攻击的逻辑
-                // 由于Pokemon类没有直接修改攻击的方法，这里暂时使用占位符
+                if (!opponent->isFainted()) {
+                    opponent->changeStatStage(StatIndex::Attack, -1);
+                }
             };
             break;
         case AbilityType::Overgrow:
-            ability.name = "Overgrow";
-            ability.type = AbilityType::Overgrow;
-            ability.effects[Trigger::OnDamage] = [](Pokemon* self, Pokemon* opponent, void* context) {
-                if (!self) return;
-                // 检查HP是否低于33%
-                if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    // 草系技能威力提升50%
-                    // 这里需要在伤害计算中实现
-                }
-            };
+            ability.effects[Trigger::OnDamage] = [](Pokemon*, Pokemon*, void*) {};
             break;
         case AbilityType::Blaze:
-            ability.name = "Blaze";
-            ability.type = AbilityType::Blaze;
-            ability.effects[Trigger::OnDamage] = [](Pokemon* self, Pokemon* opponent, void* context) {
-                if (!self) return;
-                // 检查HP是否低于33%
-                if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    // 火系技能威力提升50%
-                    // 这里需要在伤害计算中实现
-                }
-            };
+            ability.effects[Trigger::OnDamage] = [](Pokemon*, Pokemon*, void*) {};
             break;
         case AbilityType::Torrent:
-            ability.name = "Torrent";
-            ability.type = AbilityType::Torrent;
-            ability.effects[Trigger::OnDamage] = [](Pokemon* self, Pokemon* opponent, void* context) {
-                if (!self) return;
-                // 检查HP是否低于33%
-                if (self->getCurrentHP() < self->getMaxHP() / 3) {
-                    // 水系技能威力提升50%
-                    // 这里需要在伤害计算中实现
-                }
-            };
+            ability.effects[Trigger::OnDamage] = [](Pokemon*, Pokemon*, void*) {};
             break;
         case AbilityType::Multiscale:
-            ability.name = "Multiscale";
-            ability.type = AbilityType::Multiscale;
-            ability.effects[Trigger::OnDamage] = [](Pokemon* self, Pokemon* opponent, void* context) {
-                if (!self) return;
-                // 检查是否满血
-                if (self->getCurrentHP() == self->getMaxHP()) {
-                    // 受到的伤害减少50%
-                    // 这里需要在伤害计算中实现
-                }
+            ability.effects[Trigger::OnDamage] = [](Pokemon*, Pokemon*, void*) {};
+            break;
+        case AbilityType::Levitate:
+            break;
+        case AbilityType::WaterAbsorb:
+            break;
+        case AbilityType::VoltAbsorb:
+            break;
+        case AbilityType::FlashFire:
+            break;
+        case AbilityType::Static:
+            ability.effects[Trigger::OnDamage] = [](Pokemon* self, Pokemon* opponent, void*) {
+                if (!self || !opponent) return;
+                opponent->addStatus(StatusType::Paralysis);
             };
             break;
         default:
-            ability.name = "None";
-            ability.type = AbilityType::None;
             break;
     }
     return ability;

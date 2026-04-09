@@ -3723,6 +3723,7 @@ CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o
  /home/qzz/PokemonSimulator/include/Scene.h
  /home/qzz/PokemonSimulator/include/SceneManager.h
  /home/qzz/PokemonSimulator/include/Scenes/BattleScene.h
+ /home/qzz/PokemonSimulator/include/Scenes/ItemScene.h
  /home/qzz/PokemonSimulator/include/Scenes/TestScene.h
  /usr/include/SDL2/SDL.h
  /usr/include/SDL2/SDL2_gfxPrimitives.h

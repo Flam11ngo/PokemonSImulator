@@ -10,6 +10,6 @@
     "active_pokemon": "Pikachu",
     "name": "Opponent"
   },
-  "target": "Blastoise",
+  "target": "Pikachu",
   "turn": 15
 }

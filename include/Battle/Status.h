@@ -13,6 +13,7 @@ enum class StatusType {
     Poison,
     Sleep,
     ToxicPoison,
+    Confusion,
     Count
 };
 

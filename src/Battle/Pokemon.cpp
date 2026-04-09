@@ -9,7 +9,7 @@ Pokemon::Pokemon(const Species& species, Nature nat, AbilityType abil, bool isHi
       type1(species.type1),
       type2(species.type2),
       nature(nat), ability(abil), isHiddenAbility(isHiddenAbil), itemType(ItemType::None), level(lvl), statuses(),
-      ivs(ivs), evs(evs), isProtected(false) {
+    ivs(ivs), evs(evs), statStages{0, 0, 0, 0, 0, 0, 0}, isProtected(false) {
     recalculateStats();
     currentHP = maxHP;
 }
@@ -72,6 +72,30 @@ bool Pokemon::hasStatus(StatusType s) const {
                        });
 }
 
+void Pokemon::changeStatStage(StatIndex index, int delta) {
+    int stageIndex = static_cast<int>(index);
+    if (stageIndex <= static_cast<int>(StatIndex::HP) || stageIndex >= static_cast<int>(StatIndex::Count)) {
+        return;
+    }
+
+    int internalIndex = stageIndex - 1;
+    statStages[internalIndex] += delta;
+    if (statStages[internalIndex] > 6) {
+        statStages[internalIndex] = 6;
+    }
+    if (statStages[internalIndex] < -6) {
+        statStages[internalIndex] = -6;
+    }
+}
+
+int Pokemon::getStatStage(StatIndex index) const {
+    int stageIndex = static_cast<int>(index);
+    if (stageIndex <= static_cast<int>(StatIndex::HP) || stageIndex >= static_cast<int>(StatIndex::Count)) {
+        return 0;
+    }
+    return statStages[stageIndex - 1];
+}
+
 // 拷贝构造函数实现
 Pokemon::Pokemon(const Pokemon& other) :
     species(other.species),
@@ -94,5 +118,6 @@ Pokemon::Pokemon(const Pokemon& other) :
     moves(other.moves),
     ivs(other.ivs),
     evs(other.evs),
+    statStages(other.statStages),
     isProtected(other.isProtected) {
 }

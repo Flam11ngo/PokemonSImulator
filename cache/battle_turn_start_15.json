@@ -1,7 +1,7 @@
 {
   "event": "turn_start",
   "side_a": {
-    "active_pokemon": "Venusaur",
+    "active_pokemon": "Charizard",
     "name": "Player"
   },
   "side_b": {

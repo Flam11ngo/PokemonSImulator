@@ -11,6 +11,9 @@ BattleAction BattleQueue::pop() {
         return BattleAction::makePass(nullptr);
     }
     std::sort(actions.begin(), actions.end(), [this](const BattleAction& a, const BattleAction& b) {
+        if (a.movePriority != b.movePriority) {
+            return a.movePriority > b.movePriority;
+        }
         if (a.priority != b.priority) {
             if (trickRoom) {
                 return a.priority < b.priority;

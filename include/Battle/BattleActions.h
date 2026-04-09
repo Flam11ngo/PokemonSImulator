@@ -3,7 +3,6 @@
 #include "Pokemon.h"
 #include "Moves.h"
 #include "Items.h"
-#include <string>
 
 enum class ActionType {
     Attack,
@@ -20,6 +19,7 @@ struct BattleAction {
     ItemType item = ItemType::None;
     int switchIndex = -1;
     int priority = 0;
+    int movePriority = 0;
 
     BattleAction() = default;
     static BattleAction makeAttack(Pokemon* actor, Pokemon* target, const Move& move);

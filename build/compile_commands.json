@@ -1,188 +1,176 @@
 [
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o -c /home/qzz/PokemonSimulator/src/Animated.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Animated.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Abilities.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Abilities.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o -c /home/qzz/PokemonSimulator/src/Core.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Core.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/AbilityData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/AbilityData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o -c /home/qzz/PokemonSimulator/src/Image.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Image.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Battle.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Battle.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o -c /home/qzz/PokemonSimulator/src/SceneManager.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/SceneManager.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/main.cpp.o -c /home/qzz/PokemonSimulator/src/main.cpp",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleSession.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleSession.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Effect.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Effect.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Field.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Field.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/ItemData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/ItemData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/ItemTestRunner.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/ItemTestRunner.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Items.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Items.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/MoveData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/MoveData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Natures.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Natures.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/PRNG.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/PRNG.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Side.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Side.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Status.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Status.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Utils.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Utils.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Weather.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/Weather.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/main.cpp.o -c /home/qzz/PokemonSimulator/src/main.cpp",
   "file": "/home/qzz/PokemonSimulator/src/main.cpp",
   "output": "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Abilities.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Abilities.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o -c /home/qzz/PokemonSimulator/tests/battle_data_test.cpp",
+  "file": "/home/qzz/PokemonSimulator/tests/battle_data_test.cpp",
+  "output": "CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Battle.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Battle.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Effect.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Effect.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Effect.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Effect.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Field.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Field.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Items.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Items.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Items.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Items.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Moves.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Moves.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Natures.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Natures.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/PRNG.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/PRNG.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Pokemon.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Pokemon.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Side.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Side.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Side.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Side.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Status.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Status.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Utils.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Utils.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Weather.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Battle/Weather.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Button.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/Button.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/HealthBar.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/HealthBar.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o -c /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o -c /home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o"
-},
-{
-  "directory": "/home/qzz/PokemonSimulator/build",
-  "command": "/usr/bin/g++ -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -g -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o -c /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp",
-  "file": "/home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp",
-  "output": "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o"
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
 }
 ]

@@ -3708,6 +3708,7 @@ CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o: /home/qzz/PokemonSimulat
   /home/qzz/PokemonSimulator/include/Scene.h \
   /home/qzz/PokemonSimulator/include/SceneManager.h \
   /home/qzz/PokemonSimulator/include/Scenes/BattleScene.h \
+  /home/qzz/PokemonSimulator/include/Scenes/ItemScene.h \
   /home/qzz/PokemonSimulator/include/Scenes/TestScene.h \
   /usr/include/SDL2/SDL.h \
   /usr/include/SDL2/SDL2_gfxPrimitives.h \
@@ -5908,6 +5909,8 @@ CMakeFiles/PokemonSimulator.dir/src/main.cpp.o: /home/qzz/PokemonSimulator/src/m
 /usr/include/c++/13/pstl/execution_defs.h:
 
 /usr/include/c++/13/bits/basic_ios.tcc:
+
+/home/qzz/PokemonSimulator/include/Scenes/ItemScene.h:
 
 /usr/include/x86_64-linux-gnu/bits/endianness.h:
 

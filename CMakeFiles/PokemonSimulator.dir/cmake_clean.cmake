@@ -57,6 +57,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o.d"
   "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o"
   "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o.d"
+  "CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.o"
+  "CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.o.d"
   "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o"
   "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o.d"
   "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o"

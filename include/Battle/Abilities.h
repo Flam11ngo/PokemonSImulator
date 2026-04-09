@@ -1,7 +1,12 @@
 #pragma once
 
 #include "OnCondition.h"
+#include <functional>
+#include <string>
+#include <unordered_map>
 #include <vector>
+
+class Pokemon;
 
 enum class AbilityType {
     None,
@@ -10,6 +15,11 @@ enum class AbilityType {
     Blaze,
     Torrent,
     Multiscale,
+    Levitate,
+    WaterAbsorb,
+    VoltAbsorb,
+    FlashFire,
+    Static,
     // Add more
     Count
 };
@@ -37,11 +47,19 @@ struct DamageModifier {
     bool onDealDamage;   // true: 造成伤害时, false: 受到伤害时
 };
 
-class Ability {
-public:
+struct AbilityData {
+    int id;
     std::string name;
+    std::string apiName;
+    std::string description;
     AbilityType type;
-    
+};
+
+class Ability {
+private:
+    AbilityData data;
+
+public:
     // 1. 基础效果（多个触发时机）
     std::unordered_map<Trigger, std::function<void(Pokemon* self, Pokemon* opponent, void* context)>> effects;
     
@@ -54,6 +72,14 @@ public:
     
     // 4. 伤害修改
     DamageModifier damageModifier;
+
+    Ability() = default;
+    explicit Ability(const AbilityData& abilityData) : data(abilityData) {}
+
+    const AbilityData& getData() const { return data; }
+    const std::string& getName() const { return data.name; }
+    AbilityType getType() const { return data.type; }
+    void setData(const AbilityData& abilityData) { data = abilityData; }
     
     // 辅助方法
     bool hasTrigger(Trigger trigger) const {
@@ -70,6 +96,20 @@ public:
 
 // Get ability struct by type
 Ability getAbility(AbilityType type);
+
+// Convert between ability enum and canonical display name.
+std::string getAbilityName(AbilityType type);
+AbilityType getAbilityTypeByName(const std::string& name);
+
+// Ability data lookup and conversion helpers.
+AbilityData getAbilityDataById(int id);
+AbilityData getAbilityDataByName(const std::string& name);
+AbilityData getAbilityData(AbilityType type);
+AbilityType getAbilityTypeById(int id);
+AbilityType getAbilityTypeByNameFromData(const std::string& name);
+
+// Prefetch referenced ability entries and persist to data/abilities.json.
+bool prefetchAbilitiesFromPokeAPI(bool refreshExisting = false);
 
 // Get all abilities for a Pokemon (in case multiple)
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type);

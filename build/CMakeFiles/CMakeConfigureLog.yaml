@@ -1038,3 +1038,69 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build/_deps/googletest-src/googletest/cmake/internal_utils.cmake:66 (find_package)"
+      - "build/_deps/googletest-src/googletest/CMakeLists.txt:83 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-S3zA6W"
+      binary: "/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-S3zA6W"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-S3zA6W'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_8446f
+        [1/2  50% :: 0.094] /usr/bin/gcc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_8446f.dir/src.c.o -c /home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-S3zA6W/src.c
+        [2/2 100% :: 0.187] : && /usr/bin/gcc   CMakeFiles/cmTC_8446f.dir/src.c.o -o cmTC_8446f   && :
+        
+      exitCode: 0
+...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "/usr/share/cmake-3.28/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "build/_deps/googletest-src/googletest/cmake/internal_utils.cmake:66 (find_package)"
+      - "build/_deps/googletest-src/googletest/CMakeLists.txt:83 (config_compiler_and_linker)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-JfOBZ1"
+      binary: "/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-JfOBZ1"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-JfOBZ1'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_21f97
+        [1/2] /usr/bin/gcc -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_21f97.dir/src.c.o -c /home/qzz/PokemonSimulator/build/CMakeFiles/CMakeScratch/TryCompile-JfOBZ1/src.c
+        [2/2] : && /usr/bin/gcc   CMakeFiles/cmTC_21f97.dir/src.c.o -o cmTC_21f97   && :
+        
+      exitCode: 0
+...

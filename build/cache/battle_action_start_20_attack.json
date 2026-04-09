@@ -1,8 +1,8 @@
 {
-  "actor": "Blastoise",
+  "actor": "Charizard",
   "event": "action_start",
-  "move": "Water Gun",
-  "priority": 98,
-  "target": "Charizard",
+  "move": "Protect",
+  "priority": 152,
+  "target": "Pikachu",
   "type": "attack"
 }

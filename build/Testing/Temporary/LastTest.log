@@ -1,0 +1,273 @@
+Start testing: Apr 09 13:31 CST
+----------------------------------------------------------
+1/10 Testing: MoveDataTest.ProtectMoveLoadedWithExpectedEffect
+1/10 Test: MoveDataTest.ProtectMoveLoadedWithExpectedEffect
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=MoveDataTest.ProtectMoveLoadedWithExpectedEffect" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"MoveDataTest.ProtectMoveLoadedWithExpectedEffect" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = MoveDataTest.ProtectMoveLoadedWithExpectedEffect
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MoveDataTest
+[ RUN      ] MoveDataTest.ProtectMoveLoadedWithExpectedEffect
+[       OK ] MoveDataTest.ProtectMoveLoadedWithExpectedEffect (5 ms)
+[----------] 1 test from MoveDataTest (5 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (5 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"MoveDataTest.ProtectMoveLoadedWithExpectedEffect" end time: Apr 09 13:31 CST
+"MoveDataTest.ProtectMoveLoadedWithExpectedEffect" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/10 Testing: MoveDataTest.QuickAttackLoadedWithPriorityAndTarget
+2/10 Test: MoveDataTest.QuickAttackLoadedWithPriorityAndTarget
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=MoveDataTest.QuickAttackLoadedWithPriorityAndTarget" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"MoveDataTest.QuickAttackLoadedWithPriorityAndTarget" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = MoveDataTest.QuickAttackLoadedWithPriorityAndTarget
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MoveDataTest
+[ RUN      ] MoveDataTest.QuickAttackLoadedWithPriorityAndTarget
+[       OK ] MoveDataTest.QuickAttackLoadedWithPriorityAndTarget (9 ms)
+[----------] 1 test from MoveDataTest (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (9 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"MoveDataTest.QuickAttackLoadedWithPriorityAndTarget" end time: Apr 09 13:31 CST
+"MoveDataTest.QuickAttackLoadedWithPriorityAndTarget" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/10 Testing: MoveDataTest.DragonDanceLoadedWithSelfTarget
+3/10 Test: MoveDataTest.DragonDanceLoadedWithSelfTarget
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=MoveDataTest.DragonDanceLoadedWithSelfTarget" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"MoveDataTest.DragonDanceLoadedWithSelfTarget" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = MoveDataTest.DragonDanceLoadedWithSelfTarget
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MoveDataTest
+[ RUN      ] MoveDataTest.DragonDanceLoadedWithSelfTarget
+[       OK ] MoveDataTest.DragonDanceLoadedWithSelfTarget (11 ms)
+[----------] 1 test from MoveDataTest (11 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (11 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"MoveDataTest.DragonDanceLoadedWithSelfTarget" end time: Apr 09 13:31 CST
+"MoveDataTest.DragonDanceLoadedWithSelfTarget" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/10 Testing: AbilityDataTest.BlazeNameMapsToBlazeType
+4/10 Test: AbilityDataTest.BlazeNameMapsToBlazeType
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=AbilityDataTest.BlazeNameMapsToBlazeType" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"AbilityDataTest.BlazeNameMapsToBlazeType" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = AbilityDataTest.BlazeNameMapsToBlazeType
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from AbilityDataTest
+[ RUN      ] AbilityDataTest.BlazeNameMapsToBlazeType
+[       OK ] AbilityDataTest.BlazeNameMapsToBlazeType (0 ms)
+[----------] 1 test from AbilityDataTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"AbilityDataTest.BlazeNameMapsToBlazeType" end time: Apr 09 13:31 CST
+"AbilityDataTest.BlazeNameMapsToBlazeType" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/10 Testing: BuildFromJsonTest.CharizardBuildHasFourMoves
+5/10 Test: BuildFromJsonTest.CharizardBuildHasFourMoves
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BuildFromJsonTest.CharizardBuildHasFourMoves" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BuildFromJsonTest.CharizardBuildHasFourMoves" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BuildFromJsonTest.CharizardBuildHasFourMoves
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BuildFromJsonTest
+[ RUN      ] BuildFromJsonTest.CharizardBuildHasFourMoves
+[       OK ] BuildFromJsonTest.CharizardBuildHasFourMoves (23 ms)
+[----------] 1 test from BuildFromJsonTest (23 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (23 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"BuildFromJsonTest.CharizardBuildHasFourMoves" end time: Apr 09 13:31 CST
+"BuildFromJsonTest.CharizardBuildHasFourMoves" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/10 Testing: BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance
+6/10 Test: BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BuildFromJsonTest
+[ RUN      ] BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance
+[       OK ] BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance (20 ms)
+[----------] 1 test from BuildFromJsonTest (20 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (20 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance" end time: Apr 09 13:31 CST
+"BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/10 Testing: BattleLogicTest.ToxicPoisonEffectApplied
+7/10 Test: BattleLogicTest.ToxicPoisonEffectApplied
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleLogicTest.ToxicPoisonEffectApplied" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BattleLogicTest.ToxicPoisonEffectApplied" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BattleLogicTest.ToxicPoisonEffectApplied
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BattleLogicTest
+[ RUN      ] BattleLogicTest.ToxicPoisonEffectApplied
+[       OK ] BattleLogicTest.ToxicPoisonEffectApplied (0 ms)
+[----------] 1 test from BattleLogicTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"BattleLogicTest.ToxicPoisonEffectApplied" end time: Apr 09 13:31 CST
+"BattleLogicTest.ToxicPoisonEffectApplied" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/10 Testing: BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry
+8/10 Test: BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BattleLogicTest
+[ RUN      ] BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry
+[       OK ] BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry (0 ms)
+[----------] 1 test from BattleLogicTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (0 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry" end time: Apr 09 13:31 CST
+"BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/10 Testing: BattleLogicTest.MovePriorityOutranksSpeedInQueue
+9/10 Test: BattleLogicTest.MovePriorityOutranksSpeedInQueue
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleLogicTest.MovePriorityOutranksSpeedInQueue" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BattleLogicTest.MovePriorityOutranksSpeedInQueue" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BattleLogicTest.MovePriorityOutranksSpeedInQueue
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BattleLogicTest
+[ RUN      ] BattleLogicTest.MovePriorityOutranksSpeedInQueue
+[       OK ] BattleLogicTest.MovePriorityOutranksSpeedInQueue (9 ms)
+[----------] 1 test from BattleLogicTest (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (9 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"BattleLogicTest.MovePriorityOutranksSpeedInQueue" end time: Apr 09 13:31 CST
+"BattleLogicTest.MovePriorityOutranksSpeedInQueue" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/10 Testing: BattleLogicTest.DragonDanceRaisesAttackAndSpeed
+10/10 Test: BattleLogicTest.DragonDanceRaisesAttackAndSpeed
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" start time: Apr 09 13:31 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BattleLogicTest.DragonDanceRaisesAttackAndSpeed
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BattleLogicTest
+[ RUN      ] BattleLogicTest.DragonDanceRaisesAttackAndSpeed
+[       OK ] BattleLogicTest.DragonDanceRaisesAttackAndSpeed (5 ms)
+[----------] 1 test from BattleLogicTest (5 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (5 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" end time: Apr 09 13:31 CST
+"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 09 13:31 CST

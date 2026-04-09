@@ -344,6 +344,7 @@ CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o: \
  /home/qzz/PokemonSimulator/include/GUIUtils/Dialog.h \
  /home/qzz/PokemonSimulator/include/GUIUtils/Label.h \
  /home/qzz/PokemonSimulator/include/GUIUtils/TextBox.h \
+ /home/qzz/PokemonSimulator/include/Scenes/ItemScene.h \
  /home/qzz/PokemonSimulator/include/Core.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/ostream /usr/include/c++/13/ios \
  /usr/include/c++/13/bits/ios_base.h \

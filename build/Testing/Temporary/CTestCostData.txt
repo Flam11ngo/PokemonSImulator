@@ -1,0 +1,12 @@
+MoveDataTest.ProtectMoveLoadedWithExpectedEffect 25 0.0023334
+AbilityDataTest.BlazeNameMapsToBlazeType 26 0.00154435
+BuildFromJsonTest.CharizardBuildHasFourMoves 26 0.00527239
+BattleLogicTest.ToxicPoisonEffectApplied 26 0.00148615
+BattleLogicTest.IntimidateLowersOpponentAttackStageOnEntry 26 0.00150498
+MoveDataTest.QuickAttackLoadedWithPriorityAndTarget 20 0.00365787
+MoveDataTest.DragonDanceLoadedWithSelfTarget 20 0.00413035
+BattleLogicTest.MovePriorityOutranksSpeedInQueue 20 0.00386769
+BattleLogicTest.DragonDanceRaisesAttackAndSpeed 20 0.00321516
+BuildFromJsonTest.SelfContainedPokemonJsonLoadsPokemonInstance 5 0.0235537
+AbilityDataTest.AbilityFactoryUsesCanonicalAbilityData 3 0.0101809
+---

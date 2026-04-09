@@ -7,7 +7,7 @@
     "name": "Player"
   },
   "side_b": {
-    "active_pokemon": "Blastoise",
+    "active_pokemon": "Pikachu",
     "name": "Opponent"
   },
   "target": "Blastoise",

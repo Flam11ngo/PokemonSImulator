@@ -1,51 +1,76 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.14)
 project(PokemonSimulator)
 set(CMAKE_CXX_STANDARD 17)
-include(FindPkgConfig)
-
-# Check SDL2 libraries
-pkg_check_modules(SDL2 REQUIRED sdl2)
-pkg_check_modules(SDL2_GFX REQUIRED SDL2_gfx)
-pkg_check_modules(SDL2_IMAGE REQUIRED SDL2_image)
-pkg_check_modules(SDL2_MIXER REQUIRED SDL2_mixer)
-pkg_check_modules(SDL2_NET REQUIRED SDL2_net)
-pkg_check_modules(SDL2_TTF REQUIRED SDL2_ttf)
+include(CTest)
 
 # Find packages
 find_package(nlohmann_json REQUIRED)
 find_package(CURL REQUIRED)
 
 # Include directories
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${SDL2_GFX_INCLUDE_DIRS})
-include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
-include_directories(${SDL2_MIXER_INCLUDE_DIRS})
-include_directories(${SDL2_NET_INCLUDE_DIRS})
-include_directories(${SDL2_TTF_INCLUDE_DIRS})
 include_directories(${CURL_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/Battle)
 
 # Source files
-file(GLOB SOURCES src/*.cpp)
-file(GLOB SOURCES_BATTLE src/Battle/*.cpp)
-file(GLOB SOURCES_GUI src/GUI/*.cpp)
-file(GLOB SOURCES_GUIUTILS src/GUIUtils/*.cpp)
-file(GLOB SOURCES_SCENES src/Scenes/*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB SOURCES_BATTLE CONFIGURE_DEPENDS src/Battle/*.cpp)
 
-# Executable
-add_executable(PokemonSimulator ${SOURCES} ${SOURCES_BATTLE} ${SOURCES_GUI} ${SOURCES_GUIUTILS} ${SOURCES_SCENES})
+# Ensure critical battle data sources are always linked even when CMake glob cache is stale.
+list(APPEND SOURCES_BATTLE
+    src/Battle/MoveData.cpp
+    src/Battle/AbilityData.cpp
+    src/Battle/ItemData.cpp
+    src/Battle/ItemTestRunner.cpp
+    src/Battle/BattleSession.cpp
+)
 
-# Link libraries
-target_link_libraries(PokemonSimulator
-    ${SDL2_LIBRARIES}
-    ${SDL2_GFX_LIBRARIES}
-    ${SDL2_IMAGE_LIBRARIES}
-    ${SDL2_MIXER_LIBRARIES}
-    ${SDL2_NET_LIBRARIES}
-    ${SDL2_TTF_LIBRARIES}
+# Battle core library (server-side reusable logic)
+add_library(battle_core ${SOURCES_BATTLE})
+target_include_directories(battle_core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Battle
+)
+target_link_libraries(battle_core
     nlohmann_json::nlohmann_json
     CURL::libcurl
 )
+
+# Executable
+add_executable(PokemonSimulator ${SOURCES})
+
+# Link libraries
+target_link_libraries(PokemonSimulator
+    battle_core
+    nlohmann_json::nlohmann_json
+)
+
+if(BUILD_TESTING)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    )
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+
+    add_executable(PokemonSimulatorTests
+        tests/battle_data_test.cpp
+    )
+
+    target_include_directories(PokemonSimulatorTests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/Battle
+    )
+
+    target_link_libraries(PokemonSimulatorTests
+        battle_core
+        nlohmann_json::nlohmann_json
+        GTest::gtest_main
+    )
+
+    include(GoogleTest)
+    gtest_discover_tests(PokemonSimulatorTests)
+endif()
 
 

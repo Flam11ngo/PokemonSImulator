@@ -825,6 +825,30 @@ src/Scenes/BattleScene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.s
 .PHONY : src/Scenes/BattleScene.cpp.s
 
+src/Scenes/ItemScene.o: src/Scenes/ItemScene.cpp.o
+.PHONY : src/Scenes/ItemScene.o
+
+# target to build an object file
+src/Scenes/ItemScene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.o
+.PHONY : src/Scenes/ItemScene.cpp.o
+
+src/Scenes/ItemScene.i: src/Scenes/ItemScene.cpp.i
+.PHONY : src/Scenes/ItemScene.i
+
+# target to preprocess a source file
+src/Scenes/ItemScene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.i
+.PHONY : src/Scenes/ItemScene.cpp.i
+
+src/Scenes/ItemScene.s: src/Scenes/ItemScene.cpp.s
+.PHONY : src/Scenes/ItemScene.s
+
+# target to generate assembly for a file
+src/Scenes/ItemScene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PokemonSimulator.dir/build.make CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.s
+.PHONY : src/Scenes/ItemScene.cpp.s
+
 src/Scenes/TestScene.o: src/Scenes/TestScene.cpp.o
 .PHONY : src/Scenes/TestScene.o
 
@@ -969,6 +993,9 @@ help:
 	@echo "... src/Scenes/BattleScene.o"
 	@echo "... src/Scenes/BattleScene.i"
 	@echo "... src/Scenes/BattleScene.s"
+	@echo "... src/Scenes/ItemScene.o"
+	@echo "... src/Scenes/ItemScene.i"
+	@echo "... src/Scenes/ItemScene.s"
 	@echo "... src/Scenes/TestScene.o"
 	@echo "... src/Scenes/TestScene.i"
 	@echo "... src/Scenes/TestScene.s"

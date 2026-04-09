@@ -12,19 +12,19 @@
 
 # =============================================================================
 # Project: PokemonSimulator
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 
 #############################################
 # Minimal version of Ninja required by this file
 
-ninja_required_version = 1.5
+ninja_required_version = 1.8
 
 
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -40,6 +40,360 @@ include CMakeFiles/rules.ninja
 # Logical path to working directory; prefix for absolute paths.
 
 cmake_ninja_workdir = /home/qzz/PokemonSimulator/build/
+
+#############################################
+# Utility command for Experimental
+
+build Experimental: phony CMakeFiles/Experimental
+
+
+#############################################
+# Utility command for Nightly
+
+build Nightly: phony CMakeFiles/Nightly
+
+
+#############################################
+# Utility command for Continuous
+
+build Continuous: phony CMakeFiles/Continuous
+
+
+#############################################
+# Utility command for NightlyMemoryCheck
+
+build NightlyMemoryCheck: phony CMakeFiles/NightlyMemoryCheck
+
+
+#############################################
+# Utility command for NightlyStart
+
+build NightlyStart: phony CMakeFiles/NightlyStart
+
+
+#############################################
+# Utility command for NightlyUpdate
+
+build NightlyUpdate: phony CMakeFiles/NightlyUpdate
+
+
+#############################################
+# Utility command for NightlyConfigure
+
+build NightlyConfigure: phony CMakeFiles/NightlyConfigure
+
+
+#############################################
+# Utility command for NightlyBuild
+
+build NightlyBuild: phony CMakeFiles/NightlyBuild
+
+
+#############################################
+# Utility command for NightlyTest
+
+build NightlyTest: phony CMakeFiles/NightlyTest
+
+
+#############################################
+# Utility command for NightlyCoverage
+
+build NightlyCoverage: phony CMakeFiles/NightlyCoverage
+
+
+#############################################
+# Utility command for NightlyMemCheck
+
+build NightlyMemCheck: phony CMakeFiles/NightlyMemCheck
+
+
+#############################################
+# Utility command for NightlySubmit
+
+build NightlySubmit: phony CMakeFiles/NightlySubmit
+
+
+#############################################
+# Utility command for ExperimentalStart
+
+build ExperimentalStart: phony CMakeFiles/ExperimentalStart
+
+
+#############################################
+# Utility command for ExperimentalUpdate
+
+build ExperimentalUpdate: phony CMakeFiles/ExperimentalUpdate
+
+
+#############################################
+# Utility command for ExperimentalConfigure
+
+build ExperimentalConfigure: phony CMakeFiles/ExperimentalConfigure
+
+
+#############################################
+# Utility command for ExperimentalBuild
+
+build ExperimentalBuild: phony CMakeFiles/ExperimentalBuild
+
+
+#############################################
+# Utility command for ExperimentalTest
+
+build ExperimentalTest: phony CMakeFiles/ExperimentalTest
+
+
+#############################################
+# Utility command for ExperimentalCoverage
+
+build ExperimentalCoverage: phony CMakeFiles/ExperimentalCoverage
+
+
+#############################################
+# Utility command for ExperimentalMemCheck
+
+build ExperimentalMemCheck: phony CMakeFiles/ExperimentalMemCheck
+
+
+#############################################
+# Utility command for ExperimentalSubmit
+
+build ExperimentalSubmit: phony CMakeFiles/ExperimentalSubmit
+
+
+#############################################
+# Utility command for ContinuousStart
+
+build ContinuousStart: phony CMakeFiles/ContinuousStart
+
+
+#############################################
+# Utility command for ContinuousUpdate
+
+build ContinuousUpdate: phony CMakeFiles/ContinuousUpdate
+
+
+#############################################
+# Utility command for ContinuousConfigure
+
+build ContinuousConfigure: phony CMakeFiles/ContinuousConfigure
+
+
+#############################################
+# Utility command for ContinuousBuild
+
+build ContinuousBuild: phony CMakeFiles/ContinuousBuild
+
+
+#############################################
+# Utility command for ContinuousTest
+
+build ContinuousTest: phony CMakeFiles/ContinuousTest
+
+
+#############################################
+# Utility command for ContinuousCoverage
+
+build ContinuousCoverage: phony CMakeFiles/ContinuousCoverage
+
+
+#############################################
+# Utility command for ContinuousMemCheck
+
+build ContinuousMemCheck: phony CMakeFiles/ContinuousMemCheck
+
+
+#############################################
+# Utility command for ContinuousSubmit
+
+build ContinuousSubmit: phony CMakeFiles/ContinuousSubmit
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target battle_core
+
+
+#############################################
+# Order-only phony target for battle_core
+
+build cmake_object_order_depends_target_battle_core: phony || CMakeFiles/battle_core.dir
+
+build CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Abilities.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/AbilityData.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Battle.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleSession.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Effect.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Field.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/ItemData.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/ItemTestRunner.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Items.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/MoveData.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Moves.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Natures.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/PRNG.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Side.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Status.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Utils.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+build CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/Weather.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target battle_core
+
+
+#############################################
+# Link the static library libbattle_core.a
+
+build libbattle_core.a: CXX_STATIC_LIBRARY_LINKER__battle_core_Release CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = libbattle_core.a
+  TARGET_PDB = battle_core.a.dbg
+
 # =============================================================================
 # Object build statements for EXECUTABLE target PokemonSimulator
 
@@ -47,224 +401,14 @@ cmake_ninja_workdir = /home/qzz/PokemonSimulator/build/
 #############################################
 # Order-only phony target for PokemonSimulator
 
-build cmake_object_order_depends_target_PokemonSimulator: phony || CMakeFiles/PokemonSimulator.dir
+build cmake_object_order_depends_target_PokemonSimulator: phony || cmake_object_order_depends_target_battle_core
 
-build CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Animated.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src
-
-build CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Core.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src
-
-build CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Image.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src
-
-build CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/SceneManager.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src
-
-build CMakeFiles/PokemonSimulator.dir/src/main.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/main.cpp || cmake_object_order_depends_target_PokemonSimulator
+build CMakeFiles/PokemonSimulator.dir/src/main.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Release /home/qzz/PokemonSimulator/src/main.cpp || cmake_object_order_depends_target_PokemonSimulator
   DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/main.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
   OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
   OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Abilities.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Battle.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/BuildFromJson.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Effect.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Effect.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Effect.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/EventSystem.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Field.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Items.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Items.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Items.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Moves.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Moves.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Moves.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Natures.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/PRNG.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Pokemon.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Pokemon.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Pokemon.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Side.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Side.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Side.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Status.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Utils.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Battle/Weather.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Battle
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/Button.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/Dialog.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/HealthBar.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/Label.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/Message.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/GUIUtils/TextBox.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/GUIUtils
-
-build CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Scenes
-
-build CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: CXX_COMPILER__PokemonSimulator_unscanned_Debug /home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp || cmake_object_order_depends_target_PokemonSimulator
-  DEP_FILE = CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o.d
-  FLAGS = -g -std=gnu++17
-  INCLUDES = -I/usr/include/SDL2 -I/usr/include/libpng16 -I/usr/include/webp -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/opus -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.2 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/libinstpatch-2 -I/usr/include/harfbuzz -I/usr/include/freetype2 -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
-  OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
-  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulator.dir/src/Scenes
 
 
 # =============================================================================
@@ -274,14 +418,60 @@ build CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o: CXX_COMPILER__
 #############################################
 # Link the executable PokemonSimulator
 
-build PokemonSimulator: CXX_EXECUTABLE_LINKER__PokemonSimulator_Debug CMakeFiles/PokemonSimulator.dir/src/Animated.cpp.o CMakeFiles/PokemonSimulator.dir/src/Core.cpp.o CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o CMakeFiles/PokemonSimulator.dir/src/main.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Abilities.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Battle.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleActions.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleQueue.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/BattleToJson.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/BuildFromJson.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Effect.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/EventSystem.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Field.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Items.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Moves.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Natures.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/PRNG.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Pokemon.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Side.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Status.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Utils.cpp.o CMakeFiles/PokemonSimulator.dir/src/Battle/Weather.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Button.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Dialog.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/HealthBar.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Label.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/Message.cpp.o CMakeFiles/PokemonSimulator.dir/src/GUIUtils/TextBox.cpp.o CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o | /usr/lib/x86_64-linux-gnu/libcurl.so
-  FLAGS = -g
-  LINK_LIBRARIES = -lSDL2  -lSDL2_gfx  -lSDL2  -lSDL2_image  -lSDL2  -lSDL2_mixer  -lSDL2  -lSDL2_net  -lSDL2  -lSDL2_ttf  -lSDL2  /usr/lib/x86_64-linux-gnu/libcurl.so  -lSDL2_gfx  -lSDL2_image  -lSDL2_mixer  -lSDL2_net  -lSDL2_ttf
+build PokemonSimulator: CXX_EXECUTABLE_LINKER__PokemonSimulator_Release CMakeFiles/PokemonSimulator.dir/src/main.cpp.o | libbattle_core.a /usr/lib/x86_64-linux-gnu/libcurl.so || libbattle_core.a
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = libbattle_core.a  /usr/lib/x86_64-linux-gnu/libcurl.so
   OBJECT_DIR = CMakeFiles/PokemonSimulator.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = PokemonSimulator
   TARGET_PDB = PokemonSimulator.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target PokemonSimulatorTests
+
+
+#############################################
+# Order-only phony target for PokemonSimulatorTests
+
+build cmake_object_order_depends_target_PokemonSimulatorTests: phony || cmake_object_order_depends_target_battle_core cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
+
+build CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o: CXX_COMPILER__PokemonSimulatorTests_unscanned_Release /home/qzz/PokemonSimulator/tests/battle_data_test.cpp || cmake_object_order_depends_target_PokemonSimulatorTests
+  DEP_FILE = CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest
+  OBJECT_DIR = CMakeFiles/PokemonSimulatorTests.dir
+  OBJECT_FILE_DIR = CMakeFiles/PokemonSimulatorTests.dir/tests
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target PokemonSimulatorTests
+
+
+#############################################
+# Link the executable PokemonSimulatorTests
+
+build PokemonSimulatorTests PokemonSimulatorTests[1]_tests.cmake | ${cmake_ninja_workdir}PokemonSimulatorTests[1]_tests.cmake: CXX_EXECUTABLE_LINKER__PokemonSimulatorTests_Release CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o | libbattle_core.a lib/libgtest_main.a /usr/lib/x86_64-linux-gnu/libcurl.so lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a libbattle_core.a
+  FLAGS = -O3 -DNDEBUG
+  LINK_LIBRARIES = libbattle_core.a  lib/libgtest_main.a  /usr/lib/x86_64-linux-gnu/libcurl.so  lib/libgtest.a
+  OBJECT_DIR = CMakeFiles/PokemonSimulatorTests.dir
+  POST_BUILD = cd /home/qzz/PokemonSimulator/build && /usr/bin/cmake -D TEST_TARGET=PokemonSimulatorTests -D TEST_EXECUTABLE=/home/qzz/PokemonSimulator/build/PokemonSimulatorTests -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/home/qzz/PokemonSimulator/build -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=PokemonSimulatorTests_TESTS -D CTEST_FILE=/home/qzz/PokemonSimulator/build/PokemonSimulatorTests[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P /usr/share/cmake-3.28/Modules/GoogleTestAddTests.cmake
+  PRE_LINK = :
+  RESTAT = 1
+  TARGET_FILE = PokemonSimulatorTests
+  TARGET_PDB = PokemonSimulatorTests.dbg
+
+
+#############################################
+# Utility command for test
+
+build CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build test: phony CMakeFiles/test.util
 
 
 #############################################
@@ -306,8 +496,666 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
+
+#############################################
+# Utility command for list_install_components
+
+build list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build CMakeFiles/install.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build install: phony CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build CMakeFiles/install/local.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build install/local: phony CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build CMakeFiles/install/strip.util: CUSTOM_COMMAND all
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build install/strip: phony CMakeFiles/install/strip.util
+
+
+#############################################
+# Custom command for CMakeFiles/Experimental
+
+build CMakeFiles/Experimental | ${cmake_ninja_workdir}CMakeFiles/Experimental: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D Experimental
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/Nightly
+
+build CMakeFiles/Nightly | ${cmake_ninja_workdir}CMakeFiles/Nightly: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D Nightly
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/Continuous
+
+build CMakeFiles/Continuous | ${cmake_ninja_workdir}CMakeFiles/Continuous: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D Continuous
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyMemoryCheck
+
+build CMakeFiles/NightlyMemoryCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemoryCheck: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyMemoryCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyStart
+
+build CMakeFiles/NightlyStart | ${cmake_ninja_workdir}CMakeFiles/NightlyStart: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyUpdate
+
+build CMakeFiles/NightlyUpdate | ${cmake_ninja_workdir}CMakeFiles/NightlyUpdate: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyConfigure
+
+build CMakeFiles/NightlyConfigure | ${cmake_ninja_workdir}CMakeFiles/NightlyConfigure: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyBuild
+
+build CMakeFiles/NightlyBuild | ${cmake_ninja_workdir}CMakeFiles/NightlyBuild: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyTest
+
+build CMakeFiles/NightlyTest | ${cmake_ninja_workdir}CMakeFiles/NightlyTest: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyCoverage
+
+build CMakeFiles/NightlyCoverage | ${cmake_ninja_workdir}CMakeFiles/NightlyCoverage: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlyMemCheck
+
+build CMakeFiles/NightlyMemCheck | ${cmake_ninja_workdir}CMakeFiles/NightlyMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlyMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/NightlySubmit
+
+build CMakeFiles/NightlySubmit | ${cmake_ninja_workdir}CMakeFiles/NightlySubmit: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D NightlySubmit
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalStart
+
+build CMakeFiles/ExperimentalStart | ${cmake_ninja_workdir}CMakeFiles/ExperimentalStart: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalUpdate
+
+build CMakeFiles/ExperimentalUpdate | ${cmake_ninja_workdir}CMakeFiles/ExperimentalUpdate: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalConfigure
+
+build CMakeFiles/ExperimentalConfigure | ${cmake_ninja_workdir}CMakeFiles/ExperimentalConfigure: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalBuild
+
+build CMakeFiles/ExperimentalBuild | ${cmake_ninja_workdir}CMakeFiles/ExperimentalBuild: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalTest
+
+build CMakeFiles/ExperimentalTest | ${cmake_ninja_workdir}CMakeFiles/ExperimentalTest: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalCoverage
+
+build CMakeFiles/ExperimentalCoverage | ${cmake_ninja_workdir}CMakeFiles/ExperimentalCoverage: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalMemCheck
+
+build CMakeFiles/ExperimentalMemCheck | ${cmake_ninja_workdir}CMakeFiles/ExperimentalMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ExperimentalSubmit
+
+build CMakeFiles/ExperimentalSubmit | ${cmake_ninja_workdir}CMakeFiles/ExperimentalSubmit: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ExperimentalSubmit
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousStart
+
+build CMakeFiles/ContinuousStart | ${cmake_ninja_workdir}CMakeFiles/ContinuousStart: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousStart
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousUpdate
+
+build CMakeFiles/ContinuousUpdate | ${cmake_ninja_workdir}CMakeFiles/ContinuousUpdate: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousUpdate
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousConfigure
+
+build CMakeFiles/ContinuousConfigure | ${cmake_ninja_workdir}CMakeFiles/ContinuousConfigure: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousConfigure
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousBuild
+
+build CMakeFiles/ContinuousBuild | ${cmake_ninja_workdir}CMakeFiles/ContinuousBuild: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousBuild
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousTest
+
+build CMakeFiles/ContinuousTest | ${cmake_ninja_workdir}CMakeFiles/ContinuousTest: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousTest
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousCoverage
+
+build CMakeFiles/ContinuousCoverage | ${cmake_ninja_workdir}CMakeFiles/ContinuousCoverage: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousCoverage
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousMemCheck
+
+build CMakeFiles/ContinuousMemCheck | ${cmake_ninja_workdir}CMakeFiles/ContinuousMemCheck: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousMemCheck
+  pool = console
+
+
+#############################################
+# Custom command for CMakeFiles/ContinuousSubmit
+
+build CMakeFiles/ContinuousSubmit | ${cmake_ninja_workdir}CMakeFiles/ContinuousSubmit: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build && /usr/bin/ctest -D ContinuousSubmit
+  pool = console
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/qzz/PokemonSimulator/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for test
+
+build _deps/googletest-build/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/test: phony _deps/googletest-build/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/googletest-build/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/googletest-build/edit_cache: phony _deps/googletest-build/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/googletest-build/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/cmake --regenerate-during-build -S/home/qzz/PokemonSimulator -B/home/qzz/PokemonSimulator/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/rebuild_cache: phony _deps/googletest-build/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/googletest-build/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/googletest-build/CMakeFiles/install.util: CUSTOM_COMMAND _deps/googletest-build/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/install: phony _deps/googletest-build/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/googletest-build/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/googletest-build/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/install/local: phony _deps/googletest-build/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/googletest-build/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/googletest-build/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/install/strip: phony _deps/googletest-build/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/qzz/PokemonSimulator/build/_deps/googletest-src/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gmock
+
+
+#############################################
+# Order-only phony target for gmock
+
+build cmake_object_order_depends_target_gmock: phony || cmake_object_order_depends_target_gtest
+
+build _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o: CXX_COMPILER__gmock_unscanned_Release /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock-all.cc || cmake_object_order_depends_target_gmock
+  DEP_FILE = _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o.d
+  FLAGS = -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest
+  OBJECT_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock.dir
+  OBJECT_FILE_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gmock
+
+
+#############################################
+# Link the static library lib/libgmock.a
+
+build lib/libgmock.a: CXX_STATIC_LIBRARY_LINKER__gmock_Release _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o || lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lib/libgmock.a
+  TARGET_PDB = gmock.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gmock_main
+
+
+#############################################
+# Order-only phony target for gmock_main
+
+build cmake_object_order_depends_target_gmock_main: phony || cmake_object_order_depends_target_gmock cmake_object_order_depends_target_gtest
+
+build _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o: CXX_COMPILER__gmock_main_unscanned_Release /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock_main.cc || cmake_object_order_depends_target_gmock_main
+  DEP_FILE = _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o.d
+  FLAGS = -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest
+  OBJECT_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir
+  OBJECT_FILE_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gmock_main
+
+
+#############################################
+# Link the static library lib/libgmock_main.a
+
+build lib/libgmock_main.a: CXX_STATIC_LIBRARY_LINKER__gmock_main_Release _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o || lib/libgmock.a lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lib/libgmock_main.a
+  TARGET_PDB = gmock_main.a.dbg
+
+
+#############################################
+# Utility command for test
+
+build _deps/googletest-build/googlemock/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googlemock/test: phony _deps/googletest-build/googlemock/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/googletest-build/googlemock/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/googletest-build/googlemock/edit_cache: phony _deps/googletest-build/googlemock/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/googletest-build/googlemock/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/cmake --regenerate-during-build -S/home/qzz/PokemonSimulator -B/home/qzz/PokemonSimulator/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googlemock/rebuild_cache: phony _deps/googletest-build/googlemock/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/googletest-build/googlemock/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/googletest-build/googlemock/CMakeFiles/install.util: CUSTOM_COMMAND _deps/googletest-build/googlemock/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googlemock/install: phony _deps/googletest-build/googlemock/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/googletest-build/googlemock/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/googletest-build/googlemock/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googlemock/install/local: phony _deps/googletest-build/googlemock/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/googletest-build/googlemock/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/googletest-build/googlemock/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googlemock/install/strip: phony _deps/googletest-build/googlemock/CMakeFiles/install/strip.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Order-only phony target for gtest
+
+build cmake_object_order_depends_target_gtest: phony || _deps/googletest-build/googletest/CMakeFiles/gtest.dir
+
+build _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o: CXX_COMPILER__gtest_unscanned_Release /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest-all.cc || cmake_object_order_depends_target_gtest
+  DEP_FILE = _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o.d
+  FLAGS = -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest
+  OBJECT_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest.dir
+  OBJECT_FILE_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest
+
+
+#############################################
+# Link the static library lib/libgtest.a
+
+build lib/libgtest.a: CXX_STATIC_LIBRARY_LINKER__gtest_Release _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lib/libgtest.a
+  TARGET_PDB = gtest.a.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Order-only phony target for gtest_main
+
+build cmake_object_order_depends_target_gtest_main: phony || cmake_object_order_depends_target_gtest
+
+build _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: CXX_COMPILER__gtest_main_unscanned_Release /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc || cmake_object_order_depends_target_gtest_main
+  DEP_FILE = _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.d
+  FLAGS = -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest
+  OBJECT_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir
+  OBJECT_FILE_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target gtest_main
+
+
+#############################################
+# Link the static library lib/libgtest_main.a
+
+build lib/libgtest_main.a: CXX_STATIC_LIBRARY_LINKER__gtest_main_Release _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o || lib/libgtest.a
+  LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
+  OBJECT_DIR = _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lib/libgtest_main.a
+  TARGET_PDB = gtest_main.a.dbg
+
+
+#############################################
+# Utility command for test
+
+build _deps/googletest-build/googletest/CMakeFiles/test.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/ctest --force-new-ctest-process
+  DESC = Running tests...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googletest/test: phony _deps/googletest-build/googletest/CMakeFiles/test.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build _deps/googletest-build/googletest/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build _deps/googletest-build/googletest/edit_cache: phony _deps/googletest-build/googletest/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build _deps/googletest-build/googletest/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/cmake --regenerate-during-build -S/home/qzz/PokemonSimulator -B/home/qzz/PokemonSimulator/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googletest/rebuild_cache: phony _deps/googletest-build/googletest/CMakeFiles/rebuild_cache.util
+
+
+#############################################
+# Utility command for list_install_components
+
+build _deps/googletest-build/googletest/list_install_components: phony
+
+
+#############################################
+# Utility command for install
+
+build _deps/googletest-build/googletest/CMakeFiles/install.util: CUSTOM_COMMAND _deps/googletest-build/googletest/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/cmake -P cmake_install.cmake
+  DESC = Install the project...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googletest/install: phony _deps/googletest-build/googletest/CMakeFiles/install.util
+
+
+#############################################
+# Utility command for install/local
+
+build _deps/googletest-build/googletest/CMakeFiles/install/local.util: CUSTOM_COMMAND _deps/googletest-build/googletest/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+  DESC = Installing only the local directory...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googletest/install/local: phony _deps/googletest-build/googletest/CMakeFiles/install/local.util
+
+
+#############################################
+# Utility command for install/strip
+
+build _deps/googletest-build/googletest/CMakeFiles/install/strip.util: CUSTOM_COMMAND _deps/googletest-build/googletest/all
+  COMMAND = cd /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest && /usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+  DESC = Installing the project stripped...
+  pool = console
+  restat = 1
+
+build _deps/googletest-build/googletest/install/strip: phony _deps/googletest-build/googletest/CMakeFiles/install/strip.util
+
 # =============================================================================
 # Target aliases.
+
+build battle_core: phony libbattle_core.a
+
+build gmock: phony lib/libgmock.a
+
+build gmock_main: phony lib/libgmock_main.a
+
+build gtest: phony lib/libgtest.a
+
+build gtest_main: phony lib/libgtest_main.a
+
+build libgmock.a: phony lib/libgmock.a
+
+build libgmock_main.a: phony lib/libgmock_main.a
+
+build libgtest.a: phony lib/libgtest.a
+
+build libgtest_main.a: phony lib/libgtest_main.a
 
 # =============================================================================
 # Folder targets.
@@ -317,23 +1165,58 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/qzz/PokemonSimulator/build
 
-build all: phony PokemonSimulator
+build all: phony libbattle_core.a PokemonSimulator PokemonSimulatorTests _deps/googletest-build/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/qzz/PokemonSimulator/build/_deps/googletest-build
+
+build _deps/googletest-build/all: phony _deps/googletest-build/googlemock/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/qzz/PokemonSimulator/build/_deps/googletest-build/googlemock
+
+build _deps/googletest-build/googlemock/all: phony lib/libgmock.a lib/libgmock_main.a _deps/googletest-build/googletest/all
+
+# =============================================================================
+
+#############################################
+# Folder: /home/qzz/PokemonSimulator/build/_deps/googletest-build/googletest
+
+build _deps/googletest-build/googletest/all: phony lib/libgtest.a lib/libgtest_main.a
 
 # =============================================================================
 # Built-in targets
 
 
 #############################################
+# Phony target to force glob verification run.
+
+build /home/qzz/PokemonSimulator/build/CMakeFiles/VerifyGlobs.cmake_force: phony
+
+
+#############################################
+# Re-run CMake to check if globbed directories changed.
+
+build /home/qzz/PokemonSimulator/build/CMakeFiles/cmake.verify_globs: VERIFY_GLOBS | /home/qzz/PokemonSimulator/build/CMakeFiles/VerifyGlobs.cmake_force
+  pool = console
+  restat = 1
+
+
+#############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/qzz/PokemonSimulator/CMakeLists.txt /usr/share/cmake-3.28/Modules/CMakeCInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake /usr/share/cmake-3.28/Modules/FindCURL.cmake /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.28/Modules/FindPackageMessage.cmake /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.28/Modules/Platform/Linux.cmake /usr/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake CMakeCache.txt CMakeFiles/3.28.3/CMakeCCompiler.cmake CMakeFiles/3.28.3/CMakeCXXCompiler.cmake CMakeFiles/3.28.3/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE /home/qzz/PokemonSimulator/build/CMakeFiles/cmake.verify_globs | /home/qzz/PokemonSimulator/CMakeLists.txt /home/qzz/PokemonSimulator/build/CMakeFiles/VerifyGlobs.cmake /usr/share/cmake-3.28/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /usr/share/cmake-3.28/Modules/CMakeCInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.28/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.28/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.28/Modules/CTest.cmake /usr/share/cmake-3.28/Modules/CTestTargets.cmake /usr/share/cmake-3.28/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake /usr/share/cmake-3.28/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.28/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.28/Modules/FetchContent.cmake /usr/share/cmake-3.28/Modules/FetchContent/CMakeLists.cmake.in /usr/share/cmake-3.28/Modules/FindCURL.cmake /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.28/Modules/FindPackageMessage.cmake /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake /usr/share/cmake-3.28/Modules/FindPython/Support.cmake /usr/share/cmake-3.28/Modules/FindPython3.cmake /usr/share/cmake-3.28/Modules/FindThreads.cmake /usr/share/cmake-3.28/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.28/Modules/GoogleTest.cmake /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.28/Modules/Platform/Linux.cmake /usr/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.28/Modules/WriteBasicConfigVersionFile.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake CMakeCache.txt CMakeFiles/3.28.3/CMakeCCompiler.cmake CMakeFiles/3.28.3/CMakeCXXCompiler.cmake CMakeFiles/3.28.3/CMakeSystem.cmake _deps/googletest-src/CMakeLists.txt _deps/googletest-src/googlemock/CMakeLists.txt _deps/googletest-src/googlemock/cmake/gmock.pc.in _deps/googletest-src/googlemock/cmake/gmock_main.pc.in _deps/googletest-src/googletest/CMakeLists.txt _deps/googletest-src/googletest/cmake/Config.cmake.in _deps/googletest-src/googletest/cmake/gtest.pc.in _deps/googletest-src/googletest/cmake/gtest_main.pc.in _deps/googletest-src/googletest/cmake/internal_utils.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/qzz/PokemonSimulator/CMakeLists.txt /usr/share/cmake-3.28/Modules/CMakeCInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake /usr/share/cmake-3.28/Modules/FindCURL.cmake /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.28/Modules/FindPackageMessage.cmake /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.28/Modules/Platform/Linux.cmake /usr/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake CMakeCache.txt CMakeFiles/3.28.3/CMakeCCompiler.cmake CMakeFiles/3.28.3/CMakeCXXCompiler.cmake CMakeFiles/3.28.3/CMakeSystem.cmake: phony
+build /home/qzz/PokemonSimulator/CMakeLists.txt /home/qzz/PokemonSimulator/build/CMakeFiles/VerifyGlobs.cmake /usr/share/cmake-3.28/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in /usr/share/cmake-3.28/Modules/CMakeCInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /usr/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake-3.28/Modules/CMakeDependentOption.cmake /usr/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /usr/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /usr/share/cmake-3.28/Modules/CMakePackageConfigHelpers.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake-3.28/Modules/CTest.cmake /usr/share/cmake-3.28/Modules/CTestTargets.cmake /usr/share/cmake-3.28/Modules/CTestUseLaunchers.cmake /usr/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /usr/share/cmake-3.28/Modules/CheckIncludeFile.cmake /usr/share/cmake-3.28/Modules/CheckLibraryExists.cmake /usr/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-C.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Compiler/GNU.cmake /usr/share/cmake-3.28/Modules/DartConfiguration.tcl.in /usr/share/cmake-3.28/Modules/ExternalProject/shared_internal_commands.cmake /usr/share/cmake-3.28/Modules/FetchContent.cmake /usr/share/cmake-3.28/Modules/FetchContent/CMakeLists.cmake.in /usr/share/cmake-3.28/Modules/FindCURL.cmake /usr/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /usr/share/cmake-3.28/Modules/FindPackageMessage.cmake /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake /usr/share/cmake-3.28/Modules/FindPython/Support.cmake /usr/share/cmake-3.28/Modules/FindPython3.cmake /usr/share/cmake-3.28/Modules/FindThreads.cmake /usr/share/cmake-3.28/Modules/GNUInstallDirs.cmake /usr/share/cmake-3.28/Modules/GoogleTest.cmake /usr/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-GNU.cmake /usr/share/cmake-3.28/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake-3.28/Modules/Platform/Linux.cmake /usr/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /usr/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /usr/share/cmake-3.28/Modules/WriteBasicConfigVersionFile.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfig.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonConfigVersion.cmake /usr/share/cmake/nlohmann_json/nlohmann_jsonTargets.cmake CMakeCache.txt CMakeFiles/3.28.3/CMakeCCompiler.cmake CMakeFiles/3.28.3/CMakeCXXCompiler.cmake CMakeFiles/3.28.3/CMakeSystem.cmake _deps/googletest-src/CMakeLists.txt _deps/googletest-src/googlemock/CMakeLists.txt _deps/googletest-src/googlemock/cmake/gmock.pc.in _deps/googletest-src/googlemock/cmake/gmock_main.pc.in _deps/googletest-src/googletest/CMakeLists.txt _deps/googletest-src/googletest/cmake/Config.cmake.in _deps/googletest-src/googletest/cmake/gtest.pc.in _deps/googletest-src/googletest/cmake/gtest_main.pc.in _deps/googletest-src/googletest/cmake/internal_utils.cmake: phony
 
 
 #############################################

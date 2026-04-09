@@ -1,15 +1,12 @@
 #pragma once
 
+#include "BattleData.h"  // IWYU pragma: keep
 #include "Side.h"
 #include "Field.h"
 #include "Weather.h"
 #include "BattleQueue.h"
 #include "EventSystem.h"
 #include "BattleActions.h"
-#include "Abilities.h" 
-#include "Items.h" 
-#include "Moves.h"
-#include <memory>
 
 class Battle {
 public:

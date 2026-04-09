@@ -10,6 +10,16 @@ class Pokemon;
 class Battle;
 class Move;
 
+// 上下文：用于在道具触发时传递伤害相关信息
+struct ItemDamageContext {
+    const Move* move = nullptr;
+    int damage = 0;
+    int hpBeforeDamage = 0;
+    bool wasSuperEffective = false;
+    bool isDamagingMove = false;
+    bool isContact = false;
+};
+
 // 物品触发时机（扩展以匹配特性系统）
 enum class ItemTrigger {
     OnEntry,        // 出场时
@@ -38,6 +48,38 @@ enum class ItemType {
     RawstBerry,
     AspearBerry,
     PersimBerry,
+    CheriBerry,
+    FigyBerry,
+    WikiBerry,
+    MagoBerry,
+    AguavBerry,
+    IapapaBerry,
+
+    OccaBerry,
+    PasshoBerry,
+    WacanBerry,
+    RindoBerry,
+    YacheBerry,
+    ChopleBerry,
+    KebiaBerry,
+    ShucaBerry,
+    CobaBerry,
+    PayapaBerry,
+    TangaBerry,
+    ChartiBerry,
+    KasibBerry,
+    HabanBerry,
+    ColburBerry,
+    BabiriBerry,
+    ChilanBerry,
+
+    LiechiBerry,
+    GanlonBerry,
+    SalacBerry,
+    PetayaBerry,
+    ApicotBerry,
+    JabocaBerry,
+    RowapBerry,
     
     // 回复类
     Leftovers,
@@ -48,10 +90,57 @@ enum class ItemType {
     ChoiceBand,
     ChoiceSpecs,
     ChoiceScarf,
+    QuickClaw,
     LifeOrb,
     ExpertBelt,
     MuscleBand,
     WiseGlasses,
+    LightBall,
+    QuickPowder,
+    ThickClub,
+    MetalPowder,
+    DeepSeaTooth,
+    DeepSeaScale,
+    PowerHerb,
+    StickyBarb,
+    BigRoot,
+    KingsRock,
+    WideLens,
+    ZoomLens,
+    ScopeLens,
+    SilverPowder,
+    MetalCoat,
+    HardStone,
+    MiracleSeed,
+    BlackGlasses,
+    BlackBelt,
+    Magnet,
+    MysticWater,
+    SharpBeak,
+    PoisonBarb,
+    NeverMeltIce,
+    SpellTag,
+    TwistedSpoon,
+    Charcoal,
+    DragonFang,
+    SilkScarf,
+    SeaIncense,
+    FlamePlate,
+    SplashPlate,
+    ZapPlate,
+    MeadowPlate,
+    IciclePlate,
+    FistPlate,
+    ToxicPlate,
+    EarthPlate,
+    SkyPlate,
+    MindPlate,
+    InsectPlate,
+    StonePlate,
+    SpookyPlate,
+    IronPlate,
+    FlameOrb,
+    ToxicOrb,
     
     // 防御类
     FocusSash,
@@ -63,6 +152,7 @@ enum class ItemType {
     // 战术类
     RedCard,
     EjectButton,
+    WhiteHerb,
     WeaknessPolicy,
     BerryJuice,
     
@@ -221,23 +311,134 @@ public:
     }
 };
 
+struct ItemData {
+    int id;
+    std::string name;
+    std::string apiName;
+    std::string description;
+    bool isBattle;
+    ItemType mappedType;
+};
+
+ItemData getItemDataById(int id);
+ItemData getItemDataByName(const std::string& name);
+ItemType getItemTypeById(int id);
+ItemType getItemTypeByName(const std::string& name);
+
+Item createItemFromData(const ItemData& data);
+Item createItemById(int id);
+Item createItemByName(const std::string& name);
+
+// 预拉取 items 到 data/items.json。
+bool prefetchItemsFromPokeAPI(bool refreshExisting = false);
+
 // 物品工厂函数
 Item getItem(ItemType type);
 Item createOranBerry();
 Item createSitrusBerry();
 Item createLumBerry();
+Item createChestoBerry();
+Item createPechaBerry();
+Item createRawstBerry();
+Item createAspearBerry();
+Item createPersimBerry();
+Item createCheriBerry();
+Item createFigyBerry();
+Item createWikiBerry();
+Item createMagoBerry();
+Item createAguavBerry();
+Item createIapapaBerry();
+Item createOccaBerry();
+Item createPasshoBerry();
+Item createWacanBerry();
+Item createRindoBerry();
+Item createYacheBerry();
+Item createChopleBerry();
+Item createKebiaBerry();
+Item createShucaBerry();
+Item createCobaBerry();
+Item createPayapaBerry();
+Item createTangaBerry();
+Item createChartiBerry();
+Item createKasibBerry();
+Item createHabanBerry();
+Item createColburBerry();
+Item createBabiriBerry();
+Item createChilanBerry();
+Item createLiechiBerry();
+Item createGanlonBerry();
+Item createSalacBerry();
+Item createPetayaBerry();
+Item createApicotBerry();
+Item createJabocaBerry();
+Item createRowapBerry();
 Item createLeftovers();
+Item createBlackSludge();
+Item createShellBell();
 Item createChoiceBand();
 Item createChoiceSpecs();
 Item createChoiceScarf();
+Item createQuickClaw();
 Item createLifeOrb();
+Item createExpertBelt();
+Item createMuscleBand();
+Item createWiseGlasses();
+Item createLightBall();
+Item createQuickPowder();
+Item createThickClub();
+Item createMetalPowder();
+Item createDeepSeaTooth();
+Item createDeepSeaScale();
+Item createPowerHerb();
+Item createStickyBarb();
+Item createBigRoot();
+Item createKingsRock();
+Item createWideLens();
+Item createZoomLens();
+Item createScopeLens();
+Item createSilverPowder();
+Item createMetalCoat();
+Item createHardStone();
+Item createMiracleSeed();
+Item createBlackGlasses();
+Item createBlackBelt();
+Item createMagnet();
+Item createMysticWater();
+Item createSharpBeak();
+Item createPoisonBarb();
+Item createNeverMeltIce();
+Item createSpellTag();
+Item createTwistedSpoon();
+Item createCharcoal();
+Item createDragonFang();
+Item createSilkScarf();
+Item createSeaIncense();
+Item createFlamePlate();
+Item createSplashPlate();
+Item createZapPlate();
+Item createMeadowPlate();
+Item createIciclePlate();
+Item createFistPlate();
+Item createToxicPlate();
+Item createEarthPlate();
+Item createSkyPlate();
+Item createMindPlate();
+Item createInsectPlate();
+Item createStonePlate();
+Item createSpookyPlate();
+Item createIronPlate();
+Item createFlameOrb();
+Item createToxicOrb();
 Item createFocusSash();
 Item createRockyHelmet();
 Item createAirBalloon();
 Item createEviolite();
 Item createAssaultVest();
 Item createRedCard();
+Item createEjectButton();
+Item createWhiteHerb();
 Item createWeaknessPolicy();
+Item createBerryJuice();
 
 // 辅助函数
 std::string getItemName(ItemType type);

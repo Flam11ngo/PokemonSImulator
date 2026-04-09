@@ -3,7 +3,7 @@
   "event": "attack_result",
   "move": "Hydro Pump",
   "side_a": {
-    "active_pokemon": "Charizard",
+    "active_pokemon": "Venusaur",
     "name": "Player"
   },
   "side_b": {

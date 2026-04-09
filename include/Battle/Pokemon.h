@@ -1,12 +1,7 @@
 #pragma once
 
-#include "Types.h"
+#include "BattleData.h"  // IWYU pragma: keep
 #include "Natures.h"
-#include "Abilities.h"
-#include "Items.h"
-#include "Status.h"
-#include "Moves.h"
-#include "Species.h"
 #include <string>
 #include <vector>
 #include <array>
@@ -43,6 +38,7 @@ private:
     std::vector<Move> moves;
     std::array<int, static_cast<int>(StatIndex::Count)> ivs;
     std::array<int, static_cast<int>(StatIndex::Count)> evs;
+    std::array<int, 7> statStages;
     bool isProtected; // 保护状态
 
     int calculateStat(int base, int iv, int ev, int level, float natureModifier, bool isHP) const;
@@ -84,6 +80,7 @@ public:
     const std::vector<Move>& getMoves() const { return moves; }
     int getIV(StatIndex index) const { return ivs[static_cast<int>(index)]; }
     int getEV(StatIndex index) const { return evs[static_cast<int>(index)]; }
+    int getStatStage(StatIndex index) const;
     ItemType getItemType() const { return itemType; }
     Item getHeldItem() const { return getItem(itemType); }
 
@@ -92,6 +89,10 @@ public:
     void setStatus();
     void setItemType(ItemType item) { itemType = item; }
     void removeItem() { itemType = ItemType::None; }
+    
+    // 携带物品函数
+    void holdItem(ItemType item) { setItemType(item); }
+    void changeStatStage(StatIndex index, int delta);
     void setIV(StatIndex index, int value) { ivs[static_cast<int>(index)] = value; recalculateStats(); }
     void setEV(StatIndex index, int value) { evs[static_cast<int>(index)] = value; recalculateStats(); }
     void addMove(const Move& move) { if (moves.size() < 4) moves.push_back(move); }    

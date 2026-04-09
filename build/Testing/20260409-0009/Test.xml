@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20260409-0009-Experimental"
+	Name="ThatsAMistake"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="ThatsAMistake"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="68"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="2048"
+	TotalPhysicalMemory="7558"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3194"
+	>
+	<Testing>
+		<StartDateTime>Apr 09 21:54 CST</StartDateTime>
+		<StartTestTime>1775742862</StartTestTime>
+		<TestList>
+			<Test>./BattleLogicTest.DragonDanceRaisesAttackAndSpeed</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>BattleLogicTest.DragonDanceRaisesAttackAndSpeed</Name>
+			<Path>.</Path>
+			<FullName>./BattleLogicTest.DragonDanceRaisesAttackAndSpeed</FullName>
+			<FullCommandLine>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0153143</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJyVUE1rwkAQvedXzFEPydJToeAhxeKhxUrSnoLImozp4u5MujtpwV/ffIioUNB3muG9mXnzspbIUA1OG5pMYefZgfpih+r7cFAr3qNjyo1rrRb2atsaW6lNhU1QNXNtUTBIHHx51qqh7atNvzYpy2jJgk+wGCTw0TGwM1bQwwyetYjFN65N2RPJ3Ouaaa6pxEybgCEV0eU+pSpvEKuomJ2whuxo/wFkWNrbP9ahNYJJVMQnrGFheavtyCP9GM/kkDotStw2V+LznVcmowKyzyUMWN//wTgI76/3D8PkEVyY3ux01IOwaDuNbktDUPu44l+6zPq/jMFrSi7vdB+u0jx/mffxjNok+gO7k80d====</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Apr 09 21:54 CST</EndDateTime>
+		<EndTestTime>1775742862</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

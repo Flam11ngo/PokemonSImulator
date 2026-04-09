@@ -1,7 +1,7 @@
 {
   "actor": "Blastoise",
   "event": "action_start",
-  "move": "Water Gun",
+  "move": "Hydro Pump",
   "priority": 98,
   "target": "Charizard",
   "type": "attack"

@@ -37,6 +37,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/qzz/PokemonSimulator/src/Image.cpp" "CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Image.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/SceneManager.cpp" "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/SceneManager.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/Scenes/BattleScene.cpp" "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Scenes/BattleScene.cpp.o.d"
+  "/home/qzz/PokemonSimulator/src/Scenes/ItemScene.cpp" "CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Scenes/ItemScene.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/Scenes/TestScene.cpp" "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/Scenes/TestScene.cpp.o.d"
   "/home/qzz/PokemonSimulator/src/main.cpp" "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o" "gcc" "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o.d"
   )
