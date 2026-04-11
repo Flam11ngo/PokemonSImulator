@@ -1,8 +1,0 @@
-{
-  "actor": "Blastoise",
-  "event": "action_start",
-  "move": "Hydro Pump",
-  "priority": 98,
-  "target": "Venusaur",
-  "type": "attack"
-}

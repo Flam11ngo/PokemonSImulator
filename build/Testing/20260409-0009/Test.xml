@@ -24,19 +24,19 @@
 	ProcessorClockFrequency="3194"
 	>
 	<Testing>
-		<StartDateTime>Apr 09 21:54 CST</StartDateTime>
-		<StartTestTime>1775742862</StartTestTime>
+		<StartDateTime>Apr 09 23:59 CST</StartDateTime>
+		<StartTestTime>1775750368</StartTestTime>
 		<TestList>
-			<Test>./BattleLogicTest.DragonDanceRaisesAttackAndSpeed</Test>
+			<Test>./MoveBehaviorTest.PursuitTriggersOnOpponentSwitch</Test>
 		</TestList>
 		<Test Status="passed">
-			<Name>BattleLogicTest.DragonDanceRaisesAttackAndSpeed</Name>
+			<Name>MoveBehaviorTest.PursuitTriggersOnOpponentSwitch</Name>
 			<Path>.</Path>
-			<FullName>./BattleLogicTest.DragonDanceRaisesAttackAndSpeed</FullName>
-			<FullCommandLine>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"</FullCommandLine>
+			<FullName>./MoveBehaviorTest.PursuitTriggersOnOpponentSwitch</FullName>
+			<FullCommandLine>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" "--gtest_also_run_disabled_tests"</FullCommandLine>
 			<Results>
 				<NamedMeasurement type="numeric/double" name="Execution Time">
-					<Value>0.0153143</Value>
+					<Value>0.0143773</Value>
 				</NamedMeasurement>
 				<NamedMeasurement type="numeric/double" name="Processors">
 					<Value>1</Value>
@@ -45,18 +45,18 @@
 					<Value>Completed</Value>
 				</NamedMeasurement>
 				<NamedMeasurement type="text/string" name="Command Line">
-					<Value>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"</Value>
+					<Value>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" "--gtest_also_run_disabled_tests"</Value>
 				</NamedMeasurement>
 				<NamedMeasurement type="text/string" name="Environment">
 					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
 				</NamedMeasurement>
 				<Measurement>
-					<Value encoding="base64" compression="gzip">eJyVUE1rwkAQvedXzFEPydJToeAhxeKhxUrSnoLImozp4u5MujtpwV/ffIioUNB3muG9mXnzspbIUA1OG5pMYefZgfpih+r7cFAr3qNjyo1rrRb2atsaW6lNhU1QNXNtUTBIHHx51qqh7atNvzYpy2jJgk+wGCTw0TGwM1bQwwyetYjFN65N2RPJ3Ouaaa6pxEybgCEV0eU+pSpvEKuomJ2whuxo/wFkWNrbP9ahNYJJVMQnrGFheavtyCP9GM/kkDotStw2V+LznVcmowKyzyUMWN//wTgI76/3D8PkEVyY3ux01IOwaDuNbktDUPu44l+6zPq/jMFrSi7vdB+u0jx/mffxjNok+gO7k80d====</Value>
+					<Value encoding="base64" compression="gzip">eJydUE1rAjEQvedXzFEPu6HQU8FDS4uHUl127UlE4jquoUlmm0xW8Nd3P0RUKIhzmmHee/Pm5dE57SqwSrvRGHaeLMg9WZS/x6PM6ActuULbaBSTl5uozVaut1gHWRFVBhkDJ8GXF6Psx65bd7JpWYoZMb7AtIfAot3AThtGDxP4ogbfcK8aTb7bpFn0IWpeeF1V6MPczeuaHDouDprLvVhOzrWC/OT/CbhX7fyf+k4EU7FMzrWCqaGNMsMeXaM9OdsqQ0BOYn0DvtS8dSmWkH/PoK/VAz8MTJh/PsCG0TPYML7f7EAAJlZmLO5LhFH5ZEsHd533fzmDVy69vtP+mL0Wxcd7l9CATcUfoljR6Q==</Value>
 				</Measurement>
 			</Results>
 		</Test>
-		<EndDateTime>Apr 09 21:54 CST</EndDateTime>
-		<EndTestTime>1775742862</EndTestTime>
+		<EndDateTime>Apr 09 23:59 CST</EndDateTime>
+		<EndTestTime>1775750368</EndTestTime>
 		<ElapsedMinutes>0</ElapsedMinutes>
 	</Testing>
 </Site>

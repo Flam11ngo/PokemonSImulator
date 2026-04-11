@@ -1,0 +1,30 @@
+Start testing: Apr 11 22:26 CST
+----------------------------------------------------------
+90/90 Testing: BattleEventTest.ActionHooksEmitBeforeAndAfterResolve
+90/90 Test: BattleEventTest.ActionHooksEmitBeforeAndAfterResolve
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" start time: Apr 11 22:26 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = BattleEventTest.ActionHooksEmitBeforeAndAfterResolve
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from BattleEventTest
+[ RUN      ] BattleEventTest.ActionHooksEmitBeforeAndAfterResolve
+[       OK ] BattleEventTest.ActionHooksEmitBeforeAndAfterResolve (28 ms)
+[----------] 1 test from BattleEventTest (28 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (28 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" end time: Apr 11 22:26 CST
+"BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 11 22:26 CST

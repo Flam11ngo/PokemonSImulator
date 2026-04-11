@@ -12,6 +12,7 @@ enum class StatusType {
     Paralysis,
     Poison,
     Sleep,
+    Flinch,
     ToxicPoison,
     Confusion,
     Count

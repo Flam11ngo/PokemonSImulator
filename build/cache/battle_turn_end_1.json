@@ -1,12 +1,270 @@
 {
   "event": "turn_end",
+  "field": {
+    "duration": 0,
+    "type": "none"
+  },
   "side_a": {
-    "active_pokemon": "Charizard",
-    "name": "Player"
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "blaze",
+      "current_hp": 1,
+      "is_fainted": false,
+      "item": "none",
+      "level": 50,
+      "max_hp": 1,
+      "moves": [
+        {
+          "accuracy": 100,
+          "max_pp": 35,
+          "name": "Pound",
+          "power": 40,
+          "pp": 35,
+          "type": "normal"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 25,
+          "name": "Karate Chop",
+          "power": 50,
+          "pp": 25,
+          "type": "fighting"
+        },
+        {
+          "accuracy": 85,
+          "max_pp": 10,
+          "name": "Double Slap",
+          "power": 15,
+          "pp": 10,
+          "type": "normal"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 15,
+          "name": "Ice Punch",
+          "power": 75,
+          "pp": 15,
+          "type": "ice"
+        }
+      ],
+      "name": "Charizard",
+      "nature": "adamant",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 58,
+        "defense": 21,
+        "special_attack": 18,
+        "special_defense": 21,
+        "speed": 53
+      },
+      "statuses": [],
+      "type1": "normal",
+      "type2": "count"
+    },
+    "name": "Red",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "blaze",
+        "current_hp": 1,
+        "is_fainted": false,
+        "item": "none",
+        "level": 50,
+        "max_hp": 1,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 35,
+            "name": "Pound",
+            "power": 40,
+            "pp": 35,
+            "type": "normal"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 25,
+            "name": "Karate Chop",
+            "power": 50,
+            "pp": 25,
+            "type": "fighting"
+          },
+          {
+            "accuracy": 85,
+            "max_pp": 10,
+            "name": "Double Slap",
+            "power": 15,
+            "pp": 10,
+            "type": "normal"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Ice Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "ice"
+          }
+        ],
+        "name": "Charizard",
+        "nature": "adamant",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 58,
+          "defense": 21,
+          "special_attack": 18,
+          "special_defense": 21,
+          "speed": 53
+        },
+        "statuses": [],
+        "type1": "normal",
+        "type2": "count"
+      }
+    ]
   },
   "side_b": {
-    "active_pokemon": "Blastoise",
-    "name": "Opponent"
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "torrent",
+      "current_hp": 0,
+      "is_fainted": true,
+      "item": "none",
+      "level": 50,
+      "max_hp": 1,
+      "moves": [
+        {
+          "accuracy": 100,
+          "max_pp": 20,
+          "name": "Pay Day",
+          "power": 40,
+          "pp": 20,
+          "type": "normal"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 15,
+          "name": "Fire Punch",
+          "power": 75,
+          "pp": 15,
+          "type": "fire"
+        },
+        {
+          "accuracy": 85,
+          "max_pp": 15,
+          "name": "Comet Punch",
+          "power": 18,
+          "pp": 15,
+          "type": "normal"
+        },
+        {
+          "accuracy": 85,
+          "max_pp": 20,
+          "name": "Mega Punch",
+          "power": 80,
+          "pp": 20,
+          "type": "normal"
+        }
+      ],
+      "name": "Blastoise",
+      "nature": "modest",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 18,
+        "defense": 53,
+        "special_attack": 23,
+        "special_defense": 53,
+        "speed": 21
+      },
+      "statuses": [],
+      "type1": "normal",
+      "type2": "count"
+    },
+    "name": "Blue",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "torrent",
+        "current_hp": 0,
+        "is_fainted": true,
+        "item": "none",
+        "level": 50,
+        "max_hp": 1,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 20,
+            "name": "Pay Day",
+            "power": 40,
+            "pp": 20,
+            "type": "normal"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Fire Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "fire"
+          },
+          {
+            "accuracy": 85,
+            "max_pp": 15,
+            "name": "Comet Punch",
+            "power": 18,
+            "pp": 15,
+            "type": "normal"
+          },
+          {
+            "accuracy": 85,
+            "max_pp": 20,
+            "name": "Mega Punch",
+            "power": 80,
+            "pp": 20,
+            "type": "normal"
+          }
+        ],
+        "name": "Blastoise",
+        "nature": "modest",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 18,
+          "defense": 53,
+          "special_attack": 23,
+          "special_defense": 53,
+          "speed": 21
+        },
+        "statuses": [],
+        "type1": "normal",
+        "type2": "count"
+      }
+    ]
   },
-  "turn": 1
+  "turn": 1,
+  "weather": {
+    "duration": 0,
+    "type": "clear"
+  }
 }

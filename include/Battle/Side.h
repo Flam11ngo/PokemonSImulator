@@ -34,6 +34,23 @@ public:
     void setProtectCount(int count) { protectCount = count; }
     void resetProtectCount() { protectCount = 0; }
 
+    int getReflectTurns() const { return reflectTurns; }
+    int getLightScreenTurns() const { return lightScreenTurns; }
+    bool hasReflect() const { return reflectTurns > 0; }
+    bool hasLightScreen() const { return lightScreenTurns > 0; }
+    void setReflectTurns(int turns) { reflectTurns = turns > 0 ? turns : 0; }
+    void setLightScreenTurns(int turns) { lightScreenTurns = turns > 0 ? turns : 0; }
+    void clearScreenEffects() { reflectTurns = 0; lightScreenTurns = 0; }
+    void tickScreenEffects();
+
+    int getSpikesLayers() const { return spikesLayers; }
+    int getToxicSpikesLayers() const { return toxicSpikesLayers; }
+    bool hasStealthRock() const { return stealthRock; }
+    void addSpikesLayer();
+    void addToxicSpikesLayer();
+    void setStealthRock(bool enabled) { stealthRock = enabled; }
+    void clearEntryHazards();
+
 private:
     std::string name;
     std::array<Pokemon*, 6> team{};
@@ -41,4 +58,9 @@ private:
     int activeIndex = 0;
     std::vector<FieldEffect> fieldEffects;
     int protectCount = 0; // 连续守护的次数
+    int reflectTurns = 0;
+    int lightScreenTurns = 0;
+    int spikesLayers = 0;
+    int toxicSpikesLayers = 0;
+    bool stealthRock = false;
 };

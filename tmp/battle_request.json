@@ -1,0 +1,74 @@
+{
+  "init": {
+    "side_a": {
+      "name": "Red",
+      "pokemon": [
+        {
+          "speciesID": 6,
+          "level": 50,
+          "nature": "adamant",
+          "ability": "blaze",
+          "ivs": {
+            "hp": 31,
+            "attack": 31,
+            "defense": 31,
+            "specialAttack": 31,
+            "specialDefense": 31,
+            "speed": 31
+          },
+          "evs": {
+            "hp": 0,
+            "attack": 252,
+            "defense": 0,
+            "specialAttack": 0,
+            "specialDefense": 0,
+            "speed": 252
+          },
+          "moves": [1, 2, 3, 8]
+        }
+      ]
+    },
+    "side_b": {
+      "name": "Blue",
+      "pokemon": [
+        {
+          "speciesID": 9,
+          "level": 50,
+          "nature": "modest",
+          "ability": "torrent",
+          "ivs": {
+            "hp": 31,
+            "attack": 31,
+            "defense": 31,
+            "specialAttack": 31,
+            "specialDefense": 31,
+            "speed": 31
+          },
+          "evs": {
+            "hp": 0,
+            "attack": 0,
+            "defense": 252,
+            "specialAttack": 0,
+            "specialDefense": 252,
+            "speed": 0
+          },
+          "moves": [6, 7, 4, 5]
+        }
+      ]
+    }
+  },
+  "turn": {
+    "actions": [
+      {
+        "side": "a",
+        "type": "attack",
+        "move_index": 3
+      },
+      {
+        "side": "b",
+        "type": "attack",
+        "move_index": 1
+      }
+    ]
+  }
+}

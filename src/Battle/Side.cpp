@@ -66,3 +66,30 @@ void Side::addFieldEffect(const FieldEffect& effect) {
 void Side::clearFieldEffects() {
     fieldEffects.clear();
 }
+
+void Side::tickScreenEffects() {
+    if (reflectTurns > 0) {
+        --reflectTurns;
+    }
+    if (lightScreenTurns > 0) {
+        --lightScreenTurns;
+    }
+}
+
+void Side::addSpikesLayer() {
+    if (spikesLayers < 3) {
+        ++spikesLayers;
+    }
+}
+
+void Side::addToxicSpikesLayer() {
+    if (toxicSpikesLayers < 2) {
+        ++toxicSpikesLayers;
+    }
+}
+
+void Side::clearEntryHazards() {
+    spikesLayers = 0;
+    toxicSpikesLayers = 0;
+    stealthRock = false;
+}

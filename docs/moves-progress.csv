@@ -1,0 +1,938 @@
+id,name,apiName,category,effect,target,status,reason
+1,Pound,pound,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+2,Karate Chop,karate-chop,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+3,Double Slap,double-slap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+4,Comet Punch,comet-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+5,Mega Punch,mega-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+6,Pay Day,pay-day,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+7,Fire Punch,fire-punch,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+8,Ice Punch,ice-punch,physical,Freeze,selected-pokemon,implemented,effect handler present: freeze
+9,Thunder Punch,thunder-punch,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+10,Scratch,scratch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+11,Vice Grip,vice-grip,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+12,Guillotine,guillotine,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+13,Razor Wind,razor-wind,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+14,Swords Dance,swords-dance,status,StatChange,user,implemented,effect handler present: statchange
+15,Cut,cut,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+16,Gust,gust,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+17,Wing Attack,wing-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+18,Whirlwind,whirlwind,status,None,selected-pokemon,todo,no explicit mechanic handler
+19,Fly,fly,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+20,Bind,bind,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+21,Slam,slam,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+22,Vine Whip,vine-whip,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+23,Stomp,stomp,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+24,Double Kick,double-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+25,Mega Kick,mega-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+26,Jump Kick,jump-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+27,Rolling Kick,rolling-kick,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+28,Sand Attack,sand-attack,status,None,selected-pokemon,todo,no explicit mechanic handler
+29,Headbutt,headbutt,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+30,Horn Attack,horn-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+31,Fury Attack,fury-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+32,Horn Drill,horn-drill,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+33,Tackle,tackle,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+34,Body Slam,body-slam,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+35,Wrap,wrap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+36,Take Down,take-down,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+37,Thrash,thrash,physical,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+38,Double Edge,double-edge,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+39,Tail Whip,tail-whip,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+40,Poison Sting,poison-sting,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+41,Twineedle,twineedle,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+42,Pin Missile,pin-missile,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+43,Leer,leer,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+44,Bite,bite,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+45,Growl,growl,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+46,Roar,roar,status,None,selected-pokemon,todo,no explicit mechanic handler
+47,Sing,sing,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+48,Supersonic,supersonic,status,None,selected-pokemon,todo,no explicit mechanic handler
+49,Sonic Boom,sonic-boom,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+50,Disable,disable,status,None,selected-pokemon,todo,no explicit mechanic handler
+51,Acid,acid,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+52,Ember,ember,special,Burn,selected-pokemon,implemented,effect handler present: burn
+53,Flamethrower,flamethrower,special,Burn,selected-pokemon,implemented,effect handler present: burn
+54,Mist,mist,status,None,users-field,todo,no explicit mechanic handler
+55,Water Gun,water-gun,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+56,Hydro Pump,hydro-pump,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+57,Surf,surf,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+58,Ice Beam,ice-beam,special,Freeze,selected-pokemon,implemented,effect handler present: freeze
+59,Blizzard,blizzard,special,Freeze,all-opponents,partial,multi-target semantic may differ in singles-first mode
+60,Psybeam,psybeam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+61,Bubble Beam,bubble-beam,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+62,Aurora Beam,aurora-beam,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+63,Hyper Beam,hyper-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+64,Peck,peck,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+65,Drill Peck,drill-peck,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+66,Submission,submission,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+67,Low Kick,low-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+68,Counter,counter,physical,None,specific-move,partial,base damage path likely works; special mechanic not confirmed
+69,Seismic Toss,seismic-toss,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+70,Strength,strength,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+71,Absorb,absorb,special,Drain,selected-pokemon,implemented,effect handler present: drain
+72,Mega Drain,mega-drain,special,Drain,selected-pokemon,implemented,effect handler present: drain
+73,Leech Seed,leech-seed,status,None,selected-pokemon,todo,no explicit mechanic handler
+74,Growth,growth,status,StatChange,user,implemented,effect handler present: statchange
+75,Razor Leaf,razor-leaf,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+76,Solar Beam,solar-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+77,Poison Powder,poison-powder,status,Poison,selected-pokemon,implemented,effect handler present: poison
+78,Stun Spore,stun-spore,status,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+79,Sleep Powder,sleep-powder,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+80,Petal Dance,petal-dance,special,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+81,String Shot,string-shot,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+82,Dragon Rage,dragon-rage,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+83,Fire Spin,fire-spin,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+84,Thunder Shock,thunder-shock,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+85,Thunderbolt,thunderbolt,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+86,Thunder Wave,thunder-wave,status,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+87,Thunder,thunder,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+88,Rock Throw,rock-throw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+89,Earthquake,earthquake,physical,None,all-other-pokemon,implemented,hardcoded name rule present
+90,Fissure,fissure,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+91,Dig,dig,physical,None,selected-pokemon,implemented,hardcoded name rule present
+92,Toxic,toxic,status,Poison,selected-pokemon,implemented,effect handler present: poison
+93,Confusion,confusion,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+94,Psychic,psychic,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+95,Hypnosis,hypnosis,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+96,Meditate,meditate,status,StatChange,user,implemented,effect handler present: statchange
+97,Agility,agility,status,StatChange,user,implemented,effect handler present: statchange
+98,Quick Attack,quick-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+99,Rage,rage,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+100,Teleport,teleport,status,None,user,todo,no explicit mechanic handler
+101,Night Shade,night-shade,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+102,Mimic,mimic,status,None,selected-pokemon,todo,no explicit mechanic handler
+103,Screech,screech,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+104,Double Team,double-team,status,None,user,todo,no explicit mechanic handler
+105,Recover,recover,status,None,user,implemented,hardcoded name rule present
+106,Harden,harden,status,StatChange,user,implemented,effect handler present: statchange
+107,Minimize,minimize,status,None,user,todo,no explicit mechanic handler
+108,Smokescreen,smokescreen,status,None,selected-pokemon,todo,no explicit mechanic handler
+109,Confuse Ray,confuse-ray,status,None,selected-pokemon,todo,no explicit mechanic handler
+110,Withdraw,withdraw,status,StatChange,user,implemented,effect handler present: statchange
+111,Defense Curl,defense-curl,status,StatChange,user,implemented,effect handler present: statchange
+112,Barrier,barrier,status,StatChange,user,implemented,effect handler present: statchange
+113,Light Screen,light-screen,status,None,users-field,todo,no explicit mechanic handler
+114,Haze,haze,status,None,entire-field,implemented,hardcoded name rule present
+115,Reflect,reflect,status,None,users-field,todo,no explicit mechanic handler
+116,Focus Energy,focus-energy,status,None,user,todo,no explicit mechanic handler
+117,Bide,bide,physical,None,user,partial,base damage path likely works; special mechanic not confirmed
+118,Metronome,metronome,status,None,user,todo,no explicit mechanic handler
+119,Mirror Move,mirror-move,status,None,selected-pokemon,todo,no explicit mechanic handler
+120,Self Destruct,self-destruct,physical,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+121,Egg Bomb,egg-bomb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+122,Lick,lick,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+123,Smog,smog,special,Poison,selected-pokemon,implemented,effect handler present: poison
+124,Sludge,sludge,special,Poison,selected-pokemon,implemented,effect handler present: poison
+125,Bone Club,bone-club,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+126,Fire Blast,fire-blast,special,Burn,selected-pokemon,implemented,effect handler present: burn
+127,Waterfall,waterfall,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+128,Clamp,clamp,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+129,Swift,swift,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+130,Skull Bash,skull-bash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+131,Spike Cannon,spike-cannon,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+132,Constrict,constrict,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+133,Amnesia,amnesia,status,StatChange,user,implemented,effect handler present: statchange
+134,Kinesis,kinesis,status,None,selected-pokemon,todo,no explicit mechanic handler
+135,Soft Boiled,soft-boiled,status,None,user,implemented,hardcoded name rule present
+136,High Jump Kick,high-jump-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+137,Glare,glare,status,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+138,Dream Eater,dream-eater,special,Drain,selected-pokemon,implemented,effect handler present: drain
+139,Poison Gas,poison-gas,status,Poison,all-opponents,partial,multi-target semantic may differ in singles-first mode
+140,Barrage,barrage,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+141,Leech Life,leech-life,physical,Drain,selected-pokemon,implemented,effect handler present: drain
+142,Lovely Kiss,lovely-kiss,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+143,Sky Attack,sky-attack,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+144,Transform,transform,status,None,selected-pokemon,todo,no explicit mechanic handler
+145,Bubble,bubble,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+146,Dizzy Punch,dizzy-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+147,Spore,spore,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+148,Flash,flash,status,None,selected-pokemon,todo,no explicit mechanic handler
+149,Psywave,psywave,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+150,Splash,splash,status,None,user,todo,no explicit mechanic handler
+151,Acid Armor,acid-armor,status,StatChange,user,implemented,effect handler present: statchange
+152,Crabhammer,crabhammer,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+153,Explosion,explosion,physical,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+154,Fury Swipes,fury-swipes,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+155,Bonemerang,bonemerang,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+156,Rest,rest,status,None,user,todo,no explicit mechanic handler
+157,Rock Slide,rock-slide,physical,Flinch,all-opponents,partial,multi-target semantic may differ in singles-first mode
+158,Hyper Fang,hyper-fang,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+159,Sharpen,sharpen,status,StatChange,user,implemented,effect handler present: statchange
+160,Conversion,conversion,status,None,user,todo,no explicit mechanic handler
+161,Tri Attack,tri-attack,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+162,Super Fang,super-fang,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+163,Slash,slash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+164,Substitute,substitute,status,None,user,todo,no explicit mechanic handler
+165,Struggle,struggle,physical,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+166,Sketch,sketch,status,None,selected-pokemon,todo,no explicit mechanic handler
+167,Triple Kick,triple-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+168,Thief,thief,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+169,Spider Web,spider-web,status,None,selected-pokemon,todo,no explicit mechanic handler
+170,Mind Reader,mind-reader,status,None,selected-pokemon,todo,no explicit mechanic handler
+171,Nightmare,nightmare,status,None,selected-pokemon,todo,no explicit mechanic handler
+172,Flame Wheel,flame-wheel,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+173,Snore,snore,special,Flinch,selected-pokemon,implemented,effect handler present: flinch
+174,Curse,curse,status,None,specific-move,todo,no explicit mechanic handler
+175,Flail,flail,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+176,Conversion 2,conversion-2,status,None,selected-pokemon,todo,no explicit mechanic handler
+177,Aeroblast,aeroblast,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+178,Cotton Spore,cotton-spore,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+179,Reversal,reversal,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+180,Spite,spite,status,None,selected-pokemon,todo,no explicit mechanic handler
+181,Powder Snow,powder-snow,special,Freeze,all-opponents,partial,multi-target semantic may differ in singles-first mode
+182,Protect,protect,status,Safeguard,user,implemented,effect handler present: safeguard
+183,Mach Punch,mach-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+184,Scary Face,scary-face,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+185,Feint Attack,feint-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+186,Sweet Kiss,sweet-kiss,status,None,selected-pokemon,todo,no explicit mechanic handler
+187,Belly Drum,belly-drum,status,None,user,todo,no explicit mechanic handler
+188,Sludge Bomb,sludge-bomb,special,Poison,selected-pokemon,implemented,effect handler present: poison
+189,Mud Slap,mud-slap,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+190,Octazooka,octazooka,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+191,Spikes,spikes,status,None,opponents-field,todo,no explicit mechanic handler
+192,Zap Cannon,zap-cannon,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+193,Foresight,foresight,status,None,selected-pokemon,todo,no explicit mechanic handler
+194,Destiny Bond,destiny-bond,status,None,user,todo,no explicit mechanic handler
+195,Perish Song,perish-song,status,None,all-pokemon,todo,no explicit mechanic handler
+196,Icy Wind,icy-wind,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+197,Detect,detect,status,None,user,todo,no explicit mechanic handler
+198,Bone Rush,bone-rush,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+199,Lock On,lock-on,status,None,selected-pokemon,todo,no explicit mechanic handler
+200,Outrage,outrage,physical,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+201,Sandstorm,sandstorm,status,None,entire-field,todo,no explicit mechanic handler
+202,Giga Drain,giga-drain,special,Drain,selected-pokemon,implemented,effect handler present: drain
+203,Endure,endure,status,None,user,todo,no explicit mechanic handler
+204,Charm,charm,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+205,Rollout,rollout,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+206,False Swipe,false-swipe,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+207,Swagger,swagger,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+208,Milk Drink,milk-drink,status,None,user,implemented,hardcoded name rule present
+209,Spark,spark,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+210,Fury Cutter,fury-cutter,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+211,Steel Wing,steel-wing,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+212,Mean Look,mean-look,status,None,selected-pokemon,todo,no explicit mechanic handler
+213,Attract,attract,status,None,selected-pokemon,todo,no explicit mechanic handler
+214,Sleep Talk,sleep-talk,status,None,user,todo,no explicit mechanic handler
+215,Heal Bell,heal-bell,status,None,user-and-allies,todo,no explicit mechanic handler
+216,Return,return,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+217,Present,present,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+218,Frustration,frustration,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+219,Safeguard,safeguard,status,None,users-field,todo,no explicit mechanic handler
+220,Pain Split,pain-split,status,None,selected-pokemon,todo,no explicit mechanic handler
+221,Sacred Fire,sacred-fire,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+222,Magnitude,magnitude,physical,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+223,Dynamic Punch,dynamic-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+224,Megahorn,megahorn,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+225,Dragon Breath,dragon-breath,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+226,Baton Pass,baton-pass,status,None,user,implemented,hardcoded name rule present
+227,Encore,encore,status,None,selected-pokemon,implemented,hardcoded name rule present
+228,Pursuit,pursuit,physical,None,selected-pokemon,implemented,hardcoded name rule present
+229,Rapid Spin,rapid-spin,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+230,Sweet Scent,sweet-scent,status,None,all-opponents,todo,no explicit mechanic handler
+231,Iron Tail,iron-tail,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+232,Metal Claw,metal-claw,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+233,Vital Throw,vital-throw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+234,Morning Sun,morning-sun,status,None,user,todo,no explicit mechanic handler
+235,Synthesis,synthesis,status,None,user,todo,no explicit mechanic handler
+236,Moonlight,moonlight,status,None,user,todo,no explicit mechanic handler
+237,Hidden Power,hidden-power,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+238,Cross Chop,cross-chop,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+239,Twister,twister,special,Flinch,all-opponents,partial,multi-target semantic may differ in singles-first mode
+240,Rain Dance,rain-dance,status,None,entire-field,todo,no explicit mechanic handler
+241,Sunny Day,sunny-day,status,None,entire-field,todo,no explicit mechanic handler
+242,Crunch,crunch,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+243,Mirror Coat,mirror-coat,special,None,specific-move,partial,base damage path likely works; special mechanic not confirmed
+244,Psych Up,psych-up,status,None,selected-pokemon,todo,no explicit mechanic handler
+245,Extreme Speed,extreme-speed,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+246,Ancient Power,ancient-power,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+247,Shadow Ball,shadow-ball,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+248,Future Sight,future-sight,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+249,Rock Smash,rock-smash,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+250,Whirlpool,whirlpool,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+251,Beat Up,beat-up,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+252,Fake Out,fake-out,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+253,Uproar,uproar,special,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+254,Stockpile,stockpile,status,StatChange,user,implemented,effect handler present: statchange
+255,Spit Up,spit-up,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+256,Swallow,swallow,status,None,user,todo,no explicit mechanic handler
+257,Heat Wave,heat-wave,special,Burn,all-opponents,partial,multi-target semantic may differ in singles-first mode
+258,Hail,hail,status,None,entire-field,todo,no explicit mechanic handler
+259,Torment,torment,status,None,selected-pokemon,todo,no explicit mechanic handler
+260,Flatter,flatter,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+261,Will O Wisp,will-o-wisp,status,Burn,selected-pokemon,implemented,effect handler present: burn
+262,Memento,memento,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+263,Facade,facade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+264,Focus Punch,focus-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+265,Smelling Salts,smelling-salts,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+266,Follow Me,follow-me,status,None,user,todo,no explicit mechanic handler
+267,Nature Power,nature-power,status,None,selected-pokemon,todo,no explicit mechanic handler
+268,Charge,charge,status,StatChange,user,implemented,effect handler present: statchange
+269,Taunt,taunt,status,None,selected-pokemon,todo,no explicit mechanic handler
+270,Helping Hand,helping-hand,status,None,ally,todo,no explicit mechanic handler
+271,Trick,trick,status,None,selected-pokemon,todo,no explicit mechanic handler
+272,Role Play,role-play,status,None,selected-pokemon,todo,no explicit mechanic handler
+273,Wish,wish,status,None,user,todo,no explicit mechanic handler
+274,Assist,assist,status,None,user,todo,no explicit mechanic handler
+275,Ingrain,ingrain,status,None,user,todo,no explicit mechanic handler
+276,Superpower,superpower,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+277,Magic Coat,magic-coat,status,None,user,todo,no explicit mechanic handler
+278,Recycle,recycle,status,None,user,todo,no explicit mechanic handler
+279,Revenge,revenge,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+280,Brick Break,brick-break,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+281,Yawn,yawn,status,None,selected-pokemon,todo,no explicit mechanic handler
+282,Knock Off,knock-off,physical,None,selected-pokemon,implemented,hardcoded name rule present
+283,Endeavor,endeavor,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+284,Eruption,eruption,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+285,Skill Swap,skill-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+286,Imprison,imprison,status,None,user,todo,no explicit mechanic handler
+287,Refresh,refresh,status,None,user,todo,no explicit mechanic handler
+288,Grudge,grudge,status,None,user,todo,no explicit mechanic handler
+289,Snatch,snatch,status,None,user,todo,no explicit mechanic handler
+290,Secret Power,secret-power,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+291,Dive,dive,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+292,Arm Thrust,arm-thrust,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+293,Camouflage,camouflage,status,None,user,todo,no explicit mechanic handler
+294,Tail Glow,tail-glow,status,StatChange,user,implemented,effect handler present: statchange
+295,Luster Purge,luster-purge,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+296,Mist Ball,mist-ball,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+297,Feather Dance,feather-dance,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+298,Teeter Dance,teeter-dance,status,None,all-other-pokemon,todo,no explicit mechanic handler
+299,Blaze Kick,blaze-kick,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+300,Mud Sport,mud-sport,status,None,entire-field,todo,no explicit mechanic handler
+301,Ice Ball,ice-ball,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+302,Needle Arm,needle-arm,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+303,Slack Off,slack-off,status,None,user,todo,no explicit mechanic handler
+304,Hyper Voice,hyper-voice,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+305,Poison Fang,poison-fang,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+306,Crush Claw,crush-claw,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+307,Blast Burn,blast-burn,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+308,Hydro Cannon,hydro-cannon,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+309,Meteor Mash,meteor-mash,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+310,Astonish,astonish,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+311,Weather Ball,weather-ball,special,None,selected-pokemon,implemented,hardcoded name rule present
+312,Aromatherapy,aromatherapy,status,None,user-and-allies,todo,no explicit mechanic handler
+313,Fake Tears,fake-tears,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+314,Air Cutter,air-cutter,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+315,Overheat,overheat,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+316,Odor Sleuth,odor-sleuth,status,None,selected-pokemon,todo,no explicit mechanic handler
+317,Rock Tomb,rock-tomb,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+318,Silver Wind,silver-wind,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+319,Metal Sound,metal-sound,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+320,Grass Whistle,grass-whistle,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
+321,Tickle,tickle,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+322,Cosmic Power,cosmic-power,status,StatChange,user,implemented,effect handler present: statchange
+323,Water Spout,water-spout,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+324,Signal Beam,signal-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+325,Shadow Punch,shadow-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+326,Extrasensory,extrasensory,special,Flinch,selected-pokemon,implemented,effect handler present: flinch
+327,Sky Uppercut,sky-uppercut,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+328,Sand Tomb,sand-tomb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+329,Sheer Cold,sheer-cold,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+330,Muddy Water,muddy-water,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+331,Bullet Seed,bullet-seed,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+332,Aerial Ace,aerial-ace,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+333,Icicle Spear,icicle-spear,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+334,Iron Defense,iron-defense,status,StatChange,user,implemented,effect handler present: statchange
+335,Block,block,status,None,selected-pokemon,todo,no explicit mechanic handler
+336,Howl,howl,status,StatChange,user-and-allies,partial,multi-target semantic may differ in singles-first mode
+337,Dragon Claw,dragon-claw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+338,Frenzy Plant,frenzy-plant,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+339,Bulk Up,bulk-up,status,StatChange,user,implemented,effect handler present: statchange
+340,Bounce,bounce,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+341,Mud Shot,mud-shot,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+342,Poison Tail,poison-tail,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+343,Covet,covet,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+344,Volt Tackle,volt-tackle,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+345,Magical Leaf,magical-leaf,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+346,Water Sport,water-sport,status,None,entire-field,todo,no explicit mechanic handler
+347,Calm Mind,calm-mind,status,StatChange,user,implemented,effect handler present: statchange
+348,Leaf Blade,leaf-blade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+349,Dragon Dance,dragon-dance,status,StatChange,user,implemented,hardcoded name rule present
+350,Rock Blast,rock-blast,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+351,Shock Wave,shock-wave,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+352,Water Pulse,water-pulse,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+353,Doom Desire,doom-desire,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+354,Psycho Boost,psycho-boost,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+355,Roost,roost,status,None,user,todo,no explicit mechanic handler
+356,Gravity,gravity,status,None,entire-field,todo,no explicit mechanic handler
+357,Miracle Eye,miracle-eye,status,None,selected-pokemon,todo,no explicit mechanic handler
+358,Wake Up Slap,wake-up-slap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+359,Hammer Arm,hammer-arm,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+360,Gyro Ball,gyro-ball,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+361,Healing Wish,healing-wish,status,None,user,todo,no explicit mechanic handler
+362,Brine,brine,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+363,Natural Gift,natural-gift,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+364,Feint,feint,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+365,Pluck,pluck,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+366,Tailwind,tailwind,status,None,users-field,todo,no explicit mechanic handler
+367,Acupressure,acupressure,status,None,user-or-ally,todo,no explicit mechanic handler
+368,Metal Burst,metal-burst,physical,None,specific-move,partial,base damage path likely works; special mechanic not confirmed
+369,U Turn,u-turn,physical,None,selected-pokemon,implemented,hardcoded name rule present
+370,Close Combat,close-combat,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+371,Payback,payback,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+372,Assurance,assurance,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+373,Embargo,embargo,status,None,selected-pokemon,todo,no explicit mechanic handler
+374,Fling,fling,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+375,Psycho Shift,psycho-shift,status,None,selected-pokemon,todo,no explicit mechanic handler
+376,Trump Card,trump-card,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+377,Heal Block,heal-block,status,None,all-opponents,todo,no explicit mechanic handler
+378,Wring Out,wring-out,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+379,Power Trick,power-trick,status,None,user,todo,no explicit mechanic handler
+380,Gastro Acid,gastro-acid,status,None,selected-pokemon,todo,no explicit mechanic handler
+381,Lucky Chant,lucky-chant,status,None,users-field,todo,no explicit mechanic handler
+382,Me First,me-first,status,None,selected-pokemon-me-first,todo,no explicit mechanic handler
+383,Copycat,copycat,status,None,user,todo,no explicit mechanic handler
+384,Power Swap,power-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+385,Guard Swap,guard-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+386,Punishment,punishment,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+387,Last Resort,last-resort,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+388,Worry Seed,worry-seed,status,None,selected-pokemon,todo,no explicit mechanic handler
+389,Sucker Punch,sucker-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+390,Toxic Spikes,toxic-spikes,status,None,opponents-field,todo,no explicit mechanic handler
+391,Heart Swap,heart-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+392,Aqua Ring,aqua-ring,status,None,user,todo,no explicit mechanic handler
+393,Magnet Rise,magnet-rise,status,None,user,todo,no explicit mechanic handler
+394,Flare Blitz,flare-blitz,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+395,Force Palm,force-palm,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+396,Aura Sphere,aura-sphere,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+397,Rock Polish,rock-polish,status,StatChange,user,implemented,effect handler present: statchange
+398,Poison Jab,poison-jab,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+399,Dark Pulse,dark-pulse,special,Flinch,selected-pokemon,implemented,effect handler present: flinch
+400,Night Slash,night-slash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+401,Aqua Tail,aqua-tail,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+402,Seed Bomb,seed-bomb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+403,Air Slash,air-slash,special,Flinch,selected-pokemon,implemented,effect handler present: flinch
+404,X Scissor,x-scissor,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+405,Bug Buzz,bug-buzz,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+406,Dragon Pulse,dragon-pulse,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+407,Dragon Rush,dragon-rush,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+408,Power Gem,power-gem,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+409,Drain Punch,drain-punch,physical,Drain,selected-pokemon,implemented,effect handler present: drain
+410,Vacuum Wave,vacuum-wave,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+411,Focus Blast,focus-blast,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+412,Energy Ball,energy-ball,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+413,Brave Bird,brave-bird,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+414,Earth Power,earth-power,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+415,Switcheroo,switcheroo,status,None,selected-pokemon,todo,no explicit mechanic handler
+416,Giga Impact,giga-impact,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+417,Nasty Plot,nasty-plot,status,StatChange,user,implemented,effect handler present: statchange
+418,Bullet Punch,bullet-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+419,Avalanche,avalanche,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+420,Ice Shard,ice-shard,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+421,Shadow Claw,shadow-claw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+422,Thunder Fang,thunder-fang,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+423,Ice Fang,ice-fang,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+424,Fire Fang,fire-fang,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+425,Shadow Sneak,shadow-sneak,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+426,Mud Bomb,mud-bomb,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+427,Psycho Cut,psycho-cut,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+428,Zen Headbutt,zen-headbutt,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+429,Mirror Shot,mirror-shot,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+430,Flash Cannon,flash-cannon,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+431,Rock Climb,rock-climb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+432,Defog,defog,status,None,selected-pokemon,todo,no explicit mechanic handler
+433,Trick Room,trick-room,status,None,entire-field,implemented,hardcoded name rule present
+434,Draco Meteor,draco-meteor,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+435,Discharge,discharge,special,Paralyze,all-other-pokemon,implemented,effect handler present: paralyze
+436,Lava Plume,lava-plume,special,Burn,all-other-pokemon,implemented,effect handler present: burn
+437,Leaf Storm,leaf-storm,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+438,Power Whip,power-whip,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+439,Rock Wrecker,rock-wrecker,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+440,Cross Poison,cross-poison,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+441,Gunk Shot,gunk-shot,physical,Poison,selected-pokemon,implemented,effect handler present: poison
+442,Iron Head,iron-head,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+443,Magnet Bomb,magnet-bomb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+444,Stone Edge,stone-edge,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+445,Captivate,captivate,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+446,Stealth Rock,stealth-rock,status,None,opponents-field,todo,no explicit mechanic handler
+447,Grass Knot,grass-knot,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+448,Chatter,chatter,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+449,Judgment,judgment,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+450,Bug Bite,bug-bite,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+451,Charge Beam,charge-beam,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+452,Wood Hammer,wood-hammer,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+453,Aqua Jet,aqua-jet,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+454,Attack Order,attack-order,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+455,Defend Order,defend-order,status,StatChange,user,implemented,effect handler present: statchange
+456,Heal Order,heal-order,status,None,user,todo,no explicit mechanic handler
+457,Head Smash,head-smash,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+458,Double Hit,double-hit,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+459,Roar Of Time,roar-of-time,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+460,Spacial Rend,spacial-rend,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+461,Lunar Dance,lunar-dance,status,None,user,todo,no explicit mechanic handler
+462,Crush Grip,crush-grip,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+463,Magma Storm,magma-storm,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+464,Dark Void,dark-void,status,Sleep,all-opponents,partial,multi-target semantic may differ in singles-first mode
+465,Seed Flare,seed-flare,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+466,Ominous Wind,ominous-wind,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+467,Shadow Force,shadow-force,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+468,Hone Claws,hone-claws,status,StatChange,user,implemented,effect handler present: statchange
+469,Wide Guard,wide-guard,status,None,users-field,todo,no explicit mechanic handler
+470,Guard Split,guard-split,status,None,selected-pokemon,todo,no explicit mechanic handler
+471,Power Split,power-split,status,None,selected-pokemon,todo,no explicit mechanic handler
+472,Wonder Room,wonder-room,status,None,entire-field,todo,no explicit mechanic handler
+473,Psyshock,psyshock,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+474,Venoshock,venoshock,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+475,Autotomize,autotomize,status,StatChange,user,implemented,effect handler present: statchange
+476,Rage Powder,rage-powder,status,None,user,todo,no explicit mechanic handler
+477,Telekinesis,telekinesis,status,None,selected-pokemon,todo,no explicit mechanic handler
+478,Magic Room,magic-room,status,None,entire-field,todo,no explicit mechanic handler
+479,Smack Down,smack-down,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+480,Storm Throw,storm-throw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+481,Flame Burst,flame-burst,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+482,Sludge Wave,sludge-wave,special,Poison,all-other-pokemon,implemented,effect handler present: poison
+483,Quiver Dance,quiver-dance,status,StatChange,user,implemented,effect handler present: statchange
+484,Heavy Slam,heavy-slam,physical,None,selected-pokemon,implemented,hardcoded name rule present
+485,Synchronoise,synchronoise,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+486,Electro Ball,electro-ball,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+487,Soak,soak,status,None,selected-pokemon,todo,no explicit mechanic handler
+488,Flame Charge,flame-charge,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+489,Coil,coil,status,StatChange,user,implemented,effect handler present: statchange
+490,Low Sweep,low-sweep,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+491,Acid Spray,acid-spray,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+492,Foul Play,foul-play,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+493,Simple Beam,simple-beam,status,None,selected-pokemon,todo,no explicit mechanic handler
+494,Entrainment,entrainment,status,None,selected-pokemon,todo,no explicit mechanic handler
+495,After You,after-you,status,None,selected-pokemon,todo,no explicit mechanic handler
+496,Round,round,special,None,selected-pokemon,implemented,hardcoded name rule present
+497,Echoed Voice,echoed-voice,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+498,Chip Away,chip-away,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+499,Clear Smog,clear-smog,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+500,Stored Power,stored-power,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+501,Quick Guard,quick-guard,status,None,users-field,todo,no explicit mechanic handler
+502,Ally Switch,ally-switch,status,None,user,todo,no explicit mechanic handler
+503,Scald,scald,special,Burn,selected-pokemon,implemented,effect handler present: burn
+504,Shell Smash,shell-smash,status,StatChange,user,implemented,effect handler present: statchange
+505,Heal Pulse,heal-pulse,status,None,selected-pokemon,todo,no explicit mechanic handler
+506,Hex,hex,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+507,Sky Drop,sky-drop,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+508,Shift Gear,shift-gear,status,StatChange,user,implemented,effect handler present: statchange
+509,Circle Throw,circle-throw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+510,Incinerate,incinerate,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+511,Quash,quash,status,None,selected-pokemon,todo,no explicit mechanic handler
+512,Acrobatics,acrobatics,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+513,Reflect Type,reflect-type,status,None,selected-pokemon,todo,no explicit mechanic handler
+514,Retaliate,retaliate,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+515,Final Gambit,final-gambit,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+516,Bestow,bestow,status,None,selected-pokemon,todo,no explicit mechanic handler
+517,Inferno,inferno,special,Burn,selected-pokemon,implemented,effect handler present: burn
+518,Water Pledge,water-pledge,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+519,Fire Pledge,fire-pledge,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+520,Grass Pledge,grass-pledge,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+521,Volt Switch,volt-switch,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+522,Struggle Bug,struggle-bug,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+523,Bulldoze,bulldoze,physical,StatChange,all-other-pokemon,implemented,effect handler present: statchange
+524,Frost Breath,frost-breath,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+525,Dragon Tail,dragon-tail,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+526,Work Up,work-up,status,StatChange,user,implemented,effect handler present: statchange
+527,Electroweb,electroweb,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+528,Wild Charge,wild-charge,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+529,Drill Run,drill-run,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+530,Dual Chop,dual-chop,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+531,Heart Stamp,heart-stamp,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+532,Horn Leech,horn-leech,physical,Drain,selected-pokemon,implemented,effect handler present: drain
+533,Sacred Sword,sacred-sword,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+534,Razor Shell,razor-shell,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+535,Heat Crash,heat-crash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+536,Leaf Tornado,leaf-tornado,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+537,Steamroller,steamroller,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+538,Cotton Guard,cotton-guard,status,StatChange,user,implemented,effect handler present: statchange
+539,Night Daze,night-daze,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+540,Psystrike,psystrike,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+541,Tail Slap,tail-slap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+542,Hurricane,hurricane,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+543,Head Charge,head-charge,physical,Recoil,selected-pokemon,implemented,effect handler present: recoil
+544,Gear Grind,gear-grind,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+545,Searing Shot,searing-shot,special,Burn,all-other-pokemon,implemented,effect handler present: burn
+546,Techno Blast,techno-blast,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+547,Relic Song,relic-song,special,Sleep,all-opponents,partial,multi-target semantic may differ in singles-first mode
+548,Secret Sword,secret-sword,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+549,Glaciate,glaciate,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+550,Bolt Strike,bolt-strike,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+551,Blue Flare,blue-flare,special,Burn,selected-pokemon,implemented,effect handler present: burn
+552,Fiery Dance,fiery-dance,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+553,Freeze Shock,freeze-shock,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+554,Ice Burn,ice-burn,special,Burn,selected-pokemon,implemented,effect handler present: burn
+555,Snarl,snarl,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+556,Icicle Crash,icicle-crash,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+557,V Create,v-create,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+558,Fusion Flare,fusion-flare,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+559,Fusion Bolt,fusion-bolt,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+560,Flying Press,flying-press,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+561,Mat Block,mat-block,status,None,users-field,todo,no explicit mechanic handler
+562,Belch,belch,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+563,Rototiller,rototiller,status,StatChange,all-pokemon,partial,multi-target semantic may differ in singles-first mode
+564,Sticky Web,sticky-web,status,None,opponents-field,todo,no explicit mechanic handler
+565,Fell Stinger,fell-stinger,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+566,Phantom Force,phantom-force,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+567,Trick Or Treat,trick-or-treat,status,None,selected-pokemon,todo,no explicit mechanic handler
+568,Noble Roar,noble-roar,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+569,Ion Deluge,ion-deluge,status,None,entire-field,todo,no explicit mechanic handler
+570,Parabolic Charge,parabolic-charge,special,Drain,all-other-pokemon,implemented,effect handler present: drain
+571,Forests Curse,forests-curse,status,None,selected-pokemon,todo,no explicit mechanic handler
+572,Petal Blizzard,petal-blizzard,physical,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+573,Freeze Dry,freeze-dry,special,Freeze,selected-pokemon,implemented,effect handler present: freeze
+574,Disarming Voice,disarming-voice,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+575,Parting Shot,parting-shot,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+576,Topsy Turvy,topsy-turvy,status,None,selected-pokemon,todo,no explicit mechanic handler
+577,Draining Kiss,draining-kiss,special,Drain,selected-pokemon,implemented,effect handler present: drain
+578,Crafty Shield,crafty-shield,status,None,users-field,todo,no explicit mechanic handler
+579,Flower Shield,flower-shield,status,StatChange,all-pokemon,partial,multi-target semantic may differ in singles-first mode
+580,Grassy Terrain,grassy-terrain,status,None,entire-field,todo,no explicit mechanic handler
+581,Misty Terrain,misty-terrain,status,None,entire-field,todo,no explicit mechanic handler
+582,Electrify,electrify,status,None,selected-pokemon,todo,no explicit mechanic handler
+583,Play Rough,play-rough,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+584,Fairy Wind,fairy-wind,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+585,Moonblast,moonblast,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+586,Boomburst,boomburst,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+587,Fairy Lock,fairy-lock,status,None,entire-field,todo,no explicit mechanic handler
+588,Kings Shield,kings-shield,status,None,user,todo,no explicit mechanic handler
+589,Play Nice,play-nice,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+590,Confide,confide,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+591,Diamond Storm,diamond-storm,physical,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+592,Steam Eruption,steam-eruption,special,Burn,selected-pokemon,implemented,effect handler present: burn
+593,Hyperspace Hole,hyperspace-hole,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+594,Water Shuriken,water-shuriken,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+595,Mystical Fire,mystical-fire,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+596,Spiky Shield,spiky-shield,status,None,user,todo,no explicit mechanic handler
+597,Aromatic Mist,aromatic-mist,status,StatChange,ally,implemented,effect handler present: statchange
+598,Eerie Impulse,eerie-impulse,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+599,Venom Drench,venom-drench,status,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+600,Powder,powder,status,None,selected-pokemon,todo,no explicit mechanic handler
+601,Geomancy,geomancy,status,StatChange,user,implemented,effect handler present: statchange
+602,Magnetic Flux,magnetic-flux,status,StatChange,user-and-allies,partial,multi-target semantic may differ in singles-first mode
+603,Happy Hour,happy-hour,status,None,users-field,todo,no explicit mechanic handler
+604,Electric Terrain,electric-terrain,status,None,entire-field,todo,no explicit mechanic handler
+605,Dazzling Gleam,dazzling-gleam,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+606,Celebrate,celebrate,status,None,user,todo,no explicit mechanic handler
+607,Hold Hands,hold-hands,status,None,ally,todo,no explicit mechanic handler
+608,Baby Doll Eyes,baby-doll-eyes,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+609,Nuzzle,nuzzle,physical,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+610,Hold Back,hold-back,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+611,Infestation,infestation,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+612,Power Up Punch,power-up-punch,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+613,Oblivion Wing,oblivion-wing,special,Drain,selected-pokemon,implemented,effect handler present: drain
+614,Thousand Arrows,thousand-arrows,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+615,Thousand Waves,thousand-waves,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+616,Lands Wrath,lands-wrath,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+617,Light Of Ruin,light-of-ruin,special,Recoil,selected-pokemon,implemented,effect handler present: recoil
+618,Origin Pulse,origin-pulse,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+619,Precipice Blades,precipice-blades,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+620,Dragon Ascent,dragon-ascent,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+621,Hyperspace Fury,hyperspace-fury,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+622,Breakneck Blitz  Physical,breakneck-blitz--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+623,Breakneck Blitz  Special,breakneck-blitz--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+624,All Out Pummeling  Physical,all-out-pummeling--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+625,All Out Pummeling  Special,all-out-pummeling--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+626,Supersonic Skystrike  Physical,supersonic-skystrike--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+627,Supersonic Skystrike  Special,supersonic-skystrike--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+628,Acid Downpour  Physical,acid-downpour--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+629,Acid Downpour  Special,acid-downpour--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+630,Tectonic Rage  Physical,tectonic-rage--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+631,Tectonic Rage  Special,tectonic-rage--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+632,Continental Crush  Physical,continental-crush--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+633,Continental Crush  Special,continental-crush--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+634,Savage Spin Out  Physical,savage-spin-out--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+635,Savage Spin Out  Special,savage-spin-out--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+636,Never Ending Nightmare  Physical,never-ending-nightmare--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+637,Never Ending Nightmare  Special,never-ending-nightmare--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+638,Corkscrew Crash  Physical,corkscrew-crash--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+639,Corkscrew Crash  Special,corkscrew-crash--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+640,Inferno Overdrive  Physical,inferno-overdrive--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+641,Inferno Overdrive  Special,inferno-overdrive--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+642,Hydro Vortex  Physical,hydro-vortex--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+643,Hydro Vortex  Special,hydro-vortex--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+644,Bloom Doom  Physical,bloom-doom--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+645,Bloom Doom  Special,bloom-doom--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+646,Gigavolt Havoc  Physical,gigavolt-havoc--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+647,Gigavolt Havoc  Special,gigavolt-havoc--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+648,Shattered Psyche  Physical,shattered-psyche--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+649,Shattered Psyche  Special,shattered-psyche--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+650,Subzero Slammer  Physical,subzero-slammer--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+651,Subzero Slammer  Special,subzero-slammer--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+652,Devastating Drake  Physical,devastating-drake--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+653,Devastating Drake  Special,devastating-drake--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+654,Black Hole Eclipse  Physical,black-hole-eclipse--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+655,Black Hole Eclipse  Special,black-hole-eclipse--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+656,Twinkle Tackle  Physical,twinkle-tackle--physical,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+657,Twinkle Tackle  Special,twinkle-tackle--special,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+658,Catastropika,catastropika,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+659,Shore Up,shore-up,status,None,user,todo,no explicit mechanic handler
+660,First Impression,first-impression,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+661,Baneful Bunker,baneful-bunker,status,None,user,todo,no explicit mechanic handler
+662,Spirit Shackle,spirit-shackle,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+663,Darkest Lariat,darkest-lariat,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+664,Sparkling Aria,sparkling-aria,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+665,Ice Hammer,ice-hammer,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+666,Floral Healing,floral-healing,status,None,selected-pokemon,todo,no explicit mechanic handler
+667,High Horsepower,high-horsepower,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+668,Strength Sap,strength-sap,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+669,Solar Blade,solar-blade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+670,Leafage,leafage,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+671,Spotlight,spotlight,status,None,selected-pokemon,todo,no explicit mechanic handler
+672,Toxic Thread,toxic-thread,status,Poison,selected-pokemon,implemented,effect handler present: poison
+673,Laser Focus,laser-focus,status,None,user,todo,no explicit mechanic handler
+674,Gear Up,gear-up,status,StatChange,user-and-allies,partial,multi-target semantic may differ in singles-first mode
+675,Throat Chop,throat-chop,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+676,Pollen Puff,pollen-puff,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+677,Anchor Shot,anchor-shot,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+678,Psychic Terrain,psychic-terrain,status,None,entire-field,todo,no explicit mechanic handler
+679,Lunge,lunge,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+680,Fire Lash,fire-lash,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+681,Power Trip,power-trip,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+682,Burn Up,burn-up,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+683,Speed Swap,speed-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+684,Smart Strike,smart-strike,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+685,Purify,purify,status,None,selected-pokemon,todo,no explicit mechanic handler
+686,Revelation Dance,revelation-dance,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+687,Core Enforcer,core-enforcer,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+688,Trop Kick,trop-kick,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+689,Instruct,instruct,status,None,selected-pokemon,todo,no explicit mechanic handler
+690,Beak Blast,beak-blast,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+691,Clanging Scales,clanging-scales,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+692,Dragon Hammer,dragon-hammer,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+693,Brutal Swing,brutal-swing,physical,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+694,Aurora Veil,aurora-veil,status,None,users-field,todo,no explicit mechanic handler
+695,Sinister Arrow Raid,sinister-arrow-raid,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+696,Malicious Moonsault,malicious-moonsault,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+697,Oceanic Operetta,oceanic-operetta,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+698,Guardian Of Alola,guardian-of-alola,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+699,Soul Stealing 7 Star Strike,soul-stealing-7-star-strike,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+700,Stoked Sparksurfer,stoked-sparksurfer,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+701,Pulverizing Pancake,pulverizing-pancake,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+702,Extreme Evoboost,extreme-evoboost,status,StatChange,user,implemented,effect handler present: statchange
+703,Genesis Supernova,genesis-supernova,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+704,Shell Trap,shell-trap,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+705,Fleur Cannon,fleur-cannon,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+706,Psychic Fangs,psychic-fangs,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+707,Stomping Tantrum,stomping-tantrum,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+708,Shadow Bone,shadow-bone,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+709,Accelerock,accelerock,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+710,Liquidation,liquidation,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+711,Prismatic Laser,prismatic-laser,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+712,Spectral Thief,spectral-thief,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+713,Sunsteel Strike,sunsteel-strike,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+714,Moongeist Beam,moongeist-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+715,Tearful Look,tearful-look,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+716,Zing Zap,zing-zap,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+717,Natures Madness,natures-madness,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+718,Multi Attack,multi-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+719,10 000 000 Volt Thunderbolt,10-000-000-volt-thunderbolt,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+720,Mind Blown,mind-blown,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+721,Plasma Fists,plasma-fists,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+722,Photon Geyser,photon-geyser,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+723,Light That Burns The Sky,light-that-burns-the-sky,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+724,Searing Sunraze Smash,searing-sunraze-smash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+725,Menacing Moonraze Maelstrom,menacing-moonraze-maelstrom,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+726,Lets Snuggle Forever,lets-snuggle-forever,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+727,Splintered Stormshards,splintered-stormshards,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+728,Clangorous Soulblaze,clangorous-soulblaze,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+729,Zippy Zap,zippy-zap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+730,Splishy Splash,splishy-splash,special,Paralyze,all-opponents,partial,multi-target semantic may differ in singles-first mode
+731,Floaty Fall,floaty-fall,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+732,Pika Papow,pika-papow,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+733,Bouncy Bubble,bouncy-bubble,special,Drain,selected-pokemon,implemented,effect handler present: drain
+734,Buzzy Buzz,buzzy-buzz,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
+735,Sizzly Slide,sizzly-slide,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+736,Glitzy Glow,glitzy-glow,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+737,Baddy Bad,baddy-bad,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+738,Sappy Seed,sappy-seed,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+739,Freezy Frost,freezy-frost,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+740,Sparkly Swirl,sparkly-swirl,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+741,Veevee Volley,veevee-volley,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+742,Double Iron Bash,double-iron-bash,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
+743,Max Guard,max-guard,status,None,user,todo,no explicit mechanic handler
+744,Dynamax Cannon,dynamax-cannon,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+745,Snipe Shot,snipe-shot,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+746,Jaw Lock,jaw-lock,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+747,Stuff Cheeks,stuff-cheeks,status,StatChange,user,implemented,effect handler present: statchange
+748,No Retreat,no-retreat,status,StatChange,user,implemented,effect handler present: statchange
+749,Tar Shot,tar-shot,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+750,Magic Powder,magic-powder,status,None,selected-pokemon,todo,no explicit mechanic handler
+751,Dragon Darts,dragon-darts,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+752,Teatime,teatime,status,None,all-pokemon,todo,no explicit mechanic handler
+753,Octolock,octolock,status,None,selected-pokemon,todo,no explicit mechanic handler
+754,Bolt Beak,bolt-beak,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+755,Fishious Rend,fishious-rend,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+756,Court Change,court-change,status,None,entire-field,todo,no explicit mechanic handler
+757,Max Flare,max-flare,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+758,Max Flutterby,max-flutterby,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+759,Max Lightning,max-lightning,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+760,Max Strike,max-strike,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+761,Max Knuckle,max-knuckle,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+762,Max Phantasm,max-phantasm,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+763,Max Hailstorm,max-hailstorm,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+764,Max Ooze,max-ooze,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+765,Max Geyser,max-geyser,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+766,Max Airstream,max-airstream,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+767,Max Starfall,max-starfall,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+768,Max Wyrmwind,max-wyrmwind,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+769,Max Mindstorm,max-mindstorm,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+770,Max Rockfall,max-rockfall,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+771,Max Quake,max-quake,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+772,Max Darkness,max-darkness,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+773,Max Overgrowth,max-overgrowth,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+774,Max Steelspike,max-steelspike,physical,None,selected-pokemon-me-first,partial,base damage path likely works; special mechanic not confirmed
+775,Clangorous Soul,clangorous-soul,status,StatChange,user,implemented,effect handler present: statchange
+776,Body Press,body-press,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+777,Decorate,decorate,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+778,Drum Beating,drum-beating,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+779,Snap Trap,snap-trap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+780,Pyro Ball,pyro-ball,physical,Burn,selected-pokemon,implemented,effect handler present: burn
+781,Behemoth Blade,behemoth-blade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+782,Behemoth Bash,behemoth-bash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+783,Aura Wheel,aura-wheel,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+784,Breaking Swipe,breaking-swipe,physical,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+785,Branch Poke,branch-poke,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+786,Overdrive,overdrive,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+787,Apple Acid,apple-acid,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+788,Grav Apple,grav-apple,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+789,Spirit Break,spirit-break,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+790,Strange Steam,strange-steam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+791,Life Dew,life-dew,status,None,user-and-allies,todo,no explicit mechanic handler
+792,Obstruct,obstruct,status,None,user,todo,no explicit mechanic handler
+793,False Surrender,false-surrender,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+794,Meteor Assault,meteor-assault,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+795,Eternabeam,eternabeam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+796,Steel Beam,steel-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+797,Expanding Force,expanding-force,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+798,Steel Roller,steel-roller,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+799,Scale Shot,scale-shot,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+800,Meteor Beam,meteor-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+801,Shell Side Arm,shell-side-arm,special,Poison,selected-pokemon,implemented,effect handler present: poison
+802,Misty Explosion,misty-explosion,special,None,all-other-pokemon,partial,base damage path likely works; special mechanic not confirmed
+803,Grassy Glide,grassy-glide,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+804,Rising Voltage,rising-voltage,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+805,Terrain Pulse,terrain-pulse,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+806,Skitter Smack,skitter-smack,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+807,Burning Jealousy,burning-jealousy,special,Burn,all-opponents,partial,multi-target semantic may differ in singles-first mode
+808,Lash Out,lash-out,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+809,Poltergeist,poltergeist,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+810,Corrosive Gas,corrosive-gas,status,None,all-other-pokemon,todo,no explicit mechanic handler
+811,Coaching,coaching,status,StatChange,user-and-allies,partial,multi-target semantic may differ in singles-first mode
+812,Flip Turn,flip-turn,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+813,Triple Axel,triple-axel,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+814,Dual Wingbeat,dual-wingbeat,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+815,Scorching Sands,scorching-sands,special,Burn,selected-pokemon,implemented,effect handler present: burn
+816,Jungle Healing,jungle-healing,status,None,user-and-allies,todo,no explicit mechanic handler
+817,Wicked Blow,wicked-blow,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+818,Surging Strikes,surging-strikes,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+819,Thunder Cage,thunder-cage,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+820,Dragon Energy,dragon-energy,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+821,Freezing Glare,freezing-glare,special,Freeze,selected-pokemon,implemented,effect handler present: freeze
+822,Fiery Wrath,fiery-wrath,special,Flinch,all-opponents,partial,multi-target semantic may differ in singles-first mode
+823,Thunderous Kick,thunderous-kick,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+824,Glacial Lance,glacial-lance,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+825,Astral Barrage,astral-barrage,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+826,Eerie Spell,eerie-spell,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+827,Dire Claw,dire-claw,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+828,Psyshield Bash,psyshield-bash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+829,Power Shift,power-shift,status,None,user,todo,no explicit mechanic handler
+830,Stone Axe,stone-axe,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+831,Springtide Storm,springtide-storm,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+832,Mystical Power,mystical-power,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+833,Raging Fury,raging-fury,physical,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
+834,Wave Crash,wave-crash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+835,Chloroblast,chloroblast,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+836,Mountain Gale,mountain-gale,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+837,Victory Dance,victory-dance,status,None,user,todo,no explicit mechanic handler
+838,Headlong Rush,headlong-rush,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+839,Barb Barrage,barb-barrage,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+840,Esper Wing,esper-wing,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+841,Bitter Malice,bitter-malice,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+842,Shelter,shelter,status,None,user,todo,no explicit mechanic handler
+843,Triple Arrows,triple-arrows,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+844,Infernal Parade,infernal-parade,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+845,Ceaseless Edge,ceaseless-edge,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+846,Bleakwind Storm,bleakwind-storm,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+847,Wildbolt Storm,wildbolt-storm,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+848,Sandsear Storm,sandsear-storm,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+849,Lunar Blessing,lunar-blessing,status,None,all-allies,todo,no explicit mechanic handler
+850,Take Heart,take-heart,status,None,all-allies,todo,no explicit mechanic handler
+851,Tera Blast,tera-blast,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+852,Silk Trap,silk-trap,status,StatChange,user,implemented,effect handler present: statchange
+853,Axe Kick,axe-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+854,Last Respects,last-respects,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+855,Lumina Crash,lumina-crash,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+856,Order Up,order-up,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+857,Jet Punch,jet-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+858,Spicy Extract,spicy-extract,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
+859,Spin Out,spin-out,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+860,Population Bomb,population-bomb,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+861,Ice Spinner,ice-spinner,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+862,Glaive Rush,glaive-rush,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+863,Revival Blessing,revival-blessing,status,None,fainting-pokemon,todo,no explicit mechanic handler
+864,Salt Cure,salt-cure,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+865,Triple Dive,triple-dive,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+866,Mortal Spin,mortal-spin,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+867,Doodle,doodle,status,None,selected-pokemon,todo,no explicit mechanic handler
+868,Fillet Away,fillet-away,status,StatChange,user,implemented,effect handler present: statchange
+869,Kowtow Cleave,kowtow-cleave,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+870,Flower Trick,flower-trick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+871,Torch Song,torch-song,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+872,Aqua Step,aqua-step,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+873,Raging Bull,raging-bull,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+874,Make It Rain,make-it-rain,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
+875,Psyblade,psyblade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+876,Hydro Steam,hydro-steam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+877,Ruination,ruination,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+878,Collision Course,collision-course,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+879,Electro Drift,electro-drift,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+880,Shed Tail,shed-tail,status,None,user,todo,no explicit mechanic handler
+881,Chilly Reception,chilly-reception,status,None,entire-field,todo,no explicit mechanic handler
+882,Tidy Up,tidy-up,status,StatChange,user,implemented,effect handler present: statchange
+883,Snowscape,snowscape,status,None,entire-field,todo,no explicit mechanic handler
+884,Pounce,pounce,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+885,Trailblaze,trailblaze,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
+886,Chilling Water,chilling-water,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+887,Hyper Drill,hyper-drill,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+888,Twin Beam,twin-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+889,Rage Fist,rage-fist,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+890,Armor Cannon,armor-cannon,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+891,Bitter Blade,bitter-blade,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+892,Double Shock,double-shock,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+893,Gigaton Hammer,gigaton-hammer,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+894,Comeuppance,comeuppance,physical,None,specific-move,partial,base damage path likely works; special mechanic not confirmed
+895,Aqua Cutter,aqua-cutter,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+896,Blazing Torque,blazing-torque,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+897,Wicked Torque,wicked-torque,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+898,Noxious Torque,noxious-torque,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+899,Combat Torque,combat-torque,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+900,Magical Torque,magical-torque,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+901,Blood Moon,blood-moon,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+902,Matcha Gotcha,matcha-gotcha,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+903,Syrup Bomb,syrup-bomb,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+904,Ivy Cudgel,ivy-cudgel,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+905,Electro Shot,electro-shot,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
+906,Tera Starstorm,tera-starstorm,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
+907,Fickle Beam,fickle-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+908,Burning Bulwark,burning-bulwark,status,None,user,todo,no explicit mechanic handler
+909,Thunderclap,thunderclap,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+910,Mighty Cleave,mighty-cleave,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+911,Tachyon Cutter,tachyon-cutter,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+912,Hard Press,hard-press,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+913,Dragon Cheer,dragon-cheer,status,None,all-allies,todo,no explicit mechanic handler
+914,Alluring Voice,alluring-voice,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+915,Temper Flare,temper-flare,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+916,Supercell Slam,supercell-slam,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+917,Psychic Noise,psychic-noise,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+918,Upper Hand,upper-hand,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+919,Malignant Chain,malignant-chain,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10001,Shadow Rush,shadow-rush,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10002,Shadow Blast,shadow-blast,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10003,Shadow Blitz,shadow-blitz,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10004,Shadow Bolt,shadow-bolt,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10005,Shadow Break,shadow-break,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10006,Shadow Chill,shadow-chill,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10007,Shadow End,shadow-end,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10008,Shadow Fire,shadow-fire,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
+10009,Shadow Rave,shadow-rave,special,None,opponents-field,partial,base damage path likely works; special mechanic not confirmed
+10010,Shadow Storm,shadow-storm,special,None,opponents-field,partial,base damage path likely works; special mechanic not confirmed
+10011,Shadow Wave,shadow-wave,special,None,opponents-field,partial,base damage path likely works; special mechanic not confirmed
+10012,Shadow Down,shadow-down,status,None,opponents-field,todo,no explicit mechanic handler
+10013,Shadow Half,shadow-half,special,None,entire-field,partial,base damage path likely works; special mechanic not confirmed
+10014,Shadow Hold,shadow-hold,status,None,opponents-field,todo,no explicit mechanic handler
+10015,Shadow Mist,shadow-mist,status,None,opponents-field,todo,no explicit mechanic handler
+10016,Shadow Panic,shadow-panic,status,None,opponents-field,todo,no explicit mechanic handler
+10017,Shadow Shed,shadow-shed,status,None,entire-field,todo,no explicit mechanic handler
+10018,Shadow Sky,shadow-sky,status,None,entire-field,todo,no explicit mechanic handler

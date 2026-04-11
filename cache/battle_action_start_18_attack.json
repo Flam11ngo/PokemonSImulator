@@ -1,8 +1,0 @@
-{
-  "actor": "Blastoise",
-  "event": "action_start",
-  "move": "Earthquake",
-  "priority": 98,
-  "target": "Charizard",
-  "type": "attack"
-}

@@ -126,6 +126,12 @@ Category parseCategory(const std::string& value) {
 
 MoveEffect parseEffect(const std::string& value) {
     const std::string v = toLower(trim(value));
+    if (v == "pursuit") return MoveEffect::Pursuit;
+    if (v == "encore") return MoveEffect::Encore;
+    if (v == "dig") return MoveEffect::Dig;
+    if (v == "round") return MoveEffect::Round;
+    if (v == "knockoff" || v == "knock_off" || v == "knock-off") return MoveEffect::KnockOff;
+    if (v == "weatherball" || v == "weather_ball" || v == "weather-ball") return MoveEffect::WeatherBall;
     if (v == "burn") return MoveEffect::Burn;
     if (v == "freeze") return MoveEffect::Freeze;
     if (v == "poison" || v == "bad-poison" || v == "badly-poisoned") return MoveEffect::Poison;
@@ -152,6 +158,12 @@ Target parseTarget(const std::string& value) {
 
 std::string effectToString(MoveEffect effect) {
     switch (effect) {
+        case MoveEffect::Pursuit: return "Pursuit";
+        case MoveEffect::Encore: return "Encore";
+        case MoveEffect::Dig: return "Dig";
+        case MoveEffect::Round: return "Round";
+        case MoveEffect::KnockOff: return "KnockOff";
+        case MoveEffect::WeatherBall: return "WeatherBall";
         case MoveEffect::Burn: return "Burn";
         case MoveEffect::Freeze: return "Freeze";
         case MoveEffect::Poison: return "Poison";

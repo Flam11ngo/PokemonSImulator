@@ -1,8 +1,0 @@
-{
-  "actor": "Venusaur",
-  "event": "action_start",
-  "move": "Earthquake",
-  "priority": 100,
-  "target": "Pikachu",
-  "type": "attack"
-}

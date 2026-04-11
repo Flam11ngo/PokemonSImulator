@@ -19,6 +19,7 @@ file(GLOB SOURCES_BATTLE CONFIGURE_DEPENDS src/Battle/*.cpp)
 # Ensure critical battle data sources are always linked even when CMake glob cache is stale.
 list(APPEND SOURCES_BATTLE
     src/Battle/MoveData.cpp
+    src/Battle/MoveTestRunner.cpp
     src/Battle/AbilityData.cpp
     src/Battle/ItemData.cpp
     src/Battle/ItemTestRunner.cpp

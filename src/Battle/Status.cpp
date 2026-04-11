@@ -63,6 +63,15 @@ StatusEffect getStatusEffect(StatusType type) {
                     }
             };
 
+        case StatusType::Flinch:
+            return {StatusType::Flinch, 1, "Flinch",
+                    nullptr,
+                    nullptr,
+                    [](Pokemon* self) -> bool {
+                        return false;
+                    }
+            };
+
         case StatusType::ToxicPoison:
             return {StatusType::ToxicPoison, -1, "Toxic Poison",
                     [](Pokemon* self) { // onTurnStart: increasing damage
@@ -89,6 +98,7 @@ std::string getStatusName(StatusType type) {
         case StatusType::Paralysis: return "Paralysis";
         case StatusType::Poison: return "Poison";
         case StatusType::Sleep: return "Sleep";
+        case StatusType::Flinch: return "Flinch";
         case StatusType::ToxicPoison: return "Toxic Poison";
         default: return "None";
     }

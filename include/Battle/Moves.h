@@ -7,6 +7,11 @@
 enum class MoveEffect {
     None,           // 无特殊效果
     Pursuit,        // 追击效果
+    Encore,         // 再来一次
+    Dig,            // 挖洞（两回合）
+    Round,          // 轮唱
+    KnockOff,       // 拍落
+    WeatherBall,    // 气象球
     Status,         // 状态变化
     StatChange,     // 能力变化
     Recoil,         // 反伤

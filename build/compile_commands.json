@@ -91,6 +91,24 @@
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/MoveEffectHandler.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/MoveEffectHandler.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/MoveEffectHandler.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/MoveEffectHandler.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/MoveRuleRegistry.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/MoveRuleRegistry.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/MoveRuleRegistry.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/MoveRuleRegistry.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/MoveTestRunner.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/MoveTestRunner.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/MoveTestRunner.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/MoveTestRunner.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
   "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
   "file": "/home/qzz/PokemonSimulator/src/Battle/Moves.cpp",
   "output": "CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o"

@@ -1,0 +1,164 @@
+{
+  "init": {
+    "side_a": {
+      "name": "Red",
+      "pokemon": [
+        {
+          "species": {
+            "id": 25,
+            "name": "Pikachu",
+            "height": 4,
+            "weight": 60,
+            "type1": "electric",
+            "type2": "count",
+            "baseStats": [35, 55, 40, 50, 50, 90],
+            "abilities": [9],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.5,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "timid",
+          "ability": "static",
+          "item": "light-ball",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 0, "attack": 0, "defense": 0, "specialAttack": 252, "specialDefense": 4, "speed": 252},
+          "moves": ["Thunderbolt", "Quick Attack", "Iron Tail", "Protect"]
+        },
+        {
+          "species": {
+            "id": 6,
+            "name": "Charizard",
+            "height": 17,
+            "weight": 905,
+            "type1": "fire",
+            "type2": "flying",
+            "baseStats": [78, 84, 78, 109, 85, 100],
+            "abilities": [66],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.875,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "jolly",
+          "ability": "blaze",
+          "item": "leftovers",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 0, "attack": 252, "defense": 0, "specialAttack": 0, "specialDefense": 4, "speed": 252},
+          "moves": ["Dragon Dance", "Fire Punch", "Thunder Punch", "Protect"]
+        },
+        {
+          "species": {
+            "id": 3,
+            "name": "Venusaur",
+            "height": 20,
+            "weight": 1000,
+            "type1": "grass",
+            "type2": "poison",
+            "baseStats": [80, 82, 83, 100, 100, 80],
+            "abilities": [65],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.875,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "modest",
+          "ability": "overgrow",
+          "item": "miracle-seed",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 0, "attack": 0, "defense": 0, "specialAttack": 252, "specialDefense": 252, "speed": 4},
+          "moves": ["Giga Drain", "Solar Beam", "Sludge Bomb", "Sleep Powder"]
+        }
+      ]
+    },
+    "side_b": {
+      "name": "Blue",
+      "pokemon": [
+        {
+          "species": {
+            "id": 9,
+            "name": "Blastoise",
+            "height": 16,
+            "weight": 855,
+            "type1": "water",
+            "type2": "count",
+            "baseStats": [79, 83, 100, 85, 105, 78],
+            "abilities": [67],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.875,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "bold",
+          "ability": "torrent",
+          "item": "mystic-water",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 252, "attack": 0, "defense": 252, "specialAttack": 0, "specialDefense": 4, "speed": 0},
+          "moves": ["Hydro Pump", "Water Gun", "Ice Beam", "Rapid Spin"]
+        },
+        {
+          "species": {
+            "id": 6,
+            "name": "Charizard",
+            "height": 17,
+            "weight": 905,
+            "type1": "fire",
+            "type2": "flying",
+            "baseStats": [78, 84, 78, 109, 85, 100],
+            "abilities": [66],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.875,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "hasty",
+          "ability": "blaze",
+          "item": "life-orb",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 0, "attack": 252, "defense": 0, "specialAttack": 0, "specialDefense": 4, "speed": 252},
+          "moves": ["Dragon Dance", "Fire Punch", "Thunder Punch", "Protect"]
+        },
+        {
+          "species": {
+            "id": 3,
+            "name": "Venusaur",
+            "height": 20,
+            "weight": 1000,
+            "type1": "grass",
+            "type2": "poison",
+            "baseStats": [80, 82, 83, 100, 100, 80],
+            "abilities": [65],
+            "hiddenAbilityID": 0,
+            "maleRatio": 0.875,
+            "nextEvolutionID": -1,
+            "evolutionLevel": 0,
+            "learnableMoves": []
+          },
+          "level": 50,
+          "nature": "calm",
+          "ability": "overgrow",
+          "item": "miracle-seed",
+          "ivs": {"hp": 31, "attack": 31, "defense": 31, "specialAttack": 31, "specialDefense": 31, "speed": 31},
+          "evs": {"hp": 0, "attack": 0, "defense": 0, "specialAttack": 252, "specialDefense": 252, "speed": 4},
+          "moves": ["Giga Drain", "Solar Beam", "Sludge Bomb", "Sleep Powder"]
+        }
+      ]
+    }
+  },
+  "turn": {
+    "actions": [
+      {"side": "a", "type": "attack", "move_name": "Thunderbolt"},
+      {"side": "b", "type": "attack", "move_name": "Hydro Pump"}
+    ]
+  }
+}

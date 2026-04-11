@@ -3,6 +3,7 @@
 #include "Battle/Abilities.h"
 #include "Battle/Items.h"
 #include "Battle/ItemTestRunner.h"
+#include "Battle/MoveTestRunner.h"
 
 #include <fstream>
 #include <iostream>
@@ -34,6 +35,22 @@ int main(int argc, char** argv){
                 std::cerr << "Failed items:" << std::endl;
                 for (const auto& itemName : summary.failedItemNames) {
                     std::cerr << "  - " << itemName << std::endl;
+                }
+            }
+            return summary.failed == 0 ? 0 : 1;
+        }
+        if (arg == "--run-move-tests") {
+            const MoveTestSummary summary = runAllMoveTests(std::cout, std::cerr);
+            if (!summary.failedMoveNames.empty()) {
+                std::cerr << "Failed moves:" << std::endl;
+                for (const auto& moveName : summary.failedMoveNames) {
+                    std::cerr << "  - " << moveName << std::endl;
+                }
+            }
+            if (!summary.unsupportedStatusMoveNames.empty()) {
+                std::cerr << "Unsupported status moves:" << std::endl;
+                for (const auto& moveName : summary.unsupportedStatusMoveNames) {
+                    std::cerr << "  - " << moveName << std::endl;
                 }
             }
             return summary.failed == 0 ? 0 : 1;
@@ -106,6 +123,7 @@ int main(int argc, char** argv){
     std::cout << "  --prefetch-abilities [--refresh]" << std::endl;
     std::cout << "  --prefetch-items [--refresh]" << std::endl;
     std::cout << "  --run-item-tests" << std::endl;
+    std::cout << "  --run-move-tests" << std::endl;
     std::cout << "  --run-turn-json <request.json>" << std::endl;
     std::cout << "  --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json>" << std::endl;
     return 0;

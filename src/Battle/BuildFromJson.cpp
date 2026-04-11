@@ -277,17 +277,16 @@ Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species& species
         ability = parseAbilityValue(jsonData["ability"]);
     }
     int level = jsonData.value("level", 50);
+    ItemType heldItem = ItemType::None;
+    if (jsonData.contains("item")) {
+        heldItem = parseItemValue(jsonData["item"]);
+    }
     
     // 判断是否为隐藏特性
     bool isHiddenAbil = (species.hiddenAbility == ability);
     
     // 创建Pokemon对象
-    Pokemon pokemon(species, nature, ability, isHiddenAbil, level, ivs, evs);
-    
-    // 设置持有物品
-    if (jsonData.contains("item")) {
-        pokemon.setItemType(parseItemValue(jsonData["item"]));
-    }
+    Pokemon pokemon(species, nature, ability, isHiddenAbil, level, ivs, evs, heldItem);
     
     // 设置技能
     if (jsonData.contains("moves")) {
@@ -471,10 +470,23 @@ std::map<int, Move> loadMovesFromFile() {
     file >> jsonData;
     file.close();
     
-    if (jsonData.contains("moves")) {
+    if (jsonData.contains("moves") && jsonData["moves"].is_array()) {
         for (const auto& moveData : jsonData["moves"]) {
+            Move move = createMoveByName("Tackle");
             int id = moveData.value("id", 0);
-            moveMap[id] = createMoveFromData(getMoveDataById(id));
+
+            if (id > 0) {
+                move = createMoveById(id);
+            } else if (moveData.contains("apiName") && moveData["apiName"].is_string()) {
+                move = createMoveByName(moveData["apiName"].get<std::string>());
+            } else if (moveData.contains("name") && moveData["name"].is_string()) {
+                move = createMoveByName(moveData["name"].get<std::string>());
+            }
+
+            const int moveId = move.getData().id > 0 ? move.getData().id : id;
+            if (moveId > 0) {
+                moveMap[moveId] = move;
+            }
         }
     }
     

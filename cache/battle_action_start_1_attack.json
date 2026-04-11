@@ -1,8 +1,8 @@
 {
-  "actor": "Test Pokemon",
+  "actor": "Blastoise",
   "event": "action_start",
-  "move": "Tackle",
-  "priority": 10,
-  "target": "Test Pokemon",
+  "move": "Hydro Pump",
+  "priority": 98,
+  "target": "Pikachu",
   "type": "attack"
 }

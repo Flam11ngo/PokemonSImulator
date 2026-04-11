@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20260410-1353-Experimental"
+	Name="ThatsAMistake"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="ThatsAMistake"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="68"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="2048"
+	TotalPhysicalMemory="7558"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3194"
+	>
+	<Testing>
+		<StartDateTime>Apr 11 00:03 CST</StartDateTime>
+		<StartTestTime>1775837014</StartTestTime>
+		<TestList>
+			<Test>./BattleEventTest.ActionHooksEmitBeforeAndAfterResolve</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>BattleEventTest.ActionHooksEmitBeforeAndAfterResolve</Name>
+			<Path>.</Path>
+			<FullName>./BattleEventTest.ActionHooksEmitBeforeAndAfterResolve</FullName>
+			<FullCommandLine>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" "--gtest_also_run_disabled_tests"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0323022</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=BattleEventTest.ActionHooksEmitBeforeAndAfterResolve" "--gtest_also_run_disabled_tests"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJydUE1rwkAQvedXzNEckqUeCx4iFQsFK0l7EpE1maSLuzt2d5KCv775QmygIM5phvfmzbyX1tYqW4GRys5CKB0ZEF9kUHxfLmJLJzRkM2VqLZmcONZKF+JQ4NmLiqjSyOg58i6/GUU/dt2hk43zPNgQ4zOsewp8tAiUSjM6WMBSMmtcNWi5A+IkZ0X2lejkV0bxEktymNgiKVt+ip50g8Fuca09pKOHJ+BeufMw9r5WjHGwi661h7Wmo9QDjrZRjqxpj4NHjurzhHyrOfk02EH6uYG+9g/aGLbh/e1BBZjN52B8ePfT4wIwsdRhcF8yjNJFBf3Yv7n/lzc4aePJodbpNsmy1UuX1UCOg1/v59SY====</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Apr 11 00:03 CST</EndDateTime>
+		<EndTestTime>1775837014</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

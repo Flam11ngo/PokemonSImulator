@@ -1,0 +1,8 @@
+{
+  "actor": "BerryUser",
+  "event": "action_start",
+  "item": "Oran Berry",
+  "priority": 120,
+  "target": "BerryUser",
+  "type": "use_item"
+}

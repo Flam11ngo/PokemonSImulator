@@ -1,30 +1,30 @@
-Start testing: Apr 09 21:54 CST
+Start testing: Apr 09 23:59 CST
 ----------------------------------------------------------
-11/11 Testing: BattleLogicTest.DragonDanceRaisesAttackAndSpeed
-11/11 Test: BattleLogicTest.DragonDanceRaisesAttackAndSpeed
-Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=BattleLogicTest.DragonDanceRaisesAttackAndSpeed" "--gtest_also_run_disabled_tests"
+21/21 Testing: MoveBehaviorTest.PursuitTriggersOnOpponentSwitch
+21/21 Test: MoveBehaviorTest.PursuitTriggersOnOpponentSwitch
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" "--gtest_also_run_disabled_tests"
 Directory: /home/qzz/PokemonSimulator/build
-"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" start time: Apr 09 21:54 CST
+"MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" start time: Apr 09 23:59 CST
 Output:
 ----------------------------------------------------------
 Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
-Note: Google Test filter = BattleLogicTest.DragonDanceRaisesAttackAndSpeed
+Note: Google Test filter = MoveBehaviorTest.PursuitTriggersOnOpponentSwitch
 [==========] Running 1 test from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 1 test from BattleLogicTest
-[ RUN      ] BattleLogicTest.DragonDanceRaisesAttackAndSpeed
-[       OK ] BattleLogicTest.DragonDanceRaisesAttackAndSpeed (7 ms)
-[----------] 1 test from BattleLogicTest (7 ms total)
+[----------] 1 test from MoveBehaviorTest
+[ RUN      ] MoveBehaviorTest.PursuitTriggersOnOpponentSwitch
+[       OK ] MoveBehaviorTest.PursuitTriggersOnOpponentSwitch (4 ms)
+[----------] 1 test from MoveBehaviorTest (4 ms total)
 
 [----------] Global test environment tear-down
-[==========] 1 test from 1 test suite ran. (7 ms total)
+[==========] 1 test from 1 test suite ran. (4 ms total)
 [  PASSED  ] 1 test.
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" end time: Apr 09 21:54 CST
-"BattleLogicTest.DragonDanceRaisesAttackAndSpeed" time elapsed: 00:00:00
+"MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" end time: Apr 09 23:59 CST
+"MoveBehaviorTest.PursuitTriggersOnOpponentSwitch" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Apr 09 21:54 CST
+End testing: Apr 09 23:59 CST

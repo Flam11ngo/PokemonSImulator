@@ -7,16 +7,22 @@
 #include "BattleQueue.h"
 #include "EventSystem.h"
 #include "BattleActions.h"
+#include "MoveRuleRegistry.h"
+#include <string>
+#include <unordered_map>
 
 class Battle {
 public:
     Battle(Side sideA, Side sideB);
 
     Side& getSideA();
+    const Side& getSideA() const;
     Side& getSideB();
+    const Side& getSideB() const;
     Side& getOpponentSide(const Side& side);
     Field& getField();
     Weather& getWeather();
+    EventSystem& getEventSystem();
     const EventSystem& getEventSystem() const;
 
     void enqueueAction(const BattleAction& action);
@@ -56,12 +62,53 @@ public:
     // 获取对手的宝可梦（辅助方法）
     Pokemon* getOpponentPokemon(Pokemon* self) const;
     static Side* findSideForPokemon(Battle& battle, Pokemon* pokemon);
+    static const Side* findSideForPokemon(const Battle& battle, Pokemon* pokemon);
+public:
+    enum class SemiInvulnerableState {
+        None,
+        Underground,
+        Airborne,
+        Underwater,
+        Phased,
+    };
+
 private:
+    struct EncoreState {
+        std::string lockedMoveName;
+        int remainingTurns = 0;
+    };
+
+    struct RuntimeMoveState {
+        std::unordered_map<Pokemon*, std::string> lastUsedMoveName;
+        std::unordered_map<Pokemon*, EncoreState> encoreState;
+        std::unordered_map<Pokemon*, std::string> chargingMoveName;
+        std::unordered_map<Pokemon*, SemiInvulnerableState> semiInvulnerableState;
+        std::unordered_map<Pokemon*, bool> typeShiftUsed;
+        Pokemon* pursuitSwitchTarget = nullptr;
+        bool roundUsedThisTurn = false;
+    };
+
+    void clearPokemonRuntimeState(Pokemon* pokemon);
+    void clearSideRuntimeState(const Side& side);
+    void tickEncoreForActor(Pokemon* actor);
+    SemiInvulnerableState getSemiInvulnerableState(const Pokemon* pokemon) const;
+    void beginTurn();
+    void endTurn();
+    void resetActiveProtection();
+    Move applyEncoreOverride(Pokemon* actor, const Move& intendedMove) const;
+    bool handleTwoTurnChargeTurn(Pokemon* actor, const Move& selectedMove);
+    void recordExecutedMove(Pokemon* actor, const Move& selectedMove);
+    void handlePursuitOnSwitch(Pokemon* switchingPokemon, Side* switchingSide);
+    void applyEntryHazardsOnSwitchIn(Side* enteringSide, Pokemon* enteringPokemon);
+    void initializeCoreMoveRules();
+
     Side sideA;
     Side sideB;
     Field field;
     Weather weather;
     BattleQueue queue;
     EventSystem eventSystem;
+    MoveRuleRegistry moveRuleRegistry;
+    RuntimeMoveState runtimeMoveState;
     int turnNumber = 0;
 };

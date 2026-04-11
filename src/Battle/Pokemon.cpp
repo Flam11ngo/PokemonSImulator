@@ -1,15 +1,19 @@
 #include "Battle/Pokemon.h"
 #include "Battle/Utils.h"
+#include "Battle/PRNG.h"
+
+#include <algorithm>
 
 Pokemon::Pokemon(const Species& species, Nature nat, AbilityType abil, bool isHiddenAbil,
                  int lvl,
                  const std::array<int, static_cast<int>(StatIndex::Count)>& ivs,
-                 const std::array<int, static_cast<int>(StatIndex::Count)>& evs)
+                                 const std::array<int, static_cast<int>(StatIndex::Count)>& evs,
+                                 ItemType heldItem)
     : species(species), name(species.name),
       type1(species.type1),
       type2(species.type2),
-      nature(nat), ability(abil), isHiddenAbility(isHiddenAbil), itemType(ItemType::None), level(lvl), statuses(),
-    ivs(ivs), evs(evs), statStages{0, 0, 0, 0, 0, 0, 0}, isProtected(false) {
+            nature(nat), ability(abil), isHiddenAbility(isHiddenAbil), itemType(heldItem), level(lvl), statuses(),
+        ivs(ivs), evs(evs), statStages{0, 0, 0, 0, 0, 0, 0}, isProtected(false), substituteHP(0), leechSeedSource(nullptr), accuracyStage(0), evasionStage(0) {
     recalculateStats();
     currentHP = maxHP;
 }
@@ -44,9 +48,13 @@ float Pokemon::getTypeEffectiveness(Type attackType) const {
 }
 
 void Pokemon::addStatus(StatusType s, int duration) {
+    if (ability == AbilityType::Immunity && (s == StatusType::Poison || s == StatusType::ToxicPoison)) {
+        return;
+    }
+    removeStatus(s);
     if (duration == -1) {
         if (s == StatusType::Sleep) {
-            duration = 1; // Default sleep duration
+            duration = PRNG::nextInt(1, 4);
         } else {
             duration = -1; // Permanent
         }
@@ -59,6 +67,27 @@ void Pokemon::removeStatus(StatusType s) {
                                   [s](const std::pair<StatusType, int>& status) {
                                       return status.first == s;
                                   }), statuses.end());
+}
+
+bool Pokemon::tickStatusDuration(StatusType s) {
+    auto it = std::find_if(statuses.begin(), statuses.end(), [s](const std::pair<StatusType, int>& status) {
+        return status.first == s;
+    });
+    if (it == statuses.end()) {
+        return false;
+    }
+
+    if (it->second < 0) {
+        return false;
+    }
+
+    if (it->second > 1) {
+        --(it->second);
+        return false;
+    }
+
+    statuses.erase(it);
+    return true;
 }
 
 void Pokemon::clearStatuses() {
@@ -85,6 +114,26 @@ void Pokemon::changeStatStage(StatIndex index, int delta) {
     }
     if (statStages[internalIndex] < -6) {
         statStages[internalIndex] = -6;
+    }
+}
+
+void Pokemon::changeAccuracyStage(int delta) {
+    accuracyStage += delta;
+    if (accuracyStage > 6) {
+        accuracyStage = 6;
+    }
+    if (accuracyStage < -6) {
+        accuracyStage = -6;
+    }
+}
+
+void Pokemon::changeEvasionStage(int delta) {
+    evasionStage += delta;
+    if (evasionStage > 6) {
+        evasionStage = 6;
+    }
+    if (evasionStage < -6) {
+        evasionStage = -6;
     }
 }
 
@@ -119,5 +168,9 @@ Pokemon::Pokemon(const Pokemon& other) :
     ivs(other.ivs),
     evs(other.evs),
     statStages(other.statStages),
-    isProtected(other.isProtected) {
+    isProtected(other.isProtected),
+    substituteHP(other.substituteHP),
+    leechSeedSource(other.leechSeedSource),
+    accuracyStage(other.accuracyStage),
+    evasionStage(other.evasionStage) {
 }
