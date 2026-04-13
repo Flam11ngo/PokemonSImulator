@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="Linux-g++"
+	BuildStamp="20260412-0030-Experimental"
+	Name="ThatsAMistake"
+	Generator="ctest-3.28.3"
+	CompilerName="/usr/bin/g++"
+	CompilerVersion="13.3.0"
+	OSName="Linux"
+	Hostname="ThatsAMistake"
+	OSRelease="6.6.87.2-microsoft-standard-WSL2"
+	OSVersion="#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="AuthenticAMD"
+	VendorID="Advanced Micro Devices"
+	FamilyID="25"
+	ModelID="68"
+	ProcessorCacheSize="512"
+	NumberOfLogicalCPU="16"
+	NumberOfPhysicalCPU="8"
+	TotalVirtualMemory="2048"
+	TotalPhysicalMemory="7558"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="3194"
+	>
+	<Testing>
+		<StartDateTime>Apr 12 23:17 CST</StartDateTime>
+		<StartTestTime>1776007031</StartTestTime>
+		<TestList>
+			<Test>./MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain</Test>
+		</TestList>
+		<Test Status="passed">
+			<Name>MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain</Name>
+			<Path>.</Path>
+			<FullName>./MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain</FullName>
+			<FullCommandLine>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" "--gtest_also_run_disabled_tests"</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0429137</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/qzz/PokemonSimulator/build/PokemonSimulatorTests "--gtest_filter=MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" "--gtest_also_run_disabled_tests"</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJylUctqwzAQvPsr9hgfbFFyK+TgkpBDaBrs9mRMkO2NIyppXUl2Sr6+fhGCoRDInHa1o9HOKG60FroCxYVe+HAypICdSSH7uV7Zgb5RkU6EaiR3ZFjeCFmyY4m1ZRVRJdGhdYE1xV3Lhravjr1sWBTenhy+wnagwGc3gZOQDg2s4J1afMMzbwWZfhKuheW5xM1vLQzaSJeRlHSx03HZ86Oq0/XS1Q0ZxJORF3CDfG9kqm0jHIZeGtyQwVZSzuU4R90KQ1qh7rjogqaeke815+t6KcRfexiQPWNmlICP3TMysFguQVn/8f2nG+DIcel7j6XkkJugpMvsD/7LHgzX4eyhzu8hSpLNuo9tJIfeH7mQ2yg=</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Apr 12 23:17 CST</EndDateTime>
+		<EndTestTime>1776007031</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

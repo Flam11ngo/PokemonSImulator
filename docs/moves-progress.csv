@@ -26,7 +26,7 @@ id,name,apiName,category,effect,target,status,reason
 25,Mega Kick,mega-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 26,Jump Kick,jump-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 27,Rolling Kick,rolling-kick,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
-28,Sand Attack,sand-attack,status,None,selected-pokemon,todo,no explicit mechanic handler
+28,Sand Attack,sand-attack,status,None,selected-pokemon,implemented,hardcoded name rule present
 29,Headbutt,headbutt,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
 30,Horn Attack,horn-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 31,Fury Attack,fury-attack,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
@@ -71,7 +71,7 @@ id,name,apiName,category,effect,target,status,reason
 70,Strength,strength,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 71,Absorb,absorb,special,Drain,selected-pokemon,implemented,effect handler present: drain
 72,Mega Drain,mega-drain,special,Drain,selected-pokemon,implemented,effect handler present: drain
-73,Leech Seed,leech-seed,status,None,selected-pokemon,todo,no explicit mechanic handler
+73,Leech Seed,leech-seed,status,None,selected-pokemon,implemented,hardcoded name rule present
 74,Growth,growth,status,StatChange,user,implemented,effect handler present: statchange
 75,Razor Leaf,razor-leaf,physical,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
 76,Solar Beam,solar-beam,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
@@ -100,20 +100,20 @@ id,name,apiName,category,effect,target,status,reason
 99,Rage,rage,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 100,Teleport,teleport,status,None,user,todo,no explicit mechanic handler
 101,Night Shade,night-shade,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
-102,Mimic,mimic,status,None,selected-pokemon,todo,no explicit mechanic handler
+102,Mimic,mimic,status,None,selected-pokemon,implemented,hardcoded name rule present
 103,Screech,screech,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
 104,Double Team,double-team,status,None,user,todo,no explicit mechanic handler
 105,Recover,recover,status,None,user,implemented,hardcoded name rule present
 106,Harden,harden,status,StatChange,user,implemented,effect handler present: statchange
 107,Minimize,minimize,status,None,user,todo,no explicit mechanic handler
-108,Smokescreen,smokescreen,status,None,selected-pokemon,todo,no explicit mechanic handler
+108,Smokescreen,smokescreen,status,None,selected-pokemon,implemented,hardcoded name rule present
 109,Confuse Ray,confuse-ray,status,None,selected-pokemon,todo,no explicit mechanic handler
 110,Withdraw,withdraw,status,StatChange,user,implemented,effect handler present: statchange
 111,Defense Curl,defense-curl,status,StatChange,user,implemented,effect handler present: statchange
 112,Barrier,barrier,status,StatChange,user,implemented,effect handler present: statchange
-113,Light Screen,light-screen,status,None,users-field,todo,no explicit mechanic handler
+113,Light Screen,light-screen,status,None,users-field,partial,multi-target semantic may differ in singles-first mode
 114,Haze,haze,status,None,entire-field,implemented,hardcoded name rule present
-115,Reflect,reflect,status,None,users-field,todo,no explicit mechanic handler
+115,Reflect,reflect,status,None,users-field,partial,multi-target semantic may differ in singles-first mode
 116,Focus Energy,focus-energy,status,None,user,todo,no explicit mechanic handler
 117,Bide,bide,physical,None,user,partial,base damage path likely works; special mechanic not confirmed
 118,Metronome,metronome,status,None,user,todo,no explicit mechanic handler
@@ -142,11 +142,11 @@ id,name,apiName,category,effect,target,status,reason
 141,Leech Life,leech-life,physical,Drain,selected-pokemon,implemented,effect handler present: drain
 142,Lovely Kiss,lovely-kiss,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
 143,Sky Attack,sky-attack,physical,Flinch,selected-pokemon,implemented,effect handler present: flinch
-144,Transform,transform,status,None,selected-pokemon,todo,no explicit mechanic handler
+144,Transform,transform,status,None,selected-pokemon,implemented,hardcoded name rule present
 145,Bubble,bubble,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
 146,Dizzy Punch,dizzy-punch,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 147,Spore,spore,status,Sleep,selected-pokemon,implemented,effect handler present: sleep
-148,Flash,flash,status,None,selected-pokemon,todo,no explicit mechanic handler
+148,Flash,flash,status,None,selected-pokemon,implemented,hardcoded name rule present
 149,Psywave,psywave,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 150,Splash,splash,status,None,user,todo,no explicit mechanic handler
 151,Acid Armor,acid-armor,status,StatChange,user,implemented,effect handler present: statchange
@@ -162,9 +162,9 @@ id,name,apiName,category,effect,target,status,reason
 161,Tri Attack,tri-attack,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 162,Super Fang,super-fang,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 163,Slash,slash,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
-164,Substitute,substitute,status,None,user,todo,no explicit mechanic handler
+164,Substitute,substitute,status,None,user,implemented,hardcoded name rule present
 165,Struggle,struggle,physical,None,random-opponent,partial,base damage path likely works; special mechanic not confirmed
-166,Sketch,sketch,status,None,selected-pokemon,todo,no explicit mechanic handler
+166,Sketch,sketch,status,None,selected-pokemon,implemented,hardcoded name rule present
 167,Triple Kick,triple-kick,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 168,Thief,thief,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 169,Spider Web,spider-web,status,None,selected-pokemon,todo,no explicit mechanic handler
@@ -191,7 +191,7 @@ id,name,apiName,category,effect,target,status,reason
 190,Octazooka,octazooka,special,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 191,Spikes,spikes,status,None,opponents-field,todo,no explicit mechanic handler
 192,Zap Cannon,zap-cannon,special,Paralyze,selected-pokemon,implemented,effect handler present: paralyze
-193,Foresight,foresight,status,None,selected-pokemon,todo,no explicit mechanic handler
+193,Foresight,foresight,status,None,selected-pokemon,implemented,hardcoded name rule present
 194,Destiny Bond,destiny-bond,status,None,user,todo,no explicit mechanic handler
 195,Perish Song,perish-song,status,None,all-pokemon,todo,no explicit mechanic handler
 196,Icy Wind,icy-wind,special,StatChange,all-opponents,partial,multi-target semantic may differ in singles-first mode
@@ -269,8 +269,8 @@ id,name,apiName,category,effect,target,status,reason
 268,Charge,charge,status,StatChange,user,implemented,effect handler present: statchange
 269,Taunt,taunt,status,None,selected-pokemon,todo,no explicit mechanic handler
 270,Helping Hand,helping-hand,status,None,ally,todo,no explicit mechanic handler
-271,Trick,trick,status,None,selected-pokemon,todo,no explicit mechanic handler
-272,Role Play,role-play,status,None,selected-pokemon,todo,no explicit mechanic handler
+271,Trick,trick,status,None,selected-pokemon,implemented,hardcoded name rule present
+272,Role Play,role-play,status,None,selected-pokemon,implemented,hardcoded name rule present
 273,Wish,wish,status,None,user,todo,no explicit mechanic handler
 274,Assist,assist,status,None,user,todo,no explicit mechanic handler
 275,Ingrain,ingrain,status,None,user,todo,no explicit mechanic handler
@@ -283,7 +283,7 @@ id,name,apiName,category,effect,target,status,reason
 282,Knock Off,knock-off,physical,None,selected-pokemon,implemented,hardcoded name rule present
 283,Endeavor,endeavor,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 284,Eruption,eruption,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
-285,Skill Swap,skill-swap,status,None,selected-pokemon,todo,no explicit mechanic handler
+285,Skill Swap,skill-swap,status,None,selected-pokemon,implemented,hardcoded name rule present
 286,Imprison,imprison,status,None,user,todo,no explicit mechanic handler
 287,Refresh,refresh,status,None,user,todo,no explicit mechanic handler
 288,Grudge,grudge,status,None,user,todo,no explicit mechanic handler
@@ -314,7 +314,7 @@ id,name,apiName,category,effect,target,status,reason
 313,Fake Tears,fake-tears,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
 314,Air Cutter,air-cutter,special,None,all-opponents,partial,base damage path likely works; special mechanic not confirmed
 315,Overheat,overheat,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
-316,Odor Sleuth,odor-sleuth,status,None,selected-pokemon,todo,no explicit mechanic handler
+316,Odor Sleuth,odor-sleuth,status,None,selected-pokemon,implemented,hardcoded name rule present
 317,Rock Tomb,rock-tomb,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
 318,Silver Wind,silver-wind,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
 319,Metal Sound,metal-sound,status,StatChange,selected-pokemon,implemented,effect handler present: statchange
@@ -355,7 +355,7 @@ id,name,apiName,category,effect,target,status,reason
 354,Psycho Boost,psycho-boost,special,StatChange,selected-pokemon,implemented,effect handler present: statchange
 355,Roost,roost,status,None,user,todo,no explicit mechanic handler
 356,Gravity,gravity,status,None,entire-field,todo,no explicit mechanic handler
-357,Miracle Eye,miracle-eye,status,None,selected-pokemon,todo,no explicit mechanic handler
+357,Miracle Eye,miracle-eye,status,None,selected-pokemon,implemented,hardcoded name rule present
 358,Wake Up Slap,wake-up-slap,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed
 359,Hammer Arm,hammer-arm,physical,StatChange,selected-pokemon,implemented,effect handler present: statchange
 360,Gyro Ball,gyro-ball,physical,None,selected-pokemon,partial,base damage path likely works; special mechanic not confirmed

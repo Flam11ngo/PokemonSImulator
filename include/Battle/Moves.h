@@ -3,6 +3,8 @@
 #include "Types.h"
 #include <string>
 
+class Battle;
+
 // 技能效果类型枚举
 enum class MoveEffect {
     None,           // 无特殊效果
@@ -125,4 +127,7 @@ Move createMoveByName(const std::string& name);
 
 // 预拉取项目中引用到的 move id 并写回 data/moves.json。
 bool prefetchMovesFromPokeAPI(bool refreshExisting = false);
+
+// Register the core move rules into a battle instance.
+void initializeCoreMoveRules(Battle& battle);
 

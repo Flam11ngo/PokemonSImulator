@@ -7,6 +7,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <cstdint>
 #include <string>
 
 #include <nlohmann/json.hpp>
@@ -86,12 +87,22 @@ int main(int argc, char** argv){
         }
         if (arg == "--run-turn-json-files") {
             if (argc < 5) {
-                std::cerr << "Usage: --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json>" << std::endl;
+                std::cerr << "Usage: --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json> [seed]" << std::endl;
                 return 1;
             }
 
             std::string error;
-            auto session = BattleSession::createFromPokemonFiles(argv[2], argv[3], &error);
+            uint32_t seed = 0;
+            if (argc >= 6) {
+                try {
+                    seed = static_cast<uint32_t>(std::stoul(argv[5]));
+                } catch (...) {
+                    std::cerr << "Invalid seed: " << argv[5] << std::endl;
+                    return 1;
+                }
+            }
+
+            auto session = BattleSession::createFromPokemonFiles(argv[2], argv[3], seed, &error);
             if (!session.has_value()) {
                 std::cerr << "Init failed: " << error << std::endl;
                 return 1;
@@ -125,6 +136,6 @@ int main(int argc, char** argv){
     std::cout << "  --run-item-tests" << std::endl;
     std::cout << "  --run-move-tests" << std::endl;
     std::cout << "  --run-turn-json <request.json>" << std::endl;
-    std::cout << "  --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json>" << std::endl;
+    std::cout << "  --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json> [seed]" << std::endl;
     return 0;
 }

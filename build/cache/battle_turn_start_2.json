@@ -8,13 +8,13 @@
     "active_index": 0,
     "active_pokemon": {
       "ability": "none",
-      "current_hp": 175,
+      "current_hp": 147,
       "is_fainted": false,
       "item": "none",
       "level": 50,
       "max_hp": 175,
       "moves": [],
-      "name": "Sleeper",
+      "name": "DisableApplier",
       "nature": "hardy",
       "stat_stages": {
         "attack": 0,
@@ -39,13 +39,13 @@
     "team": [
       {
         "ability": "none",
-        "current_hp": 175,
+        "current_hp": 147,
         "is_fainted": false,
         "item": "none",
         "level": 50,
         "max_hp": 175,
         "moves": [],
-        "name": "Sleeper",
+        "name": "DisableApplier",
         "nature": "hardy",
         "stat_stages": {
           "attack": 0,
@@ -77,7 +77,7 @@
       "level": 50,
       "max_hp": 175,
       "moves": [],
-      "name": "Target",
+      "name": "DisabledTarget",
       "nature": "hardy",
       "stat_stages": {
         "attack": 0,
@@ -108,7 +108,7 @@
         "level": 50,
         "max_hp": 175,
         "moves": [],
-        "name": "Target",
+        "name": "DisabledTarget",
         "nature": "hardy",
         "stat_stages": {
           "attack": 0,

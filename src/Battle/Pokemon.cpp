@@ -3,6 +3,21 @@
 #include "Battle/PRNG.h"
 
 #include <algorithm>
+#include <cctype>
+
+namespace {
+std::string normalizeMoveToken(const std::string& moveName) {
+    std::string normalized;
+    normalized.reserve(moveName.size());
+    for (char ch : moveName) {
+        if (ch == ' ' || ch == '-' || ch == '\'' || ch == '_') {
+            continue;
+        }
+        normalized.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(ch))));
+    }
+    return normalized;
+}
+}
 
 Pokemon::Pokemon(const Species& species, Nature nat, AbilityType abil, bool isHiddenAbil,
                  int lvl,
@@ -143,6 +158,44 @@ int Pokemon::getStatStage(StatIndex index) const {
         return 0;
     }
     return statStages[stageIndex - 1];
+}
+
+bool Pokemon::reduceMovePPByName(const std::string& moveName, int amount) {
+    if (amount <= 0) {
+        return false;
+    }
+
+    const std::string targetName = normalizeMoveToken(moveName);
+    for (Move& move : moves) {
+        if (normalizeMoveToken(move.getName()) != targetName) {
+            continue;
+        }
+        move.setPP(move.getPP() - amount);
+        return true;
+    }
+    return false;
+}
+
+bool Pokemon::replaceMoveByName(const std::string& existingMoveName, const Move& replacement) {
+    const std::string targetName = normalizeMoveToken(existingMoveName);
+    for (Move& move : moves) {
+        if (normalizeMoveToken(move.getName()) != targetName) {
+            continue;
+        }
+        move = replacement;
+        return true;
+    }
+    return false;
+}
+
+void Pokemon::replaceMoves(const std::vector<Move>& newMoves) {
+    moves.clear();
+    for (const Move& move : newMoves) {
+        if (moves.size() >= 4) {
+            break;
+        }
+        moves.push_back(move);
+    }
 }
 
 // 拷贝构造函数实现

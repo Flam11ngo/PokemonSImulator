@@ -3,6 +3,7 @@
 #include "Battle/BattleToJson.h"
 #include "Battle/BuildFromJson.h"
 #include "Battle/Items.h"
+#include "Battle/PRNG.h"
 #include <cctype>
 #include <fstream>
 #include <optional>
@@ -69,9 +70,13 @@ ItemType BattleSession::parseItemType(const std::string& value) {
 
 std::optional<BattleSession> BattleSession::createFromPokemonFiles(const std::string& sideAPath,
                                                                    const std::string& sideBPath,
+                                                                   uint32_t seed,
                                                                    std::string* error) {
     BattleSession session;
     try {
+        if (seed != 0) {
+            PRNG::setSeed(seed);
+        }
         Pokemon left = BuildFromJson::loadPokemonFromFile(sideAPath);
         Pokemon right = BuildFromJson::loadPokemonFromFile(sideBPath);
         session.storage.emplace_back(std::make_unique<Pokemon>(left));
@@ -109,6 +114,14 @@ std::optional<BattleSession> BattleSession::createFromJson(const nlohmann::json&
     if (!teamA.is_array() || !teamB.is_array() || teamA.empty() || teamB.empty()) {
         setError(error, "both sides must provide at least one pokemon entry");
         return std::nullopt;
+    }
+
+    if (initRequest.contains("seed")) {
+        if (!initRequest["seed"].is_number_integer()) {
+            setError(error, "seed must be an integer when provided");
+            return std::nullopt;
+        }
+        PRNG::setSeed(static_cast<uint32_t>(initRequest["seed"].get<int64_t>()));
     }
 
     BattleSession session;
@@ -183,6 +196,9 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
     if (!actions.is_array()) {
         return nlohmann::json{{"ok", false}, {"error", "actions must be an array"}};
     }
+    if (actions.size() > 2) {
+        return nlohmann::json{{"ok", false}, {"error", "singles mode supports at most one action per side"}};
+    }
 
     bool hasA = false;
     bool hasB = false;
@@ -199,6 +215,10 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
             errors.push_back("action.side must be one of: a, b, side_a, side_b");
             continue;
         }
+        if ((isA && hasA) || (!isA && hasB)) {
+            errors.push_back("duplicate action for side " + std::string(isA ? "a" : "b") + " in singles turn");
+            continue;
+        }
 
         Side& actorSide = isA ? battle->getSideA() : battle->getSideB();
         Side& opponentSide = isA ? battle->getSideB() : battle->getSideA();
@@ -207,15 +227,68 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
             errors.push_back("actor cannot be resolved for side " + std::string(isA ? "a" : "b"));
             continue;
         }
+        if (actionJson.contains("actor_index") && actionJson["actor_index"].is_number_integer()) {
+            const int actorIndex = actionJson["actor_index"].get<int>();
+            if (actorIndex < 0 || actorIndex >= actorSide.getPokemonCount()) {
+                errors.push_back("actor_index is out of range for side " + std::string(isA ? "a" : "b"));
+                continue;
+            }
+            if (actor != actorSide.getActivePokemon()) {
+                errors.push_back("actor_index must reference the active pokemon in singles mode");
+                continue;
+            }
+        } else if (actionJson.contains("actor_index")) {
+            errors.push_back("actor_index must be an integer");
+            continue;
+        }
 
         const std::string type = normalizeKey(actionJson.value("type", "pass"));
         BattleAction action;
 
         if (type == "attack") {
+            if (actionJson.contains("move_index") && actionJson.contains("move_name")) {
+                errors.push_back("attack action cannot specify both move_index and move_name");
+                continue;
+            }
+            if (actionJson.contains("target_side") && !actionJson["target_side"].is_string()) {
+                errors.push_back("target_side must be a string when provided");
+                continue;
+            }
+            if (actionJson.contains("target_side") && actionJson["target_side"].is_string()) {
+                bool parsedTargetSide = false;
+                if (!parseSideToken(actionJson["target_side"].get<std::string>(), parsedTargetSide)) {
+                    errors.push_back("target_side must be one of: a, b, side_a, side_b");
+                    continue;
+                }
+            }
+            if (actionJson.contains("target_index") && !actionJson["target_index"].is_number_integer()) {
+                errors.push_back("target_index must be an integer when provided");
+                continue;
+            }
+
             Pokemon* target = selectTarget(*battle, actorSide, actionJson);
             if (!target) {
                 target = opponentSide.getActivePokemon();
             }
+            if (!target) {
+                errors.push_back("attack action target cannot be resolved");
+                continue;
+            }
+
+            if (actionJson.contains("target_index") && actionJson["target_index"].is_number_integer()) {
+                const int targetIndex = actionJson["target_index"].get<int>();
+                Side* selectedSide = &opponentSide;
+                if (actionJson.contains("target_side") && actionJson["target_side"].is_string()) {
+                    bool targetIsA = false;
+                    parseSideToken(actionJson["target_side"].get<std::string>(), targetIsA);
+                    selectedSide = targetIsA ? &battle->getSideA() : &battle->getSideB();
+                }
+                if (targetIndex < 0 || targetIndex >= selectedSide->getPokemonCount()) {
+                    errors.push_back("target_index is out of range for selected target_side");
+                    continue;
+                }
+            }
+
             const auto& moves = actor->getMoves();
             if (moves.empty()) {
                 errors.push_back("actor has no moves");
@@ -223,10 +296,22 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
             }
 
             std::optional<Move> selectedMove;
+            if (actionJson.contains("move_index") && !actionJson["move_index"].is_number_integer()) {
+                errors.push_back("move_index must be an integer when provided");
+                continue;
+            }
+            if (actionJson.contains("move_name") && !actionJson["move_name"].is_string()) {
+                errors.push_back("move_name must be a string when provided");
+                continue;
+            }
+
             if (actionJson.contains("move_index") && actionJson["move_index"].is_number_integer()) {
                 const int moveIndex = actionJson["move_index"].get<int>();
                 if (moveIndex >= 0 && moveIndex < static_cast<int>(moves.size())) {
                     selectedMove = moves[moveIndex];
+                } else {
+                    errors.push_back("attack action move_index is out of range");
+                    continue;
                 }
             } else if (actionJson.contains("move_name") && actionJson["move_name"].is_string()) {
                 const std::string expected = normalizeKey(actionJson["move_name"].get<std::string>());
@@ -250,8 +335,34 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
                 errors.push_back("switch action requires switch_index");
                 continue;
             }
-            action = BattleAction::makeSwitch(actor, actionJson["switch_index"].get<int>());
+            const int switchIndex = actionJson["switch_index"].get<int>();
+            if (switchIndex < 0 || switchIndex >= actorSide.getPokemonCount()) {
+                errors.push_back("switch_index is out of range for side " + std::string(isA ? "a" : "b"));
+                continue;
+            }
+            if (switchIndex == actorSide.getActiveIndex()) {
+                errors.push_back("switch_index cannot target currently active pokemon");
+                continue;
+            }
+            const Pokemon* switchTarget = actorSide.getTeam()[switchIndex];
+            if (!switchTarget || switchTarget->isFainted()) {
+                errors.push_back("switch_index must reference a non-fainted pokemon");
+                continue;
+            }
+            action = BattleAction::makeSwitch(actor, switchIndex);
         } else if (type == "useitem" || type == "item") {
+            if (!actionJson.contains("item_name") || !actionJson["item_name"].is_string()) {
+                errors.push_back("use_item action requires string item_name");
+                continue;
+            }
+            if (actionJson.contains("target_side") && !actionJson["target_side"].is_string()) {
+                errors.push_back("target_side must be a string when provided");
+                continue;
+            }
+            if (actionJson.contains("target_index") && !actionJson["target_index"].is_number_integer()) {
+                errors.push_back("target_index must be an integer when provided");
+                continue;
+            }
             const std::string itemName = actionJson.value("item_name", "");
             const ItemType itemType = parseItemType(itemName);
             if (itemType == ItemType::None) {
@@ -259,6 +370,10 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
                 continue;
             }
             Pokemon* target = selectTarget(*battle, actorSide, actionJson);
+            if (!target) {
+                errors.push_back("use_item action target cannot be resolved");
+                continue;
+            }
             action = BattleAction::makeUseItem(actor, target, itemType);
         } else if (type == "pass") {
             action = BattleAction::makePass(actor);

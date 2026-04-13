@@ -94,6 +94,8 @@ AbilityData fallbackAbilityDataById(int id) {
         case 15: return {15, "Insomnia", "insomnia", "Prevents the Pokemon from falling asleep.", AbilityType::Insomnia};
         case 17: return {17, "Immunity", "immunity", "Prevents the Pokemon from becoming poisoned.", AbilityType::Immunity};
         case 18: return {18, "Flash Fire", "flash-fire", "Powers up Fire-type moves if hit by one.", AbilityType::FlashFire};
+        case 38: return {38, "Poison Point", "poison-point", "Contact with the Pokemon may poison the attacker.", AbilityType::PoisonPoint};
+        case 24: return {24, "Rough Skin", "rough-skin", "Damages attackers on contact.", AbilityType::RoughSkin};
         case 22: return {22, "Intimidate", "intimidate", "Lowers the foe's Attack stat on entry", AbilityType::Intimidate};
         case 26: return {26, "Levitate", "levitate", "Gives full immunity to Ground-type moves.", AbilityType::Levitate};
         case 29: return {29, "Clear Body", "clear-body", "Prevents other Pokemon from lowering stats.", AbilityType::ClearBody};
@@ -102,6 +104,7 @@ AbilityData fallbackAbilityDataById(int id) {
         case 37: return {37, "Huge Power", "huge-power", "Doubles the Pokemon's Attack stat.", AbilityType::HugePower};
         case 39: return {39, "Inner Focus", "inner-focus", "Protects the Pokemon from flinching.", AbilityType::InnerFocus};
         case 47: return {47, "Thick Fat", "thick-fat", "Halves damage from Fire- and Ice-type moves.", AbilityType::ThickFat};
+        case 49: return {49, "Flame Body", "flame-body", "Contact with the Pokemon may burn the attacker.", AbilityType::FlameBody};
         case 45: return {45, "Sand Stream", "sand-stream", "Summons a sandstorm in battle.", AbilityType::SandStream};
         case 62: return {62, "Guts", "guts", "Boosts Attack when affected by a major status condition.", AbilityType::Guts};
         case 63: return {63, "Marvel Scale", "marvel-scale", "Boosts Defense when affected by a status condition.", AbilityType::MarvelScale};
@@ -123,6 +126,7 @@ AbilityData fallbackAbilityDataById(int id) {
         case 136: return {136, "Multiscale", "multiscale", "Reduces damage when at full HP", AbilityType::Multiscale};
         case 153: return {153, "Moxie", "moxie", "Boosts Attack after knocking out any Pokemon.", AbilityType::Moxie};
         case 157: return {157, "Sap Sipper", "sap-sipper", "Boosts Attack if hit by a Grass-type move.", AbilityType::SapSipper};
+        case 160: return {160, "Iron Barbs", "iron-barbs", "Damages attackers on contact.", AbilityType::IronBarbs};
         case 158: return {158, "Prankster", "prankster", "Gives priority to a status move.", AbilityType::Prankster};
         case 172: return {172, "Competitive", "competitive", "Raises Sp. Atk sharply when stats are lowered.", AbilityType::Competitive};
         case 168: return {168, "Protean", "protean", "Changes the Pokemon's type to the type of the move it's about to use.", AbilityType::Protean};
@@ -138,6 +142,23 @@ AbilityData fallbackAbilityDataById(int id) {
         case 151: return {151, "Infiltrator", "infiltrator", "Passes through substitute and screens.", AbilityType::Infiltrator};
         case 236: return {236, "Libero", "libero", "Changes the Pokemon's type to the type of the move it's about to use.", AbilityType::Libero};
         case 289: return {289, "Hadron Engine", "hadron-engine", "Creates Electric Terrain and boosts the Pokemon's future paradox power.", AbilityType::HadronEngine};
+        case 292: return {292, "Sharpness", "sharpness", "Powers up slicing moves.", AbilityType::Sharpness};
+        case 297: return {297, "Earth Eater", "earth-eater", "Restores HP if hit by a Ground-type move.", AbilityType::EarthEater};
+        case 272: return {272, "Purifying Salt", "purifying-salt", "Protects from status conditions and weakens Ghost-type attacks.", AbilityType::PurifyingSalt};
+        case 273: return {273, "Well-Baked Body", "well-baked-body", "Immune to Fire-type moves and sharply raises Defense when hit.", AbilityType::WellBakedBody};
+        case 274: return {274, "Wind Rider", "wind-rider", "Immune to wind moves and boosts Attack when triggered.", AbilityType::WindRider};
+        case 295: return {295, "Toxic Debris", "toxic-debris", "Scatters Toxic Spikes when hit by physical moves.", AbilityType::ToxicDebris};
+        case 268: return {268, "Lingering Aroma", "lingering-aroma", "On contact, the attacker's Ability becomes Lingering Aroma.", AbilityType::LingeringAroma};
+        case 296: return {296, "Armor Tail", "armor-tail", "Blocks opposing priority moves that target this Pokemon.", AbilityType::ArmorTail};
+        case 283: return {283, "Good as Gold", "good-as-gold", "Makes the Pokemon immune to status moves used by other Pokemon.", AbilityType::GoodAsGold};
+        case 170: return {170, "Stakeout", "stakeout", "Doubles damage dealt to a target that switched in this turn.", AbilityType::Stakeout};
+        case 291: return {291, "Cud Chew", "cud-chew", "Chews up a Berry again at the end of the next turn after it is eaten.", AbilityType::CudChew};
+        case 104: return {104, "Mold Breaker", "mold-breaker", "Moves can be used regardless of the target's Abilities.", AbilityType::MoldBreaker};
+        case 106: return {106, "Aftermath", "aftermath", "Damages the attacker if it makes contact and causes a knockout.", AbilityType::Aftermath};
+        case 152: return {152, "Mummy", "mummy", "Contact with the Pokemon changes the attacker's Ability to Mummy.", AbilityType::Mummy};
+        case 281: return {281, "Protosynthesis", "protosynthesis", "Boosts the Pokemon's most proficient stat in harsh sunlight.", AbilityType::Protosynthesis};
+        case 282: return {282, "Quark Drive", "quark-drive", "Boosts the Pokemon's most proficient stat on Electric Terrain.", AbilityType::QuarkDrive};
+        case 293: return {293, "Supreme Overlord", "supreme-overlord", "Powers up attacks for each fainted ally.", AbilityType::SupremeOverlord};
         case 117: return {117, "Snow Warning", "snow-warning", "Summons a snowstorm in battle.", AbilityType::SnowWarning};
         case 1002: return {1002, "Drizzle", "drizzle", "Summons rain in battle.", AbilityType::Drizzle};
         case 30: return {30, "Natural Cure", "natural-cure", "All status conditions heal when switching out.", AbilityType::NaturalCure};
@@ -374,6 +395,19 @@ bool upsertAbilityEntry(const AbilityData& data, const json& payload) {
             case AbilityType::TabletsOfRuin: return "tablets-of-ruin";
             case AbilityType::VesselOfRuin: return "vessel-of-ruin";
             case AbilityType::Unnerve: return "unnerve";
+            case AbilityType::Sharpness: return "sharpness";
+            case AbilityType::EarthEater: return "earth-eater";
+            case AbilityType::PurifyingSalt: return "purifying-salt";
+            case AbilityType::WellBakedBody: return "well-baked-body";
+            case AbilityType::WindRider: return "wind-rider";
+            case AbilityType::ToxicDebris: return "toxic-debris";
+            case AbilityType::LingeringAroma: return "lingering-aroma";
+            case AbilityType::ArmorTail: return "armor-tail";
+            case AbilityType::GoodAsGold: return "good-as-gold";
+            case AbilityType::Stakeout: return "stakeout";
+            case AbilityType::Protosynthesis: return "protosynthesis";
+            case AbilityType::QuarkDrive: return "quark-drive";
+            case AbilityType::SupremeOverlord: return "supreme-overlord";
             default: return "none";
         }
     }();
@@ -501,7 +535,7 @@ AbilityData getAbilityDataByName(const std::string& name) {
     }
 
     // 兜底：遍历常见已实现能力 ID。
-    const int fallbackIds[] = {1, 2, 3, 4, 5, 9, 10, 11, 13, 15, 17, 18, 22, 26, 29, 30, 37, 39, 45, 47, 51, 52, 62, 63, 65, 66, 67, 70, 72, 73, 78, 91, 98, 101, 109, 111, 114, 116, 117, 125, 127, 128, 136, 144, 151, 153, 157, 158, 168, 172, 226, 227, 228, 229, 236, 240, 284, 285, 286, 287, 289, 1002};
+    const int fallbackIds[] = {1, 2, 3, 4, 5, 9, 10, 11, 13, 15, 17, 18, 22, 26, 29, 30, 37, 39, 45, 47, 51, 52, 62, 63, 65, 66, 67, 70, 72, 73, 78, 91, 98, 101, 109, 111, 114, 116, 117, 125, 127, 128, 136, 144, 151, 153, 157, 158, 168, 170, 172, 226, 227, 228, 229, 236, 240, 268, 272, 273, 274, 281, 282, 283, 284, 285, 286, 287, 289, 292, 293, 295, 296, 297, 1002};
     for (int id : fallbackIds) {
         AbilityData fallback = fallbackAbilityDataById(id);
         if (fallback.id > 0 && (normalizeName(fallback.name) == normalized || normalizeName(fallback.apiName) == normalized)) {
@@ -587,6 +621,19 @@ AbilityData getAbilityData(AbilityType type) {
         case AbilityType::TabletsOfRuin: return fallbackAbilityDataById(286);
         case AbilityType::VesselOfRuin: return fallbackAbilityDataById(287);
         case AbilityType::Unnerve: return fallbackAbilityDataById(127);
+        case AbilityType::Sharpness: return fallbackAbilityDataById(292);
+        case AbilityType::EarthEater: return fallbackAbilityDataById(297);
+        case AbilityType::PurifyingSalt: return fallbackAbilityDataById(272);
+        case AbilityType::WellBakedBody: return fallbackAbilityDataById(273);
+        case AbilityType::WindRider: return fallbackAbilityDataById(274);
+        case AbilityType::ToxicDebris: return fallbackAbilityDataById(295);
+        case AbilityType::LingeringAroma: return fallbackAbilityDataById(268);
+        case AbilityType::ArmorTail: return fallbackAbilityDataById(296);
+        case AbilityType::GoodAsGold: return fallbackAbilityDataById(283);
+        case AbilityType::Stakeout: return fallbackAbilityDataById(170);
+        case AbilityType::Protosynthesis: return fallbackAbilityDataById(281);
+        case AbilityType::QuarkDrive: return fallbackAbilityDataById(282);
+        case AbilityType::SupremeOverlord: return fallbackAbilityDataById(293);
         default: return {0, "None", "none", "", AbilityType::None};
     }
 }

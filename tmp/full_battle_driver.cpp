@@ -1,6 +1,7 @@
 #include "Battle/BattleSession.h"
 #include "Battle/BattleToJson.h"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <optional>
@@ -35,7 +36,7 @@ bool isBattleOver(const Battle& battle) {
     return countAlive(battle.getSideA()) == 0 || countAlive(battle.getSideB()) == 0;
 }
 
-std::optional<Move> chooseBestMove(const Pokemon* attacker, const Pokemon* defender) {
+std::optional<Move> chooseLongBattleMove(const Pokemon* attacker, const Pokemon* defender) {
     if (!attacker) {
         return std::nullopt;
     }
@@ -46,7 +47,7 @@ std::optional<Move> chooseBestMove(const Pokemon* attacker, const Pokemon* defen
     }
 
     std::optional<Move> bestMove;
-    float bestScore = -1.0f;
+    float bestScore = 1e9f;
 
     for (const Move& move : moves) {
         const int power = move.getPower();
@@ -59,7 +60,7 @@ std::optional<Move> chooseBestMove(const Pokemon* attacker, const Pokemon* defen
             score *= defender->getTypeEffectiveness(move.getType());
         }
 
-        if (!bestMove.has_value() || score > bestScore) {
+        if (!bestMove.has_value() || score < bestScore) {
             bestMove = move;
             bestScore = score;
         }
@@ -69,6 +70,21 @@ std::optional<Move> chooseBestMove(const Pokemon* attacker, const Pokemon* defen
         return bestMove;
     }
     return moves.front();
+}
+
+std::optional<int> chooseSwitchIndex(const Side& side) {
+    const int activeIndex = side.getActiveIndex();
+    const auto& team = side.getTeam();
+    for (int i = 0; i < static_cast<int>(team.size()); ++i) {
+        if (i == activeIndex) {
+            continue;
+        }
+        Pokemon* candidate = team[i];
+        if (candidate && !candidate->isFainted()) {
+            return i;
+        }
+    }
+    return std::nullopt;
 }
 
 nlohmann::json buildTurnRequest(Battle& battle) {
@@ -84,7 +100,20 @@ nlohmann::json buildTurnRequest(Battle& battle) {
             continue;
         }
 
-        std::optional<Move> bestMove = chooseBestMove(actor, target);
+        const int hpThreshold = std::max(1, actor->getMaxHP() / 3);
+        if (actor->getCurrentHP() <= hpThreshold && side->canSwitch()) {
+            std::optional<int> switchIndex = chooseSwitchIndex(*side);
+            if (switchIndex.has_value()) {
+                turn["actions"].push_back({
+                    {"side", std::string(1, sideName)},
+                    {"type", "switch"},
+                    {"switch_index", *switchIndex}
+                });
+                continue;
+            }
+        }
+
+        std::optional<Move> bestMove = chooseLongBattleMove(actor, target);
         if (!bestMove.has_value()) {
             turn["actions"].push_back({{"side", std::string(1, sideName)}, {"type", "pass"}});
             continue;
@@ -142,7 +171,27 @@ int main(int argc, char** argv) {
     int turnCount = 0;
     while (!isBattleOver(*battle) && turnCount < 50) {
         ++turnCount;
+
+        Pokemon* activeA = battle->getSideA().getActivePokemon();
+        Pokemon* activeB = battle->getSideB().getActivePokemon();
+        if (activeA && activeB) {
+            std::cout << "[Turn " << turnCount << "] "
+                      << battle->getSideA().getName() << " active=" << activeA->getName()
+                      << " HP=" << activeA->getCurrentHP() << "/" << activeA->getMaxHP()
+                      << " vs "
+                      << battle->getSideB().getName() << " active=" << activeB->getName()
+                      << " HP=" << activeB->getCurrentHP() << "/" << activeB->getMaxHP()
+                      << "\n";
+        }
+
         nlohmann::json turnRequest = buildTurnRequest(*battle);
+        if (turnRequest.contains("actions") && turnRequest["actions"].is_array()) {
+            for (const auto& action : turnRequest["actions"]) {
+                std::cout << "  action side=" << action.value("side", "?")
+                          << " type=" << action.value("type", "?")
+                          << " move=" << action.value("move_name", "-") << "\n";
+            }
+        }
         nlohmann::json response = session->processTurn(turnRequest);
         if (!response.value("ok", false)) {
             std::cerr << "Turn " << turnCount << " failed: " << response.dump() << std::endl;

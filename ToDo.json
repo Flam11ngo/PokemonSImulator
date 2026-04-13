@@ -1,0 +1,798 @@
+{
+  "project": "PokemonSimulator",
+  "objective": "Deliver competitive-grade Gen9 singles battle engine (excluding Terastallization)",
+  "generatedAt": "2026-04-12",
+  "owner": "battle-core",
+  "guidingPrinciples": [
+    "Singles-first correctness over breadth",
+    "Data-model and battle-engine behavior must stay aligned",
+    "Every new mechanic requires deterministic tests",
+    "Prefer centralized helpers over scattered ability/item branches",
+    "No regressions on existing move and ability behavior tests"
+  ],
+  "baseline": {
+    "battleMode": "singles-1v1-first",
+    "moves": {
+      "total": 937,
+      "implemented": 314,
+      "partial": 498,
+      "todo": 125,
+      "statusMoves": {
+        "total": 277,
+        "implemented": 103,
+        "unsupported": 174
+      }
+    },
+    "abilities": {
+      "dataEntries": 367,
+      "engineEnumEntries": 57
+    },
+    "items": {
+      "jsonBattleItems": 272,
+      "unsupportedJsonBattleItems": 152,
+      "engineEnumEntries": 105
+    },
+    "regressionTests": {
+      "abilityBehaviorTestCount": 46,
+      "moveBehaviorTestCount": 53,
+      "battleLogicTestCount": 4
+    }
+  },
+  "definitionOfDone": {
+    "phaseDoneRules": [
+      "All tasks in phase marked done",
+      "All acceptance criteria met",
+      "Targeted tests pass",
+      "No new failing tests in full suite"
+    ],
+    "releaseCandidateRules": [
+      "Unsupported status moves <= 30",
+      "Unsupported JSON battle items <= 40",
+      "Ability gap closed for top-meta singles abilities",
+      "No known high-severity switch-turn or immunity bugs"
+    ]
+  },
+  "phases": [
+    {
+      "id": "P0",
+      "title": "Engine Stability and Determinism",
+      "priority": "P0",
+      "status": "todo",
+      "goal": "Make turn resolution deterministic and safe for large mechanic rollout",
+      "tasks": [
+        {
+          "id": "P0-T01",
+          "domain": "core-turn",
+          "title": "Deterministic action ordering contract",
+          "description": "Lock ordering for move priority, speed, tie-break, and Trick Room interaction in a single policy module.",
+          "acceptance": [
+            "Order rules documented and unit-tested",
+            "No flaky ordering tests across 100 repeated runs"
+          ],
+          "tests": [
+            "MovePriorityOutranksSpeedInQueue",
+            "TrickRoomSetsFieldAndReversesQueueOrder"
+          ]
+        },
+        {
+          "id": "P0-T02",
+          "domain": "core-turn",
+          "title": "Turn-state lifecycle audit",
+          "description": "Verify start-turn, action, faint, switch, end-turn transitions and state cleanup (encore/disable/yawn/nightmare/trap/etc.).",
+          "acceptance": [
+            "No stale runtime state after switch/faint",
+            "State maps cleaned for fainted and switched-out Pokemon"
+          ],
+          "tests": [
+            "YawnTauntAndTormentControlMoveFlow",
+            "EncoreForcesTargetToRepeatLastUsedMove",
+            "DisableBlocksTargetsLastUsedMoveAndMistBlocksStatDrops"
+          ]
+        },
+        {
+          "id": "P0-T03",
+          "domain": "rng",
+          "title": "Seedable RNG for replayable scenarios",
+          "description": "Expose seed controls in battle session to reproduce misses, crits, multi-hit sequences, and confusion rolls.",
+          "acceptance": [
+            "Same seed reproduces identical battle log",
+            "Different seed allows probabilistic divergence"
+          ],
+          "tests": [
+            "PopulationBombStopsAfterFirstMiss",
+            "FlinchPreventsTargetFromMovingThatTurn"
+          ]
+        },
+        {
+          "id": "P0-T04",
+          "domain": "json-api",
+          "title": "Strict request validation for turn API",
+          "description": "Harden --run-turn-json request schema and error messages for invalid move/item/switch selectors.",
+          "acceptance": [
+            "Invalid inputs return stable machine-readable errors",
+            "No crash on malformed requests"
+          ],
+          "tests": [
+            "CLI invalid request integration tests"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P1",
+      "title": "Status Move Coverage Sprint",
+      "priority": "P0",
+      "status": "todo",
+      "goal": "Reduce unsupported status moves from 174 to <= 90",
+      "tasks": [
+        {
+          "id": "P1-T01",
+          "domain": "status-moves",
+          "title": "Hazard and hazard-control block",
+          "description": "Complete Spikes, Toxic Spikes, Stealth Rock, Defog, Court Change, and interactions with grounded immunity and poison immunity.",
+          "acceptance": [
+            "Entry hazards apply only on legal switch-in targets",
+            "Defog/Court Change update both sides correctly"
+          ],
+          "tests": [
+            "EntryHazardsApplyOnSwitchIn",
+            "ImmunityBlocksToxicSpikesPoisonOnSwitchIn"
+          ]
+        },
+        {
+          "id": "P1-T02",
+          "domain": "status-moves",
+          "title": "Protection family block",
+          "description": "Implement and unify Detect, Spiky Shield, King's Shield, Baneful Bunker, Burning Bulwark, Quick Guard, Wide Guard.",
+          "acceptance": [
+            "Consecutive use penalty modeled consistently",
+            "Contact punish effects applied correctly"
+          ],
+          "tests": [
+            "DetectProtectsUserFromOpponentAttack",
+            "new protection-family tests"
+          ]
+        },
+        {
+          "id": "P1-T03",
+          "domain": "status-moves",
+          "title": "Recovery and delayed recovery block",
+          "description": "Complete Rest, Roost, Shore Up, Moonlight, Morning Sun, Synthesis, Wish, Lunar Blessing, Life Dew, Heal Pulse.",
+          "acceptance": [
+            "Healing caps at max HP",
+            "Weather/field dependent healing follows Gen9 singles behavior"
+          ],
+          "tests": [
+            "RestHealsUserToFullAndAppliesSleep",
+            "RecoveryMovesHealUserByHalfMaxHpAndCapAtMax"
+          ]
+        },
+        {
+          "id": "P1-T04",
+          "domain": "status-moves",
+          "title": "Control and lock block",
+          "description": "Implement Taunt, Torment, Imprison, Encore consistency, Disable consistency, Heal Block, Embargo, Gravity.",
+          "acceptance": [
+            "Move selection restrictions enforced each turn",
+            "Mutual lock interactions are deterministic"
+          ],
+          "tests": [
+            "YawnTauntAndTormentControlMoveFlow",
+            "DisableBlocksTargetsLastUsedMoveAndMistBlocksStatDrops",
+            "EncoreForcesTargetToRepeatLastUsedMove"
+          ]
+        },
+        {
+          "id": "P1-T05",
+          "domain": "status-moves",
+          "title": "Switch-manipulation block",
+          "description": "Finalize Roar, Whirlwind, Dragon Tail style force-switch consistency and trap exceptions.",
+          "acceptance": [
+            "Force-switch fails when target side has no bench",
+            "Substitute and trap interactions match singles expectations"
+          ],
+          "tests": [
+            "WhirlwindAndRoarForceTargetSwitchAndRespectSubstitute",
+            "WhirlwindDoesNothingWithoutBench"
+          ]
+        },
+        {
+          "id": "P1-T06",
+          "domain": "status-moves",
+          "title": "Transform/copy/swap block",
+          "description": "Harden Transform, Mimic, Sketch, Mirror Move, Copycat, Role Play, Skill Swap, Entrainment, Simple Beam, Doodle.",
+          "acceptance": [
+            "No illegal move-slot corruption",
+            "Ability-copy rules reject banned/immutable abilities"
+          ],
+          "tests": [
+            "TransformCopiesTypesAndMovesAndSketchCopiesLastUsedMove",
+            "TrickRolePlayAndSkillSwapApplyExpectedEffects",
+            "MimicCopiesTargetsLastUsedMoveIntoMimicSlot"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Ability Completion for Singles Meta",
+      "priority": "P0",
+      "status": "todo",
+      "goal": "Close high-impact ability gap and keep routing centralized in Abilities helpers",
+      "tasks": [
+        {
+          "id": "P2-T01",
+          "domain": "abilities",
+          "title": "Top-meta ability shortlist implementation",
+          "description": "Implement missing high-impact singles abilities first (priority set: Good as Gold, Protosynthesis, Quark Drive, Supreme Overlord, Sharpness, Purifying Salt, Earth Eater, Well-Baked Body, Wind Rider, Toxic Debris, Lingering Aroma, Cud Chew).",
+          "acceptance": [
+            "Each ability has helper/API route and behavior tests",
+            "No direct scattered branches added in Battle.cpp"
+          ],
+          "tests": [
+            "new ability behavior tests per ability"
+          ]
+        },
+        {
+          "id": "P2-T02",
+          "domain": "abilities",
+          "title": "OnEntry/OnExit trigger parity",
+          "description": "Audit all implemented trigger abilities for constructor-trigger, switch-trigger, and faint-trigger parity.",
+          "acceptance": [
+            "No double-trigger on battle start",
+            "Switch in/out effects exactly once per legal transition"
+          ],
+          "tests": [
+            "DrizzleSetsRainOnEntry",
+            "RegeneratorHealsOnSwitchOut",
+            "NaturalCureClearsStatusOnSwitchOut"
+          ]
+        },
+        {
+          "id": "P2-T03",
+          "domain": "abilities",
+          "title": "Ability immunity reason consistency",
+          "description": "Standardize event reasons and messages for type/status immunity + heal-on-immune flows.",
+          "acceptance": [
+            "All immunity events emit canonical reason",
+            "Type/status immunity and healing are data-driven"
+          ],
+          "tests": [
+            "ResolveTypeImmunityUsesAbilityDefinition",
+            "ResolveStatusImmunityUsesAbilityDefinition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Item System Expansion",
+      "priority": "P1",
+      "status": "todo",
+      "goal": "Reduce unsupported JSON battle items from 152 to <= 80",
+      "tasks": [
+        {
+          "id": "P3-T01",
+          "domain": "items",
+          "title": "Singles-critical held items block",
+          "description": "Add missing competitive staples not covered in engine enum/factory and wire all trigger contexts (on-hit/on-damage/on-turn-end).",
+          "acceptance": [
+            "Unsupported JSON battle items reduced by >= 40",
+            "Item trigger context includes move, damage, and effectiveness"
+          ],
+          "tests": [
+            "run-item-tests full pass",
+            "new targeted item behavior tests"
+          ]
+        },
+        {
+          "id": "P3-T02",
+          "domain": "items",
+          "title": "Consumption and one-time-use correctness",
+          "description": "Ensure berries and one-time items consume only when conditions are satisfied.",
+          "acceptance": [
+            "No unconditional consumption in trigger execution",
+            "Reproducible activation boundaries at threshold HP"
+          ],
+          "tests": [
+            "berry-specific activation tests",
+            "FocusSash and WeaknessPolicy edge-case tests"
+          ]
+        },
+        {
+          "id": "P3-T03",
+          "domain": "items",
+          "title": "Item-move and item-ability interaction matrix",
+          "description": "Add matrix tests for Knock Off, Unnerve, Magic Guard, and hazard/weather chip with held items.",
+          "acceptance": [
+            "Known interactions validated in matrix suite",
+            "No regression in existing move/ability tests"
+          ],
+          "tests": [
+            "KnockOffRemovesItemAndGetsDamageBoostAgainstHeldItem",
+            "UnnerveBlocksBerryConsumption",
+            "MagicGuardPreventsWeatherChipDamage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P4",
+      "title": "Damage Formula and Edge-Case Fidelity",
+      "priority": "P1",
+      "status": "todo",
+      "goal": "Improve partial damaging moves and edge interactions",
+      "tasks": [
+        {
+          "id": "P4-T01",
+          "domain": "damage",
+          "title": "Partial damaging move audit",
+          "description": "Promote high-use partial moves to implemented by adding missing special mechanics (multi-hit variants, fixed-damage, crash recoil, charge turn exceptions).",
+          "acceptance": [
+            "At least 80 partial moves upgraded to implemented",
+            "All upgraded moves have dedicated tests"
+          ],
+          "tests": [
+            "PopulationBombMatchesTenIndependentHitsAtFullAccuracy",
+            "SurgingStrikesMatchesThreeIndependentHits",
+            "JumpKickMissDealsCrashRecoilToUser"
+          ]
+        },
+        {
+          "id": "P4-T02",
+          "domain": "damage",
+          "title": "Targeting and immunity edge cases",
+          "description": "Finalize interactions for foresight/miracle-eye, semi-invulnerable states, and weather/terrain modifiers.",
+          "acceptance": [
+            "No contradictory immunity outcomes",
+            "Semi-invulnerable state checks are centralized"
+          ],
+          "tests": [
+            "ForesightOdorSleuthAndMiracleEyeEnablePreviouslyImmuneDamage",
+            "FlyChargeTurnIsSemiInvulnerableExceptForHurricane",
+            "DigAllowsEarthquakeToHitUndergroundTarget"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P5",
+      "title": "Data Alignment and Tooling",
+      "priority": "P1",
+      "status": "todo",
+      "goal": "Keep data files and engine implementation in sync continuously",
+      "tasks": [
+        {
+          "id": "P5-T01",
+          "domain": "tooling",
+          "title": "Auto-generate gap reports in CI",
+          "description": "Emit machine-readable reports for move/ability/item implementation gaps and fail CI on regressions.",
+          "acceptance": [
+            "CI artifact includes gap JSON reports",
+            "Regression thresholds configurable"
+          ],
+          "tests": [
+            "CI dry run with baseline snapshot"
+          ]
+        },
+        {
+          "id": "P5-T02",
+          "domain": "tooling",
+          "title": "Todo status updater script",
+          "description": "Create script to update this ToDo.json progress using test outputs and matrix generators.",
+          "acceptance": [
+            "Single command refreshes baseline metrics",
+            "Phase/task completion percentages auto-updated"
+          ],
+          "tests": [
+            "script integration smoke test"
+          ]
+        },
+        {
+          "id": "P5-T03",
+          "domain": "docs",
+          "title": "Singles mechanics conformance checklist",
+          "description": "Maintain explicit singles conformance checklist by mechanic group with links to tests.",
+          "acceptance": [
+            "Checklist covers status, switch, hazard, weather, terrain, ability, item",
+            "Every checklist row references at least one test"
+          ],
+          "tests": [
+            "manual doc review gate"
+          ]
+        }
+      ]
+    }
+  ],
+  "weeklyExecutionPlan": [
+    {
+      "week": 1,
+      "focus": [
+        "P0-T01",
+        "P0-T02",
+        "P1-T01"
+      ],
+      "targetDelta": {
+        "unsupportedStatusMoves": -20,
+        "unsupportedJsonBattleItems": -5
+      }
+    },
+    {
+      "week": 2,
+      "focus": [
+        "P1-T02",
+        "P1-T03",
+        "P2-T02"
+      ],
+      "targetDelta": {
+        "unsupportedStatusMoves": -25,
+        "unsupportedJsonBattleItems": -10
+      }
+    },
+    {
+      "week": 3,
+      "focus": [
+        "P1-T04",
+        "P1-T05",
+        "P2-T01"
+      ],
+      "targetDelta": {
+        "unsupportedStatusMoves": -25,
+        "unsupportedJsonBattleItems": -10
+      }
+    },
+    {
+      "week": 4,
+      "focus": [
+        "P1-T06",
+        "P3-T01",
+        "P3-T02",
+        "P4-T01"
+      ],
+      "targetDelta": {
+        "unsupportedStatusMoves": -14,
+        "unsupportedJsonBattleItems": -22
+      }
+    }
+  ],
+  "executionPolicy": {
+    "branching": {
+      "strategy": "small-vertical-slices",
+      "rules": [
+        "One mechanic family per PR",
+        "Each PR must include tests and gap-delta note",
+        "No mixed refactor + feature mega-PR"
+      ]
+    },
+    "qualityGatesPerPR": [
+      "cmake --build build",
+      "./build/PokemonSimulator --run-move-tests",
+      "./build/PokemonSimulator --run-item-tests",
+      "ctest --test-dir build --output-on-failure"
+    ],
+    "reviewChecklist": [
+      "New ability/item checks are routed through centralized helpers",
+      "Move rule registration remains in Moves module",
+      "No duplicate switch-like logic across Battle and MoveEffectHandler",
+      "All new edge cases have at least one deterministic test"
+    ]
+  },
+  "phaseDependencies": [
+    {
+      "phase": "P1",
+      "dependsOn": [
+        "P0-T01",
+        "P0-T02"
+      ],
+      "reason": "Status control mechanics depend on deterministic queue/state lifecycle"
+    },
+    {
+      "phase": "P2",
+      "dependsOn": [
+        "P0-T02",
+        "P1-T04"
+      ],
+      "reason": "Ability triggers and lock effects must share reliable runtime state transitions"
+    },
+    {
+      "phase": "P3",
+      "dependsOn": [
+        "P0-T02",
+        "P1-T01"
+      ],
+      "reason": "Item-hazard and item-switch interactions rely on stable switch/hazard flow"
+    },
+    {
+      "phase": "P4",
+      "dependsOn": [
+        "P0-T01",
+        "P2-T03"
+      ],
+      "reason": "Formula and immunity edge checks require finalized ordering and canonical immunity reasons"
+    }
+  ],
+  "nextTwoWeeksSprintBoard": {
+    "sprintName": "S1-Core-Determinism-and-Status",
+    "days": 10,
+    "objective": "Finish P0 foundations and land first high-impact status/mechanic deltas",
+    "mustComplete": [
+      "P0-T01",
+      "P0-T02",
+      "P1-T01"
+    ],
+    "stretch": [
+      "P1-T02",
+      "P2-T02"
+    ],
+    "dailyCadence": {
+      "day1": "Lock ordering contract and add tie-break tests",
+      "day2": "Audit runtime state maps and clear-on-switch/faint",
+      "day3": "Hazard stack behavior refactor and tests",
+      "day4": "Defog and Court Change side-effects coverage",
+      "day5": "Switch-in immunity interactions (Levitate/Immunity-like paths)",
+      "day6": "Regression sweep and flaky test hunt",
+      "day7": "Protection family core handler",
+      "day8": "Protection family edge cases (contact punish)",
+      "day9": "Trigger parity checks for OnEntry/OnExit",
+      "day10": "Stabilization, docs, metrics snapshot"
+    },
+    "exitCriteria": [
+      "Unsupported status moves reduced by at least 20",
+      "No increase in unsupported JSON battle items",
+      "No new failures in ctest run"
+    ]
+  },
+  "prioritizedBacklog": {
+    "statusMoveTop20": [
+      "Spikes",
+      "Toxic Spikes",
+      "Stealth Rock",
+      "Defog",
+      "Court Change",
+      "Detect",
+      "Spiky Shield",
+      "King's Shield",
+      "Baneful Bunker",
+      "Burning Bulwark",
+      "Taunt",
+      "Torment",
+      "Imprison",
+      "Gravity",
+      "Roar",
+      "Whirlwind",
+      "Rest",
+      "Roost",
+      "Wish",
+      "Heal Bell"
+    ],
+    "abilityTop15": [
+      "Good as Gold",
+      "Protosynthesis",
+      "Quark Drive",
+      "Supreme Overlord",
+      "Sharpness",
+      "Purifying Salt",
+      "Earth Eater",
+      "Well-Baked Body",
+      "Wind Rider",
+      "Toxic Debris",
+      "Lingering Aroma",
+      "Cud Chew",
+      "Armor Tail",
+      "Stakeout",
+      "Mold Breaker parity checks"
+    ],
+    "itemTop15": [
+      "Heavy-Duty Boots",
+      "Covert Cloak",
+      "Clear Amulet",
+      "Booster Energy",
+      "Loaded Dice",
+      "Protective Pads",
+      "Mirror Herb",
+      "Ability Shield",
+      "Punching Glove",
+      "Safety Goggles interaction sweep",
+      "Mental Herb interaction sweep",
+      "Terrain Seed variants",
+      "Red Card edge cases",
+      "Eject Pack",
+      "Rocky Helmet contact matrix"
+    ]
+  },
+  "implementationMap": [
+    {
+      "taskId": "P0-T01",
+      "primaryFiles": [
+        "src/Battle/Battle.cpp",
+        "include/Battle/BattleQueue.h",
+        "src/Battle/BattleQueue.cpp",
+        "tests/battle_data_test.cpp"
+      ],
+      "estimation": "2-3 days",
+      "risk": "Medium"
+    },
+    {
+      "taskId": "P0-T02",
+      "primaryFiles": [
+        "src/Battle/Battle.cpp",
+        "include/Battle/Battle.h",
+        "tests/battle_data_test.cpp"
+      ],
+      "estimation": "2 days",
+      "risk": "High"
+    },
+    {
+      "taskId": "P1-T01",
+      "primaryFiles": [
+        "src/Battle/Moves.cpp",
+        "src/Battle/MoveEffectHandler.cpp",
+        "src/Battle/Battle.cpp",
+        "tests/battle_data_test.cpp"
+      ],
+      "estimation": "3-4 days",
+      "risk": "High"
+    },
+    {
+      "taskId": "P2-T01",
+      "primaryFiles": [
+        "include/Battle/Abilities.h",
+        "src/Battle/Abilities.cpp",
+        "src/Battle/Battle.cpp",
+        "tests/battle_data_test.cpp"
+      ],
+      "estimation": "4-6 days",
+      "risk": "High"
+    },
+    {
+      "taskId": "P3-T01",
+      "primaryFiles": [
+        "include/Battle/Items.h",
+        "src/Battle/Items.cpp",
+        "src/Battle/ItemData.cpp",
+        "tests/battle_data_test.cpp"
+      ],
+      "estimation": "4-5 days",
+      "risk": "Medium"
+    }
+  ],
+  "trackingTemplates": {
+    "weeklyStatus": {
+      "week": 0,
+      "unsupportedStatusMovesBefore": 174,
+      "unsupportedStatusMovesAfter": 174,
+      "unsupportedJsonBattleItemsBefore": 152,
+      "unsupportedJsonBattleItemsAfter": 152,
+      "tasksDone": [],
+      "newTestsAdded": 0,
+      "regressions": [],
+      "notes": ""
+    },
+    "taskUpdate": {
+      "taskId": "",
+      "state": "todo",
+      "owner": "",
+      "etaDays": 0,
+      "delta": {
+        "unsupportedStatusMoves": 0,
+        "unsupportedJsonBattleItems": 0
+      },
+      "testsAdded": [],
+      "blockedBy": []
+    }
+  },
+  "progressLog": [
+    {
+      "date": "2026-04-12",
+      "taskId": "P1-T02",
+      "status": "in-progress",
+      "delta": "Added protection-family consecutive-use penalty coverage, including cross-variant chaining behavior.",
+      "testsAdded": [
+        "MoveBehaviorTest.ProtectFamilyConsecutiveUseHasFailurePenalty",
+        "MoveBehaviorTest.ProtectFamilySharesConsecutivePenaltyAcrossVariants"
+      ],
+      "validation": [
+        "MoveBehaviorTest.ProtectVariantsApplyContactPunishments",
+        "MoveBehaviorTest.QuickGuardBlocksPriorityMovesButNotNormalPriority",
+        "MoveBehaviorTest.WideGuardBlocksSpreadTargetMoves"
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "taskId": "P1-T03",
+      "status": "in-progress",
+      "delta": "Expanded Heal Block regression coverage to immediate and delayed recovery interactions plus expiry unlock behavior.",
+      "testsAdded": [
+        "MoveBehaviorTest.HealBlockBlocksWishAndLifeDewThenExpires",
+        "MoveBehaviorTest.HealBlockBlocksLunarBlessingThenExpires"
+      ],
+      "validation": [
+        "MoveBehaviorTest.HealBlockPreventsHealingMovesDuringDuration",
+        "MoveBehaviorTest.RecoveryMovesHealUserByHalfMaxHpAndCapAtMax",
+        "MoveBehaviorTest.RestHealsUserToFullAndAppliesSleep"
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "taskId": "P1-T04",
+      "status": "in-progress",
+      "delta": "Added Taunt expiry regression coverage to ensure status-move lock is enforced during duration and released correctly after timeout.",
+      "testsAdded": [
+        "MoveBehaviorTest.TauntExpiresAndAllowsStatusMovesAgain"
+      ],
+      "validation": [
+        "MoveBehaviorTest.YawnTauntAndTormentControlMoveFlow",
+        "MoveBehaviorTest.DisableBlocksTargetsLastUsedMoveAndMistBlocksStatDrops",
+        "MoveBehaviorTest.EncoreForcesTargetToRepeatLastUsedMove"
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "taskId": "P1-T04",
+      "status": "in-progress",
+      "delta": "Added Torment expiry regression coverage to ensure same-move restriction is enforced during duration and released after timeout.",
+      "testsAdded": [
+        "MoveBehaviorTest.TormentExpiresAndAllowsRepeatedMoveAgain"
+      ],
+      "validation": [
+        "MoveBehaviorTest.YawnTauntAndTormentControlMoveFlow",
+        "MoveBehaviorTest.TauntExpiresAndAllowsStatusMovesAgain",
+        "MoveBehaviorTest.DisableBlocksTargetsLastUsedMoveAndMistBlocksStatDrops",
+        "MoveBehaviorTest.EncoreForcesTargetToRepeatLastUsedMove"
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "taskId": "P1-T04",
+      "status": "in-progress",
+      "delta": "Added Disable expiry regression coverage to ensure locked-move restriction is enforced during duration and released after timeout.",
+      "testsAdded": [
+        "MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain"
+      ],
+      "validation": [
+        "MoveBehaviorTest.DisableBlocksTargetsLastUsedMoveAndMistBlocksStatDrops",
+        "MoveBehaviorTest.YawnTauntAndTormentControlMoveFlow",
+        "MoveBehaviorTest.TauntExpiresAndAllowsStatusMovesAgain",
+        "MoveBehaviorTest.TormentExpiresAndAllowsRepeatedMoveAgain",
+        "MoveBehaviorTest.EncoreForcesTargetToRepeatLastUsedMove"
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "taskId": "P5-T02",
+      "status": "in-progress",
+      "delta": "Ran an automated plan audit by mapping ToDo task test names to current gtests. Most phases are functionally done-like by test coverage; primary uncovered gap is P3-T02 item-consumption edge tests.",
+      "testsAdded": [],
+      "validation": [
+        "ToDo tests-to-gtests coverage audit (P0/P1/P2/P4 complete-like)",
+        "Gap identified: P3-T02 (berry-specific activation, Focus Sash/Weakness Policy edge cases)",
+        "Known full-suite blocker remains: MoveBehaviorTest.CloseCombatLowersUsersAttackAndDefenseOnHit"
+      ]
+    }
+  ],
+  "commands": {
+    "build": "cmake --build build",
+    "moveCoverage": "./build/PokemonSimulator --run-move-tests",
+    "itemCoverage": "./build/PokemonSimulator --run-item-tests",
+    "matrixRefresh": "python3 scripts/generate_move_matrix.py",
+    "fullRegression": "ctest --test-dir build --output-on-failure",
+    "jsonLint": "python3 -m json.tool ToDo.json > /dev/null"
+  },
+  "riskRegister": [
+    {
+      "id": "R1",
+      "risk": "Move rule growth reintroduces scattered special-case branches",
+      "mitigation": "Require helper APIs for ability/item checks; review Battle.cpp branch additions"
+    },
+    {
+      "id": "R2",
+      "risk": "False confidence from parse-level tests without behavioral assertions",
+      "mitigation": "Every implemented move/item/ability must include behavior-focused tests"
+    },
+    {
+      "id": "R3",
+      "risk": "Data refresh changes IDs or names unexpectedly",
+      "mitigation": "Keep fill-missing default and add compatibility checks for ids"
+    }
+  ]
+}

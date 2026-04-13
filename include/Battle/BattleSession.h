@@ -12,6 +12,7 @@ class BattleSession {
 public:
     static std::optional<BattleSession> createFromPokemonFiles(const std::string& sideAPath,
                                                                const std::string& sideBPath,
+                                                               uint32_t seed = 0,
                                                                std::string* error = nullptr);
 
     static std::optional<BattleSession> createFromJson(const nlohmann::json& initRequest,

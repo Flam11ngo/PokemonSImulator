@@ -1,0 +1,7 @@
+{
+  "actor": "Pikachu",
+  "event": "action_start",
+  "priority": 156,
+  "switch_index": 1,
+  "type": "switch"
+}

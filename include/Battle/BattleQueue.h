@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BattleActions.h"
+#include <cstddef>
 #include <vector>
 
 class BattleQueue {
@@ -12,6 +13,12 @@ public:
     void setTrickRoom(bool enable);
 
 private:
-    std::vector<BattleAction> actions;
+    struct QueuedAction {
+        BattleAction action;
+        std::size_t enqueueOrder = 0;
+    };
+
+    std::vector<QueuedAction> actions;
+    std::size_t nextEnqueueOrder = 0;
     bool trickRoom = false;
 };

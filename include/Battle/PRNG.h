@@ -8,8 +8,12 @@ private:
     static uint32_t state;
 
 public:
-    PRNG(uint32_t seed = 0)  {
-        seed = time(nullptr) ^ (seed + 0x9e3779b9 + (state << 6) + (state >> 2));
+    PRNG(uint32_t seed = 0) {
+        if (seed == 0) {
+            setSeed(static_cast<uint32_t>(time(nullptr)));
+        } else {
+            setSeed(seed);
+        }
     }
 
     // Generate next random uint32_t

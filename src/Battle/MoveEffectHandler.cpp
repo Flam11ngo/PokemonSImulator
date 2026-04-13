@@ -49,13 +49,13 @@ void applyStandardMoveEffect(Battle& battle, Pokemon* attacker, Pokemon* defende
 
     switch (effect) {
         case MoveEffect::Paralyze:
-            if (defender->getAbility() == AbilityType::VitalSpirit) {
+            if (resolveStatusImmunity(defender->getAbility(), StatusType::Paralysis)) {
                 break;
             }
             defender->addStatus(StatusType::Paralysis);
             break;
         case MoveEffect::Sleep:
-            if (defender->getAbility() == AbilityType::Insomnia || defender->getAbility() == AbilityType::VitalSpirit) {
+            if (resolveStatusImmunity(defender->getAbility(), StatusType::Sleep)) {
                 break;
             }
             defender->addStatus(StatusType::Sleep);
@@ -67,12 +67,15 @@ void applyStandardMoveEffect(Battle& battle, Pokemon* attacker, Pokemon* defende
             defender->addStatus(StatusType::Burn);
             break;
         case MoveEffect::Poison:
-            if (defender->getAbility() == AbilityType::Immunity) {
-                break;
-            }
             if (move.getEffectParam1() == 2) {
+                if (resolveStatusImmunity(defender->getAbility(), StatusType::ToxicPoison)) {
+                    break;
+                }
                 defender->addStatus(StatusType::ToxicPoison);
             } else {
+                if (resolveStatusImmunity(defender->getAbility(), StatusType::Poison)) {
+                    break;
+                }
                 defender->addStatus(StatusType::Poison);
             }
             break;
@@ -80,7 +83,7 @@ void applyStandardMoveEffect(Battle& battle, Pokemon* attacker, Pokemon* defende
             defender->addStatus(StatusType::Confusion);
             break;
         case MoveEffect::Flinch:
-            if (defender->getAbility() == AbilityType::InnerFocus) {
+            if (resolveStatusImmunity(defender->getAbility(), StatusType::Flinch)) {
                 break;
             }
             defender->addStatus(StatusType::Flinch, 1);
@@ -121,14 +124,21 @@ void applyStandardMoveEffect(Battle& battle, Pokemon* attacker, Pokemon* defende
             Pokemon* itemOpponent = affectSelf ? defender : attacker;
 
             if (!affectSelf && changeAmount < 0) {
+                Side* targetSide = Battle::findSideForPokemon(battle, target);
+                if (targetSide && targetSide->hasMist()) {
+                    break;
+                }
+            }
+
+            if (!affectSelf && changeAmount < 0) {
                 const AbilityType targetAbility = target->getAbility();
-                if (targetAbility == AbilityType::ClearBody || targetAbility == AbilityType::WhiteSmoke) {
+                if (abilityBlocksGenericStatDrops(targetAbility)) {
                     break;
                 }
-                if (targetAbility == AbilityType::HyperCutter && absIndex == static_cast<int>(StatIndex::Attack)) {
+                if (absIndex == static_cast<int>(StatIndex::Attack) && abilityBlocksAttackDrops(targetAbility)) {
                     break;
                 }
-                if (targetAbility == AbilityType::MirrorArmor) {
+                if (abilityReflectsStatDrops(targetAbility)) {
                     attacker->changeStatStage(static_cast<StatIndex>(absIndex), changeAmount);
                     break;
                 }
@@ -139,11 +149,7 @@ void applyStandardMoveEffect(Battle& battle, Pokemon* attacker, Pokemon* defende
             const int afterStage = target->getStatStage(static_cast<StatIndex>(absIndex));
 
             if (!affectSelf && changeAmount < 0 && afterStage < beforeStage) {
-                if (target->getAbility() == AbilityType::Defiant) {
-                    target->changeStatStage(StatIndex::Attack, 2);
-                } else if (target->getAbility() == AbilityType::Competitive) {
-                    target->changeStatStage(StatIndex::SpecialAttack, 2);
-                }
+                applyStatLoweredReaction(target->getAbility(), target);
             }
 
             if (afterStage != beforeStage) {

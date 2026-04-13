@@ -43,6 +43,30 @@ public:
     void clearScreenEffects() { reflectTurns = 0; lightScreenTurns = 0; }
     void tickScreenEffects();
 
+    int getMistTurns() const { return mistTurns; }
+    bool hasMist() const { return mistTurns > 0; }
+    void setMistTurns(int turns) { mistTurns = turns > 0 ? turns : 0; }
+    void clearMist() { mistTurns = 0; }
+    void tickMistTurns();
+
+    int getSafeguardTurns() const { return safeguardTurns; }
+    bool hasSafeguard() const { return safeguardTurns > 0; }
+    void setSafeguardTurns(int turns) { safeguardTurns = turns > 0 ? turns : 0; }
+    void clearSafeguard() { safeguardTurns = 0; }
+    void tickSafeguardTurns();
+
+    int getMudSportTurns() const { return mudSportTurns; }
+    bool hasMudSport() const { return mudSportTurns > 0; }
+    void setMudSportTurns(int turns) { mudSportTurns = turns > 0 ? turns : 0; }
+    void clearMudSport() { mudSportTurns = 0; }
+    void tickMudSportTurns();
+
+    int getWaterSportTurns() const { return waterSportTurns; }
+    bool hasWaterSport() const { return waterSportTurns > 0; }
+    void setWaterSportTurns(int turns) { waterSportTurns = turns > 0 ? turns : 0; }
+    void clearWaterSport() { waterSportTurns = 0; }
+    void tickWaterSportTurns();
+
     int getSpikesLayers() const { return spikesLayers; }
     int getToxicSpikesLayers() const { return toxicSpikesLayers; }
     bool hasStealthRock() const { return stealthRock; }
@@ -60,6 +84,10 @@ private:
     int protectCount = 0; // 连续守护的次数
     int reflectTurns = 0;
     int lightScreenTurns = 0;
+    int mistTurns = 0;
+    int safeguardTurns = 0;
+    int mudSportTurns = 0;
+    int waterSportTurns = 0;
     int spikesLayers = 0;
     int toxicSpikesLayers = 0;
     bool stealthRock = false;

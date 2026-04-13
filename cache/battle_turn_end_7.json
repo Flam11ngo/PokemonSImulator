@@ -8,7 +8,7 @@
     "active_index": 2,
     "active_pokemon": {
       "ability": "overgrow",
-      "current_hp": 155,
+      "current_hp": 106,
       "is_fainted": false,
       "item": "Miracle Seed",
       "level": 50,
@@ -63,7 +63,12 @@
         "special_defense": 152,
         "speed": 101
       },
-      "statuses": [],
+      "statuses": [
+        {
+          "duration": -1,
+          "type": "paralysis"
+        }
+      ],
       "type1": "grass",
       "type2": "poison"
     },
@@ -127,14 +132,19 @@
           "special_defense": 71,
           "speed": 156
         },
-        "statuses": [],
+        "statuses": [
+          {
+            "duration": -1,
+            "type": "paralysis"
+          }
+        ],
         "type1": "electric",
         "type2": "count"
       },
       {
         "ability": "blaze",
-        "current_hp": 0,
-        "is_fainted": true,
+        "current_hp": 153,
+        "is_fainted": false,
         "item": "Leftovers",
         "level": 50,
         "max_hp": 153,
@@ -194,7 +204,7 @@
       },
       {
         "ability": "overgrow",
-        "current_hp": 155,
+        "current_hp": 106,
         "is_fainted": false,
         "item": "Miracle Seed",
         "level": 50,
@@ -249,57 +259,62 @@
           "special_defense": 152,
           "speed": 101
         },
-        "statuses": [],
+        "statuses": [
+          {
+            "duration": -1,
+            "type": "paralysis"
+          }
+        ],
         "type1": "grass",
         "type2": "poison"
       }
     ]
   },
   "side_b": {
-    "active_index": 2,
+    "active_index": 1,
     "active_pokemon": {
-      "ability": "overgrow",
-      "current_hp": 0,
-      "is_fainted": true,
-      "item": "Miracle Seed",
+      "ability": "blaze",
+      "current_hp": 115,
+      "is_fainted": false,
+      "item": "Life Orb",
       "level": 50,
-      "max_hp": 155,
+      "max_hp": 153,
       "moves": [
         {
           "accuracy": 100,
-          "max_pp": 10,
-          "name": "Giga Drain",
-          "power": 75,
-          "pp": 10,
-          "type": "grass"
-        },
-        {
-          "accuracy": 100,
-          "max_pp": 10,
-          "name": "Solar Beam",
-          "power": 120,
-          "pp": 10,
-          "type": "grass"
-        },
-        {
-          "accuracy": 100,
-          "max_pp": 10,
-          "name": "Sludge Bomb",
-          "power": 90,
-          "pp": 10,
-          "type": "poison"
-        },
-        {
-          "accuracy": 75,
-          "max_pp": 15,
-          "name": "Sleep Powder",
+          "max_pp": 20,
+          "name": "Dragon Dance",
           "power": 0,
+          "pp": 20,
+          "type": "dragon"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 15,
+          "name": "Fire Punch",
+          "power": 75,
           "pp": 15,
-          "type": "grass"
+          "type": "fire"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 15,
+          "name": "Thunder Punch",
+          "power": 75,
+          "pp": 15,
+          "type": "electric"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 10,
+          "name": "Protect",
+          "power": 0,
+          "pp": 10,
+          "type": "normal"
         }
       ],
-      "name": "Venusaur",
-      "nature": "calm",
+      "name": "Charizard",
+      "nature": "hasty",
       "stat_stages": {
         "attack": 0,
         "defense": 0,
@@ -308,20 +323,15 @@
         "speed": 0
       },
       "stats": {
-        "attack": 91,
-        "defense": 103,
-        "special_attack": 152,
-        "special_defense": 167,
-        "speed": 101
+        "attack": 136,
+        "defense": 88,
+        "special_attack": 129,
+        "special_defense": 106,
+        "speed": 167
       },
-      "statuses": [
-        {
-          "duration": -1,
-          "type": "burn"
-        }
-      ],
-      "type1": "grass",
-      "type2": "poison"
+      "statuses": [],
+      "type1": "fire",
+      "type2": "flying"
     },
     "name": "Blue",
     "pokemon_count": 3,
@@ -394,8 +404,8 @@
       },
       {
         "ability": "blaze",
-        "current_hp": 0,
-        "is_fainted": true,
+        "current_hp": 115,
+        "is_fainted": false,
         "item": "Life Orb",
         "level": 50,
         "max_hp": 153,
@@ -455,8 +465,8 @@
       },
       {
         "ability": "overgrow",
-        "current_hp": 0,
-        "is_fainted": true,
+        "current_hp": 155,
+        "is_fainted": false,
         "item": "Miracle Seed",
         "level": 50,
         "max_hp": 155,
@@ -510,12 +520,7 @@
           "special_defense": 167,
           "speed": 101
         },
-        "statuses": [
-          {
-            "duration": -1,
-            "type": "burn"
-          }
-        ],
+        "statuses": [],
         "type1": "grass",
         "type2": "poison"
       }

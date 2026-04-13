@@ -657,8 +657,13 @@ bool runSingleItemTestWithContext(ItemType itemType, Pokemon* self, Pokemon* oth
             self->holdItem(itemType);
             other->clearStatuses();
             ItemDamageContext ctx{&groundMove, 30, other->getCurrentHP(), false, true, true};
-            item.executeTrigger(ItemTrigger::OnDealDamage, self, other, battle, &ctx);
-            check(other->hasStatus(StatusType::Confusion), "King's Rock should apply a battle side effect on contact damage");
+            bool triggered = false;
+            for (int i = 0; i < 200 && !triggered; ++i) {
+                other->removeStatus(StatusType::Flinch);
+                item.executeTrigger(ItemTrigger::OnDealDamage, self, other, battle, &ctx);
+                triggered = other->hasStatus(StatusType::Flinch);
+            }
+            check(triggered, "King's Rock should occasionally cause flinch on damaging hits");
             break;
         }
         case ItemType::WideLens:

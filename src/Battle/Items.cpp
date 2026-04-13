@@ -1,6 +1,7 @@
 #include "Battle/Items.h"
 #include "Battle/Pokemon.h"
 #include "Battle/Battle.h"
+#include "Battle/PRNG.h"
 #include "Battle/Types.h"
 #include "Battle/Status.h"
 #include <algorithm>
@@ -859,10 +860,14 @@ Item createKingsRock() {
         if (!self || !opponent) return;
         const ItemDamageContext* damageContext = toDamageContext(context);
         if (!damageContext || !damageContext->isDamagingMove || damageContext->damage <= 0) return;
-        if (damageContext->isContact) {
-            if (!opponent->hasStatus(StatusType::Confusion)) {
-                opponent->addStatus(StatusType::Confusion);
-            }
+        if (!damageContext->move || damageContext->move->getEffect() == MoveEffect::Flinch) {
+            return;
+        }
+        if (opponent->getAbility() == AbilityType::InnerFocus) {
+            return;
+        }
+        if (PRNG::nextInt(0, 100) < 10) {
+            opponent->addStatus(StatusType::Flinch, 1);
         }
     });
     return item;

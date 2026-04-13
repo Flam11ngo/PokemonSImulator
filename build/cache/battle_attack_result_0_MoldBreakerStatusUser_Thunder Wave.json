@@ -1,0 +1,151 @@
+{
+  "actor": "MoldBreakerStatusUser",
+  "event": "attack_result",
+  "field": {
+    "duration": 0,
+    "type": "none"
+  },
+  "move": "Thunder Wave",
+  "side_a": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "mold-breaker",
+      "current_hp": 175,
+      "is_fainted": false,
+      "item": "none",
+      "level": 50,
+      "max_hp": 175,
+      "moves": [],
+      "name": "MoldBreakerStatusUser",
+      "nature": "hardy",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 120,
+        "defense": 120,
+        "special_attack": 120,
+        "special_defense": 120,
+        "speed": 120
+      },
+      "statuses": [],
+      "type1": "electric",
+      "type2": "count"
+    },
+    "name": "A",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "mold-breaker",
+        "current_hp": 175,
+        "is_fainted": false,
+        "item": "none",
+        "level": 50,
+        "max_hp": 175,
+        "moves": [],
+        "name": "MoldBreakerStatusUser",
+        "nature": "hardy",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 120,
+          "defense": 120,
+          "special_attack": 120,
+          "special_defense": 120,
+          "speed": 120
+        },
+        "statuses": [],
+        "type1": "electric",
+        "type2": "count"
+      }
+    ]
+  },
+  "side_b": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "good-as-gold",
+      "current_hp": 171,
+      "is_fainted": false,
+      "item": "none",
+      "level": 50,
+      "max_hp": 175,
+      "moves": [],
+      "name": "GoldHolder",
+      "nature": "hardy",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 120,
+        "defense": 120,
+        "special_attack": 120,
+        "special_defense": 120,
+        "speed": 120
+      },
+      "statuses": [
+        {
+          "duration": -1,
+          "type": "paralysis"
+        }
+      ],
+      "type1": "steel",
+      "type2": "ghost"
+    },
+    "name": "B",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "good-as-gold",
+        "current_hp": 171,
+        "is_fainted": false,
+        "item": "none",
+        "level": 50,
+        "max_hp": 175,
+        "moves": [],
+        "name": "GoldHolder",
+        "nature": "hardy",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 120,
+          "defense": 120,
+          "special_attack": 120,
+          "special_defense": 120,
+          "speed": 120
+        },
+        "statuses": [
+          {
+            "duration": -1,
+            "type": "paralysis"
+          }
+        ],
+        "type1": "steel",
+        "type2": "ghost"
+      }
+    ]
+  },
+  "target": "GoldHolder",
+  "turn": 0,
+  "weather": {
+    "duration": 0,
+    "type": "clear"
+  }
+}

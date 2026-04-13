@@ -245,6 +245,13 @@ build CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o: CXX_COMPILER__b
   OBJECT_DIR = CMakeFiles/battle_core.dir
   OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
 
+build CMakeFiles/battle_core.dir/src/Battle/BattleMath.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleMath.cpp || cmake_object_order_depends_target_battle_core
+  DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleMath.cpp.o.d
+  FLAGS = -O3 -DNDEBUG -std=gnu++17
+  INCLUDES = -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle
+  OBJECT_DIR = CMakeFiles/battle_core.dir
+  OBJECT_FILE_DIR = CMakeFiles/battle_core.dir/src/Battle
+
 build CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o: CXX_COMPILER__battle_core_unscanned_Release /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp || cmake_object_order_depends_target_battle_core
   DEP_FILE = CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o.d
   FLAGS = -O3 -DNDEBUG -std=gnu++17
@@ -407,7 +414,7 @@ build CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o: CXX_COMPILER__battle_
 #############################################
 # Link the static library libbattle_core.a
 
-build libbattle_core.a: CXX_STATIC_LIBRARY_LINKER__battle_core_Release CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveEffectHandler.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveRuleRegistry.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveTestRunner.cpp.o CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o
+build libbattle_core.a: CXX_STATIC_LIBRARY_LINKER__battle_core_Release CMakeFiles/battle_core.dir/src/Battle/Abilities.cpp.o CMakeFiles/battle_core.dir/src/Battle/AbilityData.cpp.o CMakeFiles/battle_core.dir/src/Battle/Battle.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleActions.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleMath.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleSession.cpp.o CMakeFiles/battle_core.dir/src/Battle/BattleToJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/BuildFromJson.cpp.o CMakeFiles/battle_core.dir/src/Battle/Effect.cpp.o CMakeFiles/battle_core.dir/src/Battle/EventSystem.cpp.o CMakeFiles/battle_core.dir/src/Battle/Field.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemData.cpp.o CMakeFiles/battle_core.dir/src/Battle/ItemTestRunner.cpp.o CMakeFiles/battle_core.dir/src/Battle/Items.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveData.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveEffectHandler.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveRuleRegistry.cpp.o CMakeFiles/battle_core.dir/src/Battle/MoveTestRunner.cpp.o CMakeFiles/battle_core.dir/src/Battle/Moves.cpp.o CMakeFiles/battle_core.dir/src/Battle/Natures.cpp.o CMakeFiles/battle_core.dir/src/Battle/PRNG.cpp.o CMakeFiles/battle_core.dir/src/Battle/Pokemon.cpp.o CMakeFiles/battle_core.dir/src/Battle/Side.cpp.o CMakeFiles/battle_core.dir/src/Battle/Status.cpp.o CMakeFiles/battle_core.dir/src/Battle/Utils.cpp.o CMakeFiles/battle_core.dir/src/Battle/Weather.cpp.o
   LANGUAGE_COMPILE_FLAGS = -O3 -DNDEBUG
   OBJECT_DIR = CMakeFiles/battle_core.dir
   POST_BUILD = :

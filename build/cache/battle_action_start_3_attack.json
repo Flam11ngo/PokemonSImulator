@@ -1,8 +1,8 @@
 {
-  "actor": "Blastoise",
+  "actor": "TormentedTarget",
   "event": "action_start",
-  "move": "Hydro Pump",
-  "priority": 98,
-  "target": "Charizard",
+  "move": "Pound",
+  "priority": 120,
+  "target": "TormentUser",
   "type": "attack"
 }

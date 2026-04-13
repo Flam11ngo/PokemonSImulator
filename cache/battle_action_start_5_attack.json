@@ -1,8 +1,8 @@
 {
-  "actor": "Charizard",
+  "actor": "Test Pokemon",
   "event": "action_start",
-  "move": "Thunder Punch",
-  "priority": 167,
-  "target": "Charizard",
+  "move": "Tackle",
+  "priority": 100,
+  "target": "Test Pokemon",
   "type": "attack"
 }

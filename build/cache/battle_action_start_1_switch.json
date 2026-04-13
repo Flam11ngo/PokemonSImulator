@@ -1,7 +1,7 @@
 {
-  "actor": "Charizard",
+  "actor": "BatchUser",
   "event": "action_start",
-  "priority": 152,
+  "priority": 120,
   "switch_index": 1,
   "type": "switch"
 }

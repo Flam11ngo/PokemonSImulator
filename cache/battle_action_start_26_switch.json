@@ -1,0 +1,7 @@
+{
+  "actor": "Charizard",
+  "event": "action_start",
+  "priority": 167,
+  "switch_index": 2,
+  "type": "switch"
+}

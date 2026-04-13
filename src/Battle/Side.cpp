@@ -76,6 +76,30 @@ void Side::tickScreenEffects() {
     }
 }
 
+void Side::tickMistTurns() {
+    if (mistTurns > 0) {
+        --mistTurns;
+    }
+}
+
+void Side::tickSafeguardTurns() {
+    if (safeguardTurns > 0) {
+        --safeguardTurns;
+    }
+}
+
+void Side::tickMudSportTurns() {
+    if (mudSportTurns > 0) {
+        --mudSportTurns;
+    }
+}
+
+void Side::tickWaterSportTurns() {
+    if (waterSportTurns > 0) {
+        --waterSportTurns;
+    }
+}
+
 void Side::addSpikesLayer() {
     if (spikesLayers < 3) {
         ++spikesLayers;

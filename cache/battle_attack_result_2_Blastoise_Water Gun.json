@@ -1,0 +1,537 @@
+{
+  "actor": "Blastoise",
+  "event": "attack_result",
+  "field": {
+    "duration": 0,
+    "type": "none"
+  },
+  "move": "Water Gun",
+  "side_a": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "static",
+      "current_hp": 17,
+      "is_fainted": false,
+      "item": "Light Ball",
+      "level": 50,
+      "max_hp": 110,
+      "moves": [
+        {
+          "accuracy": 100,
+          "max_pp": 15,
+          "name": "Thunderbolt",
+          "power": 90,
+          "pp": 15,
+          "type": "electric"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 30,
+          "name": "Quick Attack",
+          "power": 40,
+          "pp": 30,
+          "type": "normal"
+        },
+        {
+          "accuracy": 75,
+          "max_pp": 15,
+          "name": "Iron Tail",
+          "power": 100,
+          "pp": 15,
+          "type": "steel"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 10,
+          "name": "Protect",
+          "power": 0,
+          "pp": 10,
+          "type": "normal"
+        }
+      ],
+      "name": "Pikachu",
+      "nature": "timid",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 67,
+        "defense": 60,
+        "special_attack": 102,
+        "special_defense": 71,
+        "speed": 156
+      },
+      "statuses": [
+        {
+          "duration": -1,
+          "type": "paralysis"
+        }
+      ],
+      "type1": "electric",
+      "type2": "count"
+    },
+    "name": "Red",
+    "pokemon_count": 3,
+    "team": [
+      {
+        "ability": "static",
+        "current_hp": 17,
+        "is_fainted": false,
+        "item": "Light Ball",
+        "level": 50,
+        "max_hp": 110,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Thunderbolt",
+            "power": 90,
+            "pp": 15,
+            "type": "electric"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 30,
+            "name": "Quick Attack",
+            "power": 40,
+            "pp": 30,
+            "type": "normal"
+          },
+          {
+            "accuracy": 75,
+            "max_pp": 15,
+            "name": "Iron Tail",
+            "power": 100,
+            "pp": 15,
+            "type": "steel"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Protect",
+            "power": 0,
+            "pp": 10,
+            "type": "normal"
+          }
+        ],
+        "name": "Pikachu",
+        "nature": "timid",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 67,
+          "defense": 60,
+          "special_attack": 102,
+          "special_defense": 71,
+          "speed": 156
+        },
+        "statuses": [
+          {
+            "duration": -1,
+            "type": "paralysis"
+          }
+        ],
+        "type1": "electric",
+        "type2": "count"
+      },
+      {
+        "ability": "blaze",
+        "current_hp": 153,
+        "is_fainted": false,
+        "item": "Leftovers",
+        "level": 50,
+        "max_hp": 153,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 20,
+            "name": "Dragon Dance",
+            "power": 0,
+            "pp": 20,
+            "type": "dragon"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Fire Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "fire"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Thunder Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "electric"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Protect",
+            "power": 0,
+            "pp": 10,
+            "type": "normal"
+          }
+        ],
+        "name": "Charizard",
+        "nature": "jolly",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 136,
+          "defense": 98,
+          "special_attack": 116,
+          "special_defense": 106,
+          "speed": 167
+        },
+        "statuses": [],
+        "type1": "fire",
+        "type2": "flying"
+      },
+      {
+        "ability": "overgrow",
+        "current_hp": 155,
+        "is_fainted": false,
+        "item": "Miracle Seed",
+        "level": 50,
+        "max_hp": 155,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Giga Drain",
+            "power": 75,
+            "pp": 10,
+            "type": "grass"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Solar Beam",
+            "power": 120,
+            "pp": 10,
+            "type": "grass"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Sludge Bomb",
+            "power": 90,
+            "pp": 10,
+            "type": "poison"
+          },
+          {
+            "accuracy": 75,
+            "max_pp": 15,
+            "name": "Sleep Powder",
+            "power": 0,
+            "pp": 15,
+            "type": "grass"
+          }
+        ],
+        "name": "Venusaur",
+        "nature": "modest",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 91,
+          "defense": 103,
+          "special_attack": 167,
+          "special_defense": 152,
+          "speed": 101
+        },
+        "statuses": [],
+        "type1": "grass",
+        "type2": "poison"
+      }
+    ]
+  },
+  "side_b": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "torrent",
+      "current_hp": 169,
+      "is_fainted": false,
+      "item": "Mystic Water",
+      "level": 50,
+      "max_hp": 186,
+      "moves": [
+        {
+          "accuracy": 80,
+          "max_pp": 5,
+          "name": "Hydro Pump",
+          "power": 110,
+          "pp": 5,
+          "type": "water"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 25,
+          "name": "Water Gun",
+          "power": 40,
+          "pp": 25,
+          "type": "water"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 10,
+          "name": "Ice Beam",
+          "power": 90,
+          "pp": 10,
+          "type": "ice"
+        },
+        {
+          "accuracy": 100,
+          "max_pp": 40,
+          "name": "Rapid Spin",
+          "power": 50,
+          "pp": 40,
+          "type": "normal"
+        }
+      ],
+      "name": "Blastoise",
+      "nature": "bold",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 92,
+        "defense": 167,
+        "special_attack": 105,
+        "special_defense": 126,
+        "speed": 98
+      },
+      "statuses": [
+        {
+          "duration": -1,
+          "type": "paralysis"
+        }
+      ],
+      "type1": "water",
+      "type2": "count"
+    },
+    "name": "Blue",
+    "pokemon_count": 3,
+    "team": [
+      {
+        "ability": "torrent",
+        "current_hp": 169,
+        "is_fainted": false,
+        "item": "Mystic Water",
+        "level": 50,
+        "max_hp": 186,
+        "moves": [
+          {
+            "accuracy": 80,
+            "max_pp": 5,
+            "name": "Hydro Pump",
+            "power": 110,
+            "pp": 5,
+            "type": "water"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 25,
+            "name": "Water Gun",
+            "power": 40,
+            "pp": 25,
+            "type": "water"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Ice Beam",
+            "power": 90,
+            "pp": 10,
+            "type": "ice"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 40,
+            "name": "Rapid Spin",
+            "power": 50,
+            "pp": 40,
+            "type": "normal"
+          }
+        ],
+        "name": "Blastoise",
+        "nature": "bold",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 92,
+          "defense": 167,
+          "special_attack": 105,
+          "special_defense": 126,
+          "speed": 98
+        },
+        "statuses": [
+          {
+            "duration": -1,
+            "type": "paralysis"
+          }
+        ],
+        "type1": "water",
+        "type2": "count"
+      },
+      {
+        "ability": "blaze",
+        "current_hp": 153,
+        "is_fainted": false,
+        "item": "Life Orb",
+        "level": 50,
+        "max_hp": 153,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 20,
+            "name": "Dragon Dance",
+            "power": 0,
+            "pp": 20,
+            "type": "dragon"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Fire Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "fire"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 15,
+            "name": "Thunder Punch",
+            "power": 75,
+            "pp": 15,
+            "type": "electric"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Protect",
+            "power": 0,
+            "pp": 10,
+            "type": "normal"
+          }
+        ],
+        "name": "Charizard",
+        "nature": "hasty",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 136,
+          "defense": 88,
+          "special_attack": 129,
+          "special_defense": 106,
+          "speed": 167
+        },
+        "statuses": [],
+        "type1": "fire",
+        "type2": "flying"
+      },
+      {
+        "ability": "overgrow",
+        "current_hp": 155,
+        "is_fainted": false,
+        "item": "Miracle Seed",
+        "level": 50,
+        "max_hp": 155,
+        "moves": [
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Giga Drain",
+            "power": 75,
+            "pp": 10,
+            "type": "grass"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Solar Beam",
+            "power": 120,
+            "pp": 10,
+            "type": "grass"
+          },
+          {
+            "accuracy": 100,
+            "max_pp": 10,
+            "name": "Sludge Bomb",
+            "power": 90,
+            "pp": 10,
+            "type": "poison"
+          },
+          {
+            "accuracy": 75,
+            "max_pp": 15,
+            "name": "Sleep Powder",
+            "power": 0,
+            "pp": 15,
+            "type": "grass"
+          }
+        ],
+        "name": "Venusaur",
+        "nature": "calm",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 91,
+          "defense": 103,
+          "special_attack": 152,
+          "special_defense": 167,
+          "speed": 101
+        },
+        "statuses": [],
+        "type1": "grass",
+        "type2": "poison"
+      }
+    ]
+  },
+  "target": "Pikachu",
+  "turn": 2,
+  "weather": {
+    "duration": 0,
+    "type": "clear"
+  }
+}

@@ -90,6 +90,11 @@ std::string BattleToJson::abilityTypeToString(AbilityType ability) {
         case AbilityType::VoltAbsorb: return "volt-absorb";
         case AbilityType::FlashFire: return "flash-fire";
         case AbilityType::Static: return "static";
+        case AbilityType::PoisonPoint: return "poison-point";
+        case AbilityType::Aftermath: return "aftermath";
+        case AbilityType::Mummy: return "mummy";
+        case AbilityType::RoughSkin: return "rough-skin";
+        case AbilityType::FlameBody: return "flame-body";
         case AbilityType::Insomnia: return "insomnia";
         case AbilityType::VitalSpirit: return "vital-spirit";
         case AbilityType::Guts: return "guts";
@@ -97,6 +102,7 @@ std::string BattleToJson::abilityTypeToString(AbilityType ability) {
         case AbilityType::ThickFat: return "thick-fat";
         case AbilityType::MarvelScale: return "marvel-scale";
         case AbilityType::SapSipper: return "sap-sipper";
+        case AbilityType::IronBarbs: return "iron-barbs";
         case AbilityType::StormDrain: return "storm-drain";
         case AbilityType::MotorDrive: return "motor-drive";
         case AbilityType::Immunity: return "immunity";
@@ -137,6 +143,21 @@ std::string BattleToJson::abilityTypeToString(AbilityType ability) {
         case AbilityType::TabletsOfRuin: return "tablets-of-ruin";
         case AbilityType::VesselOfRuin: return "vessel-of-ruin";
         case AbilityType::Unnerve: return "unnerve";
+        case AbilityType::Sharpness: return "sharpness";
+        case AbilityType::EarthEater: return "earth-eater";
+        case AbilityType::PurifyingSalt: return "purifying-salt";
+        case AbilityType::WellBakedBody: return "well-baked-body";
+        case AbilityType::WindRider: return "wind-rider";
+        case AbilityType::ToxicDebris: return "toxic-debris";
+        case AbilityType::LingeringAroma: return "lingering-aroma";
+        case AbilityType::ArmorTail: return "armor-tail";
+        case AbilityType::GoodAsGold: return "good-as-gold";
+        case AbilityType::Stakeout: return "stakeout";
+        case AbilityType::CudChew: return "cud-chew";
+        case AbilityType::MoldBreaker: return "mold-breaker";
+        case AbilityType::Protosynthesis: return "protosynthesis";
+        case AbilityType::QuarkDrive: return "quark-drive";
+        case AbilityType::SupremeOverlord: return "supreme-overlord";
         default: return "none";
     }
 }

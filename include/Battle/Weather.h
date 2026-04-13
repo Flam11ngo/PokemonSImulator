@@ -3,6 +3,8 @@
 #include "Types.h"
 #include <string>
 
+class Pokemon;
+
 enum class WeatherType {
     Clear,
     Rain,
@@ -23,3 +25,6 @@ struct Weather {
     std::string getName() const;
     float applyDamageModifier(Type targetType) const;
 };
+
+Type weatherBallType(const Weather& weather);
+int weatherRecoveryAmount(const Weather& weather, const Pokemon* attacker);

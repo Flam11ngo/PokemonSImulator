@@ -10,7 +10,7 @@
     "active_index": 0,
     "active_pokemon": {
       "ability": "none",
-      "current_hp": 119,
+      "current_hp": 124,
       "is_fainted": false,
       "item": "none",
       "level": 50,
@@ -41,7 +41,7 @@
     "team": [
       {
         "ability": "none",
-        "current_hp": 119,
+        "current_hp": 124,
         "is_fainted": false,
         "item": "none",
         "level": 50,

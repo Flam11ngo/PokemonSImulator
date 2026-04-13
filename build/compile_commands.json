@@ -25,6 +25,12 @@
 },
 {
   "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleMath.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleMath.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/Battle/BattleMath.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/Battle/BattleMath.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
   "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/include/Battle -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o -c /home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
   "file": "/home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp",
   "output": "CMakeFiles/battle_core.dir/src/Battle/BattleQueue.cpp.o"

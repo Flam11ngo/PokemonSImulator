@@ -1,0 +1,140 @@
+{
+  "actor": "EmbargoTarget",
+  "event": "item_result",
+  "field": {
+    "duration": 0,
+    "type": "none"
+  },
+  "item": "Oran Berry",
+  "side_a": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "none",
+      "current_hp": 175,
+      "is_fainted": false,
+      "item": "none",
+      "level": 50,
+      "max_hp": 175,
+      "moves": [],
+      "name": "EmbargoUser",
+      "nature": "hardy",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 120,
+        "defense": 120,
+        "special_attack": 120,
+        "special_defense": 120,
+        "speed": 120
+      },
+      "statuses": [],
+      "type1": "dark",
+      "type2": "count"
+    },
+    "name": "A",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "none",
+        "current_hp": 175,
+        "is_fainted": false,
+        "item": "none",
+        "level": 50,
+        "max_hp": 175,
+        "moves": [],
+        "name": "EmbargoUser",
+        "nature": "hardy",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 120,
+          "defense": 120,
+          "special_attack": 120,
+          "special_defense": 120,
+          "speed": 120
+        },
+        "statuses": [],
+        "type1": "dark",
+        "type2": "count"
+      }
+    ]
+  },
+  "side_b": {
+    "active_index": 0,
+    "active_pokemon": {
+      "ability": "none",
+      "current_hp": 87,
+      "is_fainted": false,
+      "item": "Oran Berry",
+      "level": 50,
+      "max_hp": 175,
+      "moves": [],
+      "name": "EmbargoTarget",
+      "nature": "hardy",
+      "stat_stages": {
+        "attack": 0,
+        "defense": 0,
+        "special_attack": 0,
+        "special_defense": 0,
+        "speed": 0
+      },
+      "stats": {
+        "attack": 120,
+        "defense": 120,
+        "special_attack": 120,
+        "special_defense": 120,
+        "speed": 120
+      },
+      "statuses": [],
+      "type1": "normal",
+      "type2": "count"
+    },
+    "name": "B",
+    "pokemon_count": 1,
+    "team": [
+      {
+        "ability": "none",
+        "current_hp": 87,
+        "is_fainted": false,
+        "item": "Oran Berry",
+        "level": 50,
+        "max_hp": 175,
+        "moves": [],
+        "name": "EmbargoTarget",
+        "nature": "hardy",
+        "stat_stages": {
+          "attack": 0,
+          "defense": 0,
+          "special_attack": 0,
+          "special_defense": 0,
+          "speed": 0
+        },
+        "stats": {
+          "attack": 120,
+          "defense": 120,
+          "special_attack": 120,
+          "special_defense": 120,
+          "speed": 120
+        },
+        "statuses": [],
+        "type1": "normal",
+        "type2": "count"
+      }
+    ]
+  },
+  "turn": 6,
+  "weather": {
+    "duration": 0,
+    "type": "clear"
+  }
+}

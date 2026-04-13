@@ -1,5 +1,38 @@
 #include "Battle/Weather.h"
 
+#include "Battle/Pokemon.h"
+
+#include <algorithm>
+
+Type weatherBallType(const Weather& weather) {
+    if (!weather.isActive()) {
+        return Type::Normal;
+    }
+
+    switch (weather.type) {
+        case WeatherType::Rain: return Type::Water;
+        case WeatherType::Sun: return Type::Fire;
+        case WeatherType::Sandstorm: return Type::Rock;
+        case WeatherType::Hail: return Type::Ice;
+        case WeatherType::Snow: return Type::Ice;
+        default: return Type::Normal;
+    }
+}
+
+int weatherRecoveryAmount(const Weather& weather, const Pokemon* attacker) {
+    if (!attacker) {
+        return 0;
+    }
+
+    if (weather.type == WeatherType::Sun) {
+        return std::max(1, (attacker->getMaxHP() * 2) / 3);
+    }
+    if (weather.type == WeatherType::Rain || weather.type == WeatherType::Sandstorm || weather.type == WeatherType::Hail) {
+        return std::max(1, attacker->getMaxHP() / 4);
+    }
+    return std::max(1, attacker->getMaxHP() / 2);
+}
+
 void Weather::setWeather(WeatherType newType, int turns) {
     type = newType;
     duration = turns > 0 ? turns : 0;

@@ -1,0 +1,30 @@
+Start testing: Apr 12 23:17 CST
+----------------------------------------------------------
+112/167 Testing: MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain
+112/167 Test: MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain
+Command: "/home/qzz/PokemonSimulator/build/PokemonSimulatorTests" "--gtest_filter=MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" "--gtest_also_run_disabled_tests"
+Directory: /home/qzz/PokemonSimulator/build
+"MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" start time: Apr 12 23:17 CST
+Output:
+----------------------------------------------------------
+Running main() from /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc
+Note: Google Test filter = MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from MoveBehaviorTest
+[ RUN      ] MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain
+[       OK ] MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain (33 ms)
+[----------] 1 test from MoveBehaviorTest (33 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (33 ms total)
+[  PASSED  ] 1 test.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" end time: Apr 12 23:17 CST
+"MoveBehaviorTest.DisableExpiresAndAllowsDisabledMoveAgain" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 12 23:17 CST

@@ -1,0 +1,6 @@
+{
+  "actor": "EmbargoTarget",
+  "event": "action_start",
+  "priority": 120,
+  "type": "pass"
+}

@@ -97,6 +97,7 @@ public:
     // Setters
     void setCurrentHP(int hp) { currentHP = hp; if (currentHP < 0) currentHP = 0; if (currentHP > maxHP) currentHP = maxHP; }
     void setStatus();
+    void setAbility(AbilityType newAbility) { ability = newAbility; }
     void setItemType(ItemType item) { itemType = item; }
     void setTypes(Type primary, Type secondary) { type1 = primary; type2 = secondary; }
     void resetTypesToSpecies() { type1 = species.type1; type2 = species.type2; }
@@ -114,6 +115,9 @@ public:
     void setIV(StatIndex index, int value) { ivs[static_cast<int>(index)] = value; recalculateStats(); }
     void setEV(StatIndex index, int value) { evs[static_cast<int>(index)] = value; recalculateStats(); }
     void addMove(const Move& move) { if (moves.size() < 4) moves.push_back(move); }    
+    bool reduceMovePPByName(const std::string& moveName, int amount);
+    bool replaceMoveByName(const std::string& existingMoveName, const Move& replacement);
+    void replaceMoves(const std::vector<Move>& newMoves);
     // Utility
     bool isFainted() const { return currentHP <= 0; }
     float getTypeEffectiveness(Type attackType) const;

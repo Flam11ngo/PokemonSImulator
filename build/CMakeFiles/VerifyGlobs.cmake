@@ -19,6 +19,7 @@ set(OLD_GLOB
   "/home/qzz/PokemonSimulator/src/Battle/AbilityData.cpp"
   "/home/qzz/PokemonSimulator/src/Battle/Battle.cpp"
   "/home/qzz/PokemonSimulator/src/Battle/BattleActions.cpp"
+  "/home/qzz/PokemonSimulator/src/Battle/BattleMath.cpp"
   "/home/qzz/PokemonSimulator/src/Battle/BattleQueue.cpp"
   "/home/qzz/PokemonSimulator/src/Battle/BattleSession.cpp"
   "/home/qzz/PokemonSimulator/src/Battle/BattleToJson.cpp"
