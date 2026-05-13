@@ -1,8 +1,0 @@
-{
-  "actor": "Blastoise",
-  "event": "action_start",
-  "move": "Water Gun",
-  "priority": 98,
-  "target": "Charizard",
-  "type": "attack"
-}

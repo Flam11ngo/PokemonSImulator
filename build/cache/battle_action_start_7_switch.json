@@ -1,7 +1,0 @@
-{
-  "actor": "Blastoise",
-  "event": "action_start",
-  "priority": 98,
-  "switch_index": 1,
-  "type": "switch"
-}

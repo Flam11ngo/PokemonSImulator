@@ -1,7 +1,0 @@
-{
-  "actor": "Venusaur",
-  "event": "action_start",
-  "priority": 101,
-  "switch_index": 1,
-  "type": "switch"
-}

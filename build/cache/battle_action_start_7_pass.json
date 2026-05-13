@@ -1,6 +1,0 @@
-{
-  "actor": "HealBlockCaster2",
-  "event": "action_start",
-  "priority": 120,
-  "type": "pass"
-}

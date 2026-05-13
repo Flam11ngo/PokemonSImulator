@@ -1,8 +1,0 @@
-{
-  "actor": "HealBlockTarget",
-  "event": "action_start",
-  "move": "Recover",
-  "priority": 120,
-  "target": "HealBlockUser",
-  "type": "attack"
-}

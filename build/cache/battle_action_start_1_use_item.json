@@ -1,8 +1,0 @@
-{
-  "actor": "EmbargoTarget",
-  "event": "action_start",
-  "item": "Oran Berry",
-  "priority": 120,
-  "target": "EmbargoTarget",
-  "type": "use_item"
-}

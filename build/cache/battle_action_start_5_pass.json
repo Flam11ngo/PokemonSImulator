@@ -1,6 +1,0 @@
-{
-  "actor": "SportTarget",
-  "event": "action_start",
-  "priority": 120,
-  "type": "pass"
-}

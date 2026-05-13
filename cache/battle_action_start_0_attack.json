@@ -1,8 +1,0 @@
-{
-  "actor": "ImprisonTarget",
-  "event": "action_start",
-  "move": "Pound",
-  "priority": 120,
-  "target": "ImprisonUser",
-  "type": "attack"
-}

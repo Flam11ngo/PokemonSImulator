@@ -1,8 +1,0 @@
-{
-  "actor": "HealBlockVictim",
-  "event": "action_start",
-  "move": "Life Dew",
-  "priority": 120,
-  "target": "HealBlockCaster",
-  "type": "attack"
-}

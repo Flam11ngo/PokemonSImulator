@@ -1,8 +1,0 @@
-{
-  "actor": "HealBlockVictim2",
-  "event": "action_start",
-  "move": "Lunar Blessing",
-  "priority": 120,
-  "target": "HealBlockCaster2",
-  "type": "attack"
-}

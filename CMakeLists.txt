@@ -10,27 +10,30 @@ find_package(CURL REQUIRED)
 # Include directories
 include_directories(${CURL_INCLUDE_DIRS})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include/Battle)
 
 # Source files
 file(GLOB SOURCES CONFIGURE_DEPENDS src/*.cpp)
-file(GLOB SOURCES_BATTLE CONFIGURE_DEPENDS src/Battle/*.cpp)
+file(GLOB SOURCES_BATTLE CONFIGURE_DEPENDS
+    src/battle/*.cpp
+    src/IO/*.cpp
+    src/tests/*.cpp
+)
 
 # Ensure critical battle data sources are always linked even when CMake glob cache is stale.
 list(APPEND SOURCES_BATTLE
-    src/Battle/MoveData.cpp
-    src/Battle/MoveTestRunner.cpp
-    src/Battle/AbilityData.cpp
-    src/Battle/ItemData.cpp
-    src/Battle/ItemTestRunner.cpp
-    src/Battle/BattleSession.cpp
+    src/IO/MoveData.cpp
+    src/tests/MoveTestRunner.cpp
+    src/IO/AbilityData.cpp
+    src/IO/ItemData.cpp
+    src/tests/ItemTestRunner.cpp
+    src/IO/BattleSession.cpp
+    src/battle/GameRegistry.cpp
 )
 
 # Battle core library (server-side reusable logic)
 add_library(battle_core ${SOURCES_BATTLE})
 target_include_directories(battle_core PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/Battle
 )
 target_link_libraries(battle_core
     nlohmann_json::nlohmann_json
@@ -61,7 +64,6 @@ if(BUILD_TESTING)
 
     target_include_directories(PokemonSimulatorTests PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/Battle
     )
 
     target_link_libraries(PokemonSimulatorTests
@@ -73,5 +75,3 @@ if(BUILD_TESTING)
     include(GoogleTest)
     gtest_discover_tests(PokemonSimulatorTests)
 endif()
-
-

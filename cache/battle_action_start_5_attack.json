@@ -1,8 +1,0 @@
-{
-  "actor": "Test Pokemon",
-  "event": "action_start",
-  "move": "Tackle",
-  "priority": 100,
-  "target": "Test Pokemon",
-  "type": "attack"
-}

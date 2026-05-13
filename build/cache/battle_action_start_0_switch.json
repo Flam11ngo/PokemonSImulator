@@ -1,7 +1,0 @@
-{
-  "actor": "Switcher",
-  "event": "action_start",
-  "priority": 120,
-  "switch_index": 1,
-  "type": "switch"
-}

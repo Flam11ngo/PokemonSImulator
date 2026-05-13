@@ -1,18 +1,170 @@
-#include "Battle/BattleSession.h"
-#include "Battle/Moves.h"
-#include "Battle/Abilities.h"
-#include "Battle/Items.h"
-#include "Battle/ItemTestRunner.h"
-#include "Battle/MoveTestRunner.h"
+#include "IO/BattleSession.h"
+#include "IO/BattleToJson.h"
+#include "battle/GameRegistry.h"
+#include "battle/Moves.h"
+#include "battle/Abilities.h"
+#include "battle/Items.h"
+#include "tests/ItemTestRunner.h"
+#include "tests/MoveTestRunner.h"
 
 #include <fstream>
 #include <iostream>
 #include <cstdint>
+#include <filesystem>
+#include <map>
+#include <regex>
 #include <string>
+#include <vector>
 
 #include <nlohmann/json.hpp>
 
+namespace {
+
+bool readJsonFromFile(const std::string& path, nlohmann::json& out, std::string& error) {
+    std::ifstream input(path);
+    if (!input.is_open()) {
+        error = "Cannot open json file: " + path;
+        return false;
+    }
+    out = nlohmann::json::parse(input, nullptr, false);
+    if (out.is_discarded()) {
+        error = "Invalid json in file: " + path;
+        return false;
+    }
+    return true;
+}
+
+bool loadInitFromCacheInput(nlohmann::json& initJson, std::string& error) {
+    const std::vector<std::string> candidates = {
+        "cache/input/init_request.json",
+        "cache/input/init.json",
+    };
+    for (const auto& path : candidates) {
+        if (!std::filesystem::exists(path)) {
+            continue;
+        }
+        if (readJsonFromFile(path, initJson, error)) {
+            return true;
+        }
+        return false;
+    }
+    error = "Missing init json in cache/input (expected init_request.json or init.json)";
+    return false;
+}
+
+nlohmann::json normalizeSideAction(const nlohmann::json& actionInput, const char* sideToken) {
+    if (!actionInput.is_object()) {
+        return nlohmann::json{{"side", sideToken}, {"type", "pass"}};
+    }
+    nlohmann::json action = actionInput;
+    if (!action.contains("side")) {
+        action["side"] = sideToken;
+    }
+    if (action.contains("type") && action["type"].is_string()) {
+        const std::string type = action["type"].get<std::string>();
+        if ((type == "switch" || type == "Switch") && !action.contains("switch_index")
+            && action.contains("target_index") && action["target_index"].is_number_integer()) {
+            action["switch_index"] = action["target_index"];
+        }
+    }
+    return action;
+}
+
+bool runCacheInputBattle() {
+    namespace fs = std::filesystem;
+
+    nlohmann::json initJson;
+    std::string error;
+    if (!loadInitFromCacheInput(initJson, error)) {
+        std::cerr << "Init failed: " << error << std::endl;
+        return false;
+    }
+
+    std::map<int, std::pair<nlohmann::json, nlohmann::json>> turnInputs;
+    const std::regex inputPattern(R"(^([12])_input_(\d+)\.json$)");
+    const fs::path inputDir("cache/input");
+    if (fs::exists(inputDir) && fs::is_directory(inputDir)) {
+        for (const auto& entry : fs::directory_iterator(inputDir)) {
+            if (!entry.is_regular_file()) {
+                continue;
+            }
+            const std::string filename = entry.path().filename().string();
+            std::smatch match;
+            if (!std::regex_match(filename, match, inputPattern)) {
+                continue;
+            }
+
+            const int sideNumber = std::stoi(match[1].str());
+            const int turnNumber = std::stoi(match[2].str());
+            nlohmann::json actionJson;
+            std::string parseError;
+            if (!readJsonFromFile(entry.path().string(), actionJson, parseError)) {
+                std::cerr << "Input parse failed: " << parseError << std::endl;
+                return false;
+            }
+
+            if (sideNumber == 1) {
+                turnInputs[turnNumber].first = std::move(actionJson);
+            } else {
+                turnInputs[turnNumber].second = std::move(actionJson);
+            }
+        }
+    }
+
+    std::string sessionError;
+    auto session = BattleSession::createFromJson(initJson, &sessionError);
+    if (!session.has_value()) {
+        std::cerr << "Init failed: " << sessionError << std::endl;
+        return false;
+    }
+
+    for (const auto& [turnNumber, sideInputs] : turnInputs) {
+        nlohmann::json turnRequest{
+            {"actions", nlohmann::json::array({
+                normalizeSideAction(sideInputs.first, "a"),
+                normalizeSideAction(sideInputs.second, "b")
+            })}
+        };
+        const nlohmann::json response = session->processTurn(turnRequest);
+        if (!response.value("ok", false)) {
+            std::cerr << "Turn " << turnNumber << " failed: " << response.dump(2) << std::endl;
+            return false;
+        }
+
+        const Battle* battle = session->getBattle();
+        if (!battle) {
+            std::cerr << "Battle session lost after turn " << turnNumber << std::endl;
+            return false;
+        }
+        if (!battle->getSideA().hasRemainingPokemon() || !battle->getSideB().hasRemainingPokemon()) {
+            break;
+        }
+    }
+
+    Battle* battle = session->getBattle();
+    if (!battle) {
+        std::cerr << "No battle result available" << std::endl;
+        return false;
+    }
+
+    std::ifstream finalOutput("cache/output/output_" + std::to_string(battle->getTurnNumber()) + ".json");
+    if (finalOutput.is_open()) {
+        nlohmann::json out = nlohmann::json::parse(finalOutput, nullptr, false);
+        if (!out.is_discarded()) {
+            std::cout << out.dump(2) << std::endl;
+            return true;
+        }
+    }
+
+    std::cout << BattleToJson::battleAllInfoToJson(*battle).dump(2) << std::endl;
+    return true;
+}
+
+} // namespace
+
 int main(int argc, char** argv){
+    GameRegistry::instance().init();
+
     if (argc >= 2) {
         const std::string arg = argv[1];
         if (arg == "--prefetch-moves") {
@@ -126,6 +278,9 @@ int main(int argc, char** argv){
             std::cout << response.dump(2) << std::endl;
             return response.value("ok", false) ? 0 : 1;
         }
+        if (arg == "--run-cache-input") {
+            return runCacheInputBattle() ? 0 : 1;
+        }
     }
 
     std::cout << "PokemonSimulator (server-only CLI)" << std::endl;
@@ -137,5 +292,6 @@ int main(int argc, char** argv){
     std::cout << "  --run-move-tests" << std::endl;
     std::cout << "  --run-turn-json <request.json>" << std::endl;
     std::cout << "  --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json> [seed]" << std::endl;
+    std::cout << "  --run-cache-input" << std::endl;
     return 0;
 }

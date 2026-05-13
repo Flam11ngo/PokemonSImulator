@@ -1,8 +1,0 @@
-{
-  "actor": "ControlTarget",
-  "event": "action_start",
-  "move": "Pound",
-  "priority": 120,
-  "target": "ControlUser",
-  "type": "attack"
-}

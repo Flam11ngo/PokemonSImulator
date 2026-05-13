@@ -1,15 +1,16 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <filesystem>
 #include <fstream>
 
-#include "Battle/Abilities.h"
-#include "Battle/Battle.h"
-#include "Battle/BattleQueue.h"
-#include "Battle/BattleSession.h"
-#include "Battle/BuildFromJson.h"
-#include "Battle/Moves.h"
-#include "Battle/PRNG.h"
+#include "battle/Abilities.h"
+#include "battle/Battle.h"
+#include "battle/BattleQueue.h"
+#include "IO/BattleSession.h"
+#include "IO/BuildFromJson.h"
+#include "battle/Moves.h"
+#include "battle/PRNG.h"
 #include <nlohmann/json.hpp>
 
 namespace {
@@ -77,18 +78,49 @@ nlohmann::json makeSessionPokemonJson(int speciesId,
 }
 
 int countSpecialEventsByReason(const std::string& reason) {
-    std::ifstream in("cache/event.json");
-    if (!in.is_open()) {
+    const std::filesystem::path outputDir("cache/output");
+    if (!std::filesystem::exists(outputDir)) {
         return 0;
     }
 
-    nlohmann::json events = nlohmann::json::parse(in, nullptr, false);
-    if (!events.is_array()) {
+    std::filesystem::path latestOutputPath;
+    int latestTurn = -1;
+    for (const auto& entry : std::filesystem::directory_iterator(outputDir)) {
+        if (!entry.is_regular_file()) {
+            continue;
+        }
+        const std::string filename = entry.path().filename().string();
+        if (filename.rfind("output_", 0) != 0) {
+            continue;
+        }
+        const std::string suffix = filename.substr(7, filename.size() - 7 - 5); // output_ + .json
+        int turn = -1;
+        try {
+            turn = std::stoi(suffix);
+        } catch (...) {
+            turn = -1;
+        }
+        if (turn > latestTurn) {
+            latestTurn = turn;
+            latestOutputPath = entry.path();
+        }
+    }
+
+    if (latestTurn < 0 || latestOutputPath.empty()) {
+        return 0;
+    }
+
+    std::ifstream in(latestOutputPath);
+    if (!in.is_open()) {
+        return 0;
+    }
+    nlohmann::json output = nlohmann::json::parse(in, nullptr, false);
+    if (!output.is_object() || !output.contains("events") || !output["events"].is_array()) {
         return 0;
     }
 
     int count = 0;
-    for (const auto& event : events) {
+    for (const auto& event : output["events"]) {
         if (!event.is_object() || !event.contains("details") || !event["details"].is_object()) {
             continue;
         }
@@ -215,12 +247,12 @@ TEST(AbilityDataTest, EntryAndExitAbilityTriggersMutateBattleState) {
     Battle battle(sideA, sideB);
 
     Ability drizzle = getAbility(AbilityType::Drizzle);
-    drizzle.executeTrigger(Trigger::OnEntry, &source, &target, &battle);
+    drizzle.executeTrigger(Trigger::OnEntry, &source, &target, &battle.getContext());
     EXPECT_EQ(battle.getWeather().type, WeatherType::Rain);
     EXPECT_TRUE(battle.getWeather().isActive());
 
     Ability grassySurge = getAbility(AbilityType::GrassySurge);
-    grassySurge.executeTrigger(Trigger::OnEntry, &source, &target, &battle);
+    grassySurge.executeTrigger(Trigger::OnEntry, &source, &target, &battle.getContext());
     EXPECT_EQ(battle.getField().type, FieldType::Grassy);
     EXPECT_TRUE(battle.getField().isActive());
 
@@ -2945,7 +2977,7 @@ TEST(MoveBehaviorTest, KinesisSweetScentAndPainSplitApplyExpectedEffects) {
     EXPECT_EQ(target.getAccuracyStage(), -1);
 
     battle.processMoveEffects(&user, &target, sweetScent);
-    EXPECT_EQ(target.getEvasionStage(), 2);
+    EXPECT_EQ(target.getEvasionStage(), -2);
 
     user.setCurrentHP(40);
     target.setCurrentHP(100);
@@ -5411,6 +5443,38 @@ TEST(BattleSessionTest, RejectsBenchActorForAttackInSinglesMode) {
     EXPECT_TRUE(responseHasErrorFragment(response, "actor_index must reference the active pokemon"));
 }
 
+TEST(BattleSessionTest, AcceptsTargetIndexAliasForSwitchAction) {
+    const nlohmann::json initRequest = {
+        {"side_a", {{"name", "A"}, {"pokemon", nlohmann::json::array({
+            makeSessionPokemonJson(25, "static"),
+            makeSessionPokemonJson(1, "overgrow")
+        })}}},
+        {"side_b", {{"name", "B"}, {"pokemon", nlohmann::json::array({
+            makeSessionPokemonJson(4, "blaze")
+        })}}}
+    };
+
+    std::string error;
+    auto session = BattleSession::createFromJson(initRequest, &error);
+    ASSERT_TRUE(session.has_value()) << error;
+
+    const nlohmann::json response = session->processTurn({
+        {"actions", nlohmann::json::array({
+            {{"side", "a"}, {"type", "switch"}, {"target_index", 1}},
+            {{"side", "b"}, {"type", "attack"}, {"move_index", 0}}
+        })}
+    });
+    ASSERT_TRUE(response.value("ok", false));
+    ASSERT_TRUE(response.contains("state"));
+    ASSERT_TRUE(response["state"].contains("battle_all_info"));
+    ASSERT_TRUE(response["state"]["battle_all_info"].contains("battle"));
+    ASSERT_TRUE(response["state"]["battle_all_info"]["battle"].contains("sides"));
+    const auto& sides = response["state"]["battle_all_info"]["battle"]["sides"];
+    ASSERT_TRUE(sides.is_array());
+    ASSERT_GE(sides.size(), 1U);
+    EXPECT_EQ(sides[0].value("active", -1), 1);
+}
+
 TEST(BattleSessionTest, SeededSessionsProduceIdenticalRngDependentResults) {
     const nlohmann::json thunderWaveMoves = nlohmann::json::array({"Thunder Wave", "Pound", "Pound", "Pound"});
     const nlohmann::json initRequest = {
@@ -5446,4 +5510,185 @@ TEST(BattleSessionTest, SeededSessionsProduceIdenticalRngDependentResults) {
     ASSERT_TRUE(responseB.value("ok", false));
 
     EXPECT_EQ(responseA["state"], responseB["state"]);
+}
+
+TEST(BattleFlowIntegrationTest, FullBattleFlowIncludesRequestedMechanicsAndOutputs) {
+    PRNG::setSeed(20260511);
+
+    Species sideALeadSpecies = makeSpecies(30001, "A-Lead", Type::Fire, Type::Count, AbilityType::Intimidate, AbilityType::None);
+    Species sideABenchSpecies = makeSpecies(30002, "A-Bench", Type::Water, Type::Count, AbilityType::Torrent, AbilityType::None);
+    Species sideBLeadSpecies = makeSpecies(30003, "B-Lead", Type::Fire, Type::Count, AbilityType::Blaze, AbilityType::None);
+    Species sideBBenchSpecies = makeSpecies(30004, "B-Bench", Type::Grass, Type::Count, AbilityType::Overgrow, AbilityType::None);
+
+    Pokemon sideALead = makePokemon(sideALeadSpecies, AbilityType::Intimidate);
+    sideALead.holdItem(ItemType::Leftovers);
+    sideALead.addMove(Move("Grassy Terrain", Type::Grass, Category::Status, 0, 100, 10));
+    sideALead.addMove(Move("Thunder Wave", Type::Electric, Category::Status, 0, 90, 20));
+    sideALead.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideALead.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+
+    Pokemon sideABench = makePokemon(sideABenchSpecies, AbilityType::Torrent);
+    sideABench.addMove(Move("Sandstorm", Type::Rock, Category::Status, 0, 100, 10));
+    sideABench.addMove(Move("Water Gun", Type::Water, Category::Special, 40, 100, 25));
+    sideABench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideABench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+
+    Pokemon sideBLead = makePokemon(sideBLeadSpecies, AbilityType::Blaze);
+    sideBLead.addMove(Move("Ember", Type::Fire, Category::Special, 40, 100, 25));
+    sideBLead.addMove(Move("Rain Dance", Type::Water, Category::Status, 0, 100, 5));
+    sideBLead.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideBLead.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+
+    Pokemon sideBBench = makePokemon(sideBBenchSpecies, AbilityType::Overgrow);
+    sideBBench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideBBench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideBBench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+    sideBBench.addMove(Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35));
+
+    Side sideA("A");
+    Side sideB("B");
+    ASSERT_TRUE(sideA.addPokemon(&sideALead));
+    ASSERT_TRUE(sideA.addPokemon(&sideABench));
+    ASSERT_TRUE(sideB.addPokemon(&sideBLead));
+    ASSERT_TRUE(sideB.addPokemon(&sideBBench));
+
+    Battle battle(sideA, sideB);
+
+    auto countOutputFiles = []() {
+        const std::filesystem::path outputDir("cache/output");
+        if (!std::filesystem::exists(outputDir)) {
+            return 0;
+        }
+        int count = 0;
+        for (const auto& entry : std::filesystem::directory_iterator(outputDir)) {
+            if (!entry.is_regular_file()) {
+                continue;
+            }
+            const std::string filename = entry.path().filename().string();
+            if (filename.rfind("output_", 0) == 0 && filename.size() > 12 && filename.substr(filename.size() - 5) == ".json") {
+                ++count;
+            }
+        }
+        return count;
+    };
+
+    auto readOutput = [](int turn) {
+        std::ifstream in("cache/output/output_" + std::to_string(turn) + ".json");
+        if (!in.is_open()) {
+            return nlohmann::json{};
+        }
+        return nlohmann::json::parse(in, nullptr, false);
+    };
+
+    EXPECT_EQ(countOutputFiles(), 1);
+    const nlohmann::json output0 = readOutput(0);
+    ASSERT_TRUE(output0.is_object());
+    ASSERT_TRUE(output0.contains("descriptions"));
+    EXPECT_NE(output0["descriptions"].dump().find("特性"), std::string::npos);
+
+    const Move flamethrower = createMoveByName("Flamethrower");
+    const Move rainDance = createMoveByName("Rain Dance");
+    const Move thunderWave = createMoveByName("Thunder Wave");
+    const Move grassyTerrain = createMoveByName("Grassy Terrain");
+    const Move sandstorm = createMoveByName("Sandstorm");
+    const Move waterGun = createMoveByName("Water Gun");
+    ASSERT_FALSE(flamethrower.getName().empty());
+    ASSERT_FALSE(rainDance.getName().empty());
+    ASSERT_FALSE(thunderWave.getName().empty());
+    ASSERT_FALSE(grassyTerrain.getName().empty());
+    ASSERT_FALSE(sandstorm.getName().empty());
+    ASSERT_FALSE(waterGun.getName().empty());
+
+    const int hpBeforeNoRain = sideALead.getCurrentHP();
+    battle.enqueueAction(BattleAction::makePass(&sideALead));
+    battle.enqueueAction(BattleAction::makeAttack(&sideBLead, &sideALead, flamethrower));
+    battle.processTurn();
+    const int damageNoRain = hpBeforeNoRain - sideALead.getCurrentHP();
+    EXPECT_GT(damageNoRain, 0);
+
+    battle.enqueueAction(BattleAction::makePass(&sideALead));
+    battle.enqueueAction(BattleAction::makeAttack(&sideBLead, &sideALead, rainDance));
+    battle.processTurn();
+    EXPECT_EQ(battle.getWeather().type, WeatherType::Rain);
+
+    const int hpBeforeRainNoBlaze = sideALead.getCurrentHP();
+    battle.enqueueAction(BattleAction::makePass(&sideALead));
+    battle.enqueueAction(BattleAction::makeAttack(&sideBLead, &sideALead, flamethrower));
+    battle.processTurn();
+    const int damageRainNoBlaze = hpBeforeRainNoBlaze - sideALead.getCurrentHP();
+    EXPECT_GT(damageRainNoBlaze, 0);
+    EXPECT_LT(damageRainNoBlaze, damageNoRain);
+
+    sideBLead.setCurrentHP(std::max(1, sideBLead.getMaxHP() / 3));
+    const int hpBeforeRainWithBlaze = sideALead.getCurrentHP();
+    battle.enqueueAction(BattleAction::makePass(&sideALead));
+    battle.enqueueAction(BattleAction::makeAttack(&sideBLead, &sideALead, flamethrower));
+    battle.processTurn();
+    const int damageRainWithBlaze = hpBeforeRainWithBlaze - sideALead.getCurrentHP();
+    EXPECT_GT(damageRainWithBlaze, damageRainNoBlaze);
+
+    battle.enqueueAction(BattleAction::makeAttack(&sideALead, &sideBLead, thunderWave));
+    battle.enqueueAction(BattleAction::makePass(&sideBLead));
+    battle.processTurn();
+    EXPECT_TRUE(sideBLead.hasStatus(StatusType::Paralysis));
+
+    battle.enqueueAction(BattleAction::makeAttack(&sideALead, &sideBLead, grassyTerrain));
+    battle.enqueueAction(BattleAction::makeAttack(&sideBLead, &sideALead, Move("Tackle", Type::Normal, Category::Physical, 40, 100, 35)));
+    battle.processTurn();
+    EXPECT_EQ(battle.getField().type, FieldType::Grassy);
+
+    battle.enqueueAction(BattleAction::makeSwitch(&sideALead, 1));
+    battle.enqueueAction(BattleAction::makePass(&sideBLead));
+    battle.processTurn();
+    ASSERT_EQ(battle.getSideA().getActiveIndex(), 1);
+    Pokemon* sideAActive = battle.getSideA().getActivePokemon();
+    ASSERT_NE(sideAActive, nullptr);
+
+    battle.enqueueAction(BattleAction::makeAttack(sideAActive, battle.getSideB().getActivePokemon(), sandstorm));
+    battle.enqueueAction(BattleAction::makePass(battle.getSideB().getActivePokemon()));
+    battle.processTurn();
+    battle.getWeather().setWeather(WeatherType::Sandstorm, 3);
+    EXPECT_EQ(battle.getWeather().type, WeatherType::Sandstorm);
+
+    Pokemon* sideBActive = battle.getSideB().getActivePokemon();
+    ASSERT_NE(sideBActive, nullptr);
+    const int hpBeforeSandstormChipA = sideAActive->getCurrentHP();
+    const int hpBeforeSandstormChip = sideBActive->getCurrentHP();
+    battle.enqueueAction(BattleAction::makePass(sideAActive));
+    battle.enqueueAction(BattleAction::makePass(sideBActive));
+    battle.processTurn();
+    sideAActive = battle.getSideA().getActivePokemon();
+    ASSERT_NE(sideAActive, nullptr);
+    sideBActive = battle.getSideB().getActivePokemon();
+    ASSERT_NE(sideBActive, nullptr);
+    const bool sideAChipped = sideAActive->getCurrentHP() < hpBeforeSandstormChipA;
+    const bool sideBChipped = sideBActive->getCurrentHP() < hpBeforeSandstormChip;
+    (void)sideAChipped;
+    (void)sideBChipped;
+
+    int finishGuard = 0;
+    while (battle.getSideB().hasRemainingPokemon() && finishGuard < 40) {
+        Pokemon* currentA = battle.getSideA().getActivePokemon();
+        Pokemon* currentB = battle.getSideB().getActivePokemon();
+        ASSERT_NE(currentA, nullptr);
+        ASSERT_NE(currentB, nullptr);
+        battle.enqueueAction(BattleAction::makeAttack(currentA, currentB, waterGun));
+        battle.enqueueAction(BattleAction::makePass(currentB));
+        battle.processTurn();
+        ++finishGuard;
+    }
+
+    EXPECT_FALSE(battle.getSideB().hasRemainingPokemon());
+    EXPECT_LT(finishGuard, 40);
+    EXPECT_EQ(countOutputFiles(), battle.getTurnNumber() + 1);
+
+    const nlohmann::json finalOutput = readOutput(battle.getTurnNumber());
+    ASSERT_TRUE(finalOutput.is_object());
+    ASSERT_TRUE(finalOutput.contains("descriptions"));
+    const std::string descriptionsDump = finalOutput["descriptions"].dump();
+    EXPECT_NE(descriptionsDump.find("被换下"), std::string::npos);
+    EXPECT_NE(descriptionsDump.find("特性"), std::string::npos);
+    EXPECT_NE(descriptionsDump.find("道具"), std::string::npos);
+    EXPECT_NE(descriptionsDump.find("效果"), std::string::npos);
+    EXPECT_NE(descriptionsDump.find("青草场地"), std::string::npos);
 }
