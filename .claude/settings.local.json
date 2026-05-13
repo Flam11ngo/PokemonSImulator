@@ -28,7 +28,21 @@
       "Bash(sed -i 's/battle\\\\.triggerAbility/ctx.triggerAbility/g' /home/qzz/PokemonSimulator/src/Battle/MoveEffectHandler.cpp)",
       "Bash(./PokemonSimulatorTests --gtest_filter=\"*Whirlwind*\")",
       "Bash(./PokemonSimulatorTests --gtest_filter=\"*Recovery*\")",
-      "Bash(./PokemonSimulatorTests --gtest_filter=\"*Disable*:*DestinyBond*:*DragonTail*\")"
+      "Bash(git *)",
+      "Bash(cmake *)",
+      "Bash(./build/PokemonSimulatorTests *)",
+      "Bash(./build/PokemonSimulator --help)",
+      "Bash(rm -f cache/output/*.json)",
+      "Bash(./build/PokemonSimulator --run-cache-input)",
+      "Bash(./build/PokemonSimulator *)",
+      "Bash(./PokemonSimulator --run-turn-json-files ../cache/input/side_a.json ../cache/input/side_b.json ../cache/turn_1.json 1337)",
+      "Bash(/home/qzz/PokemonSimulator/build/PokemonSimulator --run-cache-input)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(cp data/side_a.json cache/input/)",
+      "Bash(cp data/side_b.json cache/input/)",
+      "Bash(chmod +x test_daemon.sh)",
+      "Bash(bash test_daemon.sh)"
     ]
-  }
+  },
+  "prefersReducedMotion": true
 }

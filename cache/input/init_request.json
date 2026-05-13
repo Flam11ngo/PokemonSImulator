@@ -1,37 +1,17 @@
 {
-  "seed": 1337,
   "side_a": {
-    "name": "A",
+    "name": "Side A",
     "pokemon": [
-      {
-        "ability": "static",
-        "level": 50,
-        "moves": [
-          "Thunder Wave",
-          "Pound",
-          "Pound",
-          "Pound"
-        ],
-        "nature": "hardy",
-        "speciesID": 25
-      }
+      {"speciesID": 4, "level": 50, "ability": 66, "moves": [52, 10]},
+      {"speciesID": 1, "level": 50, "ability": 65, "moves": [33, 45]}
     ]
   },
   "side_b": {
-    "name": "B",
+    "name": "Side B",
     "pokemon": [
-      {
-        "ability": "overgrow",
-        "level": 50,
-        "moves": [
-          4,
-          4,
-          4,
-          4
-        ],
-        "nature": "hardy",
-        "speciesID": 1
-      }
+      {"speciesID": 7, "level": 50, "ability": 67, "moves": [55, 57]},
+      {"speciesID": 4, "level": 50, "ability": 66, "moves": [52, 43]}
     ]
-  }
+  },
+  "seed": 12345
 }

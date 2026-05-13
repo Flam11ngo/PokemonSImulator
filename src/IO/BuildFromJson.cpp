@@ -39,6 +39,23 @@ Type stringToType(const std::string& typeStr) {
     return Type::Count;
 }
 
+// 辅助函数：从字符串转换为Nature枚举（forward declaration）
+Nature stringToNature(const std::string& natureStr);
+
+// 辅助函数：从json值解析Nature（支持字符串和整数ID）
+Nature parseNatureValue(const json& natureValue) {
+    if (natureValue.is_string()) {
+        return stringToNature(natureValue.get<std::string>());
+    }
+    if (natureValue.is_number_integer()) {
+        int id = natureValue.get<int>();
+        if (id >= 0 && id < static_cast<int>(Nature::Count)) {
+            return static_cast<Nature>(id);
+        }
+    }
+    return Nature::Hardy;
+}
+
 // 辅助函数：从字符串转换为Nature枚举
 Nature stringToNature(const std::string& natureStr) {
     if (natureStr == "hardy") return Nature::Hardy;
@@ -271,7 +288,10 @@ Pokemon BuildFromJson::buildPokemon(const json& jsonData, const Species& species
     }
     
     // 读取其他属性
-    Nature nature = stringToNature(jsonData.value("nature", "hardy"));
+    Nature nature = Nature::Hardy;
+    if (jsonData.contains("nature")) {
+        nature = parseNatureValue(jsonData["nature"]);
+    }
     AbilityType ability = AbilityType::None;
     if (jsonData.contains("ability")) {
         ability = parseAbilityValue(jsonData["ability"]);
@@ -548,6 +568,48 @@ Pokemon BuildFromJson::loadPokemonFromFile(const std::string& filePath) {
     // 构建Pokemon
     Pokemon pokemon = buildPokemon(jsonData, species);
     return pokemon;
+}
+
+// 从Json文件加载队伍数据（支持 {"pokemon": [...]} 和单只宝可梦两种格式）
+std::vector<Pokemon> BuildFromJson::loadPokemonTeamFromFile(const std::string& filePath) {
+    std::vector<Pokemon> team;
+
+    std::string paths[] = {
+        filePath,
+        "../" + filePath,
+        "../../" + filePath
+    };
+
+    std::ifstream file;
+    bool fileOpened = false;
+
+    for (const auto& path : paths) {
+        file.open(path);
+        if (file.is_open()) {
+            fileOpened = true;
+            break;
+        }
+        file.close();
+    }
+
+    if (!fileOpened) {
+        std::cerr << "Error: Could not open file " << filePath << std::endl;
+        return team;
+    }
+
+    json jsonData;
+    file >> jsonData;
+    file.close();
+
+    if (jsonData.contains("pokemon") && jsonData["pokemon"].is_array()) {
+        for (const auto& pokeJson : jsonData["pokemon"]) {
+            team.push_back(loadPokemonFromString(pokeJson.dump()));
+        }
+    } else {
+        team.push_back(loadPokemonFromFile(filePath));
+    }
+
+    return team;
 }
 
 // 从Json字符串加载宝可梦数据

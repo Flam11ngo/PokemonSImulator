@@ -156,15 +156,23 @@ std::optional<BattleSession> BattleSession::createFromPokemonFiles(const std::st
         if (seed != 0) {
             PRNG::setSeed(seed);
         }
-        Pokemon left = BuildFromJson::loadPokemonFromFile(sideAPath);
-        Pokemon right = BuildFromJson::loadPokemonFromFile(sideBPath);
-        session.storage.emplace_back(std::make_unique<Pokemon>(left));
-        session.storage.emplace_back(std::make_unique<Pokemon>(right));
+        std::vector<Pokemon> teamA = BuildFromJson::loadPokemonTeamFromFile(sideAPath);
+        std::vector<Pokemon> teamB = BuildFromJson::loadPokemonTeamFromFile(sideBPath);
+        if (teamA.empty() || teamB.empty()) {
+            setError(error, "each side must have at least one pokemon");
+            return std::nullopt;
+        }
 
         Side sideA("Side A");
         Side sideB("Side B");
-        sideA.addPokemon(session.storage[0].get());
-        sideB.addPokemon(session.storage[1].get());
+        for (auto& p : teamA) {
+            session.storage.emplace_back(std::make_unique<Pokemon>(std::move(p)));
+            sideA.addPokemon(session.storage.back().get());
+        }
+        for (auto& p : teamB) {
+            session.storage.emplace_back(std::make_unique<Pokemon>(std::move(p)));
+            sideB.addPokemon(session.storage.back().get());
+        }
 
         session.battle = std::make_unique<Battle>(std::move(sideA), std::move(sideB));
         BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(*session.battle), "output_0.json");
@@ -234,6 +242,98 @@ std::optional<BattleSession> BattleSession::createFromJson(const nlohmann::json&
     session.battle = std::make_unique<Battle>(std::move(sideA), std::move(sideB));
     BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(*session.battle), "output_0.json");
     return session;
+}
+
+std::optional<BattleSession> BattleSession::createDeferred(const nlohmann::json& initRequest,
+                                                           std::string* error) {
+    if (!initRequest.is_object()) {
+        setError(error, "init request must be a json object");
+        return std::nullopt;
+    }
+
+    const nlohmann::json sideAJson = initRequest.value("side_a", nlohmann::json::object());
+    const nlohmann::json sideBJson = initRequest.value("side_b", nlohmann::json::object());
+    if (!sideAJson.is_object() || !sideBJson.is_object()) {
+        setError(error, "init request must include side_a and side_b objects");
+        return std::nullopt;
+    }
+
+    const nlohmann::json teamA = sideAJson.value("pokemon", nlohmann::json::array());
+    const nlohmann::json teamB = sideBJson.value("pokemon", nlohmann::json::array());
+    if (!teamA.is_array() || !teamB.is_array() || teamA.empty() || teamB.empty()) {
+        setError(error, "both sides must provide at least one pokemon entry");
+        return std::nullopt;
+    }
+
+    if (initRequest.contains("seed")) {
+        if (!initRequest["seed"].is_number_integer()) {
+            setError(error, "seed must be an integer when provided");
+            return std::nullopt;
+        }
+        PRNG::setSeed(static_cast<uint32_t>(initRequest["seed"].get<int64_t>()));
+    }
+
+    BattleSession session;
+    Side sideA(sideAJson.value("name", "Side A"));
+    Side sideB(sideBJson.value("name", "Side B"));
+
+    auto buildTeam = [&](const nlohmann::json& team, Side& side) -> bool {
+        for (const auto& pokemonJson : team) {
+            try {
+                Pokemon pokemon = BuildFromJson::loadPokemonFromString(pokemonJson.dump());
+                session.storage.emplace_back(std::make_unique<Pokemon>(pokemon));
+                if (!side.addPokemon(session.storage.back().get())) {
+                    setError(error, "failed to add pokemon into side");
+                    return false;
+                }
+            } catch (const std::exception& ex) {
+                setError(error, ex.what());
+                return false;
+            }
+        }
+        return true;
+    };
+
+    if (!buildTeam(teamA, sideA) || !buildTeam(teamB, sideB)) {
+        return std::nullopt;
+    }
+
+    session.battle = std::make_unique<Battle>(std::move(sideA), std::move(sideB),
+                                              GameRegistry::instance(), false);
+    return session;
+}
+
+void BattleSession::doInitialSendOut() {
+    if (!battle) return;
+
+    Pokemon* activeA = battle->getSideA().getActivePokemon();
+    Pokemon* activeB = battle->getSideB().getActivePokemon();
+
+    if (activeA) {
+        battle->appendSpecialEvent("switch_in", {
+            {"side", battle->getSideA().getName()},
+            {"pokemon", activeA->getName()},
+            {"reason", "initial_send_out"}
+        });
+    }
+    if (activeB) {
+        battle->appendSpecialEvent("switch_in", {
+            {"side", battle->getSideB().getName()},
+            {"pokemon", activeB->getName()},
+            {"reason", "initial_send_out"}
+        });
+    }
+
+    if (activeA) {
+        battle->triggerAbility(activeA, Trigger::OnEntry, activeB);
+        battle->triggerItemEffect(activeA, ItemTrigger::OnEntry, activeB);
+    }
+    if (activeB) {
+        battle->triggerAbility(activeB, Trigger::OnEntry, activeA);
+        battle->triggerItemEffect(activeB, ItemTrigger::OnEntry, activeA);
+    }
+
+    BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(*battle), "output_0.json");
 }
 
 Pokemon* BattleSession::selectActor(Side& side, const nlohmann::json& actionJson) {

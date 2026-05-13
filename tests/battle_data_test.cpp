@@ -8,6 +8,7 @@
 #include "battle/Battle.h"
 #include "battle/BattleQueue.h"
 #include "IO/BattleSession.h"
+#include "IO/BattleToJson.h"
 #include "IO/BuildFromJson.h"
 #include "battle/Moves.h"
 #include "battle/PRNG.h"
@@ -5691,4 +5692,184 @@ TEST(BattleFlowIntegrationTest, FullBattleFlowIncludesRequestedMechanicsAndOutpu
     EXPECT_NE(descriptionsDump.find("道具"), std::string::npos);
     EXPECT_NE(descriptionsDump.find("效果"), std::string::npos);
     EXPECT_NE(descriptionsDump.find("青草场地"), std::string::npos);
+}
+
+TEST(BattleSessionTest, TwoMovesThenSwitchUsesRealSpecies) {
+    std::string error;
+    auto session = BattleSession::createFromPokemonFiles("data/side_a.json", "data/side_b.json", 0, &error);
+    ASSERT_TRUE(session.has_value()) << error;
+
+    // Turn 1: Both sides attack (2 moves)
+    const nlohmann::json turn1 = {
+        {"actions", nlohmann::json::array({
+            {{"side", "a"}, {"type", "attack"}, {"move_index", 0}},
+            {{"side", "b"}, {"type", "attack"}, {"move_index", 0}}
+        })}
+    };
+    const nlohmann::json response1 = session->processTurn(turn1);
+    ASSERT_TRUE(response1.value("ok", false));
+
+    // Turn 2: Side A switches to bench (1 switch)
+    const nlohmann::json turn2 = {
+        {"actions", nlohmann::json::array({
+            {{"side", "a"}, {"type", "switch"}, {"target_index", 1}},
+            {{"side", "b"}, {"type", "pass"}}
+        })}
+    };
+    const nlohmann::json response2 = session->processTurn(turn2);
+    ASSERT_TRUE(response2.value("ok", false));
+
+    // Verify Side A's active index changed to the bench Pokemon
+    ASSERT_TRUE(response2.contains("state"));
+    ASSERT_TRUE(response2["state"].contains("battle_all_info"));
+    ASSERT_TRUE(response2["state"]["battle_all_info"].contains("battle"));
+    ASSERT_TRUE(response2["state"]["battle_all_info"]["battle"].contains("sides"));
+    const auto& sides = response2["state"]["battle_all_info"]["battle"]["sides"];
+    ASSERT_TRUE(sides.is_array());
+    ASSERT_GE(sides.size(), 1U);
+    EXPECT_EQ(sides[0].value("active", -1), 1);
+}
+
+TEST(BattleSessionTest, LoadSpeciesFromJsonThenBuildPokemon) {
+    const auto speciesMap = loadSpeciesFromFile();
+    ASSERT_FALSE(speciesMap.empty());
+
+    // Pikachu (ID 25)
+    auto it = speciesMap.find(25);
+    ASSERT_NE(it, speciesMap.end());
+    const Species& pikachuSpecies = it->second;
+    EXPECT_EQ(pikachuSpecies.id, 25);
+    EXPECT_EQ(pikachuSpecies.name, "Pikachu");
+
+    // Build a Pokemon from real species data using numeric IDs
+    // nature: 3=Adamant, ability: 9=Static
+    nlohmann::json pokeJson = {
+        {"speciesID", 25},
+        {"level", 50},
+        {"nature", 3},
+        {"ability", 9},
+        {"moves", {52, 10, 1, 2}}
+    };
+    Pokemon pikachu = BuildFromJson::buildPokemon(pokeJson, pikachuSpecies);
+    EXPECT_EQ(pikachu.getSpecies().id, 25);
+    EXPECT_GT(pikachu.getMaxHP(), 0);
+}
+
+TEST(BattleFlowIntegrationTest, ThreeVThreeTwoMovesThenSwitchSimulation) {
+    PRNG::setSeed(20260513);
+
+    // 生成输入文件到 cache/input/（可能被其他测试清空）
+    std::filesystem::create_directories("cache/input");
+    {
+        auto makePoke = [](int speciesID, int ability, std::vector<int> moves) {
+            nlohmann::json entry;
+            entry["speciesID"] = speciesID;
+            entry["level"] = 50;
+            entry["nature"] = 0;
+            entry["ability"] = ability;
+            entry["ivs"] = {{"hp",31},{"attack",31},{"defense",31},{"specialAttack",31},{"specialDefense",31},{"speed",31}};
+            entry["evs"] = {{"hp",0},{"attack",0},{"defense",0},{"specialAttack",252},{"specialDefense",0},{"speed",252}};
+            entry["moves"] = moves;
+            return entry;
+        };
+
+        nlohmann::json sideA;
+        sideA["pokemon"] = nlohmann::json::array({
+            makePoke(4, 66, {52, 10, 33, 98}),   // Charmander: Ember, Scratch, Tackle, Quick Attack
+            makePoke(5, 66, {53, 163, 44, 7}),    // Charmeleon: Flamethrower, Slash, Bite, Fire Punch
+            makePoke(6, 66, {53, 19, 17, 82})     // Charizard: Flamethrower, Fly, Wing Attack, Dragon Rage
+        });
+        std::ofstream("cache/input/side_a.json") << sideA.dump(2);
+
+        nlohmann::json sideB;
+        sideB["pokemon"] = nlohmann::json::array({
+            makePoke(1, 65, {22, 33, 73, 77}),    // Bulbasaur: Vine Whip, Tackle, Leech Seed, Poison Powder
+            makePoke(2, 65, {75, 76, 79, 74}),    // Ivysaur: Razor Leaf, Solar Beam, Sleep Powder, Growth
+            makePoke(3, 65, {76, 75, 34, 73})     // Venusaur: Solar Beam, Razor Leaf, Body Slam, Leech Seed
+        });
+        std::ofstream("cache/input/side_b.json") << sideB.dump(2);
+    }
+
+    // 从 cache/input/ 加载双方队伍
+    std::vector<Pokemon> teamA = BuildFromJson::loadPokemonTeamFromFile("cache/input/side_a.json");
+    std::vector<Pokemon> teamB = BuildFromJson::loadPokemonTeamFromFile("cache/input/side_b.json");
+    ASSERT_EQ(teamA.size(), 3u);
+    ASSERT_EQ(teamB.size(), 3u);
+
+    // 构建 Battle
+    std::vector<std::unique_ptr<Pokemon>> storage;
+    Side sideA("Side A");
+    Side sideB("Side B");
+    for (auto& p : teamA) {
+        storage.emplace_back(std::make_unique<Pokemon>(std::move(p)));
+        sideA.addPokemon(storage.back().get());
+    }
+    for (auto& p : teamB) {
+        storage.emplace_back(std::make_unique<Pokemon>(std::move(p)));
+        sideB.addPokemon(storage.back().get());
+    }
+
+    Battle battle(sideA, sideB);
+
+    // 写入初始状态到 cache/output/
+    BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(battle), "output_0.json");
+
+    // 切换辅助：找到下一个存活的宝可梦并切换
+    auto executeSwitch = [&](Side& side) {
+        const auto& team = side.getTeam();
+        const int cur = side.getActiveIndex();
+        for (int offset = 1; offset < side.getPokemonCount(); ++offset) {
+            const int next = (cur + offset) % side.getPokemonCount();
+            if (team[next] && team[next]->getCurrentHP() > 0 && next != cur) {
+                battle.switchPokemon(side, next);
+                return;
+            }
+        }
+    };
+
+    // 战斗模拟循环：每 2 个攻击回合后换人，直到一方全灭
+    constexpr int kMaxRounds = 60;
+    int roundGuard = 0;
+    while (battle.getSideA().hasRemainingPokemon()
+           && battle.getSideB().hasRemainingPokemon()
+           && roundGuard < kMaxRounds) {
+
+        // 2 个攻击回合
+        for (int atk = 0; atk < 2; ++atk) {
+            if (!battle.getSideA().hasRemainingPokemon()
+                || !battle.getSideB().hasRemainingPokemon()) {
+                break;
+            }
+
+            Pokemon* a = battle.getSideA().getActivePokemon();
+            Pokemon* b = battle.getSideB().getActivePokemon();
+            if (!a || !b || a->getCurrentHP() <= 0 || b->getCurrentHP() <= 0) {
+                break;
+            }
+
+            battle.enqueueAction(BattleAction::makeAttack(a, b, a->getMoves()[0]));
+            battle.enqueueAction(BattleAction::makeAttack(b, a, b->getMoves()[0]));
+            battle.processTurn();
+        }
+
+        // 双方换人
+        if (battle.getSideA().hasRemainingPokemon()
+            && battle.getSideB().hasRemainingPokemon()) {
+            executeSwitch(battle.getSideA());
+            executeSwitch(battle.getSideB());
+        }
+
+        ++roundGuard;
+    }
+
+    EXPECT_LT(roundGuard, kMaxRounds) << "Battle exceeded max rounds";
+    EXPECT_TRUE(!battle.getSideA().hasRemainingPokemon()
+                || !battle.getSideB().hasRemainingPokemon())
+        << "One side should be completely defeated";
+    EXPECT_GT(battle.getTurnNumber(), 0);
+
+    // 写入最终状态
+    BattleToJson::writeToCache(
+        BattleToJson::battleAllInfoToJson(battle),
+        "output_" + std::to_string(battle.getTurnNumber()) + ".json");
 }

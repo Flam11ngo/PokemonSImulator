@@ -502,7 +502,7 @@ Side* Battle::findSideForPokemon(Battle& battle, Pokemon* pokemon) {
     return const_cast<Side*>(findSideForPokemon(static_cast<const Battle&>(battle), pokemon));
 }
 
-Battle::Battle(Side sideA, Side sideB, const GameRegistry& reg)
+Battle::Battle(Side sideA, Side sideB, const GameRegistry& reg, bool autoSendOut)
     : registry(reg), sideA(std::move(sideA)), sideB(std::move(sideB)),
       battleContext(weather, field, this->sideA, this->sideB,
                     eventSystem, runtimeMoveState, turnNumber, specialEvents) {
@@ -514,36 +514,37 @@ Battle::Battle(Side sideA, Side sideB, const GameRegistry& reg)
     runtimeMoveState.roundUsedThisTurn = false;
     battleContext.setBattlePointer(this);
 
-    // 触发双方活跃宝可梦的出场特性
-    Pokemon* activeA = this->sideA.getActivePokemon();
-    Pokemon* activeB = this->sideB.getActivePokemon();
+    if (autoSendOut) {
+        Pokemon* activeA = this->sideA.getActivePokemon();
+        Pokemon* activeB = this->sideB.getActivePokemon();
 
-    if (activeA) {
-        recordSpecialEvent(*this, "switch_in", {
-            {"side", this->sideA.getName()},
-            {"pokemon", activeA->getName()},
-            {"reason", "initial_send_out"}
-        });
-    }
-    if (activeB) {
-        recordSpecialEvent(*this, "switch_in", {
-            {"side", this->sideB.getName()},
-            {"pokemon", activeB->getName()},
-            {"reason", "initial_send_out"}
-        });
-    }
+        if (activeA) {
+            recordSpecialEvent(*this, "switch_in", {
+                {"side", this->sideA.getName()},
+                {"pokemon", activeA->getName()},
+                {"reason", "initial_send_out"}
+            });
+        }
+        if (activeB) {
+            recordSpecialEvent(*this, "switch_in", {
+                {"side", this->sideB.getName()},
+                {"pokemon", activeB->getName()},
+                {"reason", "initial_send_out"}
+            });
+        }
 
-    if (activeA) {
-        triggerAbility(activeA, Trigger::OnEntry, activeB);
-        triggerItemEffect(activeA, ItemTrigger::OnEntry, activeB);
-    }
-    
-    if (activeB) {
-        triggerAbility(activeB, Trigger::OnEntry, activeA);
-        triggerItemEffect(activeB, ItemTrigger::OnEntry, activeA);
-    }
+        if (activeA) {
+            triggerAbility(activeA, Trigger::OnEntry, activeB);
+            triggerItemEffect(activeA, ItemTrigger::OnEntry, activeB);
+        }
 
-    BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(*this), "output_0.json");
+        if (activeB) {
+            triggerAbility(activeB, Trigger::OnEntry, activeA);
+            triggerItemEffect(activeB, ItemTrigger::OnEntry, activeA);
+        }
+
+        BattleToJson::writeToCache(BattleToJson::battleAllInfoToJson(*this), "output_0.json");
+    }
 }
 
 void Battle::clearPokemonRuntimeState(Pokemon* pokemon) {

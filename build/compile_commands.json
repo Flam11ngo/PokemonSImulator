@@ -1,0 +1,206 @@
+[
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/AbilityData.cpp.o -c /home/qzz/PokemonSimulator/src/IO/AbilityData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/AbilityData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/AbilityData.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/BattleSession.cpp.o -c /home/qzz/PokemonSimulator/src/IO/BattleSession.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/BattleSession.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/BattleSession.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/BattleToJson.cpp.o -c /home/qzz/PokemonSimulator/src/IO/BattleToJson.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/BattleToJson.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/BattleToJson.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/BuildFromJson.cpp.o -c /home/qzz/PokemonSimulator/src/IO/BuildFromJson.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/BuildFromJson.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/BuildFromJson.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/ItemData.cpp.o -c /home/qzz/PokemonSimulator/src/IO/ItemData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/ItemData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/ItemData.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/IO/MoveData.cpp.o -c /home/qzz/PokemonSimulator/src/IO/MoveData.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/IO/MoveData.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/IO/MoveData.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Abilities.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Abilities.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Abilities.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Abilities.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Battle.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Battle.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Battle.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Battle.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/BattleActions.cpp.o -c /home/qzz/PokemonSimulator/src/battle/BattleActions.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/BattleActions.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/BattleActions.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/BattleContext.cpp.o -c /home/qzz/PokemonSimulator/src/battle/BattleContext.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/BattleContext.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/BattleContext.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/BattleMath.cpp.o -c /home/qzz/PokemonSimulator/src/battle/BattleMath.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/BattleMath.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/BattleMath.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/BattleQueue.cpp.o -c /home/qzz/PokemonSimulator/src/battle/BattleQueue.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/BattleQueue.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/BattleQueue.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Effect.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Effect.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Effect.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Effect.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/EventSystem.cpp.o -c /home/qzz/PokemonSimulator/src/battle/EventSystem.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/EventSystem.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/EventSystem.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Field.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Field.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Field.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Field.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/GameRegistry.cpp.o -c /home/qzz/PokemonSimulator/src/battle/GameRegistry.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/GameRegistry.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/GameRegistry.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Items.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Items.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Items.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Items.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/MoveEffectHandler.cpp.o -c /home/qzz/PokemonSimulator/src/battle/MoveEffectHandler.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/MoveEffectHandler.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/MoveEffectHandler.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Moves.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Moves.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Moves.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Moves.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Natures.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Natures.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Natures.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Natures.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/PRNG.cpp.o -c /home/qzz/PokemonSimulator/src/battle/PRNG.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/PRNG.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/PRNG.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Pokemon.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Pokemon.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Pokemon.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Pokemon.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Side.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Side.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Side.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Side.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Status.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Status.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Status.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Status.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Utils.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Utils.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Utils.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Utils.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/battle/Weather.cpp.o -c /home/qzz/PokemonSimulator/src/battle/Weather.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/battle/Weather.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/battle/Weather.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/tests/ItemTestRunner.cpp.o -c /home/qzz/PokemonSimulator/src/tests/ItemTestRunner.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/tests/ItemTestRunner.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/tests/ItemTestRunner.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/battle_core.dir/src/tests/MoveTestRunner.cpp.o -c /home/qzz/PokemonSimulator/src/tests/MoveTestRunner.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/tests/MoveTestRunner.cpp",
+  "output": "CMakeFiles/battle_core.dir/src/tests/MoveTestRunner.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/PokemonSimulator.dir/src/main.cpp.o -c /home/qzz/PokemonSimulator/src/main.cpp",
+  "file": "/home/qzz/PokemonSimulator/src/main.cpp",
+  "output": "CMakeFiles/PokemonSimulator.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=gnu++17 -o CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o -c /home/qzz/PokemonSimulator/tests/battle_data_test.cpp",
+  "file": "/home/qzz/PokemonSimulator/tests/battle_data_test.cpp",
+  "output": "CMakeFiles/PokemonSimulatorTests.dir/tests/battle_data_test.cpp.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -I/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+},
+{
+  "directory": "/home/qzz/PokemonSimulator/build",
+  "command": "/usr/bin/g++ -I/home/qzz/PokemonSimulator/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/include -isystem /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest -O3 -DNDEBUG -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/home/qzz/PokemonSimulator/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+}
+]

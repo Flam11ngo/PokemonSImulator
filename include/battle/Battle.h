@@ -100,7 +100,8 @@ struct RuntimeMoveState {
 
 class Battle {
 public:
-    explicit Battle(Side sideA, Side sideB, const GameRegistry& registry = GameRegistry::instance());
+    explicit Battle(Side sideA, Side sideB, const GameRegistry& registry = GameRegistry::instance(),
+                    bool autoSendOut = true);
 
     Side& getSideA();
     const Side& getSideA() const;
@@ -126,7 +127,7 @@ public:
     bool switchPokemon(Side& side, int newIndex);
     void applyDisableToTarget(Pokemon* target);
 
-    // ���性相关方法
+    // 特性相关方法
     void triggerAbility(Pokemon* pokemon, Trigger trigger, Pokemon* opponent = nullptr, void* context = nullptr);
     void triggerAbilities(Trigger trigger, Pokemon* target = nullptr, void* context = nullptr);
 

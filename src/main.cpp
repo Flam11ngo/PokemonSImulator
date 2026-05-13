@@ -14,6 +14,7 @@
 #include <map>
 #include <regex>
 #include <string>
+#include <thread>
 #include <vector>
 
 #include <nlohmann/json.hpp>
@@ -48,7 +49,33 @@ bool loadInitFromCacheInput(nlohmann::json& initJson, std::string& error) {
         }
         return false;
     }
-    error = "Missing init json in cache/input (expected init_request.json or init.json)";
+    // Fallback: try side_a.json + side_b.json
+    const std::string sideAPath = "cache/input/side_a.json";
+    const std::string sideBPath = "cache/input/side_b.json";
+    if (std::filesystem::exists(sideAPath) && std::filesystem::exists(sideBPath)) {
+        nlohmann::json sideA, sideB;
+        std::string parseError;
+        if (!readJsonFromFile(sideAPath, sideA, parseError)) {
+            error = "Failed to parse cache/input/side_a.json: " + parseError;
+            return false;
+        }
+        if (!readJsonFromFile(sideBPath, sideB, parseError)) {
+            error = "Failed to parse cache/input/side_b.json: " + parseError;
+            return false;
+        }
+        initJson = nlohmann::json::object();
+        initJson["side_a"] = sideA.is_object() ? sideA : nlohmann::json::object();
+        initJson["side_b"] = sideB.is_object() ? sideB : nlohmann::json::object();
+        if (!initJson["side_a"].contains("name")) {
+            initJson["side_a"]["name"] = "Side A";
+        }
+        if (!initJson["side_b"].contains("name")) {
+            initJson["side_b"]["name"] = "Side B";
+        }
+        return true;
+    }
+
+    error = "Missing init json in cache/input (expected init_request.json, init.json, or side_a.json + side_b.json)";
     return false;
 }
 
@@ -157,6 +184,141 @@ bool runCacheInputBattle() {
     }
 
     std::cout << BattleToJson::battleAllInfoToJson(*battle).dump(2) << std::endl;
+    return true;
+}
+
+bool runDaemonMode() {
+    namespace fs = std::filesystem;
+    std::cout << "[daemon] starting, waiting for init files in cache/input/..." << std::endl;
+
+    // Phase A: wait for init files
+    nlohmann::json initJson;
+    std::string error;
+    while (true) {
+        if (loadInitFromCacheInput(initJson, error)) {
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+    std::cout << "[daemon] init loaded" << std::endl;
+
+    auto session = BattleSession::createDeferred(initJson, &error);
+    if (!session.has_value()) {
+        std::cerr << "[daemon] init failed: " << error << std::endl;
+        return false;
+    }
+
+    // Phase B: wait for turn 0 inputs (switch to active pokemon)
+    std::cout << "[daemon] waiting for turn 0 inputs (1_input_0.json, 2_input_0.json)..." << std::endl;
+    nlohmann::json sideAInput0;
+    nlohmann::json sideBInput0;
+    while (true) {
+        const std::string pathA = "cache/input/1_input_0.json";
+        const std::string pathB = "cache/input/2_input_0.json";
+        if (fs::exists(pathA) && fs::exists(pathB)) {
+            std::string parseError;
+            if (!readJsonFromFile(pathA, sideAInput0, parseError)) {
+                std::cerr << "[daemon] failed to parse 1_input_0.json: " << parseError << std::endl;
+                return false;
+            }
+            if (!readJsonFromFile(pathB, sideBInput0, parseError)) {
+                std::cerr << "[daemon] failed to parse 2_input_0.json: " << parseError << std::endl;
+                return false;
+            }
+            break;
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
+
+    // Process turn 0 switches
+    Battle* battle = session->getBattle();
+    auto processTurn0Switch = [&](Side& side, const nlohmann::json& input, const char* label) {
+        std::string type = BattleSession::normalizeKey(input.value("type", "pass"));
+        if (type == "switch") {
+            int switchIndex = -1;
+            if (input.contains("switch_index") && input["switch_index"].is_number_integer()) {
+                switchIndex = input["switch_index"].get<int>();
+            } else if (input.contains("target_index") && input["target_index"].is_number_integer()) {
+                switchIndex = input["target_index"].get<int>();
+            }
+            if (switchIndex >= 0 && switchIndex < side.getPokemonCount()
+                && switchIndex != side.getActiveIndex()) {
+                side.switchActive(switchIndex);
+                std::cout << "[daemon] turn 0: " << label << " switched to slot "
+                          << switchIndex << std::endl;
+            }
+        }
+    };
+    processTurn0Switch(battle->getSideA(), sideAInput0, "side A");
+    processTurn0Switch(battle->getSideB(), sideBInput0, "side B");
+
+    session->doInitialSendOut();
+    std::cout << "[daemon] turn 0 done, output_0.json written" << std::endl;
+
+    // Phase C: main turn loop
+    int turnNumber = 0;
+    while (true) {
+        ++turnNumber;
+        const std::string pathA = "cache/input/1_input_" + std::to_string(turnNumber) + ".json";
+        const std::string pathB = "cache/input/2_input_" + std::to_string(turnNumber) + ".json";
+
+        std::cout << "[daemon] waiting for turn " << turnNumber
+                  << " inputs..." << std::endl;
+        while (true) {
+            if (fs::exists(pathA) && fs::exists(pathB)) {
+                break;
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        }
+
+        nlohmann::json sideAAction;
+        nlohmann::json sideBAction;
+        std::string parseError;
+        if (!readJsonFromFile(pathA, sideAAction, parseError)) {
+            std::cerr << "[daemon] failed to parse " << pathA << ": " << parseError << std::endl;
+            return false;
+        }
+        if (!readJsonFromFile(pathB, sideBAction, parseError)) {
+            std::cerr << "[daemon] failed to parse " << pathB << ": " << parseError << std::endl;
+            return false;
+        }
+
+        nlohmann::json turnRequest{
+            {"actions", nlohmann::json::array({
+                normalizeSideAction(sideAAction, "a"),
+                normalizeSideAction(sideBAction, "b")
+            })}
+        };
+        const nlohmann::json response = session->processTurn(turnRequest);
+        if (!response.value("ok", false)) {
+            std::cerr << "[daemon] turn " << turnNumber << " failed: "
+                      << response.dump(2) << std::endl;
+            return false;
+        }
+
+        if (!battle) {
+            std::cerr << "[daemon] battle session lost after turn " << turnNumber << std::endl;
+            return false;
+        }
+        if (!battle->getSideA().hasRemainingPokemon() || !battle->getSideB().hasRemainingPokemon()) {
+            std::cout << "[daemon] battle ended after turn " << turnNumber << std::endl;
+            nlohmann::json gameOver;
+            gameOver["game_over"] = true;
+            gameOver["winner"] = battle->getSideA().hasRemainingPokemon()
+                                     ? battle->getSideA().getName()
+                                     : battle->getSideB().getName();
+            gameOver["final_turn"] = turnNumber;
+            std::ofstream go("cache/output/game_over.json");
+            if (go.is_open()) {
+                go << gameOver.dump(2);
+            }
+            break;
+        }
+
+        std::cout << "[daemon] turn " << turnNumber << " done, output_"
+                  << battle->getTurnNumber() << ".json written" << std::endl;
+    }
+
     return true;
 }
 
@@ -281,6 +443,9 @@ int main(int argc, char** argv){
         if (arg == "--run-cache-input") {
             return runCacheInputBattle() ? 0 : 1;
         }
+        if (arg == "--daemon") {
+            return runDaemonMode() ? 0 : 1;
+        }
     }
 
     std::cout << "PokemonSimulator (server-only CLI)" << std::endl;
@@ -293,5 +458,6 @@ int main(int argc, char** argv){
     std::cout << "  --run-turn-json <request.json>" << std::endl;
     std::cout << "  --run-turn-json-files <side_a_pokemon.json> <side_b_pokemon.json> <turn.json> [seed]" << std::endl;
     std::cout << "  --run-cache-input" << std::endl;
+    std::cout << "  --daemon" << std::endl;
     return 0;
 }
