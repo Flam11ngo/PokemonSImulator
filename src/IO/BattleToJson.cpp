@@ -79,19 +79,6 @@ int statusTokenToIndex(const std::string& token) {
     return 0;
 }
 
-int eventTypeToIndex(const std::string& eventType) {
-    const std::string key = normalizeToken(eventType);
-    if (key == "switchin") return 1;
-    if (key == "switch") return 2;
-    if (key == "abilitytrigger") return 3;
-    if (key == "itemtrigger") return 4;
-    if (key == "statusapply") return 5;
-    if (key == "heal") return 6;
-    if (key == "itemblocked") return 7;
-    if (key == "itemreplay") return 8;
-    return 0;
-}
-
 std::string buildDescription(const json& eventEntry) {
     const std::string eventType = eventEntry.value("event", std::string("event"));
     const json details = eventEntry.value("details", json::object());
@@ -165,8 +152,6 @@ json buildIndexedTimeline(Battle& battle) {
         json indexed;
         indexed["timeline_index"] = order++;
         indexed["turn_index"] = entry.value("turn", 0);
-        indexed["event"] = entry.value("event", std::string(""));
-        indexed["event_index"] = eventTypeToIndex(indexed["event"].get<std::string>());
         indexed["description"] = buildDescription(entry);
 
         json indexedDetails = json::object();
@@ -232,7 +217,7 @@ json sideAllInfoToJson(const Side& side, int sideIndex) {
         {"waterSport", side.getWaterSportTurns()},
         {"spikes", side.getSpikesLayers()},
         {"toxicSpikes", side.getToxicSpikesLayers()},
-        {"stealthRock", side.hasStealthRock()}
+        {"stealthRock", side.hasStealthRock() ? 1 : 0}
     };
 
     json team = json::array();
@@ -257,7 +242,9 @@ json sideAllInfoToJson(const Side& side, int sideIndex) {
             pokemon->getStatStage(StatIndex::Defense),
             pokemon->getStatStage(StatIndex::SpecialAttack),
             pokemon->getStatStage(StatIndex::SpecialDefense),
-            pokemon->getStatStage(StatIndex::Speed)
+            pokemon->getStatStage(StatIndex::Speed),
+            pokemon->getAccuracyStage(),
+            pokemon->getEvasionStage()
         });
 
         json statuses = json::array();
@@ -558,6 +545,8 @@ json BattleToJson::pokemonToJson(const Pokemon* pokemon) {
     statStages["special_attack"] = pokemon->getStatStage(StatIndex::SpecialAttack);
     statStages["special_defense"] = pokemon->getStatStage(StatIndex::SpecialDefense);
     statStages["speed"] = pokemon->getStatStage(StatIndex::Speed);
+    statStages["accuracy"] = pokemon->getAccuracyStage();
+    statStages["evasion"] = pokemon->getEvasionStage();
     jsonPokemon["stat_stages"] = statStages;
 
     json statuses = json::array();

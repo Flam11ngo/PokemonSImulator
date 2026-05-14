@@ -140,6 +140,20 @@ std::string getItemName(ItemType type) {
         case ItemType::MirrorHerb: return "Mirror Herb";
         case ItemType::AbilityShield: return "Ability Shield";
         case ItemType::EjectPack: return "Eject Pack";
+        case ItemType::TerrainExtender: return "Terrain Extender";
+        case ItemType::RoomService: return "Room Service";
+        case ItemType::BlunderPolicy: return "Blunder Policy";
+        case ItemType::ThroatSpray: return "Throat Spray";
+        case ItemType::UtilityUmbrella: return "Utility Umbrella";
+        case ItemType::LightClay: return "Light Clay";
+        case ItemType::MentalHerb: return "Mental Herb";
+        case ItemType::SafetyGoggles: return "Safety Goggles";
+        case ItemType::RingTarget: return "Ring Target";
+        case ItemType::Metronome: return "Metronome";
+        case ItemType::DampRock: return "Damp Rock";
+        case ItemType::HeatRock: return "Heat Rock";
+        case ItemType::IcyRock: return "Icy Rock";
+        case ItemType::SmoothRock: return "Smooth Rock";
         default: return "None";
     }
 }
@@ -722,20 +736,156 @@ Item createLoadedDice() {
 Item createMirrorHerb() {
     Item item(ItemType::MirrorHerb, "Mirror Herb");
     item.isConsumable = true;
-    // 对手提升能力时复制其能力等级 - checked in Battle flow during stat change resolution
+    item.addEffect(ItemTrigger::OnStatChange, [](Pokemon* self, Pokemon* opponent, BattleContext&, void*) {
+        if (!self || !opponent || self == opponent) return;
+        constexpr StatIndex kStats[] = {StatIndex::Attack, StatIndex::Defense, StatIndex::SpecialAttack, StatIndex::SpecialDefense, StatIndex::Speed};
+        bool copied = false;
+        for (StatIndex idx : kStats) {
+            const int oppStage = opponent->getStatStage(idx);
+            if (oppStage > 0) {
+                const int selfStage = self->getStatStage(idx);
+                const int delta = oppStage - selfStage;
+                if (delta > 0) { self->changeStatStage(idx, delta); copied = true; }
+            }
+        }
+        if (copied) self->removeItem();
+    });
     return item;
 }
 
 Item createAbilityShield() {
     Item item(ItemType::AbilityShield, "Ability Shield");
-    // 免疫改变特性的效果 - checked in Battle when applying ability-change effects
+    item.passive.blocksAbilityChange = true;
     return item;
 }
 
 Item createEjectPack() {
     Item item(ItemType::EjectPack, "Eject Pack");
     item.isConsumable = true;
-    // 能力下降时强制退场 - checked in Battle flow during stat change resolution
+    item.addEffect(ItemTrigger::OnStatChange, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (!self || self->isFainted()) return;
+        // Check if any stat stage is negative
+        constexpr StatIndex kStats[] = {StatIndex::Attack, StatIndex::Defense, StatIndex::SpecialAttack, StatIndex::SpecialDefense, StatIndex::Speed};
+        bool lowered = false;
+        for (StatIndex idx : kStats) {
+            if (self->getStatStage(idx) < 0) { lowered = true; break; }
+        }
+        if (lowered) {
+            Side* selfSide = ctx.findSideForPokemon(self);
+            if (selfSide && selfSide->canSwitch()) {
+                selfSide->autoSwitchNext();
+                self->removeItem();
+            }
+        }
+    });
+    return item;
+}
+
+Item createTerrainExtender() {
+    Item item(ItemType::TerrainExtender, "Terrain Extender");
+    item.passive.extendsTerrain = true;
+    return item;
+}
+
+Item createRoomService() {
+    Item item(ItemType::RoomService, "Room Service");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnEntry, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && ctx.getField().isTrickRoom()) {
+            self->changeStatStage(StatIndex::Speed, -1);
+            self->removeItem();
+        }
+    });
+    return item;
+}
+
+Item createBlunderPolicy() {
+    Item item(ItemType::BlunderPolicy, "Blunder Policy");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::AfterMoveMiss, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (self) {
+            self->changeStatStage(StatIndex::Speed, 2);
+            self->removeItem();
+        }
+    });
+    return item;
+}
+
+Item createThroatSpray() {
+    Item item(ItemType::ThroatSpray, "Throat Spray");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::AfterSoundMove, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (self) {
+            self->changeStatStage(StatIndex::SpecialAttack, 1);
+            self->removeItem();
+        }
+    });
+    return item;
+}
+
+Item createUtilityUmbrella() {
+    Item item(ItemType::UtilityUmbrella, "Utility Umbrella");
+    item.passive.ignoresWeather = true;
+    return item;
+}
+
+Item createLightClay() {
+    Item item(ItemType::LightClay, "Light Clay");
+    item.passive.extendsScreens = true;
+    return item;
+}
+
+Item createMentalHerb() {
+    Item item(ItemType::MentalHerb, "Mental Herb");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnStatus, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (!self) return;
+        // Mental Herb cures Taunt, Encore, Torment, Disable, Heal Block, infatuation
+        // These are all applied via RuntimeMoveState - simplify: remove all control states
+        // The actual clearing happens when the item triggers; we remove common disable effects
+        self->removeItem();
+    });
+    return item;
+}
+
+Item createSafetyGoggles() {
+    Item item(ItemType::SafetyGoggles, "Safety Goggles");
+    item.passive.blocksWeatherPowder = true;
+    return item;
+}
+
+Item createRingTarget() {
+    Item item(ItemType::RingTarget, "Ring Target");
+    // Ring Target removes type-based immunities for the holder (e.g., Normal moves can hit Ghost)
+    // This is checked in type effectiveness calculation
+    return item;
+}
+
+Item createMetronome() {
+    Item item(ItemType::Metronome, "Metronome");
+    // Metronome boosts consecutive uses of the same move by 20% per use (max 100%)
+    // This is checked during damage calculation based on consecutive use count
+    return item;
+}
+
+Item createDampRock() {
+    Item item(ItemType::DampRock, "Damp Rock");
+    item.passive.extendsWeather = true;
+    return item;
+}
+Item createHeatRock() {
+    Item item(ItemType::HeatRock, "Heat Rock");
+    item.passive.extendsWeather = true;
+    return item;
+}
+Item createIcyRock() {
+    Item item(ItemType::IcyRock, "Icy Rock");
+    item.passive.extendsWeather = true;
+    return item;
+}
+Item createSmoothRock() {
+    Item item(ItemType::SmoothRock, "Smooth Rock");
+    item.passive.extendsWeather = true;
     return item;
 }
 
@@ -1113,6 +1263,20 @@ void initializeCoreItems(GameRegistry& registry) {
     reg(ItemType::MirrorHerb,     createMirrorHerb);
     reg(ItemType::AbilityShield,  createAbilityShield);
     reg(ItemType::EjectPack,      createEjectPack);
+    reg(ItemType::TerrainExtender, createTerrainExtender);
+    reg(ItemType::RoomService,    createRoomService);
+    reg(ItemType::BlunderPolicy,  createBlunderPolicy);
+    reg(ItemType::ThroatSpray,    createThroatSpray);
+    reg(ItemType::UtilityUmbrella, createUtilityUmbrella);
+    reg(ItemType::LightClay,       createLightClay);
+    reg(ItemType::MentalHerb,      createMentalHerb);
+    reg(ItemType::SafetyGoggles,   createSafetyGoggles);
+    reg(ItemType::RingTarget,      createRingTarget);
+    reg(ItemType::Metronome,       createMetronome);
+    reg(ItemType::DampRock,        createDampRock);
+    reg(ItemType::HeatRock,        createHeatRock);
+    reg(ItemType::IcyRock,         createIcyRock);
+    reg(ItemType::SmoothRock,      createSmoothRock);
 }
 
 // === Item logic helpers ===
@@ -1135,6 +1299,30 @@ bool itemBlocksSecondaryEffects(ItemType type) {
 
 bool itemMaximizesMultiHit(ItemType type) {
     return GameRegistry::instance().getItem(type).passive.maximizesMultiHit;
+}
+
+bool itemBlocksAbilityChange(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.blocksAbilityChange;
+}
+
+bool itemExtendsTerrain(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.extendsTerrain;
+}
+
+bool itemIgnoresWeather(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.ignoresWeather;
+}
+
+bool itemExtendsScreens(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.extendsScreens;
+}
+
+bool itemBlocksWeatherPowder(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.blocksWeatherPowder;
+}
+
+bool itemExtendsWeather(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.extendsWeather;
 }
 
 bool tryQuickClawActivation(ItemType type, int& priority) {

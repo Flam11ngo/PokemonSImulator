@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/PokemonSimulator.dir/src/main.cpp.o -o PokemonSimulator  libbattle_core.a /usr/lib/x86_64-linux-gnu/libcurl.so 

@@ -642,8 +642,7 @@ MoveData getMoveDataByName(const std::string& name) {
 }
 
 Move createMoveFromData(const MoveData& data) {
-    return Move(data.name, data.type, data.category, data.power, data.accuracy, data.pp,
-                data.effect, data.effectChance, data.effectParam1, data.effectParam2, data.priority, data.target);
+    return Move(data);
 }
 
 Move createMoveById(int id) {

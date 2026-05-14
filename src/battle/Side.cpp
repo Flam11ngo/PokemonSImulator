@@ -116,4 +116,5 @@ void Side::clearEntryHazards() {
     spikesLayers = 0;
     toxicSpikesLayers = 0;
     stealthRock = false;
+    stickyWeb = false;
 }

@@ -110,6 +110,26 @@ enum class AbilityType {
     WaterBubble,
     Scrappy,
     Contrary,
+    SwiftSwim,
+    Chlorophyll,
+    SandRush,
+    SlushRush,
+    SurgeSurfer,
+    SpeedBoost,
+    Sturdy,
+    Limber,
+    OwnTempo,
+    Oblivious,
+    SereneGrace,
+    IronFist,
+    Reckless,
+    StrongJaw,
+    ToughClaws,
+    BattleArmor,
+    ShellArmor,
+    ShedSkin,
+    MagicBounce,
+    Hustle,
     Count
 };
 
@@ -190,6 +210,11 @@ public:
         bool overridesPoisonTypeImmunity = false;
         bool hasCudChew = false;
         bool hasParadoxBoost = false;
+        bool preventsTaunt = false;
+        bool preventsInfatuation = false;
+        bool sturdyEndure = false;
+        bool blocksCriticalHits = false;
+        bool reflectsStatusMoves = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -268,6 +293,17 @@ bool abilityReversesStatChanges(AbilityType abilityType);
 bool abilityOverridesPoisonTypeImmunity(AbilityType abilityType);
 bool abilityHasCudChew(AbilityType abilityType);
 float abilityParadoxStatMultiplier(AbilityType abilityType, const Pokemon* self, StatIndex stat, WeatherType weatherType, FieldType fieldType);
+float abilityWeatherSpeedMultiplier(AbilityType abilityType, WeatherType weatherType);
+
+// Forward declaration for grounded check
+struct RuntimeMoveState;
+bool isPokemonGrounded(const Pokemon* pokemon, const RuntimeMoveState& runtimeState);
+bool hasMagnetRiseEffect(const Pokemon* pokemon, const RuntimeMoveState& runtimeState);
+bool abilityHasSturdy(AbilityType abilityType);
+bool abilityPreventsTaunt(AbilityType abilityType);
+bool abilityPreventsInfatuation(AbilityType abilityType);
+bool abilityBlocksCriticalHits(AbilityType abilityType);
+bool abilityReflectsStatusMoves(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

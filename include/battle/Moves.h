@@ -1,9 +1,11 @@
 #pragma once
 
 #include "battle/Types.h"
+#include <optional>
 #include <string>
 
 class Battle;
+class Pokemon;
 
 // 技能效果类型枚举
 enum class MoveEffect {
@@ -127,6 +129,25 @@ Move createMoveByName(const std::string& name);
 
 // 预拉取项目中引用到的 move id 并写回 data/moves.json。
 bool prefetchMovesFromPokeAPI(bool refreshExisting = false);
+
+// 半无敌状态下，某招式是否能命中
+enum class SemiInvulnerableState;
+bool canMoveHitThroughSemiInvulnerable(const Move& move, SemiInvulnerableState defenderState);
+
+// --- Move classification helpers ---
+std::string normalizeMoveName(const std::string& moveName);
+bool moveNameEquals(const Move& move, const char* expectedLowerNoPunct);
+bool isTwoTurnSemiInvulnerableMove(const Move& move);
+SemiInvulnerableState stateForTwoTurnMove(const Move& move);
+bool isHealingMove(const Move& move);
+bool isStatusInflictingEffect(MoveEffect effect);
+
+struct MultiHitConfig { int minHits; int maxHits; bool stopOnMiss; };
+std::optional<MultiHitConfig> getMultiHitConfig(const Move& move);
+int rollHitCount(const MultiHitConfig& config);
+
+// 保护系接触反伤
+void applyProtectionContactPunish(Pokemon* attacker, const std::string& protectionVariant);
 
 // Register the core move rules into a game registry.
 class GameRegistry;

@@ -13,6 +13,7 @@ enum class StatIndex {
     SpecialAttack,
     SpecialDefense,
     Speed,
+    
     Count
 };
 
@@ -118,6 +119,8 @@ public:
     void changeEvasionStage(int delta);
     void setStockpileCount(int count) { stockpileCount = count; }
     void setConsumedItemType(ItemType t) { consumedItemType = t; }
+    void setDefense(int val) { defense = val; }
+    void setSpecialDefense(int val) { specialDefense = val; }
     
     // 携带物品函数
     void holdItem(ItemType item) { setItemType(item); }

@@ -42,6 +42,34 @@ bool isSlicingMove(const Move& move) {
         || key == "xscissor";
 }
 
+bool isPunchingMove(const Move& move) {
+    const std::string key = normalizeToken(move.getName());
+    return key == "bulletpunch" || key == "cometpunch" || key == "dizzypunch"
+        || key == "doubleironbash" || key == "drainpunch" || key == "dynamicpunch"
+        || key == "firepunch" || key == "focuspunch" || key == "hammerarm"
+        || key == "icehammer" || key == "icepunch" || key == "machpunch"
+        || key == "megapunch" || key == "meteormash" || key == "plasmafists"
+        || key == "poweruppunch" || key == "shadowpunch" || key == "skyuppercut"
+        || key == "thunderpunch" || key == "surgingstrikes";
+}
+
+bool isBitingMove(const Move& move) {
+    const std::string key = normalizeToken(move.getName());
+    return key == "bite" || key == "crunch" || key == "firefang"
+        || key == "icefang" || key == "thunderfang" || key == "psychicfangs"
+        || key == "fishiousrend" || key == "hyperfang" || key == "poisonfang"
+        || key == "jawlock";
+}
+
+bool hasRecoilMove(const Move& move) {
+    const std::string key = normalizeToken(move.getName());
+    return key == "bravebird" || key == "doubleedge" || key == "flareblitz"
+        || key == "headcharge" || key == "headsmash" || key == "hijumpkick"
+        || key == "steelbeam" || key == "submission" || key == "takedown"
+        || key == "volttackle" || key == "wildcharge" || key == "woodhammer"
+        || key == "chloroblast" || key == "wavecrash" || key == "jumpkick";
+}
+
     bool isWindMove(const Move& move) {
         const std::string key = normalizeToken(move.getName());
         return key == "gust"
@@ -186,6 +214,26 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::WaterBubble: return "Water Bubble";
         case AbilityType::Scrappy: return "Scrappy";
         case AbilityType::Contrary: return "Contrary";
+        case AbilityType::SwiftSwim: return "Swift Swim";
+        case AbilityType::Chlorophyll: return "Chlorophyll";
+        case AbilityType::SandRush: return "Sand Rush";
+        case AbilityType::SlushRush: return "Slush Rush";
+        case AbilityType::SurgeSurfer: return "Surge Surfer";
+        case AbilityType::SpeedBoost: return "Speed Boost";
+        case AbilityType::Sturdy: return "Sturdy";
+        case AbilityType::Limber: return "Limber";
+        case AbilityType::OwnTempo: return "Own Tempo";
+        case AbilityType::Oblivious: return "Oblivious";
+        case AbilityType::SereneGrace: return "Serene Grace";
+        case AbilityType::IronFist: return "Iron Fist";
+        case AbilityType::Reckless: return "Reckless";
+        case AbilityType::StrongJaw: return "Strong Jaw";
+        case AbilityType::ToughClaws: return "Tough Claws";
+        case AbilityType::BattleArmor: return "Battle Armor";
+        case AbilityType::ShellArmor: return "Shell Armor";
+        case AbilityType::ShedSkin: return "Shed Skin";
+        case AbilityType::MagicBounce: return "Magic Bounce";
+        case AbilityType::Hustle: return "Hustle";
         default: return "None";
     }
 }
@@ -284,7 +332,28 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "bulletproof") return AbilityType::Bulletproof;
     if (key == "waterbubble") return AbilityType::WaterBubble;
     if (key == "scrappy") return AbilityType::Scrappy;
-    if (key == "contrary") return AbilityType::Contrary;
+        if (key == "contrary") return AbilityType::Contrary;
+    if (key == "swiftswim") return AbilityType::SwiftSwim;
+    if (key == "swiftswim") return AbilityType::SwiftSwim;
+    if (key == "chlorophyll") return AbilityType::Chlorophyll;
+    if (key == "sandrush") return AbilityType::SandRush;
+    if (key == "slushrush") return AbilityType::SlushRush;
+    if (key == "surgesurfer") return AbilityType::SurgeSurfer;
+    if (key == "speedboost") return AbilityType::SpeedBoost;
+    if (key == "sturdy") return AbilityType::Sturdy;
+    if (key == "limber") return AbilityType::Limber;
+    if (key == "owntempo") return AbilityType::OwnTempo;
+    if (key == "oblivious") return AbilityType::Oblivious;
+    if (key == "serenegrace") return AbilityType::SereneGrace;
+    if (key == "ironfist") return AbilityType::IronFist;
+    if (key == "reckless") return AbilityType::Reckless;
+    if (key == "strongjaw") return AbilityType::StrongJaw;
+    if (key == "toughclaws") return AbilityType::ToughClaws;
+    if (key == "battlearmor") return AbilityType::BattleArmor;
+    if (key == "shellarmor") return AbilityType::ShellArmor;
+    if (key == "shedskin") return AbilityType::ShedSkin;
+    if (key == "magicbounce") return AbilityType::MagicBounce;
+    if (key == "hustle") return AbilityType::Hustle;
     return AbilityType::None;
 }
 
@@ -419,6 +488,47 @@ bool abilityGrantsGroundHazardImmunity(AbilityType abilityType) {
     return resolveTypeImmunity(abilityType, Type::Ground, healInstead, healPercent);
 }
 
+bool isPokemonGrounded(const Pokemon* pokemon, const RuntimeMoveState& runtimeState) {
+    if (!pokemon) return false;
+
+    const bool isFlyingType = pokemon->getType1() == Type::Flying || pokemon->getType2() == Type::Flying;
+    if (isFlyingType) return false;
+
+    if (abilityGrantsGroundHazardImmunity(pokemon->getAbility())) return false;
+
+    // Magnet Rise provides temporary grounding immunity
+    const auto magnetIt = runtimeState.magnetRiseTurns.find(const_cast<Pokemon*>(pokemon));
+    if (magnetIt != runtimeState.magnetRiseTurns.end() && magnetIt->second > 0) return false;
+
+    return true;
+}
+
+bool hasMagnetRiseEffect(const Pokemon* pokemon, const RuntimeMoveState& runtimeState) {
+    if (!pokemon) return false;
+    const auto magnetIt = runtimeState.magnetRiseTurns.find(const_cast<Pokemon*>(pokemon));
+    return magnetIt != runtimeState.magnetRiseTurns.end() && magnetIt->second > 0;
+}
+
+bool abilityHasSturdy(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.sturdyEndure;
+}
+
+bool abilityPreventsTaunt(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.preventsTaunt;
+}
+
+bool abilityPreventsInfatuation(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.preventsInfatuation;
+}
+
+bool abilityBlocksCriticalHits(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.blocksCriticalHits;
+}
+
+bool abilityReflectsStatusMoves(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.reflectsStatusMoves;
+}
+
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
     if (abilityType == AbilityType::WaterAbsorb) return "water_absorb";
     if (abilityType == AbilityType::VoltAbsorb) return "volt_absorb";
@@ -494,6 +604,21 @@ int applyAbilityPowerModifier(AbilityType abilityType, const Move& move, int bas
 
     if (abilityType == AbilityType::SheerForce && sheerForceBoostedMove) {
         modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.3f));
+    }
+    if (abilityType == AbilityType::IronFist && move.getCategory() != Category::Status && isPunchingMove(move)) {
+        modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.2f));
+    }
+    if (abilityType == AbilityType::StrongJaw && move.getCategory() != Category::Status && isBitingMove(move)) {
+        modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.5f));
+    }
+    if (abilityType == AbilityType::ToughClaws && move.getCategory() != Category::Status) {
+        modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.3f));
+    }
+    if (abilityType == AbilityType::Reckless && move.getCategory() != Category::Status && hasRecoilMove(move)) {
+        modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.2f));
+    }
+    if (abilityType == AbilityType::Hustle && move.getCategory() == Category::Physical) {
+        modifiedPower = static_cast<int>(std::lround(modifiedPower * 1.5f));
     }
 
     return modifiedPower;
@@ -621,6 +746,24 @@ float abilityParadoxStatMultiplier(AbilityType abilityType, const Pokemon* self,
     }
 
     return strongest == StatIndex::Speed ? 1.5f : 1.3f;
+}
+
+float abilityWeatherSpeedMultiplier(AbilityType abilityType, WeatherType weatherType) {
+    switch (abilityType) {
+        case AbilityType::SwiftSwim:
+            return (weatherType == WeatherType::Rain) ? 2.0f : 1.0f;
+        case AbilityType::Chlorophyll:
+            return (weatherType == WeatherType::Sun) ? 2.0f : 1.0f;
+        case AbilityType::SandRush:
+            return (weatherType == WeatherType::Sandstorm) ? 2.0f : 1.0f;
+        case AbilityType::SlushRush:
+            return (weatherType == WeatherType::Hail || weatherType == WeatherType::Snow) ? 2.0f : 1.0f;
+        case AbilityType::SurgeSurfer:
+            // Electric Terrain is a field effect, not weather - speed is doubled independently
+            return 2.0f;
+        default:
+            return 1.0f;
+    }
 }
 
 void initializeCoreAbilities(GameRegistry& registry) {
@@ -957,8 +1100,58 @@ void initializeCoreAbilities(GameRegistry& registry) {
     regPassive(AbilityType::Corrosion, [](auto& p) { p.overridesPoisonTypeImmunity = true; });
     regPassive(AbilityType::Scrappy, [](auto& p) { p.overridesGhostImmunity = true; });
     regPassive(AbilityType::Contrary, [](auto& p) { p.reversesStatChanges = true; });
+    regPassive(AbilityType::SwiftSwim, [](auto& p) {});
+    regPassive(AbilityType::Chlorophyll, [](auto& p) {});
+    regPassive(AbilityType::SandRush, [](auto& p) {});
+    regPassive(AbilityType::SlushRush, [](auto& p) {});
+    regPassive(AbilityType::SurgeSurfer, [](auto& p) {});
+    regPassive(AbilityType::Sturdy, [](auto& p) { p.sturdyEndure = true; });
+    regPassive(AbilityType::Oblivious, [](auto& p) { p.preventsTaunt = true; p.preventsInfatuation = true; });
+    regPassive(AbilityType::SereneGrace, [](auto& p) {});
+    regPassive(AbilityType::IronFist, [](auto& p) {});
+    regPassive(AbilityType::Reckless, [](auto& p) {});
+    regPassive(AbilityType::StrongJaw, [](auto& p) {});
+    regPassive(AbilityType::ToughClaws, [](auto& p) {});
+    regPassive(AbilityType::BattleArmor, [](auto& p) { p.blocksCriticalHits = true; });
+    regPassive(AbilityType::ShellArmor, [](auto& p) { p.blocksCriticalHits = true; });
+    regPassive(AbilityType::MagicBounce, [](auto& p) { p.reflectsStatusMoves = true; });
 
-    // Abilities that need runtime context (damage multipliers keyed on move/HP/state).
+    // Shed Skin: 30% chance to cure status at end of turn
+    registry.registerAbilityBuilder(AbilityType::ShedSkin,
+        [](Ability& a, AddTypeImmunity, AddStatusImmunity) {
+            a.effects[Trigger::OnTurnEnd] = [](Pokemon* self, Pokemon*, void*) {
+                if (self && PRNG::nextInt(0, 100) < 30) {
+                    self->removeStatus(StatusType::Burn);
+                    self->removeStatus(StatusType::Freeze);
+                    self->removeStatus(StatusType::Paralysis);
+                    self->removeStatus(StatusType::Poison);
+                    self->removeStatus(StatusType::ToxicPoison);
+                    self->removeStatus(StatusType::Sleep);
+                }
+            };
+        });
+
+    // Speed Boost: +1 Speed at end of each turn
+    registry.registerAbilityBuilder(AbilityType::SpeedBoost,
+        [](Ability& a, AddTypeImmunity, AddStatusImmunity) {
+            a.effects[Trigger::OnTurnEnd] = [](Pokemon* self, Pokemon*, void*) {
+                if (self) self->changeStatStage(StatIndex::Speed, 1);
+            };
+        });
+
+    // Limber: immune to paralysis
+    registry.registerAbilityBuilder(AbilityType::Limber,
+        [](Ability&, AddTypeImmunity, AddStatusImmunity addS) {
+            addS(StatusType::Paralysis);
+        });
+
+    // Own Tempo: immune to confusion
+    registry.registerAbilityBuilder(AbilityType::OwnTempo,
+        [](Ability&, AddTypeImmunity, AddStatusImmunity addS) {
+            addS(StatusType::Confusion);
+        });
+
+    // Abilities that need runtime context (damage multipliers keyed on move/HP/state). (damage multipliers keyed on move/HP/state).
     // These abilities are self-describing via damageModifier + passive flags;
     // the remaining runtime checks live in Battle's calculateDamage helpers.
     regPassive(AbilityType::Sharpness, [](auto& p) {});

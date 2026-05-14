@@ -80,124 +80,7 @@ void recordSpecialEvent(const Battle& battle, const std::string& eventType, cons
     const_cast<Battle&>(battle).appendSpecialEvent(eventType, details);
 }
 
-std::string normalizeMoveName(const std::string& moveName) {
-    std::string normalized;
-    normalized.reserve(moveName.size());
-    for (char ch : moveName) {
-        if (ch == ' ' || ch == '-' || ch == '\'' || ch == '_') {
-            continue;
-        }
-        normalized.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(ch))));
-    }
-    return normalized;
-}
-
-bool moveNameEquals(const Move& move, const char* expectedLowerNoPunct) {
-    return normalizeMoveName(move.getName()) == expectedLowerNoPunct;
-}
-
-bool isTwoTurnSemiInvulnerableMove(const Move& move) {
-    return moveNameEquals(move, "dig") || moveNameEquals(move, "fly") || moveNameEquals(move, "bounce")
-        || moveNameEquals(move, "dive") || moveNameEquals(move, "phantomforce")
-        || moveNameEquals(move, "shadowforce");
-}
-
-bool isHealingMove(const Move& move) {
-    const std::string normalized = normalizeMoveName(move.getName());
-    static const std::array<const char*, 16> kHealingMoves = {
-        "recover", "softboiled", "milkdrink", "slackoff", "shoreup", "healpulse", "morningsun", "synthesis",
-        "moonlight", "rest", "wish", "lifedew", "lunarblessing", "roost", "healingwish", "lunardance"
-    };
-
-    for (const char* healingMove : kHealingMoves) {
-        if (normalized == healingMove) {
-            return true;
-        }
-    }
-    return false;
-}
-
-SemiInvulnerableState stateForTwoTurnMove(const Move& move) {
-    if (moveNameEquals(move, "dig")) {
-        return SemiInvulnerableState::Underground;
-    }
-    if (moveNameEquals(move, "fly") || moveNameEquals(move, "bounce")) {
-        return SemiInvulnerableState::Airborne;
-    }
-    if (moveNameEquals(move, "dive")) {
-        return SemiInvulnerableState::Underwater;
-    }
-    if (moveNameEquals(move, "phantomforce") || moveNameEquals(move, "shadowforce")) {
-        return SemiInvulnerableState::Phased;
-    }
-    return SemiInvulnerableState::None;
-}
-
-struct MultiHitConfig {
-    int minHits;
-    int maxHits;
-    bool stopOnMiss;
-};
-
-std::optional<MultiHitConfig> getMultiHitConfig(const Move& move) {
-    if (moveNameEquals(move, "populationbomb")) {
-        return MultiHitConfig{10, 10, true};
-    }
-
-    if (moveNameEquals(move, "doublehit") || moveNameEquals(move, "twineedle") || moveNameEquals(move, "bonemerang")
-        || moveNameEquals(move, "dualchop") || moveNameEquals(move, "dualwingbeat")
-        || moveNameEquals(move, "doubleironbash") || moveNameEquals(move, "geargrind")) {
-        return MultiHitConfig{2, 2, false};
-    }
-
-    if (moveNameEquals(move, "tripledive") || moveNameEquals(move, "triplekick") || moveNameEquals(move, "tripleaxel")
-        || moveNameEquals(move, "surgingstrikes")) {
-        return MultiHitConfig{3, 3, false};
-    }
-
-    if (moveNameEquals(move, "doubleslap") || moveNameEquals(move, "cometpunch") || moveNameEquals(move, "furyattack")
-        || moveNameEquals(move, "pinmissile") || moveNameEquals(move, "iciclespear") || moveNameEquals(move, "rockblast")
-        || moveNameEquals(move, "armthrust") || moveNameEquals(move, "tailslap") || moveNameEquals(move, "bulletseed")
-        || moveNameEquals(move, "bonerush") || moveNameEquals(move, "watershuriken") || moveNameEquals(move, "barrage")
-        || moveNameEquals(move, "furyswipes") || moveNameEquals(move, "spikecannon")
-        || moveNameEquals(move, "scaleshot")) {
-        return MultiHitConfig{2, 5, false};
-    }
-
-    return std::nullopt;
-}
-
-int rollHitCount(const MultiHitConfig& config) {
-    if (config.minHits >= config.maxHits) {
-        return config.minHits;
-    }
-
-    if (config.minHits == 2 && config.maxHits == 5) {
-        const int roll = static_cast<int>(PRNG::nextFloat(0.0f, 100.0f));
-        if (roll < 35) return 2;
-        if (roll < 70) return 3;
-        if (roll < 85) return 4;
-        return 5;
-    }
-
-    const int span = config.maxHits - config.minHits + 1;
-    const int roll = static_cast<int>(PRNG::nextFloat(0.0f, static_cast<float>(span)));
-    return config.minHits + std::min(span - 1, std::max(0, roll));
-}
-
-bool isStatusInflictingEffect(MoveEffect effect) {
-    switch (effect) {
-        case MoveEffect::Paralyze:
-        case MoveEffect::Sleep:
-        case MoveEffect::Freeze:
-        case MoveEffect::Burn:
-        case MoveEffect::Poison:
-        case MoveEffect::Confuse:
-            return true;
-        default:
-            return false;
-    }
-}
+// Move classification helpers now live in Moves.h / Moves.cpp
 
 bool isBerryItem(ItemType itemType) {
     const int value = static_cast<int>(itemType);
@@ -587,6 +470,8 @@ void Battle::clearPokemonRuntimeState(Pokemon* pokemon) {
     runtimeMoveState.lockOnState.erase(pokemon);
     runtimeMoveState.chargingMoveName.erase(pokemon);
     runtimeMoveState.semiInvulnerableState.erase(pokemon);
+    runtimeMoveState.aquaRingActive.erase(pokemon);
+    runtimeMoveState.magnetRiseTurns.erase(pokemon);
     runtimeMoveState.criticalHitStage.erase(pokemon);
     runtimeMoveState.typeShiftUsed.erase(pokemon);
     runtimeMoveState.foresightMarked.erase(pokemon);
@@ -789,6 +674,38 @@ void Battle::tickIngrainForActor(Pokemon* actor) {
 
     const int healAmount = std::max(1, actor->getMaxHP() / 16);
     actor->setCurrentHP(actor->getCurrentHP() + healAmount);
+}
+
+void Battle::tickAquaRingForActor(Pokemon* actor) {
+    const auto it = runtimeMoveState.aquaRingActive.find(actor);
+    if (it == runtimeMoveState.aquaRingActive.end()) {
+        return;
+    }
+
+    if (!actor || actor->isFainted()) {
+        runtimeMoveState.aquaRingActive.erase(it);
+        return;
+    }
+
+    const int healAmount = std::max(1, actor->getMaxHP() / 16);
+    actor->setCurrentHP(actor->getCurrentHP() + healAmount);
+}
+
+void Battle::tickMagnetRiseForActor(Pokemon* actor) {
+    auto it = runtimeMoveState.magnetRiseTurns.find(actor);
+    if (it == runtimeMoveState.magnetRiseTurns.end()) {
+        return;
+    }
+
+    if (!actor || actor->isFainted()) {
+        runtimeMoveState.magnetRiseTurns.erase(it);
+        return;
+    }
+
+    it->second -= 1;
+    if (it->second <= 0) {
+        runtimeMoveState.magnetRiseTurns.erase(it);
+    }
 }
 
 void Battle::tickPerishSongForActor(Pokemon* actor) {
@@ -1183,6 +1100,8 @@ void Battle::endTurn() {
         tickIngrainForActor(actor);
         tickPerishSongForActor(actor);
         tickGhostCurseForActor(actor);
+        tickAquaRingForActor(actor);
+        tickMagnetRiseForActor(actor);
     }
 
     applyWeatherEffects();
@@ -1191,6 +1110,7 @@ void Battle::endTurn() {
     weather.tick();
     tickGravity();
 
+    runtimeMoveState.afterYouTarget = nullptr;
     resetActiveProtection();
 }
 
@@ -1237,6 +1157,18 @@ void Battle::recordExecutedMove(Pokemon* actor, const Move& selectedMove) {
         runtimeMoveState.roundUsedThisTurn = true;
     }
     tickEncoreForActor(actor);
+}
+
+void Battle::recordBlockedMoveResult(Pokemon* actor, Pokemon* target, const Move& move, const std::string& blockReason) {
+    recordExecutedMove(actor, move);
+
+    json attackResultJson = BattleToJson::battleToJson(*this);
+    attackResultJson["event"] = "attack_result";
+    attackResultJson["actor"] = actor->getName();
+    attackResultJson["target"] = target->getName();
+    attackResultJson["move"] = move.getName();
+    attackResultJson["blocked"] = blockReason;
+    BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + actor->getName() + "_" + move.getName() + ".json");
 }
 
 void Battle::handlePursuitOnSwitch(Pokemon* switchingPokemon, Side* switchingSide) {
@@ -1332,6 +1264,13 @@ void Battle::enqueueAction(const BattleAction& action) {
         Side* actorSide = findSideForPokemon(*this, adjusted.actor);
         if (actorSide && actorSide->hasTailwind()) {
             adjusted.priority *= 2;
+        }
+    }
+    // Weather-speed abilities: Swift Swim, Chlorophyll, Sand Rush, Slush Rush, Surge Surfer
+    if (adjusted.actor) {
+        const float weatherSpeedMult = abilityWeatherSpeedMultiplier(adjusted.actor->getAbility(), weather.type);
+        if (weatherSpeedMult > 1.0f) {
+            adjusted.priority = static_cast<int>(adjusted.priority * weatherSpeedMult);
         }
     }
     queue.push(adjusted, field.isTrickRoom());
@@ -1475,15 +1414,7 @@ void Battle::resolveNextAction() {
             }
 
             if (isMoveBlockedByImprison(action.actor, selectedMove)) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "imprison";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "imprison");
                 break;
             }
 
@@ -1497,67 +1428,34 @@ void Battle::resolveNextAction() {
             if (isOpponentTargetingStatusMove
                 && !abilityIgnoresTargetAbility(action.actor->getAbility())
                 && abilityBlocksStatusMovesFromOpponents(action.target->getAbility())) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "good_as_gold";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "good_as_gold");
+                break;
+            }
+            // Magic Bounce: reflect status moves back
+            if (isOpponentTargetingStatusMove
+                && !abilityIgnoresTargetAbility(action.actor->getAbility())
+                && abilityReflectsStatusMoves(action.target->getAbility())) {
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "magic_bounce");
                 break;
             }
 
             if (isMoveBlockedByHealBlock(action.actor, selectedMove)) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "heal_block";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "heal_block");
                 break;
             }
 
             if (isMoveBlockedByQuickGuard(action.actor, action.target, selectedMove)) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "quick_guard";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "quick_guard");
                 break;
             }
 
             if (isMoveBlockedByArmorTail(action.actor, action.target, selectedMove)) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "armor_tail";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "armor_tail");
                 break;
             }
 
             if (isMoveBlockedByWideGuard(action.actor, action.target, selectedMove)) {
-                recordExecutedMove(action.actor, selectedMove);
-
-                json attackResultJson = BattleToJson::battleToJson(*this);
-                attackResultJson["event"] = "attack_result";
-                attackResultJson["actor"] = action.actor->getName();
-                attackResultJson["target"] = action.target->getName();
-                attackResultJson["move"] = action.move.getName();
-                attackResultJson["blocked"] = "wide_guard";
-                BattleToJson::writeToCache(attackResultJson, "battle_attack_result_" + std::to_string(turnNumber) + "_" + action.actor->getName() + "_" + action.move.getName() + ".json");
+                recordBlockedMoveResult(action.actor, action.target, selectedMove, "wide_guard");
                 break;
             }
 
@@ -1665,6 +1563,12 @@ void Battle::resolveNextAction() {
                     if (endureActive && damage >= action.target->getCurrentHP() && action.target->getCurrentHP() > 1) {
                         damage = action.target->getCurrentHP() - 1;
                     }
+                    // Sturdy: survive at 1 HP when at full HP
+                    if (abilityHasSturdy(action.target->getAbility())
+                        && action.target->getCurrentHP() == action.target->getMaxHP()
+                        && damage >= action.target->getCurrentHP()) {
+                        damage = action.target->getCurrentHP() - 1;
+                    }
 
                     action.target->setCurrentHP(action.target->getCurrentHP() - damage);
 
@@ -1747,6 +1651,12 @@ void Battle::resolveNextAction() {
             const auto endureIt = runtimeMoveState.endureActive.find(action.target);
             const bool endureActive = endureIt != runtimeMoveState.endureActive.end() && endureIt->second;
             if (endureActive && damage >= action.target->getCurrentHP() && action.target->getCurrentHP() > 1) {
+                damage = action.target->getCurrentHP() - 1;
+            }
+            // Sturdy: survive at 1 HP when at full HP
+            if (abilityHasSturdy(action.target->getAbility())
+                && action.target->getCurrentHP() == action.target->getMaxHP()
+                && damage >= action.target->getCurrentHP()) {
                 damage = action.target->getCurrentHP() - 1;
             }
             
@@ -1931,15 +1841,7 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
         if (move.getCategory() == Category::Physical) {
             const auto variantIt = runtimeMoveState.protectionVariant.find(defender);
             const std::string variant = (variantIt != runtimeMoveState.protectionVariant.end()) ? variantIt->second : std::string();
-            if (variant == "spikyshield") {
-                attacker->setCurrentHP(attacker->getCurrentHP() - std::max(1, attacker->getMaxHP() / 8));
-            } else if (variant == "kingsshield" || variant == "obstruct") {
-                attacker->changeStatStage(StatIndex::Attack, -2);
-            } else if (variant == "banefulbunker") {
-                attacker->addStatus(StatusType::Poison);
-            } else if (variant == "burningbulwark") {
-                attacker->addStatus(StatusType::Burn);
-            }
+            applyProtectionContactPunish(attacker, variant);
         }
         return 0;
     }
@@ -1963,29 +1865,14 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
 
     const SemiInvulnerableState defenderState = getSemiInvulnerableState(defender);
     if (defenderState != SemiInvulnerableState::None) {
-        bool canHitSemiInvulnerableTarget = false;
-        switch (defenderState) {
-            case SemiInvulnerableState::Underground:
-                canHitSemiInvulnerableTarget = moveNameEquals(move, "earthquake") || moveNameEquals(move, "magnitude");
-                break;
-            case SemiInvulnerableState::Airborne:
-                canHitSemiInvulnerableTarget = moveNameEquals(move, "gust") || moveNameEquals(move, "twister")
-                    || moveNameEquals(move, "thunder") || moveNameEquals(move, "hurricane");
-                break;
-            case SemiInvulnerableState::Underwater:
-                canHitSemiInvulnerableTarget = moveNameEquals(move, "surf") || moveNameEquals(move, "whirlpool");
-                break;
-            case SemiInvulnerableState::Phased:
-                canHitSemiInvulnerableTarget = false;
-                break;
-            case SemiInvulnerableState::None:
-                canHitSemiInvulnerableTarget = true;
-                break;
-        }
-
-        if (!canHitSemiInvulnerableTarget) {
+        if (!canMoveHitThroughSemiInvulnerable(move, defenderState)) {
             return 0;
         }
+    }
+
+    // Magnet Rise / Ground immunity: delegated to helper
+    if (move.getType() == Type::Ground && hasMagnetRiseEffect(defender, runtimeMoveState)) {
+        return 0;
     }
 
     bool healInstead = false;
@@ -2139,7 +2026,8 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
     const auto critStageIt = runtimeMoveState.criticalHitStage.find(attacker);
     const int focusCritStage = (critStageIt != runtimeMoveState.criticalHitStage.end()) ? critStageIt->second : 0;
     const int totalCritStage = std::min(4, focusCritStage + (isHighCriticalMove(move) ? 1 : 0));
-    if (PRNG::nextFloat() < criticalHitChanceForStage(totalCritStage)) {
+    if (!abilityBlocksCriticalHits(defender->getAbility())
+        && PRNG::nextFloat() < criticalHitChanceForStage(totalCritStage)) {
         damage *= 1.5f;
     }
 
@@ -2269,8 +2157,11 @@ void Battle::applyEntryHazardsOnSwitchIn(Side* enteringSide, Pokemon* enteringPo
         enteringPokemon->setCurrentHP(enteringPokemon->getCurrentHP() - stealthRockDamage);
     }
 
-    const bool isFlyingType = enteringPokemon->getType1() == Type::Flying || enteringPokemon->getType2() == Type::Flying;
-    const bool grounded = !isFlyingType && !abilityGrantsGroundHazardImmunity(enteringPokemon->getAbility());
+    const bool grounded = isPokemonGrounded(enteringPokemon, runtimeMoveState);
+
+    if (grounded && enteringSide->hasStickyWeb()) {
+        enteringPokemon->changeStatStage(StatIndex::Speed, -1);
+    }
 
     if (grounded && enteringSide->getSpikesLayers() > 0) {
         float spikesFactor = 0.125f;
@@ -2512,6 +2403,10 @@ void Battle::applyWeatherEffects() {
     for (Side* side : {&sideA, &sideB}) {
         Pokemon* active = side->getActivePokemon();
         if (!active || active->isFainted()) {
+            continue;
+        }
+        // Utility Umbrella / Safety Goggles: holder ignores weather effects
+        if (itemIgnoresWeather(active->getItemType()) || itemBlocksWeatherPowder(active->getItemType())) {
             continue;
         }
 

@@ -1,0 +1,88 @@
+{
+  "pokemon": [
+    {
+      "ability": 65,
+      "evs": {
+        "attack": 0,
+        "defense": 0,
+        "hp": 0,
+        "specialAttack": 252,
+        "specialDefense": 0,
+        "speed": 252
+      },
+      "ivs": {
+        "attack": 31,
+        "defense": 31,
+        "hp": 31,
+        "specialAttack": 31,
+        "specialDefense": 31,
+        "speed": 31
+      },
+      "level": 50,
+      "moves": [
+        22,
+        33,
+        73,
+        77
+      ],
+      "nature": 0,
+      "speciesID": 1
+    },
+    {
+      "ability": 65,
+      "evs": {
+        "attack": 0,
+        "defense": 0,
+        "hp": 0,
+        "specialAttack": 252,
+        "specialDefense": 0,
+        "speed": 252
+      },
+      "ivs": {
+        "attack": 31,
+        "defense": 31,
+        "hp": 31,
+        "specialAttack": 31,
+        "specialDefense": 31,
+        "speed": 31
+      },
+      "level": 50,
+      "moves": [
+        75,
+        76,
+        79,
+        74
+      ],
+      "nature": 0,
+      "speciesID": 2
+    },
+    {
+      "ability": 65,
+      "evs": {
+        "attack": 0,
+        "defense": 0,
+        "hp": 0,
+        "specialAttack": 252,
+        "specialDefense": 0,
+        "speed": 252
+      },
+      "ivs": {
+        "attack": 31,
+        "defense": 31,
+        "hp": 31,
+        "specialAttack": 31,
+        "specialDefense": 31,
+        "speed": 31
+      },
+      "level": 50,
+      "moves": [
+        76,
+        75,
+        34,
+        73
+      ],
+      "nature": 0,
+      "speciesID": 3
+    }
+  ]
+}

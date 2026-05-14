@@ -35,6 +35,8 @@ enum class ItemTrigger {
     OnStatChange,   // 能力变化时
     OnStatus,       // 获得状态时
     OnEat,          // 食用时（树果）
+    AfterMoveMiss,  // 招式未命中后
+    AfterSoundMove, // 声音招式后
     Count
 };
 
@@ -168,6 +170,20 @@ enum class ItemType {
     MirrorHerb,
     AbilityShield,
     EjectPack,
+    TerrainExtender,
+    RoomService,
+    BlunderPolicy,
+    ThroatSpray,
+    UtilityUmbrella,
+    LightClay,
+    MentalHerb,
+    SafetyGoggles,
+    RingTarget,
+    Metronome,
+    DampRock,
+    HeatRock,
+    IcyRock,
+    SmoothRock,
 
     Count
 };
@@ -264,6 +280,12 @@ public:
         bool blocksSecondaryEffects = false;   // CovertCloak
         bool maximizesMultiHit = false;        // LoadedDice
         bool hasQuickClaw = false;             // QuickClaw
+        bool extendsTerrain = false;           // TerrainExtender
+        bool ignoresWeather = false;           // UtilityUmbrella
+        bool blocksAbilityChange = false;      // AbilityShield
+        bool extendsScreens = false;           // LightClay
+        bool blocksWeatherPowder = false;      // SafetyGoggles
+        bool extendsWeather = false;           // Weather Rocks
     } passive;
     
     // 6. 一次性使用标记
@@ -472,6 +494,20 @@ Item createLoadedDice();
 Item createMirrorHerb();
 Item createAbilityShield();
 Item createEjectPack();
+Item createTerrainExtender();
+Item createRoomService();
+Item createBlunderPolicy();
+Item createThroatSpray();
+Item createUtilityUmbrella();
+Item createLightClay();
+Item createMentalHerb();
+Item createSafetyGoggles();
+Item createRingTarget();
+Item createMetronome();
+Item createDampRock();
+Item createHeatRock();
+Item createIcyRock();
+Item createSmoothRock();
 
 // 辅助函数
 std::string getItemName(ItemType type);
@@ -493,6 +529,12 @@ bool itemBlocksSecondaryEffects(ItemType type);
 
 // LoadedDice: multi-hit moves always hit max times
 bool itemMaximizesMultiHit(ItemType type);
+bool itemBlocksAbilityChange(ItemType type);
+bool itemExtendsTerrain(ItemType type);
+bool itemIgnoresWeather(ItemType type);
+bool itemExtendsScreens(ItemType type);
+bool itemBlocksWeatherPowder(ItemType type);
+bool itemExtendsWeather(ItemType type);
 
 // Quick Claw: 20% chance to move first; modifies priority in-place, returns true if activated
 bool tryQuickClawActivation(ItemType type, int& priority);

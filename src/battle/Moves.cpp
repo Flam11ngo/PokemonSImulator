@@ -10,7 +10,6 @@
 #include <cctype>
 #include <utility>
 
-namespace {
 std::string normalizeMoveName(const std::string& moveName) {
     std::string normalized;
     normalized.reserve(moveName.size());
@@ -26,6 +25,8 @@ std::string normalizeMoveName(const std::string& moveName) {
 bool moveNameEquals(const Move& move, const char* expectedLowerNoPunct) {
     return normalizeMoveName(move.getName()) == expectedLowerNoPunct;
 }
+
+namespace {
 
 bool isSelfStatDropMove(const Move& move) {
     return moveNameEquals(move, "closecombat") || moveNameEquals(move, "superpower")
@@ -203,6 +204,118 @@ Move& Move::operator=(const Move& other) {
 
 Move::~Move() {}
 
+// --- Move classification helpers ---
+
+bool isTwoTurnSemiInvulnerableMove(const Move& move) {
+    return moveNameEquals(move, "dig") || moveNameEquals(move, "fly") || moveNameEquals(move, "bounce")
+        || moveNameEquals(move, "dive") || moveNameEquals(move, "phantomforce")
+        || moveNameEquals(move, "shadowforce");
+}
+
+bool isHealingMove(const Move& move) {
+    const std::string normalized = normalizeMoveName(move.getName());
+    static const std::array<const char*, 16> kHealingMoves = {
+        "recover", "softboiled", "milkdrink", "slackoff", "shoreup", "healpulse", "morningsun", "synthesis",
+        "moonlight", "rest", "wish", "lifedew", "lunarblessing", "roost", "healingwish", "lunardance"
+    };
+    for (const char* healingMove : kHealingMoves) {
+        if (normalized == healingMove) {
+            return true;
+        }
+    }
+    return false;
+}
+
+SemiInvulnerableState stateForTwoTurnMove(const Move& move) {
+    if (moveNameEquals(move, "dig")) return SemiInvulnerableState::Underground;
+    if (moveNameEquals(move, "fly") || moveNameEquals(move, "bounce")) return SemiInvulnerableState::Airborne;
+    if (moveNameEquals(move, "dive")) return SemiInvulnerableState::Underwater;
+    if (moveNameEquals(move, "phantomforce") || moveNameEquals(move, "shadowforce")) return SemiInvulnerableState::Phased;
+    return SemiInvulnerableState::None;
+}
+
+std::optional<MultiHitConfig> getMultiHitConfig(const Move& move) {
+    if (moveNameEquals(move, "populationbomb")) {
+        return MultiHitConfig{10, 10, true};
+    }
+    if (moveNameEquals(move, "doublehit") || moveNameEquals(move, "twineedle") || moveNameEquals(move, "bonemerang")
+        || moveNameEquals(move, "dualchop") || moveNameEquals(move, "dualwingbeat")
+        || moveNameEquals(move, "doubleironbash") || moveNameEquals(move, "geargrind")) {
+        return MultiHitConfig{2, 2, false};
+    }
+    if (moveNameEquals(move, "tripledive") || moveNameEquals(move, "triplekick") || moveNameEquals(move, "tripleaxel")
+        || moveNameEquals(move, "surgingstrikes")) {
+        return MultiHitConfig{3, 3, false};
+    }
+    if (moveNameEquals(move, "doubleslap") || moveNameEquals(move, "cometpunch") || moveNameEquals(move, "furyattack")
+        || moveNameEquals(move, "pinmissile") || moveNameEquals(move, "iciclespear") || moveNameEquals(move, "rockblast")
+        || moveNameEquals(move, "armthrust") || moveNameEquals(move, "tailslap") || moveNameEquals(move, "bulletseed")
+        || moveNameEquals(move, "bonerush") || moveNameEquals(move, "watershuriken") || moveNameEquals(move, "barrage")
+        || moveNameEquals(move, "furyswipes") || moveNameEquals(move, "spikecannon")
+        || moveNameEquals(move, "scaleshot")) {
+        return MultiHitConfig{2, 5, false};
+    }
+    return std::nullopt;
+}
+
+int rollHitCount(const MultiHitConfig& config) {
+    if (config.minHits >= config.maxHits) return config.minHits;
+    if (config.minHits == 2 && config.maxHits == 5) {
+        const int roll = static_cast<int>(PRNG::nextFloat(0.0f, 100.0f));
+        if (roll < 35) return 2;
+        if (roll < 70) return 3;
+        if (roll < 85) return 4;
+        return 5;
+    }
+    const int span = config.maxHits - config.minHits + 1;
+    const int roll = static_cast<int>(PRNG::nextFloat(0.0f, static_cast<float>(span)));
+    return config.minHits + std::min(span - 1, std::max(0, roll));
+}
+
+bool isStatusInflictingEffect(MoveEffect effect) {
+    switch (effect) {
+        case MoveEffect::Paralyze:
+        case MoveEffect::Sleep:
+        case MoveEffect::Freeze:
+        case MoveEffect::Burn:
+        case MoveEffect::Poison:
+        case MoveEffect::Confuse:
+            return true;
+        default:
+            return false;
+    }
+}
+
+void applyProtectionContactPunish(Pokemon* attacker, const std::string& protectionVariant) {
+    if (!attacker) return;
+    if (protectionVariant == "spikyshield") {
+        attacker->setCurrentHP(attacker->getCurrentHP() - std::max(1, attacker->getMaxHP() / 8));
+    } else if (protectionVariant == "kingsshield" || protectionVariant == "obstruct") {
+        attacker->changeStatStage(StatIndex::Attack, -2);
+    } else if (protectionVariant == "banefulbunker") {
+        attacker->addStatus(StatusType::Poison);
+    } else if (protectionVariant == "burningbulwark") {
+        attacker->addStatus(StatusType::Burn);
+    }
+}
+
+bool canMoveHitThroughSemiInvulnerable(const Move& move, SemiInvulnerableState defenderState) {
+    switch (defenderState) {
+        case SemiInvulnerableState::Underground:
+            return moveNameEquals(move, "earthquake") || moveNameEquals(move, "magnitude");
+        case SemiInvulnerableState::Airborne:
+            return moveNameEquals(move, "gust") || moveNameEquals(move, "twister")
+                || moveNameEquals(move, "thunder") || moveNameEquals(move, "hurricane");
+        case SemiInvulnerableState::Underwater:
+            return moveNameEquals(move, "surf") || moveNameEquals(move, "whirlpool");
+        case SemiInvulnerableState::Phased:
+            return false;
+        case SemiInvulnerableState::None:
+            return true;
+    }
+    return false;
+}
+
 void initializeCoreMoveRules(GameRegistry& registry) {
 
     auto registerProtectLikeRule = [&registry](const std::string& name, const std::string& variant = std::string()) {
@@ -340,43 +453,30 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         return true;
     });
 
-    registry.registerMoveRule("raindance", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getWeather().setWeather(WeatherType::Rain, 5);
-        return true;
-    });
-    registry.registerMoveRule("sunnyday", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getWeather().setWeather(WeatherType::Sun, 5);
-        return true;
-    });
-    registry.registerMoveRule("sandstorm", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getWeather().setWeather(WeatherType::Sandstorm, 5);
-        return true;
-    });
-    registry.registerMoveRule("hail", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getWeather().setWeather(WeatherType::Hail, 5);
-        return true;
-    });
-    registry.registerMoveRule("snowscape", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getWeather().setWeather(WeatherType::Hail, 5);
-        return true;
-    });
+    auto registerWeatherRule = [&registry](const std::string& name, WeatherType weather) {
+        registry.registerMoveRule(name, [weather](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+            const int duration = (attacker && itemExtendsWeather(attacker->getItemType())) ? 8 : 5;
+            ctx.getWeather().setWeather(weather, duration);
+            return true;
+        });
+    };
+    registerWeatherRule("raindance", WeatherType::Rain);
+    registerWeatherRule("sunnyday", WeatherType::Sun);
+    registerWeatherRule("sandstorm", WeatherType::Sandstorm);
+    registerWeatherRule("hail", WeatherType::Hail);
+    registerWeatherRule("snowscape", WeatherType::Hail);
 
-    registry.registerMoveRule("psychicterrain", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getField().setField(FieldType::Psychic, 5);
-        return true;
-    });
-    registry.registerMoveRule("electricterrain", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getField().setField(FieldType::Electric, 5);
-        return true;
-    });
-    registry.registerMoveRule("grassyterrain", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getField().setField(FieldType::Grassy, 5);
-        return true;
-    });
-    registry.registerMoveRule("mistyterrain", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
-        ctx.getField().setField(FieldType::Misty, 5);
-        return true;
-    });
+    auto registerTerrainRule = [&registry](const std::string& name, FieldType terrain) {
+        registry.registerMoveRule(name, [terrain](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+            const int duration = (attacker && itemExtendsTerrain(attacker->getItemType())) ? 8 : 5;
+            ctx.getField().setField(terrain, duration);
+            return true;
+        });
+    };
+    registerTerrainRule("psychicterrain", FieldType::Psychic);
+    registerTerrainRule("electricterrain", FieldType::Electric);
+    registerTerrainRule("grassyterrain", FieldType::Grassy);
+    registerTerrainRule("mistyterrain", FieldType::Misty);
 
     registry.registerMoveRule("mist", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
         Side* actorSide = ctx.findSideForPokemon( attacker);
@@ -632,6 +732,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (!attacker || !defender || defender->getSubstituteHP() > 0) {
             return true;
         }
+        if (itemBlocksAbilityChange(attacker->getItemType())) return true;
 
         const AbilityType copied = defender->getAbility();
         if (copied == AbilityType::None) {
@@ -646,6 +747,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (!attacker || !defender || defender->getSubstituteHP() > 0) {
             return true;
         }
+        if (itemBlocksAbilityChange(attacker->getItemType()) || itemBlocksAbilityChange(defender->getItemType())) return true;
 
         const AbilityType attackerAbility = attacker->getAbility();
         const AbilityType defenderAbility = defender->getAbility();
@@ -681,14 +783,16 @@ void initializeCoreMoveRules(GameRegistry& registry) {
     registry.registerMoveRule("reflect", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
         Side* actorSide = ctx.findSideForPokemon( attacker);
         if (actorSide) {
-            actorSide->setReflectTurns(5);
+            const int duration = (attacker && itemExtendsScreens(attacker->getItemType())) ? 8 : 5;
+            actorSide->setReflectTurns(duration);
         }
         return true;
     });
     registry.registerMoveRule("lightscreen", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
         Side* actorSide = ctx.findSideForPokemon( attacker);
         if (actorSide) {
-            actorSide->setLightScreenTurns(5);
+            const int duration = (attacker && itemExtendsScreens(attacker->getItemType())) ? 8 : 5;
+            actorSide->setLightScreenTurns(duration);
         }
         return true;
     });
@@ -764,6 +868,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         const int actorSpikes = actorSide->getSpikesLayers();
         const int actorToxicSpikes = actorSide->getToxicSpikesLayers();
         const bool actorStealthRock = actorSide->hasStealthRock();
+        const bool actorStickyWeb = actorSide->hasStickyWeb();
 
         actorSide->setReflectTurns(targetSide->getReflectTurns());
         actorSide->setLightScreenTurns(targetSide->getLightScreenTurns());
@@ -783,6 +888,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
             }
         }
         actorSide->setStealthRock(targetSide->hasStealthRock());
+        actorSide->setStickyWeb(targetSide->hasStickyWeb());
 
         targetSide->setReflectTurns(actorReflect);
         targetSide->setLightScreenTurns(actorLightScreen);
@@ -802,6 +908,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
             }
         }
         targetSide->setStealthRock(actorStealthRock);
+        targetSide->setStickyWeb(actorStickyWeb);
         return true;
     });
 
@@ -896,6 +1003,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (!defender) {
             return true;
         }
+        if (abilityPreventsTaunt(defender->getAbility())) return true;
         ctx.getRuntimeMoveState().tauntState[defender] = TimedState{3};
         return true;
     });
@@ -1169,6 +1277,7 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (!attacker || !defender || defender->getSubstituteHP() > 0) {
             return true;
         }
+        if (abilityPreventsInfatuation(defender->getAbility())) return true;
         ctx.getRuntimeMoveState().infatuationSource[defender] = attacker;
         return true;
     });
@@ -1505,6 +1614,176 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (defender) {
             defender->resetStatStages();
         }
+        return true;
+    });
+
+    // Round 2: 5 new status moves
+    registry.registerMoveRule("acupressure", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+
+        // Gather stats that are below +6
+        struct StatOption { StatIndex index; int stage; };
+        std::vector<StatOption> options;
+        constexpr StatIndex kStatList[] = {
+            StatIndex::Attack, StatIndex::Defense,
+            StatIndex::SpecialAttack, StatIndex::SpecialDefense,
+            StatIndex::Speed,
+        };
+        for (StatIndex idx : kStatList) {
+            const int stage = attacker->getStatStage(idx);
+            if (stage < 6) {
+                options.push_back({idx, stage});
+            }
+        }
+        if (attacker->getAccuracyStage() < 6) {
+            options.push_back({StatIndex::Count, 0}); // sentinel for accuracy
+        }
+        if (attacker->getEvasionStage() < 6) {
+            options.push_back({static_cast<StatIndex>(static_cast<int>(StatIndex::Count) + 1), 0}); // sentinel for evasion
+        }
+
+        if (options.empty()) return true;
+
+        const int pick = PRNG::nextInt(0, static_cast<int>(options.size()));
+        const auto& chosen = options[std::min(static_cast<int>(options.size()) - 1, pick)];
+
+        if (chosen.index == StatIndex::Count) {
+            attacker->changeAccuracyStage(2);
+        } else if (chosen.index == static_cast<StatIndex>(static_cast<int>(StatIndex::Count) + 1)) {
+            attacker->changeEvasionStage(2);
+        } else {
+            attacker->changeStatStage(chosen.index, 2);
+        }
+        return true;
+    });
+
+    registry.registerMoveRule("aquaring", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        ctx.getRuntimeMoveState().aquaRingActive[attacker] = true;
+        return true;
+    });
+
+    registry.registerMoveRule("stickyweb", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        Side* actorSide = ctx.findSideForPokemon(attacker);
+        if (!actorSide) return true;
+        Side& opponentSide = ctx.getOpponentSide(*actorSide);
+        opponentSide.setStickyWeb(true);
+        return true;
+    });
+
+    registry.registerMoveRule("copycat", [](BattleContext& ctx, Pokemon* attacker, Pokemon* defender, const Move&) {
+        if (!attacker || !defender) return true;
+
+        const auto copiedIt = ctx.getRuntimeMoveState().lastUsedMoveName.find(defender);
+        if (copiedIt == ctx.getRuntimeMoveState().lastUsedMoveName.end() || copiedIt->second.empty()) {
+            return true;
+        }
+
+        Move copiedMove = createMoveByName(copiedIt->second);
+        if (copiedMove.getName().empty()) return true;
+        if (moveNameEquals(copiedMove, "copycat") || moveNameEquals(copiedMove, "mirrormove") || moveNameEquals(copiedMove, "metronome")) {
+            return true;
+        }
+
+        if (copiedMove.getCategory() != Category::Status && defender && !defender->isFainted()) {
+            const int damage = ctx.calculateDamage(attacker, defender, copiedMove);
+            defender->setCurrentHP(defender->getCurrentHP() - damage);
+        }
+
+        if (defender && !defender->isFainted()) {
+            ctx.processMoveEffects(attacker, defender, copiedMove);
+        }
+        return true;
+    });
+
+    registry.registerMoveRule("magnetrise", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        ctx.getRuntimeMoveState().magnetRiseTurns[attacker] = 5;
+        return true;
+    });
+
+    // Round 3: 5 new status moves
+    registry.registerMoveRule("powerswap", [](BattleContext&, Pokemon* attacker, Pokemon* defender, const Move&) {
+        if (!attacker || !defender) return true;
+
+        const int atkAtk = attacker->getStatStage(StatIndex::Attack);
+        const int atkSpa = attacker->getStatStage(StatIndex::SpecialAttack);
+        const int defAtk = defender->getStatStage(StatIndex::Attack);
+        const int defSpa = defender->getStatStage(StatIndex::SpecialAttack);
+
+        attacker->changeStatStage(StatIndex::Attack, defAtk - atkAtk);
+        attacker->changeStatStage(StatIndex::SpecialAttack, defSpa - atkSpa);
+        defender->changeStatStage(StatIndex::Attack, atkAtk - defAtk);
+        defender->changeStatStage(StatIndex::SpecialAttack, atkSpa - defSpa);
+        return true;
+    });
+
+    registry.registerMoveRule("guardsplit", [](BattleContext&, Pokemon* attacker, Pokemon* defender, const Move&) {
+        if (!attacker || !defender) return true;
+
+        const int avgDef = (attacker->getDefense() + defender->getDefense()) / 2;
+        const int avgSpd = (attacker->getSpecialDefense() + defender->getSpecialDefense()) / 2;
+
+        attacker->setDefense(avgDef);
+        attacker->setSpecialDefense(avgSpd);
+        defender->setDefense(avgDef);
+        defender->setSpecialDefense(avgSpd);
+        return true;
+    });
+
+    registry.registerMoveRule("heartswap", [](BattleContext&, Pokemon* attacker, Pokemon* defender, const Move&) {
+        if (!attacker || !defender) return true;
+
+        constexpr StatIndex kStats[] = {
+            StatIndex::Attack, StatIndex::Defense,
+            StatIndex::SpecialAttack, StatIndex::SpecialDefense,
+            StatIndex::Speed,
+        };
+        for (StatIndex idx : kStats) {
+            const int atkStage = attacker->getStatStage(idx);
+            const int defStage = defender->getStatStage(idx);
+            attacker->changeStatStage(idx, defStage - atkStage);
+            defender->changeStatStage(idx, atkStage - defStage);
+        }
+
+        const int atkAcc = attacker->getAccuracyStage();
+        const int defAcc = defender->getAccuracyStage();
+        attacker->changeAccuracyStage(defAcc - atkAcc);
+        defender->changeAccuracyStage(atkAcc - defAcc);
+
+        const int atkEva = attacker->getEvasionStage();
+        const int defEva = defender->getEvasionStage();
+        attacker->changeEvasionStage(defEva - atkEva);
+        defender->changeEvasionStage(atkEva - defEva);
+        return true;
+    });
+
+    registry.registerMoveRule("topsyturvy", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+
+        constexpr StatIndex kStats[] = {
+            StatIndex::Attack, StatIndex::Defense,
+            StatIndex::SpecialAttack, StatIndex::SpecialDefense,
+            StatIndex::Speed,
+        };
+        for (StatIndex idx : kStats) {
+            const int stage = defender->getStatStage(idx);
+            if (stage != 0) {
+                defender->changeStatStage(idx, -2 * stage);
+            }
+        }
+
+        const int accStage = defender->getAccuracyStage();
+        if (accStage != 0) defender->changeAccuracyStage(-2 * accStage);
+
+        const int evaStage = defender->getEvasionStage();
+        if (evaStage != 0) defender->changeEvasionStage(-2 * evaStage);
+        return true;
+    });
+
+    registry.registerMoveRule("afteryou", [](BattleContext& ctx, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        ctx.getRuntimeMoveState().afterYouTarget = defender;
         return true;
     });
 }

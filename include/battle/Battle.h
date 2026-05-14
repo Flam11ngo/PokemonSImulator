@@ -91,7 +91,10 @@ struct RuntimeMoveState {
     std::unordered_map<const Side*, bool> quickGuardActive;
     std::unordered_map<const Side*, bool> wideGuardActive;
     int gravityTurns = 0;
+    std::unordered_map<Pokemon*, bool> aquaRingActive;
+    std::unordered_map<Pokemon*, int> magnetRiseTurns;
     Pokemon* pursuitSwitchTarget = nullptr;
+    Pokemon* afterYouTarget = nullptr;
     bool roundUsedThisTurn = false;
 };
 
@@ -180,6 +183,8 @@ private:
     void tickIngrainForActor(Pokemon* actor);
     void tickPerishSongForActor(Pokemon* actor);
     void tickGhostCurseForActor(Pokemon* actor);
+    void tickAquaRingForActor(Pokemon* actor);
+    void tickMagnetRiseForActor(Pokemon* actor);
     void tickWishForSide(Side& side);
     void applyPendingSwitchInRecovery(Side& side, Pokemon* enteringPokemon);
     void tickLockOnForActor(Pokemon* actor);
@@ -202,6 +207,7 @@ private:
     float adjustedTypeEffectivenessForMove(Pokemon* defender, Type moveType, AbilityType attackerAbility = AbilityType::None) const;
     bool handleTwoTurnChargeTurn(Pokemon* actor, const Move& selectedMove);
     void recordExecutedMove(Pokemon* actor, const Move& selectedMove);
+    void recordBlockedMoveResult(Pokemon* actor, Pokemon* target, const Move& move, const std::string& blockReason);
     void handlePursuitOnSwitch(Pokemon* switchingPokemon, Side* switchingSide);
     void applyEntryHazardsOnSwitchIn(Side* enteringSide, Pokemon* enteringPokemon);
 

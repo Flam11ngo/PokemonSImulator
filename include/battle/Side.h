@@ -73,6 +73,8 @@ public:
     void addSpikesLayer();
     void addToxicSpikesLayer();
     void setStealthRock(bool enabled) { stealthRock = enabled; }
+    bool hasStickyWeb() const { return stickyWeb; }
+    void setStickyWeb(bool enabled) { stickyWeb = enabled; }
     void clearEntryHazards();
 
     int getTailwindTurns() const { return tailwindTurns; }
@@ -107,6 +109,7 @@ private:
     int spikesLayers = 0;
     int toxicSpikesLayers = 0;
     bool stealthRock = false;
+    bool stickyWeb = false;
     int tailwindTurns = 0;
     int magicCoatTurns = 0;
     int snatchTurns = 0;
