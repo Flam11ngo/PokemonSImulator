@@ -1848,4 +1848,37 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         defender->setTypes(defender->getType1(), Type::Ghost);
         return true;
     });
+
+    // Round 6: 5 new status moves
+    registry.registerMoveRule("luckychant", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        Side* actorSide = ctx.findSideForPokemon(attacker);
+        if (actorSide) actorSide->setLuckyChantTurns(5);
+        return true;
+    });
+
+    registry.registerMoveRule("craftyshield", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        Side* actorSide = ctx.findSideForPokemon(attacker);
+        if (actorSide) ctx.getRuntimeMoveState().craftyShieldActive[actorSide] = true;
+        return true;
+    });
+
+    registry.registerMoveRule("fairylock", [](BattleContext& ctx, Pokemon*, Pokemon*, const Move&) {
+        ctx.getRuntimeMoveState().fairyLockTurns = 1;
+        return true;
+    });
+
+    registry.registerMoveRule("dragoncheer", [](BattleContext& ctx, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        int& stage = ctx.getRuntimeMoveState().criticalHitStage[defender];
+        stage = std::min(4, stage + 2);
+        return true;
+    });
+
+    registry.registerMoveRule("victorydance", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::Defense, 1);
+        attacker->changeStatStage(StatIndex::Speed, 1);
+        return true;
+    });
 }

@@ -164,6 +164,11 @@ std::string getItemName(ItemType type) {
         case ItemType::MistySeed: return "Misty Seed";
         case ItemType::GrassySeed: return "Grassy Seed";
         case ItemType::AdrenalineOrb: return "Adrenaline Orb";
+        case ItemType::MicleBerry: return "Micle Berry";
+        case ItemType::LansatBerry: return "Lansat Berry";
+        case ItemType::StarfBerry: return "Starf Berry";
+        case ItemType::ShedShell: return "Shed Shell";
+        case ItemType::GripClaw: return "Grip Claw";
         default: return "None";
     }
 }
@@ -978,6 +983,45 @@ Item createAdrenalineOrb() {
     return item;
 }
 
+Item createMicleBerry() {
+    Item item(ItemType::MicleBerry, "Micle Berry");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnDamage, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (self && self->getCurrentHP() > 0 && self->getCurrentHP() <= self->getMaxHP() / 4) { self->changeAccuracyStage(1); self->removeItem(); }
+    });
+    return item;
+}
+Item createLansatBerry() {
+    Item item(ItemType::LansatBerry, "Lansat Berry");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnDamage, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && self->getCurrentHP() > 0 && self->getCurrentHP() <= self->getMaxHP() / 4) { ctx.getRuntimeMoveState().criticalHitStage[self] = std::min(4, ctx.getRuntimeMoveState().criticalHitStage[self] + 2); self->removeItem(); }
+    });
+    return item;
+}
+Item createStarfBerry() {
+    Item item(ItemType::StarfBerry, "Starf Berry");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnDamage, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (!self || self->getCurrentHP() <= 0 || self->getCurrentHP() > self->getMaxHP() / 4) return;
+        constexpr StatIndex kStats[] = {StatIndex::Attack, StatIndex::Defense, StatIndex::SpecialAttack, StatIndex::SpecialDefense, StatIndex::Speed};
+        int idx = static_cast<int>(PRNG::nextFloat(0.0f, 5.0f));
+        self->changeStatStage(kStats[std::min(4, idx)], 2);
+        self->removeItem();
+    });
+    return item;
+}
+Item createShedShell() {
+    Item item(ItemType::ShedShell, "Shed Shell");
+    item.passive.ensuresCanSwitch = true;
+    return item;
+}
+Item createGripClaw() {
+    Item item(ItemType::GripClaw, "Grip Claw");
+    item.passive.extendsTrappingMoves = true;
+    return item;
+}
+
 Item createChestoBerry() {
     Item item(ItemType::ChestoBerry, "Chesto Berry");
     item.isConsumable = true;
@@ -1376,6 +1420,11 @@ void initializeCoreItems(GameRegistry& registry) {
     reg(ItemType::MistySeed,     createMistySeed);
     reg(ItemType::GrassySeed,    createGrassySeed);
     reg(ItemType::AdrenalineOrb,  createAdrenalineOrb);
+    reg(ItemType::MicleBerry,    createMicleBerry);
+    reg(ItemType::LansatBerry,   createLansatBerry);
+    reg(ItemType::StarfBerry,    createStarfBerry);
+    reg(ItemType::ShedShell,     createShedShell);
+    reg(ItemType::GripClaw,      createGripClaw);
 }
 
 // === Item logic helpers ===
@@ -1442,6 +1491,14 @@ bool itemHealsOnSuperEffective(ItemType type) {
 
 bool itemBoostsBindingMoves(ItemType type) {
     return GameRegistry::instance().getItem(type).passive.boostsBindingMoves;
+}
+
+bool itemExtendsTrappingMoves(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.extendsTrappingMoves;
+}
+
+bool itemEnsuresCanSwitch(ItemType type) {
+    return GameRegistry::instance().getItem(type).passive.ensuresCanSwitch;
 }
 
 bool tryQuickClawActivation(ItemType type, int& priority) {

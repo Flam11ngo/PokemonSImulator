@@ -1,7 +1,7 @@
 {
   "descriptions": [
-    "Charmander 上场了（初始上场）。",
-    "Bulbasaur 上场了（初始上场）。"
+    "Test Pokemon 上场了（初始上场）。",
+    "Test Pokemon 上场了（初始上场）。"
   ],
   "turn": 2,
   "battle": {
@@ -12,154 +12,31 @@
     "sides": [
       {
         "active": 0,
-        "count": 3,
-        "name": "Side A",
+        "count": 1,
+        "name": "Player",
         "pokemons": [
           {
-            "abilityId": 1,
-            "fainted": false,
-            "hp": 97,
+            "abilityId": 6,
+            "fainted": true,
+            "hp": 0,
             "inBattleStatus": [],
-            "itemId": 0,
-            "maxHp": 114,
-            "moves": [
-              {
-                "id": 52,
-                "maxPp": 25,
-                "pp": 25,
-                "slot": 0
-              },
-              {
-                "id": 10,
-                "maxPp": 35,
-                "pp": 35,
-                "slot": 1
-              },
-              {
-                "id": 33,
-                "maxPp": 35,
-                "pp": 35,
-                "slot": 2
-              },
-              {
-                "id": 98,
-                "maxPp": 30,
-                "pp": 30,
-                "slot": 3
-              }
-            ],
+            "itemId": 194,
+            "maxHp": 175,
+            "moves": [],
             "slot": 0,
-            "speciesId": 4,
+            "speciesId": 1,
             "statStages": [
-              0,
-              0,
-              0,
-              0,
-              0,
+              1,
+              1,
+              1,
+              1,
+              1,
               0,
               0
             ],
             "types": [
-              1,
+              0,
               18
-            ]
-          },
-          {
-            "abilityId": 1,
-            "fainted": false,
-            "hp": 133,
-            "inBattleStatus": [],
-            "itemId": 0,
-            "maxHp": 133,
-            "moves": [
-              {
-                "id": 53,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 0
-              },
-              {
-                "id": 163,
-                "maxPp": 20,
-                "pp": 20,
-                "slot": 1
-              },
-              {
-                "id": 44,
-                "maxPp": 25,
-                "pp": 25,
-                "slot": 2
-              },
-              {
-                "id": 7,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 3
-              }
-            ],
-            "slot": 1,
-            "speciesId": 5,
-            "statStages": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "types": [
-              1,
-              18
-            ]
-          },
-          {
-            "abilityId": 1,
-            "fainted": false,
-            "hp": 153,
-            "inBattleStatus": [],
-            "itemId": 0,
-            "maxHp": 153,
-            "moves": [
-              {
-                "id": 53,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 0
-              },
-              {
-                "id": 19,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 1
-              },
-              {
-                "id": 17,
-                "maxPp": 35,
-                "pp": 35,
-                "slot": 2
-              },
-              {
-                "id": 82,
-                "maxPp": 10,
-                "pp": 10,
-                "slot": 3
-              }
-            ],
-            "slot": 2,
-            "speciesId": 6,
-            "statStages": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "types": [
-              1,
-              9
             ]
           }
         ],
@@ -177,43 +54,18 @@
         }
       },
       {
-        "active": 1,
-        "count": 3,
-        "name": "Side B",
+        "active": 0,
+        "count": 1,
+        "name": "Opponent",
         "pokemons": [
           {
-            "abilityId": 65,
-            "fainted": true,
-            "hp": 0,
+            "abilityId": 6,
+            "fainted": false,
+            "hp": 1,
             "inBattleStatus": [],
             "itemId": 0,
-            "maxHp": 120,
-            "moves": [
-              {
-                "id": 22,
-                "maxPp": 25,
-                "pp": 25,
-                "slot": 0
-              },
-              {
-                "id": 33,
-                "maxPp": 35,
-                "pp": 35,
-                "slot": 1
-              },
-              {
-                "id": 73,
-                "maxPp": 10,
-                "pp": 10,
-                "slot": 2
-              },
-              {
-                "id": 77,
-                "maxPp": 35,
-                "pp": 35,
-                "slot": 3
-              }
-            ],
+            "maxHp": 175,
+            "moves": [],
             "slot": 0,
             "speciesId": 1,
             "statStages": [
@@ -226,106 +78,8 @@
               0
             ],
             "types": [
-              4,
-              7
-            ]
-          },
-          {
-            "abilityId": 65,
-            "fainted": false,
-            "hp": 135,
-            "inBattleStatus": [],
-            "itemId": 0,
-            "maxHp": 135,
-            "moves": [
-              {
-                "id": 75,
-                "maxPp": 25,
-                "pp": 25,
-                "slot": 0
-              },
-              {
-                "id": 76,
-                "maxPp": 10,
-                "pp": 10,
-                "slot": 1
-              },
-              {
-                "id": 79,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 2
-              },
-              {
-                "id": 74,
-                "maxPp": 20,
-                "pp": 20,
-                "slot": 3
-              }
-            ],
-            "slot": 1,
-            "speciesId": 2,
-            "statStages": [
               0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "types": [
-              4,
-              7
-            ]
-          },
-          {
-            "abilityId": 65,
-            "fainted": false,
-            "hp": 155,
-            "inBattleStatus": [],
-            "itemId": 0,
-            "maxHp": 155,
-            "moves": [
-              {
-                "id": 76,
-                "maxPp": 10,
-                "pp": 10,
-                "slot": 0
-              },
-              {
-                "id": 75,
-                "maxPp": 25,
-                "pp": 25,
-                "slot": 1
-              },
-              {
-                "id": 34,
-                "maxPp": 15,
-                "pp": 15,
-                "slot": 2
-              },
-              {
-                "id": 73,
-                "maxPp": 10,
-                "pp": 10,
-                "slot": 3
-              }
-            ],
-            "slot": 2,
-            "speciesId": 3,
-            "statStages": [
-              0,
-              0,
-              0,
-              0,
-              0,
-              0,
-              0
-            ],
-            "types": [
-              4,
-              7
+              18
             ]
           }
         ],
@@ -351,30 +105,30 @@
   },
   "events": [
     {
-      "description": "Charmander 上场了（初始上场）。",
+      "description": "Test Pokemon 上场了（初始上场）。",
       "details": {
-        "pokemon": "Charmander",
+        "pokemon": "Test Pokemon",
         "pokemon_ref": {
           "pokemon_index": 0,
           "side_index": 0
         },
         "reason": "initial_send_out",
-        "side": "Side A",
+        "side": "Player",
         "side_index": 0
       },
       "timeline_index": 0,
       "turn_index": 0
     },
     {
-      "description": "Bulbasaur 上场了（初始上场）。",
+      "description": "Test Pokemon 上场了（初始上场）。",
       "details": {
-        "pokemon": "Bulbasaur",
+        "pokemon": "Test Pokemon",
         "pokemon_ref": {
           "pokemon_index": 0,
-          "side_index": 1
+          "side_index": 0
         },
         "reason": "initial_send_out",
-        "side": "Side B",
+        "side": "Opponent",
         "side_index": 1
       },
       "timeline_index": 1,

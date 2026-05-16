@@ -245,6 +245,11 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::RockHead: return "Rock Head";
         case AbilityType::ShieldDust: return "Shield Dust";
         case AbilityType::Simple: return "Simple";
+        case AbilityType::Synchronize: return "Synchronize";
+        case AbilityType::MagnetPull: return "Magnet Pull";
+        case AbilityType::ArenaTrap: return "Arena Trap";
+        case AbilityType::RainDish: return "Rain Dish";
+        case AbilityType::StickyHold: return "Sticky Hold";
         default: return "None";
     }
 }
@@ -376,6 +381,11 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "rockhead") return AbilityType::RockHead;
     if (key == "shielddust") return AbilityType::ShieldDust;
     if (key == "simple") return AbilityType::Simple;
+    if (key == "synchronize") return AbilityType::Synchronize;
+    if (key == "magnetpull") return AbilityType::MagnetPull;
+    if (key == "arenatrap") return AbilityType::ArenaTrap;
+    if (key == "raindish") return AbilityType::RainDish;
+    if (key == "stickyhold") return AbilityType::StickyHold;
     return AbilityType::None;
 }
 
@@ -590,6 +600,26 @@ bool abilityPreventsRecoil(AbilityType abilityType) {
 
 bool abilityBlocksMoveSecondaryEffects(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.blocksMoveSecondaryEffects;
+}
+
+bool abilityMirrorsStatus(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.mirrorsStatus;
+}
+
+bool abilityTrapsSteelTypes(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.trapsSteelTypes;
+}
+
+bool abilityTrapsGrounded(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.trapsGrounded;
+}
+
+bool abilityHealsInRain(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.healsInRain;
+}
+
+bool abilityPreventsItemLoss(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.preventsItemLoss;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -1284,6 +1314,21 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Simple: doubles stat changes (passive, handled in stat change logic)
     regPassive(AbilityType::Simple, [](auto& p) {});
+
+    // Synchronize: mirrors status conditions
+    regPassive(AbilityType::Synchronize, [](auto& p) { p.mirrorsStatus = true; });
+
+    // Magnet Pull: traps Steel-type opponents
+    regPassive(AbilityType::MagnetPull, [](auto& p) { p.trapsSteelTypes = true; });
+
+    // Arena Trap: traps grounded opponents
+    regPassive(AbilityType::ArenaTrap, [](auto& p) { p.trapsGrounded = true; });
+
+    // Rain Dish: heals 1/16 max HP in rain
+    regPassive(AbilityType::RainDish, [](auto& p) { p.healsInRain = true; });
+
+    // Sticky Hold: prevents item loss
+    regPassive(AbilityType::StickyHold, [](auto& p) { p.preventsItemLoss = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {

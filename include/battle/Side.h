@@ -93,6 +93,11 @@ public:
     void setSnatchTurns(int turns) { snatchTurns = turns > 0 ? turns : 0; }
     void tickSnatchTurns() { if (snatchTurns > 0) snatchTurns--; }
 
+    int getLuckyChantTurns() const { return luckyChantTurns; }
+    bool hasLuckyChant() const { return luckyChantTurns > 0; }
+    void setLuckyChantTurns(int turns) { luckyChantTurns = turns > 0 ? turns : 0; }
+    void tickLuckyChantTurns() { if (luckyChantTurns > 0) luckyChantTurns--; }
+
 private:
     std::string name;
     std::array<Pokemon*, 6> team{};
@@ -113,4 +118,5 @@ private:
     int tailwindTurns = 0;
     int magicCoatTurns = 0;
     int snatchTurns = 0;
+    int luckyChantTurns = 0;
 };

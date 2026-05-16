@@ -39,7 +39,12 @@ const std::set<std::string> kImplementedStatusNameRules = {
     "entrainment",
     "forestscurse",
     "simplebeam",
+    "craftyshield",
+    "dragoncheer",
+    "fairylock",
+    "luckychant",
     "trickortreat",
+    "victorydance",
     "wonderroom",
     "worryseed",
 };

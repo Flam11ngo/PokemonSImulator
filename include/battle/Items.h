@@ -194,6 +194,11 @@ enum class ItemType {
     MistySeed,
     GrassySeed,
     AdrenalineOrb,
+    MicleBerry,
+    LansatBerry,
+    StarfBerry,
+    ShedShell,
+    GripClaw,
 
     Count
 };
@@ -301,6 +306,8 @@ public:
         float evasionBoost = 1.0f;             // BrightPowder
         bool healsOnSuperEffective = false;    // EnigmaBerry
         bool boostsBindingMoves = false;       // BindingBand
+        bool extendsTrappingMoves = false;     // GripClaw
+        bool ensuresCanSwitch = false;         // ShedShell
     } passive;
     
     // 6. 一次性使用标记
@@ -533,6 +540,11 @@ Item createPsychicSeed();
 Item createMistySeed();
 Item createGrassySeed();
 Item createAdrenalineOrb();
+Item createMicleBerry();
+Item createLansatBerry();
+Item createStarfBerry();
+Item createShedShell();
+Item createGripClaw();
 
 // 辅助函数
 std::string getItemName(ItemType type);
@@ -565,6 +577,8 @@ bool itemHasCustapBerry(ItemType type);
 float itemEvasionBoost(ItemType type);
 bool itemHealsOnSuperEffective(ItemType type);
 bool itemBoostsBindingMoves(ItemType type);
+bool itemExtendsTrappingMoves(ItemType type);
+bool itemEnsuresCanSwitch(ItemType type);
 
 // Quick Claw: 20% chance to move first; modifies priority in-place, returns true if activated
 bool tryQuickClawActivation(ItemType type, int& priority);

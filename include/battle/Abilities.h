@@ -141,6 +141,11 @@ enum class AbilityType {
     RockHead,
     ShieldDust,
     Simple,
+    Synchronize,
+    MagnetPull,
+    ArenaTrap,
+    RainDish,
+    StickyHold,
     Count
 };
 
@@ -235,6 +240,11 @@ public:
         bool doublesAttack = false;
         bool preventsRecoil = false;
         bool blocksMoveSecondaryEffects = false;
+        bool mirrorsStatus = false;
+        bool trapsSteelTypes = false;
+        bool trapsGrounded = false;
+        bool healsInRain = false;
+        bool preventsItemLoss = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -334,6 +344,11 @@ bool abilityDoublesAttack(AbilityType abilityType);
 float abilityAccuracyBoost(AbilityType abilityType);
 bool abilityPreventsRecoil(AbilityType abilityType);
 bool abilityBlocksMoveSecondaryEffects(AbilityType abilityType);
+bool abilityMirrorsStatus(AbilityType abilityType);
+bool abilityTrapsSteelTypes(AbilityType abilityType);
+bool abilityTrapsGrounded(AbilityType abilityType);
+bool abilityHealsInRain(AbilityType abilityType);
+bool abilityPreventsItemLoss(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

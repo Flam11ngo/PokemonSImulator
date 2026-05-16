@@ -90,7 +90,9 @@ struct RuntimeMoveState {
     std::unordered_map<Pokemon*, CudChewState> cudChewPending;
     std::unordered_map<const Side*, bool> quickGuardActive;
     std::unordered_map<const Side*, bool> wideGuardActive;
+    std::unordered_map<const Side*, bool> craftyShieldActive;
     int gravityTurns = 0;
+    int fairyLockTurns = 0;
     std::unordered_map<Pokemon*, bool> aquaRingActive;
     std::unordered_map<Pokemon*, int> magnetRiseTurns;
     Pokemon* pursuitSwitchTarget = nullptr;
