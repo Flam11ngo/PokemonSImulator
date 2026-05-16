@@ -239,6 +239,12 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::ShadowTag: return "Shadow Tag";
         case AbilityType::LightningRod: return "Lightning Rod";
         case AbilityType::Soundproof: return "Soundproof";
+        case AbilityType::Trace: return "Trace";
+        case AbilityType::PurePower: return "Pure Power";
+        case AbilityType::CompoundEyes: return "Compound Eyes";
+        case AbilityType::RockHead: return "Rock Head";
+        case AbilityType::ShieldDust: return "Shield Dust";
+        case AbilityType::Simple: return "Simple";
         default: return "None";
     }
 }
@@ -364,6 +370,12 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "shadowtag") return AbilityType::ShadowTag;
     if (key == "lightningrod") return AbilityType::LightningRod;
     if (key == "soundproof") return AbilityType::Soundproof;
+    if (key == "trace") return AbilityType::Trace;
+    if (key == "purepower") return AbilityType::PurePower;
+    if (key == "compoundeyes") return AbilityType::CompoundEyes;
+    if (key == "rockhead") return AbilityType::RockHead;
+    if (key == "shielddust") return AbilityType::ShieldDust;
+    if (key == "simple") return AbilityType::Simple;
     return AbilityType::None;
 }
 
@@ -557,6 +569,27 @@ bool abilityRedirectsElectricMoves(AbilityType abilityType) {
 
 bool abilityBlocksSoundMoves(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.blocksSoundMoves;
+}
+
+bool abilityCopiesOpponentAbility(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.copiesOpponentAbility;
+}
+
+bool abilityDoublesAttack(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.doublesAttack;
+}
+
+float abilityAccuracyBoost(AbilityType abilityType) {
+    if (abilityType == AbilityType::CompoundEyes) return 1.3f;
+    return 1.0f;
+}
+
+bool abilityPreventsRecoil(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.preventsRecoil;
+}
+
+bool abilityBlocksMoveSecondaryEffects(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.blocksMoveSecondaryEffects;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -1230,6 +1263,27 @@ void initializeCoreAbilities(GameRegistry& registry) {
         [](Ability& a, AddTypeImmunity, AddStatusImmunity) {
             a.passive.blocksSoundMoves = true;
         });
+
+    // Trace: copies opponent's ability on entry
+    registry.registerAbilityBuilder(AbilityType::Trace,
+        [](Ability& a, AddTypeImmunity, AddStatusImmunity) {
+            a.passive.copiesOpponentAbility = true;
+        });
+
+    // Pure Power: doubles Attack stat
+    regPassive(AbilityType::PurePower, [](auto& p) { p.doublesAttack = true; });
+
+    // Compound Eyes: 30% accuracy boost
+    regPassive(AbilityType::CompoundEyes, [](auto& p) {});
+
+    // Rock Head: prevents recoil damage
+    regPassive(AbilityType::RockHead, [](auto& p) { p.preventsRecoil = true; });
+
+    // Shield Dust: blocks move secondary effects
+    regPassive(AbilityType::ShieldDust, [](auto& p) { p.blocksMoveSecondaryEffects = true; });
+
+    // Simple: doubles stat changes (passive, handled in stat change logic)
+    regPassive(AbilityType::Simple, [](auto& p) {});
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {

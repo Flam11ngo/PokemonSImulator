@@ -159,6 +159,11 @@ std::string getItemName(ItemType type) {
         case ItemType::CustapBerry: return "Custap Berry";
         case ItemType::EnigmaBerry: return "Enigma Berry";
         case ItemType::BindingBand: return "Binding Band";
+        case ItemType::ElectricSeed: return "Electric Seed";
+        case ItemType::PsychicSeed: return "Psychic Seed";
+        case ItemType::MistySeed: return "Misty Seed";
+        case ItemType::GrassySeed: return "Grassy Seed";
+        case ItemType::AdrenalineOrb: return "Adrenaline Orb";
         default: return "None";
     }
 }
@@ -926,6 +931,53 @@ Item createBindingBand() {
     return item;
 }
 
+Item createElectricSeed() {
+    Item item(ItemType::ElectricSeed, "Electric Seed");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnEntry, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && ctx.getField().type == FieldType::Electric) { self->changeStatStage(StatIndex::Defense, 1); self->removeItem(); }
+    });
+    return item;
+}
+
+Item createPsychicSeed() {
+    Item item(ItemType::PsychicSeed, "Psychic Seed");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnEntry, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && ctx.getField().type == FieldType::Psychic) { self->changeStatStage(StatIndex::SpecialDefense, 1); self->removeItem(); }
+    });
+    return item;
+}
+
+Item createMistySeed() {
+    Item item(ItemType::MistySeed, "Misty Seed");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnEntry, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && ctx.getField().type == FieldType::Misty) { self->changeStatStage(StatIndex::SpecialDefense, 1); self->removeItem(); }
+    });
+    return item;
+}
+
+Item createGrassySeed() {
+    Item item(ItemType::GrassySeed, "Grassy Seed");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnEntry, [](Pokemon* self, Pokemon*, BattleContext& ctx, void*) {
+        if (self && ctx.getField().type == FieldType::Grassy) { self->changeStatStage(StatIndex::Defense, 1); self->removeItem(); }
+    });
+    return item;
+}
+
+Item createAdrenalineOrb() {
+    Item item(ItemType::AdrenalineOrb, "Adrenaline Orb");
+    item.isConsumable = true;
+    item.addEffect(ItemTrigger::OnStatChange, [](Pokemon* self, Pokemon*, BattleContext&, void*) {
+        if (self && self->getStatStage(StatIndex::Speed) > 0) {
+            self->removeItem();
+        }
+    });
+    return item;
+}
+
 Item createChestoBerry() {
     Item item(ItemType::ChestoBerry, "Chesto Berry");
     item.isConsumable = true;
@@ -1319,6 +1371,11 @@ void initializeCoreItems(GameRegistry& registry) {
     reg(ItemType::CustapBerry,    createCustapBerry);
     reg(ItemType::EnigmaBerry,    createEnigmaBerry);
     reg(ItemType::BindingBand,    createBindingBand);
+    reg(ItemType::ElectricSeed,  createElectricSeed);
+    reg(ItemType::PsychicSeed,   createPsychicSeed);
+    reg(ItemType::MistySeed,     createMistySeed);
+    reg(ItemType::GrassySeed,    createGrassySeed);
+    reg(ItemType::AdrenalineOrb,  createAdrenalineOrb);
 }
 
 // === Item logic helpers ===

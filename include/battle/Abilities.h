@@ -135,6 +135,12 @@ enum class AbilityType {
     ShadowTag,
     LightningRod,
     Soundproof,
+    Trace,
+    PurePower,
+    CompoundEyes,
+    RockHead,
+    ShieldDust,
+    Simple,
     Count
 };
 
@@ -225,6 +231,10 @@ public:
         bool trapsOpponent = false;
         bool redirectsElectricMoves = false;
         bool blocksSoundMoves = false;
+        bool copiesOpponentAbility = false;
+        bool doublesAttack = false;
+        bool preventsRecoil = false;
+        bool blocksMoveSecondaryEffects = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -319,6 +329,11 @@ bool abilityHasWonderGuard(AbilityType abilityType);
 bool abilityTrapsOpponent(AbilityType abilityType);
 bool abilityRedirectsElectricMoves(AbilityType abilityType);
 bool abilityBlocksSoundMoves(AbilityType abilityType);
+bool abilityCopiesOpponentAbility(AbilityType abilityType);
+bool abilityDoublesAttack(AbilityType abilityType);
+float abilityAccuracyBoost(AbilityType abilityType);
+bool abilityPreventsRecoil(AbilityType abilityType);
+bool abilityBlocksMoveSecondaryEffects(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

@@ -1817,4 +1817,35 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         ctx.getRuntimeMoveState().criticalHitStage[attacker] = 4;
         return true;
     });
+
+    // Round 5: 5 new status moves
+    registry.registerMoveRule("corrosivegas", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->removeItem();
+        return true;
+    });
+
+    registry.registerMoveRule("entrainment", [](BattleContext&, Pokemon* attacker, Pokemon* defender, const Move&) {
+        if (!attacker || !defender) return true;
+        defender->setAbility(attacker->getAbility());
+        return true;
+    });
+
+    registry.registerMoveRule("simplebeam", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->setAbility(AbilityType::Simple);
+        return true;
+    });
+
+    registry.registerMoveRule("forestscurse", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->setTypes(defender->getType1(), Type::Grass);
+        return true;
+    });
+
+    registry.registerMoveRule("trickortreat", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->setTypes(defender->getType1(), Type::Ghost);
+        return true;
+    });
 }

@@ -189,6 +189,11 @@ enum class ItemType {
     CustapBerry,
     EnigmaBerry,
     BindingBand,
+    ElectricSeed,
+    PsychicSeed,
+    MistySeed,
+    GrassySeed,
+    AdrenalineOrb,
 
     Count
 };
@@ -523,6 +528,11 @@ Item createFocusBand();
 Item createCustapBerry();
 Item createEnigmaBerry();
 Item createBindingBand();
+Item createElectricSeed();
+Item createPsychicSeed();
+Item createMistySeed();
+Item createGrassySeed();
+Item createAdrenalineOrb();
 
 // 辅助函数
 std::string getItemName(ItemType type);
