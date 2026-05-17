@@ -246,6 +246,86 @@ enum class AbilityType {
     Telepathy,
     GrassPelt,
     Symbiosis,
+    Illuminate,
+    RunAway,
+    Pickup,
+    Truant,
+    HoneyGather,
+    Multitype,
+    ZenMode,
+    FlowerVeil,
+    CheekPouch,
+    StanceChange,
+    WimpOut,
+    EmergencyExit,
+    WaterCompaction,
+    ShieldsDown,
+    Schooling,
+    Disguise,
+    BattleBond,
+    PowerConstruct,
+    Comatose,
+    InnardsOut,
+    Fluffy,
+    Dazzling,
+    SoulHeart,
+    TanglingHair,
+    Receiver,
+    PowerOfAlchemy,
+    BeastBoost,
+    RksSystem,
+    FullMetalBody,
+    ShadowShield,
+    PrismArmor,
+    Neuroforce,
+    IntrepidSword,
+    DauntlessShield,
+    BallFetch,
+    CottonDown,
+    PropellerTail,
+    GulpMissile,
+    Stalwart,
+    SteamEngine,
+    PunkRock,
+    SandSpit,
+    IceScales,
+    Ripen,
+    IceFace,
+    PowerSpot,
+    Mimicry,
+    ScreenCleaner,
+    SteelySpirit,
+    PerishBody,
+    WanderingSpirit,
+    GorillaTactics,
+    NeutralizingGas,
+    PastelVeil,
+    HungerSwitch,
+    QuickDraw,
+    UnseenFist,
+    CuriousMedicine,
+    Transistor,
+    DragonsMaw,
+    ChillingNeigh,
+    GrimNeigh,
+    AsOneGlastrier,
+    AsOneSpectrier,
+    SeedSower,
+    ThermalExchange,
+    AngerShell,
+    GuardDog,
+    RockyPayload,
+    WindPower,
+    ZeroToHero,
+    Commander,
+    Electromorphosis,
+    OrichalcumPulse,
+    Opportunist,
+    Costar,
+    MyceliumMight,
+    MindsEye,
+    SupersweetSyrup,
+    Hospitality,
     Count
 };
 
@@ -443,6 +523,86 @@ public:
         bool telepathyAvoidAlly = false;
         bool grassPeltDefense = false;
         bool symbiosisPass = false;
+        bool wildEncounterBoost = false;
+        bool wildEscape = false;
+        bool pickupItems = false;
+        bool loafsEveryOtherTurn = false;
+        bool honeyGather = false;
+        bool multitypeForm = false;
+        bool zenModeForm = false;
+        bool flowerVeilProtect = false;
+        bool cheekPouchHeal = false;
+        bool stanceChangeForm = false;
+        bool wimpOut = false;
+        bool emergencyExit = false;
+        bool waterCompaction = false;
+        bool shieldsDownForm = false;
+        bool schoolingForm = false;
+        bool disguiseBlock = false;
+        bool battleBondForm = false;
+        bool powerConstructForm = false;
+        bool comatoseAsleep = false;
+        bool innardsOut = false;
+        bool fluffyDefense = false;
+        bool dazzlingPriority = false;
+        bool soulHeartBoost = false;
+        bool tanglingHairSlow = false;
+        bool receiverAbility = false;
+        bool powerOfAlchemy = false;
+        bool beastBoost = false;
+        bool rksSystem = false;
+        bool fullMetalBody = false;
+        bool shadowShield = false;
+        bool prismArmor = false;
+        bool neuroforce = false;
+        bool intrepidSword = false;
+        bool dauntlessShield = false;
+        bool ballFetch = false;
+        bool cottonDownSlow = false;
+        bool propellerTail = false;
+        bool gulpMissile = false;
+        bool stalwart = false;
+        bool steamEngine = false;
+        bool punkRockSound = false;
+        bool sandSpitSand = false;
+        bool iceScales = false;
+        bool ripenBerry = false;
+        bool iceFaceBlock = false;
+        bool powerSpotAlly = false;
+        bool mimicry = false;
+        bool screenCleaner = false;
+        bool steelySpirit = false;
+        bool perishBody = false;
+        bool wanderingSpirit = false;
+        bool gorillaTactics = false;
+        bool neutralizingGas = false;
+        bool pastelVeil = false;
+        bool hungerSwitch = false;
+        bool quickDraw = false;
+        bool unseenFist = false;
+        bool curiousMedicine = false;
+        bool transistor = false;
+        bool dragonsMaw = false;
+        bool chillingNeigh = false;
+        bool grimNeigh = false;
+        bool asOneGlastrier = false;
+        bool asOneSpectrier = false;
+        bool seedSower = false;
+        bool thermalExchange = false;
+        bool angerShell = false;
+        bool guardDog = false;
+        bool rockyPayload = false;
+        bool windPower = false;
+        bool zeroToHero = false;
+        bool commander = false;
+        bool electromorphosis = false;
+        bool orichalcumPulse = false;
+        bool opportunist = false;
+        bool costar = false;
+        bool myceliumMight = false;
+        bool mindsEye = false;
+        bool supersweetSyrup = false;
+        bool hospitality = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -645,6 +805,86 @@ bool abilityFriendGuardReduce(AbilityType abilityType);
 bool abilityTelepathyAvoidAlly(AbilityType abilityType);
 bool abilityGrassPeltDefense(AbilityType abilityType);
 bool abilitySymbiosisPass(AbilityType abilityType);
+bool abilityIlluminate(AbilityType abilityType);
+bool abilityRunAway(AbilityType abilityType);
+bool abilityPickup(AbilityType abilityType);
+bool abilityTruant(AbilityType abilityType);
+bool abilityHoneyGather(AbilityType abilityType);
+bool abilityMultitypeForm(AbilityType abilityType);
+bool abilityZenModeForm(AbilityType abilityType);
+bool abilityFlowerVeilProtect(AbilityType abilityType);
+bool abilityCheekPouchHeal(AbilityType abilityType);
+bool abilityStanceChangeForm(AbilityType abilityType);
+bool abilityWimpOut(AbilityType abilityType);
+bool abilityEmergencyExit(AbilityType abilityType);
+bool abilityWaterCompaction(AbilityType abilityType);
+bool abilityShieldsDownForm(AbilityType abilityType);
+bool abilitySchoolingForm(AbilityType abilityType);
+bool abilityDisguiseBlock(AbilityType abilityType);
+bool abilityBattleBondForm(AbilityType abilityType);
+bool abilityPowerConstructForm(AbilityType abilityType);
+bool abilityComatoseAsleep(AbilityType abilityType);
+bool abilityInnardsOut(AbilityType abilityType);
+bool abilityFluffyDefense(AbilityType abilityType);
+bool abilityDazzlingPriority(AbilityType abilityType);
+bool abilitySoulHeartBoost(AbilityType abilityType);
+bool abilityTanglingHairSlow(AbilityType abilityType);
+bool abilityReceiverAbility(AbilityType abilityType);
+bool abilityPowerOfAlchemy(AbilityType abilityType);
+bool abilityBeastBoost(AbilityType abilityType);
+bool abilityRksSystem(AbilityType abilityType);
+bool abilityFullMetalBody(AbilityType abilityType);
+bool abilityShadowShield(AbilityType abilityType);
+bool abilityPrismArmor(AbilityType abilityType);
+bool abilityNeuroforce(AbilityType abilityType);
+bool abilityIntrepidSword(AbilityType abilityType);
+bool abilityDauntlessShield(AbilityType abilityType);
+bool abilityBallFetch(AbilityType abilityType);
+bool abilityCottonDownSlow(AbilityType abilityType);
+bool abilityPropellerTail(AbilityType abilityType);
+bool abilityGulpMissile(AbilityType abilityType);
+bool abilityStalwart(AbilityType abilityType);
+bool abilitySteamEngine(AbilityType abilityType);
+bool abilityPunkRockSound(AbilityType abilityType);
+bool abilitySandSpitSand(AbilityType abilityType);
+bool abilityIceScales(AbilityType abilityType);
+bool abilityRipenBerry(AbilityType abilityType);
+bool abilityIceFaceBlock(AbilityType abilityType);
+bool abilityPowerSpotAlly(AbilityType abilityType);
+bool abilityMimicry(AbilityType abilityType);
+bool abilityScreenCleaner(AbilityType abilityType);
+bool abilitySteelySpirit(AbilityType abilityType);
+bool abilityPerishBody(AbilityType abilityType);
+bool abilityWanderingSpirit(AbilityType abilityType);
+bool abilityGorillaTactics(AbilityType abilityType);
+bool abilityNeutralizingGas(AbilityType abilityType);
+bool abilityPastelVeil(AbilityType abilityType);
+bool abilityHungerSwitch(AbilityType abilityType);
+bool abilityQuickDraw(AbilityType abilityType);
+bool abilityUnseenFist(AbilityType abilityType);
+bool abilityCuriousMedicine(AbilityType abilityType);
+bool abilityTransistor(AbilityType abilityType);
+bool abilityDragonsMaw(AbilityType abilityType);
+bool abilityChillingNeigh(AbilityType abilityType);
+bool abilityGrimNeigh(AbilityType abilityType);
+bool abilityAsOneGlastrier(AbilityType abilityType);
+bool abilityAsOneSpectrier(AbilityType abilityType);
+bool abilitySeedSower(AbilityType abilityType);
+bool abilityThermalExchange(AbilityType abilityType);
+bool abilityAngerShell(AbilityType abilityType);
+bool abilityGuardDog(AbilityType abilityType);
+bool abilityRockyPayload(AbilityType abilityType);
+bool abilityWindPower(AbilityType abilityType);
+bool abilityZeroToHero(AbilityType abilityType);
+bool abilityCommander(AbilityType abilityType);
+bool abilityElectromorphosis(AbilityType abilityType);
+bool abilityOrichalcumPulse(AbilityType abilityType);
+bool abilityOpportunist(AbilityType abilityType);
+bool abilityCostar(AbilityType abilityType);
+bool abilityMyceliumMight(AbilityType abilityType);
+bool abilityMindsEye(AbilityType abilityType);
+bool abilitySupersweetSyrup(AbilityType abilityType);
+bool abilityHospitality(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

@@ -350,6 +350,46 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::Telepathy: return "Telepathy";
         case AbilityType::GrassPelt: return "Grass Pelt";
         case AbilityType::Symbiosis: return "Symbiosis";
+        case AbilityType::Illuminate: return "Illuminate";
+        case AbilityType::RunAway: return "Run Away";
+        case AbilityType::Pickup: return "Pickup";
+        case AbilityType::Truant: return "Truant";
+        case AbilityType::HoneyGather: return "Honey Gather";
+        case AbilityType::Multitype: return "Multitype";
+        case AbilityType::ZenMode: return "Zen Mode";
+        case AbilityType::FlowerVeil: return "Flower Veil";
+        case AbilityType::CheekPouch: return "Cheek Pouch";
+        case AbilityType::StanceChange: return "Stance Change";
+        case AbilityType::WimpOut: return "Wimp Out";
+        case AbilityType::EmergencyExit: return "Emergency Exit";
+        case AbilityType::WaterCompaction: return "Water Compaction";
+        case AbilityType::ShieldsDown: return "Shields Down";
+        case AbilityType::Schooling: return "Schooling";
+        case AbilityType::Disguise: return "Disguise";
+        case AbilityType::BattleBond: return "Battle Bond";
+        case AbilityType::PowerConstruct: return "Power Construct";
+        case AbilityType::Comatose: return "Comatose";
+        case AbilityType::InnardsOut: return "Innards Out";
+        case AbilityType::Fluffy: return "Fluffy";
+        case AbilityType::Dazzling: return "Dazzling";
+        case AbilityType::SoulHeart: return "Soul Heart";
+        case AbilityType::TanglingHair: return "Tangling Hair";
+        case AbilityType::Receiver: return "Receiver";
+        case AbilityType::PowerOfAlchemy: return "Power of Alchemy";
+        case AbilityType::BeastBoost: return "Beast Boost";
+        case AbilityType::RksSystem: return "RKS System";
+        case AbilityType::FullMetalBody: return "Full Metal Body";
+        case AbilityType::ShadowShield: return "Shadow Shield";
+        case AbilityType::PrismArmor: return "Prism Armor";
+        case AbilityType::Neuroforce: return "Neuroforce";
+        case AbilityType::IntrepidSword: return "Intrepid Sword";
+        case AbilityType::DauntlessShield: return "Dauntless Shield";
+        case AbilityType::BallFetch: return "Ball Fetch";
+        case AbilityType::CottonDown: return "Cotton Down";
+        case AbilityType::PropellerTail: return "Propeller Tail";
+        case AbilityType::GulpMissile: return "Gulp Missile";
+        case AbilityType::Stalwart: return "Stalwart";
+        case AbilityType::SteamEngine: return "Steam Engine";
         default: return "None";
     }
 }
@@ -586,6 +626,46 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "telepathy") return AbilityType::Telepathy;
     if (key == "grasspelt") return AbilityType::GrassPelt;
     if (key == "symbiosis") return AbilityType::Symbiosis;
+    if (key == "illuminate") return AbilityType::Illuminate;
+    if (key == "runaway") return AbilityType::RunAway;
+    if (key == "pickup") return AbilityType::Pickup;
+    if (key == "truant") return AbilityType::Truant;
+    if (key == "honeygather") return AbilityType::HoneyGather;
+    if (key == "multitype") return AbilityType::Multitype;
+    if (key == "zenmode") return AbilityType::ZenMode;
+    if (key == "flowerveil") return AbilityType::FlowerVeil;
+    if (key == "cheekpouch") return AbilityType::CheekPouch;
+    if (key == "stancechange") return AbilityType::StanceChange;
+    if (key == "wimpout") return AbilityType::WimpOut;
+    if (key == "emergencyexit") return AbilityType::EmergencyExit;
+    if (key == "watercompaction") return AbilityType::WaterCompaction;
+    if (key == "shieldsdown") return AbilityType::ShieldsDown;
+    if (key == "schooling") return AbilityType::Schooling;
+    if (key == "disguise") return AbilityType::Disguise;
+    if (key == "battlebond") return AbilityType::BattleBond;
+    if (key == "powerconstruct") return AbilityType::PowerConstruct;
+    if (key == "comatose") return AbilityType::Comatose;
+    if (key == "innardsout") return AbilityType::InnardsOut;
+    if (key == "fluffy") return AbilityType::Fluffy;
+    if (key == "dazzling") return AbilityType::Dazzling;
+    if (key == "soulheart") return AbilityType::SoulHeart;
+    if (key == "tanglinghair") return AbilityType::TanglingHair;
+    if (key == "receiver") return AbilityType::Receiver;
+    if (key == "powerofalchemy") return AbilityType::PowerOfAlchemy;
+    if (key == "beastboost") return AbilityType::BeastBoost;
+    if (key == "rkssystem") return AbilityType::RksSystem;
+    if (key == "fullmetalbody") return AbilityType::FullMetalBody;
+    if (key == "shadowshield") return AbilityType::ShadowShield;
+    if (key == "prismarmor") return AbilityType::PrismArmor;
+    if (key == "neuroforce") return AbilityType::Neuroforce;
+    if (key == "intrepidsword") return AbilityType::IntrepidSword;
+    if (key == "dauntlessshield") return AbilityType::DauntlessShield;
+    if (key == "ballfetch") return AbilityType::BallFetch;
+    if (key == "cottondown") return AbilityType::CottonDown;
+    if (key == "propellertail") return AbilityType::PropellerTail;
+    if (key == "gulpmissile") return AbilityType::GulpMissile;
+    if (key == "stalwart") return AbilityType::Stalwart;
+    if (key == "steamengine") return AbilityType::SteamEngine;
     return AbilityType::None;
 }
 
@@ -1212,6 +1292,166 @@ bool abilityGrassPeltDefense(AbilityType abilityType) {
 
 bool abilitySymbiosisPass(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.symbiosisPass;
+}
+
+bool abilityIlluminate(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.wildEncounterBoost;
+}
+
+bool abilityRunAway(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.wildEscape;
+}
+
+bool abilityPickup(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.pickupItems;
+}
+
+bool abilityTruant(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.loafsEveryOtherTurn;
+}
+
+bool abilityHoneyGather(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.honeyGather;
+}
+
+bool abilityMultitypeForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.multitypeForm;
+}
+
+bool abilityZenModeForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.zenModeForm;
+}
+
+bool abilityFlowerVeilProtect(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.flowerVeilProtect;
+}
+
+bool abilityCheekPouchHeal(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.cheekPouchHeal;
+}
+
+bool abilityStanceChangeForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.stanceChangeForm;
+}
+
+bool abilityWimpOut(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.wimpOut;
+}
+
+bool abilityEmergencyExit(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.emergencyExit;
+}
+
+bool abilityWaterCompaction(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.waterCompaction;
+}
+
+bool abilityShieldsDownForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.shieldsDownForm;
+}
+
+bool abilitySchoolingForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.schoolingForm;
+}
+
+bool abilityDisguiseBlock(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.disguiseBlock;
+}
+
+bool abilityBattleBondForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.battleBondForm;
+}
+
+bool abilityPowerConstructForm(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.powerConstructForm;
+}
+
+bool abilityComatoseAsleep(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.comatoseAsleep;
+}
+
+bool abilityInnardsOut(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.innardsOut;
+}
+
+bool abilityFluffyDefense(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.fluffyDefense;
+}
+
+bool abilityDazzlingPriority(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.dazzlingPriority;
+}
+
+bool abilitySoulHeartBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.soulHeartBoost;
+}
+
+bool abilityTanglingHairSlow(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.tanglingHairSlow;
+}
+
+bool abilityReceiverAbility(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.receiverAbility;
+}
+
+bool abilityPowerOfAlchemy(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.powerOfAlchemy;
+}
+
+bool abilityBeastBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.beastBoost;
+}
+
+bool abilityRksSystem(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.rksSystem;
+}
+
+bool abilityFullMetalBody(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.fullMetalBody;
+}
+
+bool abilityShadowShield(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.shadowShield;
+}
+
+bool abilityPrismArmor(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.prismArmor;
+}
+
+bool abilityNeuroforce(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.neuroforce;
+}
+
+bool abilityIntrepidSword(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.intrepidSword;
+}
+
+bool abilityDauntlessShield(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.dauntlessShield;
+}
+
+bool abilityBallFetch(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.ballFetch;
+}
+
+bool abilityCottonDownSlow(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.cottonDownSlow;
+}
+
+bool abilityPropellerTail(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.propellerTail;
+}
+
+bool abilityGulpMissile(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.gulpMissile;
+}
+
+bool abilityStalwart(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.stalwart;
+}
+
+bool abilitySteamEngine(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.steamEngine;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -2230,6 +2470,126 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Symbiosis: passes item to ally
     regPassive(AbilityType::Symbiosis, [](auto& p) { p.symbiosisPass = true; });
+
+    // Illuminate: increases wild encounter rate
+    regPassive(AbilityType::Illuminate, [](auto& p) { p.wildEncounterBoost = true; });
+
+    // Run Away: guaranteed escape from wild
+    regPassive(AbilityType::RunAway, [](auto& p) { p.wildEscape = true; });
+
+    // Pickup: may pick up items after battle
+    regPassive(AbilityType::Pickup, [](auto& p) { p.pickupItems = true; });
+
+    // Truant: loafs around every other turn
+    regPassive(AbilityType::Truant, [](auto& p) { p.loafsEveryOtherTurn = true; });
+
+    // Honey Gather: may find Honey after battle
+    regPassive(AbilityType::HoneyGather, [](auto& p) { p.honeyGather = true; });
+
+    // Multitype: changes form with held plate
+    regPassive(AbilityType::Multitype, [](auto& p) { p.multitypeForm = true; });
+
+    // Zen Mode: changes form at half HP
+    regPassive(AbilityType::ZenMode, [](auto& p) { p.zenModeForm = true; });
+
+    // Flower Veil: protects Grass allies from status drops
+    regPassive(AbilityType::FlowerVeil, [](auto& p) { p.flowerVeilProtect = true; });
+
+    // Cheek Pouch: heals when eating a berry
+    regPassive(AbilityType::CheekPouch, [](auto& p) { p.cheekPouchHeal = true; });
+
+    // Stance Change: changes between Shield and Blade forms
+    regPassive(AbilityType::StanceChange, [](auto& p) { p.stanceChangeForm = true; });
+
+    // Wimp Out: switches out at half HP
+    regPassive(AbilityType::WimpOut, [](auto& p) { p.wimpOut = true; });
+
+    // Emergency Exit: switches out at half HP
+    regPassive(AbilityType::EmergencyExit, [](auto& p) { p.emergencyExit = true; });
+
+    // Water Compaction: +2 Def when hit by Water
+    regPassive(AbilityType::WaterCompaction, [](auto& p) { p.waterCompaction = true; });
+
+    // Shields Down: changes form at half HP
+    regPassive(AbilityType::ShieldsDown, [](auto& p) { p.shieldsDownForm = true; });
+
+    // Schooling: changes to School form
+    regPassive(AbilityType::Schooling, [](auto& p) { p.schoolingForm = true; });
+
+    // Disguise: blocks one hit
+    regPassive(AbilityType::Disguise, [](auto& p) { p.disguiseBlock = true; });
+
+    // Battle Bond: transforms after KO
+    regPassive(AbilityType::BattleBond, [](auto& p) { p.battleBondForm = true; });
+
+    // Power Construct: transforms at half HP
+    regPassive(AbilityType::PowerConstruct, [](auto& p) { p.powerConstructForm = true; });
+
+    // Comatose: always asleep but can act
+    regPassive(AbilityType::Comatose, [](auto& p) { p.comatoseAsleep = true; });
+
+    // Innards Out: deals damage equal to HP on KO
+    regPassive(AbilityType::InnardsOut, [](auto& p) { p.innardsOut = true; });
+
+    // Fluffy: halves contact damage, x2 Fire
+    regPassive(AbilityType::Fluffy, [](auto& p) { p.fluffyDefense = true; });
+
+    // Dazzling: blocks priority moves
+    regPassive(AbilityType::Dazzling, [](auto& p) { p.dazzlingPriority = true; });
+
+    // Soul Heart: +1 SpAtk per KO
+    regPassive(AbilityType::SoulHeart, [](auto& p) { p.soulHeartBoost = true; });
+
+    // Tangling Hair: -1 Speed on contact
+    regPassive(AbilityType::TanglingHair, [](auto& p) { p.tanglingHairSlow = true; });
+
+    // Receiver: inherits ally's ability on KO
+    regPassive(AbilityType::Receiver, [](auto& p) { p.receiverAbility = true; });
+
+    // Power of Alchemy: inherits ally's ability on KO
+    regPassive(AbilityType::PowerOfAlchemy, [](auto& p) { p.powerOfAlchemy = true; });
+
+    // Beast Boost: raises highest stat on KO
+    regPassive(AbilityType::BeastBoost, [](auto& p) { p.beastBoost = true; });
+
+    // RKS System: changes type with memory
+    regPassive(AbilityType::RksSystem, [](auto& p) { p.rksSystem = true; });
+
+    // Full Metal Body: prevents stat drops
+    regPassive(AbilityType::FullMetalBody, [](auto& p) { p.fullMetalBody = true; });
+
+    // Shadow Shield: halves damage at full HP
+    regPassive(AbilityType::ShadowShield, [](auto& p) { p.shadowShield = true; });
+
+    // Prism Armor: reduces super-effective damage
+    regPassive(AbilityType::PrismArmor, [](auto& p) { p.prismArmor = true; });
+
+    // Neuroforce: boosts super-effective damage
+    regPassive(AbilityType::Neuroforce, [](auto& p) { p.neuroforce = true; });
+
+    // Intrepid Sword: +1 Atk on entry
+    regPassive(AbilityType::IntrepidSword, [](auto& p) { p.intrepidSword = true; });
+
+    // Dauntless Shield: +1 Def on entry
+    regPassive(AbilityType::DauntlessShield, [](auto& p) { p.dauntlessShield = true; });
+
+    // Ball Fetch: retrieves failed Poke Ball
+    regPassive(AbilityType::BallFetch, [](auto& p) { p.ballFetch = true; });
+
+    // Cotton Down: -1 Speed on hit
+    regPassive(AbilityType::CottonDown, [](auto& p) { p.cottonDownSlow = true; });
+
+    // Propeller Tail: moves ignore redirection
+    regPassive(AbilityType::PropellerTail, [](auto& p) { p.propellerTail = true; });
+
+    // Gulp Missile: special effect when Surf/Dive used
+    regPassive(AbilityType::GulpMissile, [](auto& p) { p.gulpMissile = true; });
+
+    // Stalwart: moves ignore redirection
+    regPassive(AbilityType::Stalwart, [](auto& p) { p.stalwart = true; });
+
+    // Steam Engine: +6 Speed when hit by Fire/Water
+    regPassive(AbilityType::SteamEngine, [](auto& p) { p.steamEngine = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {
