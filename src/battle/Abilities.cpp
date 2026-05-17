@@ -265,6 +265,11 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::Steadfast: return "Steadfast";
         case AbilityType::TangledFeet: return "Tangled Feet";
         case AbilityType::Rivalry: return "Rivalry";
+        case AbilityType::SuctionCups: return "Suction Cups";
+        case AbilityType::ColorChange: return "Color Change";
+        case AbilityType::Heatproof: return "Heatproof";
+        case AbilityType::AirLock: return "Air Lock";
+        case AbilityType::SnowCloak: return "Snow Cloak";
         default: return "None";
     }
 }
@@ -416,6 +421,11 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "steadfast") return AbilityType::Steadfast;
     if (key == "tangledfeet") return AbilityType::TangledFeet;
     if (key == "rivalry") return AbilityType::Rivalry;
+    if (key == "suctioncups") return AbilityType::SuctionCups;
+    if (key == "colorchange") return AbilityType::ColorChange;
+    if (key == "heatproof") return AbilityType::Heatproof;
+    if (key == "airlock") return AbilityType::AirLock;
+    if (key == "snowcloak") return AbilityType::SnowCloak;
     return AbilityType::None;
 }
 
@@ -710,6 +720,26 @@ bool abilityEvasionDoubleWhenConfused(AbilityType abilityType) {
 
 bool abilityRivalryDamageModifier(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.rivalryDamageModifier;
+}
+
+bool abilityPreventsForcedSwitch(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.preventsForcedSwitch;
+}
+
+bool abilityColorChangeOnHit(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.colorChangeOnHit;
+}
+
+bool abilityFireResistance(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.fireResistance;
+}
+
+bool abilityNegatesWeather(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.negatesWeather;
+}
+
+bool abilityEvasionInSnow(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.evasionInSnow;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -1473,6 +1503,21 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Rivalry: +/-25% damage based on gender
     regPassive(AbilityType::Rivalry, [](auto& p) { p.rivalryDamageModifier = true; });
+
+    // Suction Cups: prevents forced switch
+    regPassive(AbilityType::SuctionCups, [](auto& p) { p.preventsForcedSwitch = true; });
+
+    // Color Change: changes type to match last hit
+    regPassive(AbilityType::ColorChange, [](auto& p) { p.colorChangeOnHit = true; });
+
+    // Heatproof: halves Fire damage
+    regPassive(AbilityType::Heatproof, [](auto& p) { p.fireResistance = true; });
+
+    // Air Lock: negates weather effects
+    regPassive(AbilityType::AirLock, [](auto& p) { p.negatesWeather = true; });
+
+    // Snow Cloak: evasion boosted in hail/snow
+    regPassive(AbilityType::SnowCloak, [](auto& p) { p.evasionInSnow = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {

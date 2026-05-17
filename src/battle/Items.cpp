@@ -184,6 +184,11 @@ std::string getItemName(ItemType type) {
         case ItemType::RazorFang: return "Razor Fang";
         case ItemType::FullIncense: return "Full Incense";
         case ItemType::SmokeBall: return "Smoke Ball";
+        case ItemType::SoftSand: return "Soft Sand";
+        case ItemType::DracoPlate: return "Draco Plate";
+        case ItemType::DreadPlate: return "Dread Plate";
+        case ItemType::RockIncense: return "Rock Incense";
+        case ItemType::LuckIncense: return "Luck Incense";
         default: return "None";
     }
 }
@@ -1130,6 +1135,31 @@ Item createSmokeBall() {
     return item;
 }
 
+Item createSoftSand() {
+    Item item(ItemType::SoftSand, "Soft Sand");
+    item.statModifiers.push_back({ItemStatModifier::Stat::SpAttack, 1.2f});
+    return item;
+}
+Item createDracoPlate() {
+    Item item(ItemType::DracoPlate, "Draco Plate");
+    item.statModifiers.push_back({ItemStatModifier::Stat::SpAttack, 1.2f});
+    return item;
+}
+Item createDreadPlate() {
+    Item item(ItemType::DreadPlate, "Dread Plate");
+    item.statModifiers.push_back({ItemStatModifier::Stat::SpAttack, 1.2f});
+    return item;
+}
+Item createRockIncense() {
+    Item item(ItemType::RockIncense, "Rock Incense");
+    item.statModifiers.push_back({ItemStatModifier::Stat::SpAttack, 1.2f});
+    return item;
+}
+Item createLuckIncense() {
+    Item item(ItemType::LuckIncense, "Luck Incense");
+    return item;
+}
+
 Item createChestoBerry() {
     Item item(ItemType::ChestoBerry, "Chesto Berry");
     item.isConsumable = true;
@@ -1548,6 +1578,11 @@ void initializeCoreItems(GameRegistry& registry) {
     reg(ItemType::RazorFang,     createRazorFang);
     reg(ItemType::FullIncense,   createFullIncense);
     reg(ItemType::SmokeBall,     createSmokeBall);
+    reg(ItemType::SoftSand,      createSoftSand);
+    reg(ItemType::DracoPlate,    createDracoPlate);
+    reg(ItemType::DreadPlate,    createDreadPlate);
+    reg(ItemType::RockIncense,   createRockIncense);
+    reg(ItemType::LuckIncense,   createLuckIncense);
 }
 
 // === Item logic helpers ===

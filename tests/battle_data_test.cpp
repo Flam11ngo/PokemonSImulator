@@ -6052,6 +6052,20 @@ TEST(AbilityDataTest, SteadfastNameMapsToSteadfastType) {
 }
 
 // --- Move test ---
+TEST(AbilityDataTest, SuctionCupsNameMapsToSuctionCupsType) {
+    AbilityData sc = getAbilityDataByName("suction-cups");
+    EXPECT_EQ(sc.type, AbilityType::SuctionCups);
+    Ability a = getAbility(AbilityType::SuctionCups);
+    EXPECT_TRUE(a.passive.preventsForcedSwitch);
+}
+
+TEST(AbilityDataTest, HeatproofNameMapsToHeatproofType) {
+    AbilityData hp = getAbilityDataByName("heatproof");
+    EXPECT_EQ(hp.type, AbilityType::Heatproof);
+    Ability a = getAbility(AbilityType::Heatproof);
+    EXPECT_TRUE(a.passive.fireResistance);
+}
+
 TEST(MoveBehaviorTest, DoodleCopiesOpponentAbility) {
     Species userSpecies = makeSpecies(9301, "DoodleUser", Type::Normal, Type::Count, AbilityType::None, AbilityType::None);
     Species targetSpecies = makeSpecies(9302, "DoodleTarget", Type::Normal, Type::Count, AbilityType::Blaze, AbilityType::None);

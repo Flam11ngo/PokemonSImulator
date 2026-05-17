@@ -1,6 +1,8 @@
 # Gen9 Move Progress Matrix (Singles 1v1 First)
 
-Generated at: 2026-04-11 15:10:25Z
+Generated at: 2026-05-17
+Status moves implemented: 137 / 277 (49%)
+GTest total: 190 tests passed
 
 Scope:
 Showdown Gen9 full move scope (including non-standard/historical), implementation staged in singles 1v1 first.

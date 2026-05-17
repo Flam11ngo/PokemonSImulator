@@ -161,6 +161,11 @@ enum class AbilityType {
     Steadfast,
     TangledFeet,
     Rivalry,
+    SuctionCups,
+    ColorChange,
+    Heatproof,
+    AirLock,
+    SnowCloak,
     Count
 };
 
@@ -275,6 +280,11 @@ public:
         bool speedBoostWhenFlinched = false;
         bool evasionDoubleWhenConfused = false;
         bool rivalryDamageModifier = false;
+        bool preventsForcedSwitch = false;
+        bool colorChangeOnHit = false;
+        bool fireResistance = false;
+        bool negatesWeather = false;
+        bool evasionInSnow = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -394,6 +404,11 @@ bool abilityInfatuatesOnContact(AbilityType abilityType);
 bool abilitySpeedBoostWhenFlinched(AbilityType abilityType);
 bool abilityEvasionDoubleWhenConfused(AbilityType abilityType);
 bool abilityRivalryDamageModifier(AbilityType abilityType);
+bool abilityPreventsForcedSwitch(AbilityType abilityType);
+bool abilityColorChangeOnHit(AbilityType abilityType);
+bool abilityFireResistance(AbilityType abilityType);
+bool abilityNegatesWeather(AbilityType abilityType);
+bool abilityEvasionInSnow(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

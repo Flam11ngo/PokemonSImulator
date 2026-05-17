@@ -19,23 +19,29 @@
       "todo": 125,
       "statusMoves": {
         "total": 277,
-        "implemented": 103,
-        "unsupported": 174
+        "implemented": 137,
+        "unsupported": 140
       }
     },
     "abilities": {
       "dataEntries": 367,
-      "engineEnumEntries": 57
+      "engineEnumEntries": 136,
+      "missing": 231,
+      "coveragePct": 37
     },
     "items": {
-      "jsonBattleItems": 272,
-      "unsupportedJsonBattleItems": 152,
-      "engineEnumEntries": 105
+      "total": 2175,
+      "battleRelevant": 304,
+      "engineEnumEntries": 145,
+      "missing": 159,
+      "coveragePct": 48
     },
     "regressionTests": {
-      "abilityBehaviorTestCount": 46,
-      "moveBehaviorTestCount": 53,
-      "battleLogicTestCount": 4
+      "gtestTotal": 190,
+      "abilityBehaviorTestCount": 69,
+      "moveBehaviorTestCount": 79,
+      "battleLogicTestCount": 5,
+      "itemDataTestCount": 2
     }
   },
   "definitionOfDone": {

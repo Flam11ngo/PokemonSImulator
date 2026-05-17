@@ -1958,7 +1958,32 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         return true;
     });
 
-    // Round 9: 5 new status moves
+    // Round 10: 5 new status moves
+    registry.registerMoveRule("celebrate", [](BattleContext&, Pokemon*, Pokemon*, const Move&) {
+        return true;
+    });
+
+    registry.registerMoveRule("happyhour", [](BattleContext&, Pokemon*, Pokemon*, const Move&) {
+        return true;
+    });
+
+    registry.registerMoveRule("spotlight", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        return true;
+    });
+
+    registry.registerMoveRule("conversion2", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->setTypes(Type::Normal, Type::Count);
+        return true;
+    });
+
+    registry.registerMoveRule("matblock", [](BattleContext& ctx, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        Side* side = ctx.findSideForPokemon(attacker);
+        if (side) ctx.getRuntimeMoveState().wideGuardActive[side] = true;
+        return true;
+    });
     registry.registerMoveRule("doodle", [](BattleContext&, Pokemon* attacker, Pokemon* defender, const Move&) {
         if (!attacker || !defender) return true;
         attacker->setAbility(defender->getAbility());

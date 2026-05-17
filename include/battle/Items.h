@@ -214,6 +214,11 @@ enum class ItemType {
     RazorFang,
     FullIncense,
     SmokeBall,
+    SoftSand,
+    DracoPlate,
+    DreadPlate,
+    RockIncense,
+    LuckIncense,
 
     Count
 };
@@ -580,6 +585,11 @@ Item createRazorClaw();
 Item createRazorFang();
 Item createFullIncense();
 Item createSmokeBall();
+Item createSoftSand();
+Item createDracoPlate();
+Item createDreadPlate();
+Item createRockIncense();
+Item createLuckIncense();
 
 // 辅助函数
 std::string getItemName(ItemType type);

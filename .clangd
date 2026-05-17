@@ -1,0 +1,9 @@
+CompileFlags:
+  Add:
+    - -Iinclude
+    - -Iinclude/battle
+    - -Iinclude/IO
+    - -Ilib
+    - -std=c++17
+Diagnostics:
+  UnusedIncludes: Strict
