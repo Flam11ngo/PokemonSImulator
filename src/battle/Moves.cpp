@@ -2172,4 +2172,65 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         defender->changeStatStage(StatIndex::SpecialAttack, -1);
         return true;
     });
+
+    // Round 15: 10 more stat moves
+    registry.registerMoveRule("swordsdance", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 2);
+        return true;
+    });
+    registry.registerMoveRule("irondefense", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Defense, 2);
+        return true;
+    });
+    registry.registerMoveRule("bulkup", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::Defense, 1);
+        return true;
+    });
+    registry.registerMoveRule("calmmind", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::SpecialAttack, 1);
+        attacker->changeStatStage(StatIndex::SpecialDefense, 1);
+        return true;
+    });
+    registry.registerMoveRule("dragondance", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::Speed, 1);
+        return true;
+    });
+    registry.registerMoveRule("honeclaws", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeAccuracyStage(1);
+        return true;
+    });
+    registry.registerMoveRule("shellsmash", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 2);
+        attacker->changeStatStage(StatIndex::SpecialAttack, 2);
+        attacker->changeStatStage(StatIndex::Speed, 2);
+        attacker->changeStatStage(StatIndex::Defense, -1);
+        attacker->changeStatStage(StatIndex::SpecialDefense, -1);
+        return true;
+    });
+    registry.registerMoveRule("workup", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::SpecialAttack, 1);
+        return true;
+    });
+    registry.registerMoveRule("meditate", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        return true;
+    });
+    registry.registerMoveRule("withdraw", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Defense, 1);
+        return true;
+    });
 }

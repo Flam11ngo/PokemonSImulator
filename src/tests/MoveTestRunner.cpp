@@ -96,6 +96,16 @@ const std::set<std::string> kImplementedStatusNameRules = {
     "playnice",
     "tailwhip",
     "babydolleyes",
+    "bulkup",
+    "calmmind",
+    "dragondance",
+    "honeclaws",
+    "irondefense",
+    "meditate",
+    "shellsmash",
+    "swordsdance",
+    "withdraw",
+    "workup",
 };
 
 std::string toLower(std::string value) {

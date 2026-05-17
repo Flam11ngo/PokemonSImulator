@@ -330,6 +330,26 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::Gooey: return "Gooey";
         case AbilityType::Aerilate: return "Aerilate";
         case AbilityType::ParentalBond: return "Parental Bond";
+        case AbilityType::Stamina: return "Stamina";
+        case AbilityType::Merciless: return "Merciless";
+        case AbilityType::Berserk: return "Berserk";
+        case AbilityType::LongReach: return "Long Reach";
+        case AbilityType::LiquidVoice: return "Liquid Voice";
+        case AbilityType::Galvanize: return "Galvanize";
+        case AbilityType::QueenlyMajesty: return "Queenly Majesty";
+        case AbilityType::Dancer: return "Dancer";
+        case AbilityType::Battery: return "Battery";
+        case AbilityType::DarkAura: return "Dark Aura";
+        case AbilityType::FairyAura: return "Fairy Aura";
+        case AbilityType::AuraBreak: return "Aura Break";
+        case AbilityType::PrimordialSea: return "Primordial Sea";
+        case AbilityType::DesolateLand: return "Desolate Land";
+        case AbilityType::DeltaStream: return "Delta Stream";
+        case AbilityType::Healer: return "Healer";
+        case AbilityType::FriendGuard: return "Friend Guard";
+        case AbilityType::Telepathy: return "Telepathy";
+        case AbilityType::GrassPelt: return "Grass Pelt";
+        case AbilityType::Symbiosis: return "Symbiosis";
         default: return "None";
     }
 }
@@ -546,6 +566,26 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "gooey") return AbilityType::Gooey;
     if (key == "aerilate") return AbilityType::Aerilate;
     if (key == "parentalbond") return AbilityType::ParentalBond;
+    if (key == "stamina") return AbilityType::Stamina;
+    if (key == "merciless") return AbilityType::Merciless;
+    if (key == "berserk") return AbilityType::Berserk;
+    if (key == "longreach") return AbilityType::LongReach;
+    if (key == "liquidvoice") return AbilityType::LiquidVoice;
+    if (key == "galvanize") return AbilityType::Galvanize;
+    if (key == "queenlymajesty") return AbilityType::QueenlyMajesty;
+    if (key == "dancer") return AbilityType::Dancer;
+    if (key == "battery") return AbilityType::Battery;
+    if (key == "darkaura") return AbilityType::DarkAura;
+    if (key == "fairyaura") return AbilityType::FairyAura;
+    if (key == "aurabreak") return AbilityType::AuraBreak;
+    if (key == "primordialsea") return AbilityType::PrimordialSea;
+    if (key == "desolateland") return AbilityType::DesolateLand;
+    if (key == "deltastream") return AbilityType::DeltaStream;
+    if (key == "healer") return AbilityType::Healer;
+    if (key == "friendguard") return AbilityType::FriendGuard;
+    if (key == "telepathy") return AbilityType::Telepathy;
+    if (key == "grasspelt") return AbilityType::GrassPelt;
+    if (key == "symbiosis") return AbilityType::Symbiosis;
     return AbilityType::None;
 }
 
@@ -1092,6 +1132,86 @@ bool abilityAerilateNormal(AbilityType abilityType) {
 
 bool abilityParentalBond(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.parentalBond;
+}
+
+bool abilityStaminaDefBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.staminaDefBoost;
+}
+
+bool abilityMercilessAutoCrit(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.mercilessAutoCrit;
+}
+
+bool abilityBerserkSpAtkBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.berserkSpAtkBoost;
+}
+
+bool abilityLongReachNoContact(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.longReachNoContact;
+}
+
+bool abilityLiquidVoiceWater(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.liquidVoiceWater;
+}
+
+bool abilityGalvanizeElectric(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.galvanizeElectric;
+}
+
+bool abilityQueenlyMajestyPriority(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.queenlyMajestyPriority;
+}
+
+bool abilityDancerDanceCopy(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.dancerDanceCopy;
+}
+
+bool abilityBatteryAllySpAtk(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.batteryAllySpAtk;
+}
+
+bool abilityDarkAuraBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.darkAuraBoost;
+}
+
+bool abilityFairyAuraBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.fairyAuraBoost;
+}
+
+bool abilityAuraBreakInvert(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.auraBreakInvert;
+}
+
+bool abilityPrimordialSea(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.primordialSea;
+}
+
+bool abilityDesolateLand(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.desolateLand;
+}
+
+bool abilityDeltaStream(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.deltaStream;
+}
+
+bool abilityHealerAllyStatus(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.healerAllyStatus;
+}
+
+bool abilityFriendGuardReduce(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.friendGuardReduce;
+}
+
+bool abilityTelepathyAvoidAlly(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.telepathyAvoidAlly;
+}
+
+bool abilityGrassPeltDefense(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.grassPeltDefense;
+}
+
+bool abilitySymbiosisPass(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.symbiosisPass;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -2050,6 +2170,66 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Parental Bond: damaging moves hit twice (second at 25%)
     regPassive(AbilityType::ParentalBond, [](auto& p) { p.parentalBond = true; });
+
+    // Stamina: +1 Def when hit
+    regPassive(AbilityType::Stamina, [](auto& p) { p.staminaDefBoost = true; });
+
+    // Merciless: auto-crit on poisoned targets
+    regPassive(AbilityType::Merciless, [](auto& p) { p.mercilessAutoCrit = true; });
+
+    // Berserk: +1 SpAtk at half HP
+    regPassive(AbilityType::Berserk, [](auto& p) { p.berserkSpAtkBoost = true; });
+
+    // Long Reach: moves don't make contact
+    regPassive(AbilityType::LongReach, [](auto& p) { p.longReachNoContact = true; });
+
+    // Liquid Voice: sound moves become Water
+    regPassive(AbilityType::LiquidVoice, [](auto& p) { p.liquidVoiceWater = true; });
+
+    // Galvanize: Normal moves become Electric
+    regPassive(AbilityType::Galvanize, [](auto& p) { p.galvanizeElectric = true; });
+
+    // Queenly Majesty: blocks priority moves
+    regPassive(AbilityType::QueenlyMajesty, [](auto& p) { p.queenlyMajestyPriority = true; });
+
+    // Dancer: copies dance moves
+    regPassive(AbilityType::Dancer, [](auto& p) { p.dancerDanceCopy = true; });
+
+    // Battery: boosts ally SpAtk
+    regPassive(AbilityType::Battery, [](auto& p) { p.batteryAllySpAtk = true; });
+
+    // Dark Aura: Dark moves x1.33
+    regPassive(AbilityType::DarkAura, [](auto& p) { p.darkAuraBoost = true; });
+
+    // Fairy Aura: Fairy moves x1.33
+    regPassive(AbilityType::FairyAura, [](auto& p) { p.fairyAuraBoost = true; });
+
+    // Aura Break: inverts Dark/Fairy Aura
+    regPassive(AbilityType::AuraBreak, [](auto& p) { p.auraBreakInvert = true; });
+
+    // Primordial Sea: heavy rain, Fire immune
+    regPassive(AbilityType::PrimordialSea, [](auto& p) { p.primordialSea = true; });
+
+    // Desolate Land: harsh sun, Water immune
+    regPassive(AbilityType::DesolateLand, [](auto& p) { p.desolateLand = true; });
+
+    // Delta Stream: strong winds, Flying immune
+    regPassive(AbilityType::DeltaStream, [](auto& p) { p.deltaStream = true; });
+
+    // Healer: 30% to cure ally status
+    regPassive(AbilityType::Healer, [](auto& p) { p.healerAllyStatus = true; });
+
+    // Friend Guard: reduces ally damage
+    regPassive(AbilityType::FriendGuard, [](auto& p) { p.friendGuardReduce = true; });
+
+    // Telepathy: avoids ally moves
+    regPassive(AbilityType::Telepathy, [](auto& p) { p.telepathyAvoidAlly = true; });
+
+    // Grass Pelt: Def x1.5 in Grassy Terrain
+    regPassive(AbilityType::GrassPelt, [](auto& p) { p.grassPeltDefense = true; });
+
+    // Symbiosis: passes item to ally
+    regPassive(AbilityType::Symbiosis, [](auto& p) { p.symbiosisPass = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {

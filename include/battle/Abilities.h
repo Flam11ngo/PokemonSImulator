@@ -226,6 +226,26 @@ enum class AbilityType {
     Gooey,
     Aerilate,
     ParentalBond,
+    Stamina,
+    Merciless,
+    Berserk,
+    LongReach,
+    LiquidVoice,
+    Galvanize,
+    QueenlyMajesty,
+    Dancer,
+    Battery,
+    DarkAura,
+    FairyAura,
+    AuraBreak,
+    PrimordialSea,
+    DesolateLand,
+    DeltaStream,
+    Healer,
+    FriendGuard,
+    Telepathy,
+    GrassPelt,
+    Symbiosis,
     Count
 };
 
@@ -403,6 +423,26 @@ public:
         bool gooeySlow = false;
         bool aerilateNormal = false;
         bool parentalBond = false;
+        bool staminaDefBoost = false;
+        bool mercilessAutoCrit = false;
+        bool berserkSpAtkBoost = false;
+        bool longReachNoContact = false;
+        bool liquidVoiceWater = false;
+        bool galvanizeElectric = false;
+        bool queenlyMajestyPriority = false;
+        bool dancerDanceCopy = false;
+        bool batteryAllySpAtk = false;
+        bool darkAuraBoost = false;
+        bool fairyAuraBoost = false;
+        bool auraBreakInvert = false;
+        bool primordialSea = false;
+        bool desolateLand = false;
+        bool deltaStream = false;
+        bool healerAllyStatus = false;
+        bool friendGuardReduce = false;
+        bool telepathyAvoidAlly = false;
+        bool grassPeltDefense = false;
+        bool symbiosisPass = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -585,6 +625,26 @@ bool abilityPixilateNormal(AbilityType abilityType);
 bool abilityGooeySlow(AbilityType abilityType);
 bool abilityAerilateNormal(AbilityType abilityType);
 bool abilityParentalBond(AbilityType abilityType);
+bool abilityStaminaDefBoost(AbilityType abilityType);
+bool abilityMercilessAutoCrit(AbilityType abilityType);
+bool abilityBerserkSpAtkBoost(AbilityType abilityType);
+bool abilityLongReachNoContact(AbilityType abilityType);
+bool abilityLiquidVoiceWater(AbilityType abilityType);
+bool abilityGalvanizeElectric(AbilityType abilityType);
+bool abilityQueenlyMajestyPriority(AbilityType abilityType);
+bool abilityDancerDanceCopy(AbilityType abilityType);
+bool abilityBatteryAllySpAtk(AbilityType abilityType);
+bool abilityDarkAuraBoost(AbilityType abilityType);
+bool abilityFairyAuraBoost(AbilityType abilityType);
+bool abilityAuraBreakInvert(AbilityType abilityType);
+bool abilityPrimordialSea(AbilityType abilityType);
+bool abilityDesolateLand(AbilityType abilityType);
+bool abilityDeltaStream(AbilityType abilityType);
+bool abilityHealerAllyStatus(AbilityType abilityType);
+bool abilityFriendGuardReduce(AbilityType abilityType);
+bool abilityTelepathyAvoidAlly(AbilityType abilityType);
+bool abilityGrassPeltDefense(AbilityType abilityType);
+bool abilitySymbiosisPass(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);
