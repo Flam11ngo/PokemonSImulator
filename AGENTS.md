@@ -13,6 +13,9 @@ Documentation is located in the `docs/` directory. Please refer to it for detail
 
 Keep update `README.md` with any new features or changes to existing functionality.
 
+### Decision Log
+- **2026-05-17**: Item implementation is frozen. All remaining 152 "battle items" in data/items.json are evolution items, experience/money modifiers, PP restoration, contest scarves, EV-training weights, or breeding triggers — none affect singles PvP battle mechanics. The 145 items already registered in the engine cover every competitively relevant held item. Future work focuses on abilities and moves only.
+
 ### Version Control
 This project uses Git. See .gitignore for excluded files.
 

@@ -176,6 +176,16 @@ enum class AbilityType {
     TintedLens,
     Klutz,
     SlowStart,
+    Swarm,
+    DrySkin,
+    SolarPower,
+    QuickFeet,
+    Stall,
+    LeafGuard,
+    SuperLuck,
+    Anticipation,
+    Forewarn,
+    IceBody,
     Count
 };
 
@@ -305,6 +315,16 @@ public:
         bool tintedLensBoost = false;
         bool klutzNoItem = false;
         bool slowStartHalved = false;
+        bool swarmBugBoost = false;
+        bool drySkinEffects = false;
+        bool solarPowerBoost = false;
+        bool quickFeetSpeedBoost = false;
+        bool alwaysMovesLast = false;
+        bool leafGuardSun = false;
+        bool superLuckCrit = false;
+        bool anticipationShudder = false;
+        bool forewarnReveal = false;
+        bool iceBodyHailHeal = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -439,6 +459,16 @@ bool abilityNormalizeAllNormal(AbilityType abilityType);
 bool abilityTintedLensBoost(AbilityType abilityType);
 bool abilityKlutzNoItem(AbilityType abilityType);
 bool abilitySlowStartHalved(AbilityType abilityType);
+bool abilitySwarmBugBoost(AbilityType abilityType);
+bool abilityDrySkinEffects(AbilityType abilityType);
+bool abilitySolarPowerBoost(AbilityType abilityType);
+bool abilityQuickFeetSpeedBoost(AbilityType abilityType);
+bool abilityAbilityAlwaysMovesLast(AbilityType abilityType);
+bool abilityLeafGuardSun(AbilityType abilityType);
+bool abilitySuperLuckCrit(AbilityType abilityType);
+bool abilityAnticipationShudder(AbilityType abilityType);
+bool abilityForewarnReveal(AbilityType abilityType);
+bool abilityIceBodyHailHeal(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

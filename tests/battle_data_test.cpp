@@ -6085,3 +6085,15 @@ TEST(AbilityDataTest, SniperNameMapsToSniperType) {
     Ability a = getAbility(AbilityType::Sniper);
     EXPECT_TRUE(a.passive.sniperCritBoost);
 }
+
+TEST(MoveBehaviorTest, CharmLowersAttackByTwo) {
+    Species species = makeSpecies(9401, "Charmer", Type::Fairy, Type::Count, AbilityType::None, AbilityType::None);
+    Pokemon user = makePokemon(species, AbilityType::None);
+    Pokemon target = makePokemon(species, AbilityType::None);
+    Side sideA("A"), sideB("B");
+    sideA.addPokemon(&user); sideB.addPokemon(&target);
+    Battle battle(sideA, sideB);
+    Move charm("Charm", Type::Fairy, Category::Status, 0, 100, 20, MoveEffect::None, 100);
+    battle.processMoveEffects(&user, &target, charm);
+    EXPECT_EQ(target.getStatStage(StatIndex::Attack), -2);
+}

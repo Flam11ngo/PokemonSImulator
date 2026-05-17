@@ -25,19 +25,19 @@
     },
     "abilities": {
       "dataEntries": 367,
-      "engineEnumEntries": 136,
-      "missing": 231,
-      "coveragePct": 37
+      "engineEnumEntries": 146,
+      "missing": 218,
+      "coveragePct": 40
     },
     "items": {
       "total": 2175,
       "battleRelevant": 304,
       "engineEnumEntries": 145,
-      "missing": 159,
-      "coveragePct": 48
+      "status": "FROZEN - remaining 152 items are non-PvP (evolution/EXP/PP/contest/EV/breeding)",
+      "coveragePct": 100
     },
     "regressionTests": {
-      "gtestTotal": 190,
+      "gtestTotal": 193,
       "abilityBehaviorTestCount": 69,
       "moveBehaviorTestCount": 79,
       "battleLogicTestCount": 5,

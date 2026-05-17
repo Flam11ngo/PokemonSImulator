@@ -2033,4 +2033,32 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         if (side) side->setSafeguardTurns(5);
         return true;
     });
+
+    // Round 12: 5 status moves
+    registry.registerMoveRule("charm", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->changeStatStage(StatIndex::Attack, -2);
+        return true;
+    });
+    registry.registerMoveRule("screech", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->changeStatStage(StatIndex::Defense, -2);
+        return true;
+    });
+    registry.registerMoveRule("metalsound", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->changeStatStage(StatIndex::SpecialDefense, -2);
+        return true;
+    });
+    registry.registerMoveRule("faketears", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->changeStatStage(StatIndex::SpecialDefense, -2);
+        return true;
+    });
+    registry.registerMoveRule("tickle", [](BattleContext&, Pokemon*, Pokemon* defender, const Move&) {
+        if (!defender) return true;
+        defender->changeStatStage(StatIndex::Attack, -1);
+        defender->changeStatStage(StatIndex::Defense, -1);
+        return true;
+    });
 }

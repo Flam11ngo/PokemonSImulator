@@ -280,6 +280,16 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::TintedLens: return "Tinted Lens";
         case AbilityType::Klutz: return "Klutz";
         case AbilityType::SlowStart: return "Slow Start";
+        case AbilityType::Swarm: return "Swarm";
+        case AbilityType::DrySkin: return "Dry Skin";
+        case AbilityType::SolarPower: return "Solar Power";
+        case AbilityType::QuickFeet: return "Quick Feet";
+        case AbilityType::Stall: return "Stall";
+        case AbilityType::LeafGuard: return "Leaf Guard";
+        case AbilityType::SuperLuck: return "Super Luck";
+        case AbilityType::Anticipation: return "Anticipation";
+        case AbilityType::Forewarn: return "Forewarn";
+        case AbilityType::IceBody: return "Ice Body";
         default: return "None";
     }
 }
@@ -446,6 +456,16 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "tintedlens") return AbilityType::TintedLens;
     if (key == "klutz") return AbilityType::Klutz;
     if (key == "slowstart") return AbilityType::SlowStart;
+    if (key == "swarm") return AbilityType::Swarm;
+    if (key == "dryskin") return AbilityType::DrySkin;
+    if (key == "solarpower") return AbilityType::SolarPower;
+    if (key == "quickfeet") return AbilityType::QuickFeet;
+    if (key == "stall") return AbilityType::Stall;
+    if (key == "leafguard") return AbilityType::LeafGuard;
+    if (key == "superluck") return AbilityType::SuperLuck;
+    if (key == "anticipation") return AbilityType::Anticipation;
+    if (key == "forewarn") return AbilityType::Forewarn;
+    if (key == "icebody") return AbilityType::IceBody;
     return AbilityType::None;
 }
 
@@ -800,6 +820,46 @@ bool abilityKlutzNoItem(AbilityType abilityType) {
 
 bool abilitySlowStartHalved(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.slowStartHalved;
+}
+
+bool abilitySwarmBugBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.swarmBugBoost;
+}
+
+bool abilityDrySkinEffects(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.drySkinEffects;
+}
+
+bool abilitySolarPowerBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.solarPowerBoost;
+}
+
+bool abilityQuickFeetSpeedBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.quickFeetSpeedBoost;
+}
+
+bool abilityAbilityAlwaysMovesLast(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.alwaysMovesLast;
+}
+
+bool abilityLeafGuardSun(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.leafGuardSun;
+}
+
+bool abilitySuperLuckCrit(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.superLuckCrit;
+}
+
+bool abilityAnticipationShudder(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.anticipationShudder;
+}
+
+bool abilityForewarnReveal(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.forewarnReveal;
+}
+
+bool abilityIceBodyHailHeal(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.iceBodyHailHeal;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -1608,6 +1668,36 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Slow Start: Atk and Speed halved for first 5 turns
     regPassive(AbilityType::SlowStart, [](auto& p) { p.slowStartHalved = true; });
+
+    // Swarm: Bug moves x1.5 at <= 1/3 HP
+    regPassive(AbilityType::Swarm, [](auto& p) { p.swarmBugBoost = true; });
+
+    // Dry Skin: healed by Water, damaged by Fire, hurt in sun
+    regPassive(AbilityType::DrySkin, [](auto& p) { p.drySkinEffects = true; });
+
+    // Solar Power: SpAtk x1.5 in sun, loses 1/8 HP per turn
+    regPassive(AbilityType::SolarPower, [](auto& p) { p.solarPowerBoost = true; });
+
+    // Quick Feet: Speed x1.5 when statused
+    regPassive(AbilityType::QuickFeet, [](auto& p) { p.quickFeetSpeedBoost = true; });
+
+    // Stall: always moves last
+    regPassive(AbilityType::Stall, [](auto& p) { p.alwaysMovesLast = true; });
+
+    // Leaf Guard: prevents status in sun
+    regPassive(AbilityType::LeafGuard, [](auto& p) { p.leafGuardSun = true; });
+
+    // Super Luck: +1 crit stage
+    regPassive(AbilityType::SuperLuck, [](auto& p) { p.superLuckCrit = true; });
+
+    // Anticipation: shudders if foe has super-effective or OHKO move
+    regPassive(AbilityType::Anticipation, [](auto& p) { p.anticipationShudder = true; });
+
+    // Forewarn: reveals highest-BP move on entry
+    regPassive(AbilityType::Forewarn, [](auto& p) { p.forewarnReveal = true; });
+
+    // Ice Body: heals 1/16 max HP in hail
+    regPassive(AbilityType::IceBody, [](auto& p) { p.iceBodyHailHeal = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {

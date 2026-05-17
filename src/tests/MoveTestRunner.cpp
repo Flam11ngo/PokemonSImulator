@@ -70,6 +70,11 @@ const std::set<std::string> kImplementedStatusNameRules = {
     "safeguard",
     "snowscape",
     "wonderroom",
+    "charm",
+    "faketears",
+    "metalsound",
+    "screech",
+    "tickle",
     "worryseed",
 };
 
