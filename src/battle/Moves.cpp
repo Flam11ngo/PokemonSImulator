@@ -2061,4 +2061,61 @@ void initializeCoreMoveRules(GameRegistry& registry) {
         defender->changeStatStage(StatIndex::Defense, -1);
         return true;
     });
+
+    // Round 13: 10 stat-boosting moves
+    registry.registerMoveRule("acidarmor", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Defense, 2);
+        return true;
+    });
+    registry.registerMoveRule("agility", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Speed, 2);
+        return true;
+    });
+    registry.registerMoveRule("amnesia", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::SpecialDefense, 2);
+        return true;
+    });
+    registry.registerMoveRule("barrier", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Defense, 2);
+        return true;
+    });
+    registry.registerMoveRule("coil", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::Defense, 1);
+        attacker->changeAccuracyStage(1);
+        return true;
+    });
+    registry.registerMoveRule("cottonguard", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Defense, 3);
+        return true;
+    });
+    registry.registerMoveRule("growth", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::Attack, 1);
+        attacker->changeStatStage(StatIndex::SpecialAttack, 1);
+        return true;
+    });
+    registry.registerMoveRule("nastyplot", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::SpecialAttack, 2);
+        return true;
+    });
+    registry.registerMoveRule("quiverdance", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::SpecialAttack, 1);
+        attacker->changeStatStage(StatIndex::SpecialDefense, 1);
+        attacker->changeStatStage(StatIndex::Speed, 1);
+        return true;
+    });
+    registry.registerMoveRule("tailglow", [](BattleContext&, Pokemon* attacker, Pokemon*, const Move&) {
+        if (!attacker) return true;
+        attacker->changeStatStage(StatIndex::SpecialAttack, 3);
+        return true;
+    });
 }

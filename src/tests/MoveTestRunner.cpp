@@ -76,6 +76,16 @@ const std::set<std::string> kImplementedStatusNameRules = {
     "screech",
     "tickle",
     "worryseed",
+    "acidarmor",
+    "agility",
+    "amnesia",
+    "barrier",
+    "coil",
+    "cottonguard",
+    "growth",
+    "nastyplot",
+    "quiverdance",
+    "tailglow",
 };
 
 std::string toLower(std::string value) {

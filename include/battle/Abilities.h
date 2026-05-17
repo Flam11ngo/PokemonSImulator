@@ -186,6 +186,26 @@ enum class AbilityType {
     Anticipation,
     Forewarn,
     IceBody,
+    Frisk,
+    Pickpocket,
+    Defeatist,
+    CursedBody,
+    WeakArmor,
+    HeavyMetal,
+    LightMetal,
+    ToxicBoost,
+    FlareBoost,
+    Harvest,
+    Overcoat,
+    PoisonTouch,
+    BigPecks,
+    WonderSkin,
+    Analytic,
+    Illusion,
+    Justified,
+    Rattled,
+    SandForce,
+    VictoryStar,
     Count
 };
 
@@ -325,6 +345,26 @@ public:
         bool anticipationShudder = false;
         bool forewarnReveal = false;
         bool iceBodyHailHeal = false;
+        bool friskRevealsItem = false;
+        bool pickpocketStealsItem = false;
+        bool defeatistDebuff = false;
+        bool cursedBodyDisable = false;
+        bool weakArmorStatShift = false;
+        bool heavyMetalWeightDouble = false;
+        bool lightMetalWeightHalf = false;
+        bool toxicBoostAttack = false;
+        bool flareBoostSpAttack = false;
+        bool harvestRecyclesBerry = false;
+        bool overcoatPowderWeather = false;
+        bool poisonTouchContact = false;
+        bool bigPecksPreventDefDrop = false;
+        bool wonderSkinReducedAccuracy = false;
+        bool analyticMoveLastBoost = false;
+        bool illusionDisguise = false;
+        bool justifiedDarkBoost = false;
+        bool rattledSpeedBoost = false;
+        bool sandForceBoost = false;
+        bool victoryStarAccuracy = false;
 
         float stabBonusMultiplier = 1.5f;
         int statusMovePriorityBonus = 0;
@@ -469,6 +509,26 @@ bool abilitySuperLuckCrit(AbilityType abilityType);
 bool abilityAnticipationShudder(AbilityType abilityType);
 bool abilityForewarnReveal(AbilityType abilityType);
 bool abilityIceBodyHailHeal(AbilityType abilityType);
+bool abilityFriskRevealsItem(AbilityType abilityType);
+bool abilityPickpocketStealsItem(AbilityType abilityType);
+bool abilityDefeatistDebuff(AbilityType abilityType);
+bool abilityCursedBodyDisable(AbilityType abilityType);
+bool abilityWeakArmorStatShift(AbilityType abilityType);
+bool abilityHeavyMetalWeightDouble(AbilityType abilityType);
+bool abilityLightMetalWeightHalf(AbilityType abilityType);
+bool abilityToxicBoostAttack(AbilityType abilityType);
+bool abilityFlareBoostSpAttack(AbilityType abilityType);
+bool abilityHarvestRecyclesBerry(AbilityType abilityType);
+bool abilityOvercoatPowderWeather(AbilityType abilityType);
+bool abilityPoisonTouchContact(AbilityType abilityType);
+bool abilityBigPecksPreventDefDrop(AbilityType abilityType);
+bool abilityWonderSkinReducedAccuracy(AbilityType abilityType);
+bool abilityAnalyticMoveLastBoost(AbilityType abilityType);
+bool abilityIllusionDisguise(AbilityType abilityType);
+bool abilityJustifiedDarkBoost(AbilityType abilityType);
+bool abilityRattledSpeedBoost(AbilityType abilityType);
+bool abilitySandForceBoost(AbilityType abilityType);
+bool abilityVictoryStarAccuracy(AbilityType abilityType);
 
 // Convert between ability enum and canonical display name.
 std::string getAbilityName(AbilityType type);

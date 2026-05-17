@@ -290,6 +290,26 @@ std::string getAbilityName(AbilityType type) {
         case AbilityType::Anticipation: return "Anticipation";
         case AbilityType::Forewarn: return "Forewarn";
         case AbilityType::IceBody: return "Ice Body";
+        case AbilityType::Frisk: return "Frisk";
+        case AbilityType::Pickpocket: return "Pickpocket";
+        case AbilityType::Defeatist: return "Defeatist";
+        case AbilityType::CursedBody: return "Cursed Body";
+        case AbilityType::WeakArmor: return "Weak Armor";
+        case AbilityType::HeavyMetal: return "Heavy Metal";
+        case AbilityType::LightMetal: return "Light Metal";
+        case AbilityType::ToxicBoost: return "Toxic Boost";
+        case AbilityType::FlareBoost: return "Flare Boost";
+        case AbilityType::Harvest: return "Harvest";
+        case AbilityType::Overcoat: return "Overcoat";
+        case AbilityType::PoisonTouch: return "Poison Touch";
+        case AbilityType::BigPecks: return "Big Pecks";
+        case AbilityType::WonderSkin: return "Wonder Skin";
+        case AbilityType::Analytic: return "Analytic";
+        case AbilityType::Illusion: return "Illusion";
+        case AbilityType::Justified: return "Justified";
+        case AbilityType::Rattled: return "Rattled";
+        case AbilityType::SandForce: return "Sand Force";
+        case AbilityType::VictoryStar: return "Victory Star";
         default: return "None";
     }
 }
@@ -466,6 +486,26 @@ AbilityType getAbilityTypeByName(const std::string& name) {
     if (key == "anticipation") return AbilityType::Anticipation;
     if (key == "forewarn") return AbilityType::Forewarn;
     if (key == "icebody") return AbilityType::IceBody;
+    if (key == "frisk") return AbilityType::Frisk;
+    if (key == "pickpocket") return AbilityType::Pickpocket;
+    if (key == "defeatist") return AbilityType::Defeatist;
+    if (key == "cursedbody") return AbilityType::CursedBody;
+    if (key == "weakarmor") return AbilityType::WeakArmor;
+    if (key == "heavymetal") return AbilityType::HeavyMetal;
+    if (key == "lightmetal") return AbilityType::LightMetal;
+    if (key == "toxicboost") return AbilityType::ToxicBoost;
+    if (key == "flareboost") return AbilityType::FlareBoost;
+    if (key == "harvest") return AbilityType::Harvest;
+    if (key == "overcoat") return AbilityType::Overcoat;
+    if (key == "poisontouch") return AbilityType::PoisonTouch;
+    if (key == "bigpecks") return AbilityType::BigPecks;
+    if (key == "wonderskin") return AbilityType::WonderSkin;
+    if (key == "analytic") return AbilityType::Analytic;
+    if (key == "illusion") return AbilityType::Illusion;
+    if (key == "justified") return AbilityType::Justified;
+    if (key == "rattled") return AbilityType::Rattled;
+    if (key == "sandforce") return AbilityType::SandForce;
+    if (key == "victorystar") return AbilityType::VictoryStar;
     return AbilityType::None;
 }
 
@@ -860,6 +900,86 @@ bool abilityForewarnReveal(AbilityType abilityType) {
 
 bool abilityIceBodyHailHeal(AbilityType abilityType) {
     return GameRegistry::instance().getAbility(abilityType).passive.iceBodyHailHeal;
+}
+
+bool abilityFriskRevealsItem(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.friskRevealsItem;
+}
+
+bool abilityPickpocketStealsItem(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.pickpocketStealsItem;
+}
+
+bool abilityDefeatistDebuff(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.defeatistDebuff;
+}
+
+bool abilityCursedBodyDisable(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.cursedBodyDisable;
+}
+
+bool abilityWeakArmorStatShift(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.weakArmorStatShift;
+}
+
+bool abilityHeavyMetalWeightDouble(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.heavyMetalWeightDouble;
+}
+
+bool abilityLightMetalWeightHalf(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.lightMetalWeightHalf;
+}
+
+bool abilityToxicBoostAttack(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.toxicBoostAttack;
+}
+
+bool abilityFlareBoostSpAttack(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.flareBoostSpAttack;
+}
+
+bool abilityHarvestRecyclesBerry(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.harvestRecyclesBerry;
+}
+
+bool abilityOvercoatPowderWeather(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.overcoatPowderWeather;
+}
+
+bool abilityPoisonTouchContact(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.poisonTouchContact;
+}
+
+bool abilityBigPecksPreventDefDrop(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.bigPecksPreventDefDrop;
+}
+
+bool abilityWonderSkinReducedAccuracy(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.wonderSkinReducedAccuracy;
+}
+
+bool abilityAnalyticMoveLastBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.analyticMoveLastBoost;
+}
+
+bool abilityIllusionDisguise(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.illusionDisguise;
+}
+
+bool abilityJustifiedDarkBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.justifiedDarkBoost;
+}
+
+bool abilityRattledSpeedBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.rattledSpeedBoost;
+}
+
+bool abilitySandForceBoost(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.sandForceBoost;
+}
+
+bool abilityVictoryStarAccuracy(AbilityType abilityType) {
+    return GameRegistry::instance().getAbility(abilityType).passive.victoryStarAccuracy;
 }
 
 std::string abilityTypeImmunityEventReason(AbilityType abilityType) {
@@ -1698,6 +1818,66 @@ void initializeCoreAbilities(GameRegistry& registry) {
 
     // Ice Body: heals 1/16 max HP in hail
     regPassive(AbilityType::IceBody, [](auto& p) { p.iceBodyHailHeal = true; });
+
+    // Frisk: reveals opponent's held item on entry
+    regPassive(AbilityType::Frisk, [](auto& p) { p.friskRevealsItem = true; });
+
+    // Pickpocket: steals item on contact
+    regPassive(AbilityType::Pickpocket, [](auto& p) { p.pickpocketStealsItem = true; });
+
+    // Defeatist: Atk/SpAtk halved at <= 1/2 HP
+    regPassive(AbilityType::Defeatist, [](auto& p) { p.defeatistDebuff = true; });
+
+    // Cursed Body: 30% to disable move on hit
+    regPassive(AbilityType::CursedBody, [](auto& p) { p.cursedBodyDisable = true; });
+
+    // Weak Armor: -1 Def +2 Speed on physical hit
+    regPassive(AbilityType::WeakArmor, [](auto& p) { p.weakArmorStatShift = true; });
+
+    // Heavy Metal: weight doubled
+    regPassive(AbilityType::HeavyMetal, [](auto& p) { p.heavyMetalWeightDouble = true; });
+
+    // Light Metal: weight halved
+    regPassive(AbilityType::LightMetal, [](auto& p) { p.lightMetalWeightHalf = true; });
+
+    // Toxic Boost: Atk x1.5 when poisoned
+    regPassive(AbilityType::ToxicBoost, [](auto& p) { p.toxicBoostAttack = true; });
+
+    // Flare Boost: SpAtk x1.5 when burned
+    regPassive(AbilityType::FlareBoost, [](auto& p) { p.flareBoostSpAttack = true; });
+
+    // Harvest: 50% chance to recycle consumed berry in sun
+    regPassive(AbilityType::Harvest, [](auto& p) { p.harvestRecyclesBerry = true; });
+
+    // Overcoat: immune to powder and weather damage
+    regPassive(AbilityType::Overcoat, [](auto& p) { p.overcoatPowderWeather = true; });
+
+    // Poison Touch: 30% to poison on contact
+    regPassive(AbilityType::PoisonTouch, [](auto& p) { p.poisonTouchContact = true; });
+
+    // Big Pecks: prevents Defense drops
+    regPassive(AbilityType::BigPecks, [](auto& p) { p.bigPecksPreventDefDrop = true; });
+
+    // Wonder Skin: status moves have 50% accuracy
+    regPassive(AbilityType::WonderSkin, [](auto& p) { p.wonderSkinReducedAccuracy = true; });
+
+    // Analytic: x1.3 damage if moving last
+    regPassive(AbilityType::Analytic, [](auto& p) { p.analyticMoveLastBoost = true; });
+
+    // Illusion: disguised as last party member
+    regPassive(AbilityType::Illusion, [](auto& p) { p.illusionDisguise = true; });
+
+    // Justified: +1 Atk when hit by Dark move
+    regPassive(AbilityType::Justified, [](auto& p) { p.justifiedDarkBoost = true; });
+
+    // Rattled: +1 Speed when hit by Bug/Ghost/Dark
+    regPassive(AbilityType::Rattled, [](auto& p) { p.rattledSpeedBoost = true; });
+
+    // Sand Force: Rock/Ground/Steel x1.3 in sandstorm
+    regPassive(AbilityType::SandForce, [](auto& p) { p.sandForceBoost = true; });
+
+    // Victory Star: ally accuracy x1.1
+    regPassive(AbilityType::VictoryStar, [](auto& p) { p.victoryStarAccuracy = true; });
 }
 
 std::vector<Ability> getAbilitiesForPokemon(AbilityType type) {
