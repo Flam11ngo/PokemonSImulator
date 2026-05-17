@@ -374,6 +374,10 @@ nlohmann::json BattleSession::processTurn(const nlohmann::json& turnRequest) {
     if (!turnRequest.is_object()) {
         return nlohmann::json{{"ok", false}, {"error", "turn request must be an object"}};
     }
+
+    // 清理上回合累积事件，确保每回合输出仅包含本回合事件
+    battle->clearSpecialEvents();
+
     const int nextTurn = battle->getTurnNumber() + 1;
     nlohmann::json sideAInput;
     nlohmann::json sideBInput;

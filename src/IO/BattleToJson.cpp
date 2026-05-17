@@ -136,6 +136,25 @@ std::string buildDescription(const json& eventEntry) {
     if (eventType == "item_replay") {
         return asString("pokemon", "宝可梦") + " 的道具效果恢复并重新生效。";
     }
+    if (eventType == "stat_change") {
+        const std::string pokemon = asString("pokemon", "宝可梦");
+        const std::string stat = asString("stat", "能力");
+        const int delta = asInt("delta", 0);
+        const std::string move = asString("move");
+        std::string changeText;
+        if (delta >= 3) changeText = "巨幅提升";
+        else if (delta == 2) changeText = "大幅提升";
+        else if (delta == 1) changeText = "提升";
+        else if (delta == -1) changeText = "降低";
+        else if (delta == -2) changeText = "大幅降低";
+        else if (delta <= -3) changeText = "巨幅降低";
+        else changeText = "变化";
+        std::string text = pokemon + " 的 " + stat + " " + changeText + "了！";
+        if (!move.empty()) {
+            text += "（来源技能：" + move + "）";
+        }
+        return text;
+    }
     return "发生了 " + eventType + " 事件。";
 }
 

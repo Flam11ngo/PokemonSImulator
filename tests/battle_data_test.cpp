@@ -6009,29 +6009,43 @@ TEST(MoveBehaviorTest, CharmLowersAttackByTwo) {
     EXPECT_EQ(target.getStatStage(StatIndex::Attack), -2);
 }
 
-// --- Comprehensive Integration Test ---
+// --- Comprehensive Integration Test: full battle with diverse mechanics ---
+// Simulates a real 3v3 battle with status moves, switches, abilities, and recovery.
+// Weak attacks + healing + defense boosts keep the fight going many rounds.
 TEST(BattleFlowIntegrationTest, FullBattleWithStatusMovesSwitchAndAbilities) {
-    // Setup: 3v3 battle with diverse abilities and status moves
-    Species speciesA = makeSpecies(20001, "HeroA", Type::Fire, Type::Count, AbilityType::Blaze, AbilityType::None);
-    Species speciesB = makeSpecies(20002, "HeroB", Type::Water, Type::Count, AbilityType::Torrent, AbilityType::None);
-    Species speciesC = makeSpecies(20003, "HeroC", Type::Grass, Type::Count, AbilityType::Overgrow, AbilityType::None);
-    Species speciesD = makeSpecies(20004, "HeroD", Type::Electric, Type::Count, AbilityType::Intimidate, AbilityType::None);
-    Species speciesE = makeSpecies(20005, "HeroE", Type::Psychic, Type::Count, AbilityType::Levitate, AbilityType::None);
-    Species speciesF = makeSpecies(20006, "HeroF", Type::Ground, Type::Count, AbilityType::SandForce, AbilityType::None);
+    // Tanky species with 120 HP, balanced defenses
+    Species tankySpecies = makeSpecies(20010, "Tank", Type::Normal, Type::Count, AbilityType::None, AbilityType::None);
+    tankySpecies.baseStats = {120, 60, 80, 60, 80, 60};
+
+    Species speciesA = makeSpecies(20011, "Shield", Type::Steel, Type::Count, AbilityType::Sturdy, AbilityType::None);
+    speciesA.baseStats = {120, 60, 100, 60, 100, 50};
+
+    Species speciesB = makeSpecies(20012, "Healer", Type::Fairy, Type::Count, AbilityType::NaturalCure, AbilityType::None);
+    speciesB.baseStats = {130, 50, 80, 70, 90, 60};
+
+    Species speciesC = makeSpecies(20013, "Buffer", Type::Fighting, Type::Count, AbilityType::Intimidate, AbilityType::None);
+    speciesC.baseStats = {110, 80, 85, 50, 85, 65};
+
+    Species speciesD = makeSpecies(20014, "Speedy", Type::Electric, Type::Count, AbilityType::Levitate, AbilityType::None);
+    speciesD.baseStats = {100, 60, 75, 75, 75, 90};
+
+    Species speciesE = makeSpecies(20015, "Bulwark", Type::Rock, Type::Count, AbilityType::Stamina, AbilityType::None);
+    speciesE.baseStats = {115, 70, 100, 50, 80, 55};
+
+    Species speciesF = makeSpecies(20016, "Cleric", Type::Grass, Type::Count, AbilityType::Overgrow, AbilityType::None);
+    speciesF.baseStats = {125, 55, 85, 65, 85, 60};
 
     std::vector<std::unique_ptr<Pokemon>> storage;
-    Pokemon pokeA = makePokemon(speciesA, AbilityType::Blaze);
-    Pokemon pokeB = makePokemon(speciesB, AbilityType::Torrent);
-    Pokemon pokeC = makePokemon(speciesC, AbilityType::Overgrow);
-    Pokemon pokeD = makePokemon(speciesD, AbilityType::Intimidate);
-    Pokemon pokeE = makePokemon(speciesE, AbilityType::Levitate);
-    Pokemon pokeF = makePokemon(speciesF, AbilityType::SandForce);
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeA)));
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeB)));
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeC)));
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeD)));
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeE)));
-    storage.push_back(std::make_unique<Pokemon>(std::move(pokeF)));
+#define NEW_POKE(idx, sp, abil) \
+    do { auto p = makePokemon(sp, abil); storage.push_back(std::make_unique<Pokemon>(p)); } while(0)
+
+    NEW_POKE(0, speciesA, AbilityType::Sturdy);
+    NEW_POKE(1, speciesB, AbilityType::NaturalCure);
+    NEW_POKE(2, speciesC, AbilityType::Intimidate);
+    NEW_POKE(3, speciesD, AbilityType::Levitate);
+    NEW_POKE(4, speciesE, AbilityType::Stamina);
+    NEW_POKE(5, speciesF, AbilityType::Overgrow);
+#undef NEW_POKE
 
     Side sideA("SideA"), sideB("SideB");
     sideA.addPokemon(storage[0].get());
@@ -6042,61 +6056,90 @@ TEST(BattleFlowIntegrationTest, FullBattleWithStatusMovesSwitchAndAbilities) {
     sideB.addPokemon(storage[5].get());
 
     Battle battle(sideA, sideB);
+
+    // Phase 1: setup — IronDefense on the opener
     Pokemon* a = sideA.getActivePokemon();
     Pokemon* b = sideB.getActivePokemon();
+    Move ironDefense("Iron Defense", Type::Steel, Category::Status, 0, 100, 15, MoveEffect::None, 100);
+    battle.processMoveEffects(a, b, ironDefense);
+    EXPECT_EQ(a->getStatStage(StatIndex::Defense), 2);
 
-    // Intimidate should have lowered Attack of active Pokemon A
-    EXPECT_EQ(a->getStatStage(StatIndex::Attack), -1);
+    // Phase 2: switch to bring Intimidate into play (Intimidate is passive, triggers on entry)
+    ASSERT_TRUE(sideA.canSwitch());
+    battle.switchPokemon(sideA, 2);
+    a = sideA.getActivePokemon();
+    EXPECT_EQ(b->getStatStage(StatIndex::Attack), -1);
 
-    // Use status move: SwordsDance on A
-    Move swordsDance("Swords Dance", Type::Normal, Category::Status, 0, 100, 20, MoveEffect::None, 100);
-    battle.processMoveEffects(a, b, swordsDance);
+    // Phase 3: BulkUp + attack (damage Buffer a bit) + HealOrder
+    Move bulkUp("Bulk Up", Type::Fighting, Category::Status, 0, 100, 20, MoveEffect::None, 100);
+    battle.processMoveEffects(a, b, bulkUp);
     EXPECT_EQ(a->getStatStage(StatIndex::Attack), 1);
 
-    // Use Charm (status move) to lower opponent's Attack
-    Move charm("Charm", Type::Fairy, Category::Status, 0, 100, 20, MoveEffect::None, 100);
-    battle.processMoveEffects(a, b, charm);
-    EXPECT_EQ(b->getStatStage(StatIndex::Attack), -2);
+    Move tackle("Tackle", Type::Normal, Category::Physical, 40, 100, 35, MoveEffect::None, 100);
+    // Damage Buffer first
+    battle.enqueueAction(BattleAction::makeAttack(b, a, tackle));
+    battle.resolveNextAction();
+    int hpBefore = a->getCurrentHP();
+    // Now attack opponent too
+    battle.enqueueAction(BattleAction::makeAttack(a, b, tackle));
+    battle.resolveNextAction();
+    EXPECT_LT(b->getCurrentHP(), b->getMaxHP());
 
-    // Switch: A -> B
-    ASSERT_TRUE(sideA.canSwitch());
-    battle.switchPokemon(sideA, 1);
-    a = sideA.getActivePokemon();
-    EXPECT_EQ(a, storage[1].get());
+    Move healOrder("Heal Order", Type::Bug, Category::Status, 0, 100, 10, MoveEffect::None, 100);
+    battle.processMoveEffects(a, b, healOrder);
+    EXPECT_GT(a->getCurrentHP(), hpBefore);
 
-    // Use attacking move
-    Move waterGun("Water Gun", Type::Water, Category::Special, 40, 100, 25, MoveEffect::None, 100);
-    int hpBefore = b->getCurrentHP();
-    battle.enqueueAction(BattleAction::makeAttack(a, b, waterGun));
+    // Phase 4: SideB switches — attack Bulwark
+    ASSERT_TRUE(sideB.canSwitch());
+    battle.switchPokemon(sideB, 1);
+    b = sideB.getActivePokemon();
+    hpBefore = b->getCurrentHP();
+    battle.enqueueAction(BattleAction::makeAttack(a, b, tackle));
     battle.resolveNextAction();
     EXPECT_LT(b->getCurrentHP(), hpBefore);
 
-    // Continue until one side faints (with max turn limit)
-    int turnLimit = 50;
-    while (sideA.hasRemainingPokemon() && sideB.hasRemainingPokemon() && --turnLimit > 0) {
+    // Phase 5: switch to Healer, damage it, then jungle heal
+    ASSERT_TRUE(sideA.canSwitch());
+    battle.switchPokemon(sideA, 1);
+    a = sideA.getActivePokemon();
+    // First take some damage
+    battle.enqueueAction(BattleAction::makeAttack(b, a, tackle));
+    battle.resolveNextAction();
+    int damagedHP = a->getCurrentHP();
+    Move jungleHealing("Jungle Healing", Type::Grass, Category::Status, 0, 100, 10, MoveEffect::None, 100);
+    battle.processMoveEffects(a, b, jungleHealing);
+    EXPECT_GT(a->getCurrentHP(), damagedHP);
+
+    // Phase 6: attrition war — weak attacks + periodic healing + status moves
+    Move waterGun("Water Gun", Type::Water, Category::Special, 30, 100, 25, MoveEffect::None, 100);
+    int maxTurns = 200, turns = 0, statusUses = 0, switchCount = 0;
+    while (sideA.hasRemainingPokemon() && sideB.hasRemainingPokemon() && turns < maxTurns) {
         a = sideA.getActivePokemon();
         b = sideB.getActivePokemon();
-        if (!a || !b || a->isFainted() || b->isFainted()) break;
-
-        // Use Growl to lower stats
-        Move growl("Growl", Type::Normal, Category::Status, 0, 100, 40, MoveEffect::None, 100);
-        battle.processMoveEffects(a, b, growl);
-
-        // Attack
-        battle.enqueueAction(BattleAction::makeAttack(a, b, waterGun));
-        battle.resolveNextAction();
-
-        // Swap sides if needed
-        if (a->isFainted() && sideA.canSwitch()) {
-            int next = (sideA.getActiveIndex() + 1) % sideA.getPokemonCount();
-            battle.switchPokemon(sideA, next);
+        if (!a || !b || a->isFainted() || b->isFainted()) {
+            if (a && a->isFainted() && sideA.canSwitch())
+                for (int i = 0; i < sideA.getPokemonCount(); ++i)
+                    if (auto* p = sideA.getTeam()[i]; p && !p->isFainted() && i != sideA.getActiveIndex())
+                        { battle.switchPokemon(sideA, i); switchCount++; break; }
+            if (b && b->isFainted() && sideB.canSwitch())
+                for (int i = 0; i < sideB.getPokemonCount(); ++i)
+                    if (auto* p = sideB.getTeam()[i]; p && !p->isFainted() && i != sideB.getActiveIndex())
+                        { battle.switchPokemon(sideB, i); switchCount++; break; }
+            continue;
         }
-        if (b->isFainted() && sideB.canSwitch()) {
-            int next = (sideB.getActiveIndex() + 1) % sideB.getPokemonCount();
-            battle.switchPokemon(sideB, next);
+        if (turns % 3 == 0 && a->getCurrentHP() < a->getMaxHP() / 2) {
+            battle.processMoveEffects(a, b, healOrder); statusUses++;
+        } else if (turns % 5 == 0) {
+            Move growl("Growl", Type::Normal, Category::Status, 0, 100, 40, MoveEffect::None, 100);
+            battle.processMoveEffects(a, b, growl); statusUses++;
+        } else {
+            battle.enqueueAction(BattleAction::makeAttack(a, b, waterGun));
+            battle.resolveNextAction();
         }
+        turns++;
     }
-
-    EXPECT_GT(turnLimit, 0);
+    EXPECT_LT(turns, maxTurns);
+    EXPECT_GT(switchCount, 0);
+    EXPECT_GT(statusUses, 0);
     EXPECT_TRUE(!sideA.hasRemainingPokemon() || !sideB.hasRemainingPokemon());
 }

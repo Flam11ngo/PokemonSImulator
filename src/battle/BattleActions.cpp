@@ -16,7 +16,7 @@ BattleAction BattleAction::makeSwitch(Pokemon* actor, int switchIndex) {
     action.type = ActionType::Switch;
     action.actor = actor;
     action.switchIndex = switchIndex;
-    action.movePriority = 0;
+    action.movePriority = 6;  // Switching has +6 priority (like in the games)
     action.priority = actor ? actor->getSpeed() : 0;
     return action;
 }

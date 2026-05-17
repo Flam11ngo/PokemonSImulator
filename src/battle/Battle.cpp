@@ -80,6 +80,17 @@ void recordSpecialEvent(const Battle& battle, const std::string& eventType, cons
     const_cast<Battle&>(battle).appendSpecialEvent(eventType, details);
 }
 
+static const char* statIndexName(StatIndex idx) {
+    switch (idx) {
+        case StatIndex::Attack: return "攻击";
+        case StatIndex::Defense: return "防御";
+        case StatIndex::SpecialAttack: return "特攻";
+        case StatIndex::SpecialDefense: return "特防";
+        case StatIndex::Speed: return "速度";
+        default: return "???";
+    }
+}
+
 // Move classification helpers now live in Moves.h / Moves.cpp
 
 bool isBerryItem(ItemType itemType) {
@@ -1278,14 +1289,14 @@ void Battle::enqueueAction(const BattleAction& action) {
 
 void Battle::processTurn() {
     beginTurn();
-    
+
     // 输出回合开始的Json
     json turnStartJson = BattleToJson::battleToJson(*this);
     turnStartJson["event"] = "turn_start";
     
     // 写入到cache文件
     BattleToJson::writeToCache(turnStartJson, "battle_turn_start_" + std::to_string(turnNumber) + ".json");
-    
+
     while (!queue.empty()) {
         resolveNextAction();
     }
@@ -1368,6 +1379,17 @@ void Battle::resolveNextAction() {
                 break;
             }
             
+            // 如果目标因换人不再是活跃宝可梦，重定向到新活跃宝可梦
+            {
+                Side* targetSide = findSideForPokemon(*this, action.target);
+                if (targetSide) {
+                    Pokemon* currentActive = targetSide->getActivePokemon();
+                    if (currentActive && currentActive != action.target && !currentActive->isFainted()) {
+                        action.target = currentActive;
+                    }
+                }
+            }
+
             // 触发攻击前的效果
             triggerAbilities(Trigger::OnAttack, action.actor);
             triggerItemEffects(ItemTrigger::OnAttack, action.actor);
@@ -1976,6 +1998,10 @@ int Battle::calculateDamage(Pokemon* attacker, Pokemon* defender, const Move& mo
 
     movePower = applyAbilityPowerModifier(atkAbility, move, movePower, isSheerForceBoostedMove(move));
 
+    if (movePower == 0) {
+        return 0;
+    }
+
     float base = ((2.0f * attacker->getLevel() / 5.0f + 2.0f) * movePower * attackStat / defenseStat) / 50.0f + 2.0f;
     const float typeEffectiveness = adjustedTypeEffectivenessForMove(defender, effectiveType, atkAbility);
     float modifier = typeEffectiveness;
@@ -2246,7 +2272,76 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
         triggerItemEffect(newActive, ItemTrigger::OnEntry, opponentPokemon);
     };
 
+    // Snapshot stat stages before move rule (for stat_change event generation)
+    const int atkBefore = attacker->getStatStage(StatIndex::Attack);
+    const int defBefore = attacker->getStatStage(StatIndex::Defense);
+    const int spaBefore = attacker->getStatStage(StatIndex::SpecialAttack);
+    const int spdBefore = attacker->getStatStage(StatIndex::SpecialDefense);
+    const int speBefore = attacker->getStatStage(StatIndex::Speed);
+    const int accBefore = attacker->getAccuracyStage();
+    const int evaBefore = attacker->getEvasionStage();
+    const int dAtkBefore = defender->getStatStage(StatIndex::Attack);
+    const int dDefBefore = defender->getStatStage(StatIndex::Defense);
+    const int dSpaBefore = defender->getStatStage(StatIndex::SpecialAttack);
+    const int dSpdBefore = defender->getStatStage(StatIndex::SpecialDefense);
+    const int dSpeBefore = defender->getStatStage(StatIndex::Speed);
+    const int dAccBefore = defender->getAccuracyStage();
+    const int dEvaBefore = defender->getEvasionStage();
+
     if (registry.applyMoveRule(move.getName(), battleContext, attacker, defender, move)) {
+        auto recordOne = [&](Pokemon* p, StatIndex idx, int before, int after) {
+            if (before != after) {
+                recordSpecialEvent(*this, "stat_change", {
+                    {"pokemon", p->getName()},
+                    {"stat", statIndexName(idx)},
+                    {"delta", after - before},
+                    {"move", move.getName()}
+                });
+            }
+        };
+        recordOne(attacker, StatIndex::Attack, atkBefore, attacker->getStatStage(StatIndex::Attack));
+        recordOne(attacker, StatIndex::Defense, defBefore, attacker->getStatStage(StatIndex::Defense));
+        recordOne(attacker, StatIndex::SpecialAttack, spaBefore, attacker->getStatStage(StatIndex::SpecialAttack));
+        recordOne(attacker, StatIndex::SpecialDefense, spdBefore, attacker->getStatStage(StatIndex::SpecialDefense));
+        recordOne(attacker, StatIndex::Speed, speBefore, attacker->getStatStage(StatIndex::Speed));
+        // Accuracy/Evasion use special StatIndex values (sentinel), store as string keys
+        if (accBefore != attacker->getAccuracyStage()) {
+            recordSpecialEvent(*this, "stat_change", {
+                {"pokemon", attacker->getName()},
+                {"stat", "命中率"},
+                {"delta", attacker->getAccuracyStage() - accBefore},
+                {"move", move.getName()}
+            });
+        }
+        if (evaBefore != attacker->getEvasionStage()) {
+            recordSpecialEvent(*this, "stat_change", {
+                {"pokemon", attacker->getName()},
+                {"stat", "闪避率"},
+                {"delta", attacker->getEvasionStage() - evaBefore},
+                {"move", move.getName()}
+            });
+        }
+        recordOne(defender, StatIndex::Attack, dAtkBefore, defender->getStatStage(StatIndex::Attack));
+        recordOne(defender, StatIndex::Defense, dDefBefore, defender->getStatStage(StatIndex::Defense));
+        recordOne(defender, StatIndex::SpecialAttack, dSpaBefore, defender->getStatStage(StatIndex::SpecialAttack));
+        recordOne(defender, StatIndex::SpecialDefense, dSpdBefore, defender->getStatStage(StatIndex::SpecialDefense));
+        recordOne(defender, StatIndex::Speed, dSpeBefore, defender->getStatStage(StatIndex::Speed));
+        if (dAccBefore != defender->getAccuracyStage()) {
+            recordSpecialEvent(*this, "stat_change", {
+                {"pokemon", defender->getName()},
+                {"stat", "命中率"},
+                {"delta", defender->getAccuracyStage() - dAccBefore},
+                {"move", move.getName()}
+            });
+        }
+        if (dEvaBefore != defender->getEvasionStage()) {
+            recordSpecialEvent(*this, "stat_change", {
+                {"pokemon", defender->getName()},
+                {"stat", "闪避率"},
+                {"delta", defender->getEvasionStage() - dEvaBefore},
+                {"move", move.getName()}
+            });
+        }
         return;
     }
 
@@ -2336,6 +2431,20 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
     const int defenderHpBefore = defender->getCurrentHP();
     const auto attackerStatusesBefore = snapshotStatuses(attacker);
     const auto defenderStatusesBefore = snapshotStatuses(defender);
+    const int sAtkBefore = attacker->getStatStage(StatIndex::Attack);
+    const int sDefBefore = attacker->getStatStage(StatIndex::Defense);
+    const int sSpaBefore = attacker->getStatStage(StatIndex::SpecialAttack);
+    const int sSpdBefore = attacker->getStatStage(StatIndex::SpecialDefense);
+    const int sSpeBefore = attacker->getStatStage(StatIndex::Speed);
+    const int sAccBefore = attacker->getAccuracyStage();
+    const int sEvaBefore = attacker->getEvasionStage();
+    const int sdAtkBefore = defender->getStatStage(StatIndex::Attack);
+    const int sdDefBefore = defender->getStatStage(StatIndex::Defense);
+    const int sdSpaBefore = defender->getStatStage(StatIndex::SpecialAttack);
+    const int sdSpdBefore = defender->getStatStage(StatIndex::SpecialDefense);
+    const int sdSpeBefore = defender->getStatStage(StatIndex::Speed);
+    const int sdAccBefore = defender->getAccuracyStage();
+    const int sdEvaBefore = defender->getEvasionStage();
 
     MoveEffectHandlers::applyStandardMoveEffect(battleContext, attacker, defender, move);
 
@@ -2343,6 +2452,59 @@ void Battle::processMoveEffects(Pokemon* attacker, Pokemon* defender, const Move
     const int defenderHpAfter = defender->getCurrentHP();
     const auto attackerStatusesAfter = snapshotStatuses(attacker);
     const auto defenderStatusesAfter = snapshotStatuses(defender);
+
+    auto recordStdStatChange = [&](Pokemon* p, StatIndex idx, int before, int after) {
+        if (before != after) {
+            recordSpecialEvent(*this, "stat_change", {
+                {"pokemon", p->getName()},
+                {"stat", statIndexName(idx)},
+                {"delta", after - before},
+                {"move", move.getName()}
+            });
+        }
+    };
+    recordStdStatChange(attacker, StatIndex::Attack, sAtkBefore, attacker->getStatStage(StatIndex::Attack));
+    recordStdStatChange(attacker, StatIndex::Defense, sDefBefore, attacker->getStatStage(StatIndex::Defense));
+    recordStdStatChange(attacker, StatIndex::SpecialAttack, sSpaBefore, attacker->getStatStage(StatIndex::SpecialAttack));
+    recordStdStatChange(attacker, StatIndex::SpecialDefense, sSpdBefore, attacker->getStatStage(StatIndex::SpecialDefense));
+    recordStdStatChange(attacker, StatIndex::Speed, sSpeBefore, attacker->getStatStage(StatIndex::Speed));
+    if (sAccBefore != attacker->getAccuracyStage()) {
+        recordSpecialEvent(*this, "stat_change", {
+            {"pokemon", attacker->getName()},
+            {"stat", "命中率"},
+            {"delta", attacker->getAccuracyStage() - sAccBefore},
+            {"move", move.getName()}
+        });
+    }
+    if (sEvaBefore != attacker->getEvasionStage()) {
+        recordSpecialEvent(*this, "stat_change", {
+            {"pokemon", attacker->getName()},
+            {"stat", "闪避率"},
+            {"delta", attacker->getEvasionStage() - sEvaBefore},
+            {"move", move.getName()}
+        });
+    }
+    recordStdStatChange(defender, StatIndex::Attack, sdAtkBefore, defender->getStatStage(StatIndex::Attack));
+    recordStdStatChange(defender, StatIndex::Defense, sdDefBefore, defender->getStatStage(StatIndex::Defense));
+    recordStdStatChange(defender, StatIndex::SpecialAttack, sdSpaBefore, defender->getStatStage(StatIndex::SpecialAttack));
+    recordStdStatChange(defender, StatIndex::SpecialDefense, sdSpdBefore, defender->getStatStage(StatIndex::SpecialDefense));
+    recordStdStatChange(defender, StatIndex::Speed, sdSpeBefore, defender->getStatStage(StatIndex::Speed));
+    if (sdAccBefore != defender->getAccuracyStage()) {
+        recordSpecialEvent(*this, "stat_change", {
+            {"pokemon", defender->getName()},
+            {"stat", "命中率"},
+            {"delta", defender->getAccuracyStage() - sdAccBefore},
+            {"move", move.getName()}
+        });
+    }
+    if (sdEvaBefore != defender->getEvasionStage()) {
+        recordSpecialEvent(*this, "stat_change", {
+            {"pokemon", defender->getName()},
+            {"stat", "闪避率"},
+            {"delta", defender->getEvasionStage() - sdEvaBefore},
+            {"move", move.getName()}
+        });
+    }
 
     if (attackerHpAfter > attackerHpBefore) {
         recordSpecialEvent(*this, "heal", {
