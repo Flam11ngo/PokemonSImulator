@@ -30,6 +30,13 @@
         <p class="text-sm text-gray-500 mt-2">可视化组队 · 配招策略 · 努力值分配</p>
       </router-link>
 
+      <router-link to="/stats"
+        class="glass-card glass-card-hover p-6 animate-slide-up animate-slide-up-3 group">
+        <div class="text-5xl mb-3">📊</div>
+        <h3 class="text-lg font-bold text-gray-800 group-hover:text-green-600 transition-colors">大数据分析</h3>
+        <p class="text-sm text-gray-500 mt-2">使用率排行 · 环境趋势 · 对战数据</p>
+      </router-link>
+
       <router-link to="/data"
         class="glass-card glass-card-hover p-6 animate-slide-up animate-slide-up-4 group">
         <div class="text-5xl mb-3">📖</div>
@@ -38,17 +45,6 @@
       </router-link>
     </div>
 
-    <!-- Pokeball Divider -->
-    <div class="flex items-center justify-center gap-3 my-10">
-      <div class="h-px flex-1 max-w-20 bg-gradient-to-r from-transparent to-gray-300"></div>
-      <div class="w-4 h-4 rounded-full bg-white border-2 border-gray-800 shadow-md"></div>
-      <div class="h-px flex-1 max-w-20 bg-gradient-to-l from-transparent to-gray-300"></div>
-    </div>
-
-    <!-- Footer -->
-    <p class="text-xs text-gray-400">
-      ⚡ 基于 C++17 高性能对战引擎 · 宝可梦第九世代规则
-    </p>
   </div>
 </template>
 

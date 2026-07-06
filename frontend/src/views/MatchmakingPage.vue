@@ -84,7 +84,7 @@ import { ref, computed, onUnmounted, watch } from 'vue'
 import BattleField from '../components/battle/BattleField.vue'
 import { connect, send, on, getPlayerId, request } from '../api/wsClient'
 import { getMove } from '../api/dataWs'
-import { startSession, setBattleContext, clearBattleContext, trackTurnAction, trackMatchmake, trackMatchFound, trackBattleInit, trackBattleResult, trackTurnExecuted, trackMatchCancel } from '../utils/analytics'
+import { startSession, trackTurnAction, trackMatchmake, trackMatchFound, trackBattleInit, trackBattleResult, trackTurnExecuted, trackMatchCancel } from '../utils/analytics'
 
 const inQueue = ref(false)
 const wsConnected = ref(false)
@@ -316,7 +316,7 @@ async function joinVsBot() {
 }
 function leaveQueue(){ trackMatchCancel(); inQueue.value=false }
 function reset(){
-  clearBattleContext(activeBattle.value?.status === 'completed' ? 'completed' : 'abandoned')
+  trackBattleResult(activeBattle.value?.status === 'completed' ? 'completed' : 'abandoned', turnNumber.value, -1, -1, null)
   activeBattle.value=null;battleState.value=null;submitting.value=false;loading.value=false
   document.body.classList.remove('battle-mode')
 }

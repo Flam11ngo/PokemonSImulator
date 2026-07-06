@@ -50,6 +50,7 @@
         <PokemonRankTable ref="rankTable"
           :items="ranking"
           :loading="loadingRank"
+          :species-map="speciesMap"
           @select="openDetail" />
       </div>
 
@@ -105,7 +106,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { smogonAPI } from '../api/smogon'
-import { request } from '../api/wsClient'
+import { useSpeciesStore } from '../stores/speciesStore'
 import PokemonRankTable from '../components/stats/PokemonRankTable.vue'
 import PokemonDetailModal from '../components/stats/PokemonDetailModal.vue'
 
@@ -116,6 +117,7 @@ const selTimeBucket = ref('')
 const selRating = ref(1760)
 const searchQuery = ref('')
 const rankTable = ref(null)  // template ref for PokemonRankTable
+const { speciesMap, loaded: speciesLoaded } = useSpeciesStore()
 
 // Data
 const ranking = ref([])
@@ -194,22 +196,5 @@ function itemBarPct(v) { return Math.max(3, Math.round((v || 0) / maxItemCount.v
 onMounted(async () => {
   await loadFilters()
   if (selTimeBucket.value) refreshAll()
-  // Load species name→ID map for sprite icons (same pattern as TeamBuilder)
-  console.log('[StatsDashboard] loading species map via WebSocket...')
-  try {
-    const list = await request('get_species', { search: '', limit: 1100 })
-    console.log(`[StatsDashboard] received ${(list||[]).length} species, sample:`, (list||[]).slice(0,3).map(s=>`${s.name}=${s.id}`))
-    const map = {}
-    ;(list || []).forEach(s => { map[s.name.toLowerCase()] = s.id })
-    console.log(`[StatsDashboard] built map with ${Object.keys(map).length} entries`)
-    if (rankTable.value) {
-      rankTable.value.setSpeciesMap(map)
-      console.log('[StatsDashboard] setSpeciesMap called successfully')
-    } else {
-      console.warn('[StatsDashboard] rankTable ref is null — component not mounted yet')
-    }
-  } catch (e) {
-    console.warn('[StatsDashboard] Failed to load species map:', e)
-  }
 })
 </script>

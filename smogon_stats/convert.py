@@ -5,7 +5,7 @@ import sqlite3
 from pathlib import Path
 
 # Paths
-WORKSPACE_DIR = Path(r"D:\temp\shixun\python\smogon_stats")
+WORKSPACE_DIR = Path(__file__).resolve().parent
 DB_PATH = WORKSPACE_DIR / "gen91v1_stats.sqlite"
 
 # Regex to extract period and rating from filename, e.g., "2025-07_gen91v1-1500.json"

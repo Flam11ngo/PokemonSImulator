@@ -71,6 +71,7 @@ import IconSprite from '../shared/IconSprite.vue'
 const props = defineProps({
   items: { type: Array, default: () => [] },
   loading: { type: Boolean, default: false },
+  speciesMap: { type: Object, default: () => ({}) },
 })
 defineEmits(['select'])
 
@@ -91,20 +92,22 @@ const sortedItems = computed(() => {
   return arr
 })
 
-const nameIdMap = {}
+function norm(s) { return s.toLowerCase().replace(/[-'. \s]/g, '') }
+
 function speciesId(name) {
   if (!name) return 0
-  const id = nameIdMap[name.toLowerCase()]
-  if (!id && name) console.warn(`[PokemonRankTable] speciesId not found: "${name}" (lower: "${name.toLowerCase()}")`)
-  return id || 0
+  // 1. Exact match
+  const lower = name.toLowerCase()
+  if (props.speciesMap[lower]) return props.speciesMap[lower]
+  // 2. Normalized match (strip hyphens, spaces, apostrophes, periods)
+  const n = norm(name)
+  if (props.speciesMap[n]) return props.speciesMap[n]
+  // 3. Extract base species from form name (e.g. "Urshifu-Rapid-Strike" → "Urshifu")
+  const base = name.split('-')[0]
+  if (base !== name && props.speciesMap[base.toLowerCase()]) return props.speciesMap[base.toLowerCase()]
+  if (name) console.warn(`[PokemonRankTable] speciesId not found: "${name}"`)
+  return 0
 }
-
-// Expose for parent to populate
-function setSpeciesMap(map) {
-  Object.assign(nameIdMap, map)
-  console.log(`[PokemonRankTable] speciesMap set: ${Object.keys(map).length} entries, sample:`, Object.entries(map).slice(0,5))
-}
-defineExpose({ setSpeciesMap })
 
 function toggleSort(key) {
   if (sortKey.value === key) { sortAsc.value = !sortAsc.value; return }

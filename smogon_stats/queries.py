@@ -10,8 +10,8 @@ import os
 import re
 from typing import Optional
 
-# Path to game DB for Chinese name lookups
-_GAME_DB = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "pokemon.db")
+# Path to game DB for Chinese name lookups — resolve absolutely from this file's location
+_GAME_DB = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "pokemon.db"))
 _cn_cache = None  # {table: {english_name: chinese_name}}
 
 
@@ -20,7 +20,7 @@ def _load_cn_cache():
     global _cn_cache
     if _cn_cache is not None:
         return _cn_cache
-    _cn_cache = {"moves": {}, "items": {}, "abilities": {}}
+    _cn_cache = {"moves": {}, "items": {}, "abilities": {}, "species": {}}
     if not os.path.exists(_GAME_DB):
         return _cn_cache
     conn = sqlite3.connect(_GAME_DB)
@@ -32,6 +32,14 @@ def _load_cn_cache():
                     _cn_cache[table][key] = row[1]
         except Exception:
             pass
+    # Also load species name→chinese mapping from name_mapping table
+    try:
+        for row in conn.execute("SELECT english, chinese FROM name_mapping WHERE chinese != ''"):
+            key = row[0].lower().strip()
+            if key and row[1]:
+                _cn_cache["species"][key] = row[1]
+    except Exception:
+        pass
     conn.close()
     return _cn_cache
 
@@ -87,21 +95,34 @@ def get_pokemon_ranking(
     """Return ranked Pokemon list with Chinese names."""
     conn = _get_conn(db_path)
     cur = conn.cursor()
-    query = """
-        SELECT m.name, m.usage, m.viability_ceiling, nm.chinese AS chinese_name
-        FROM mon m
-        LEFT JOIN name_mapping nm ON m.name = nm.english
-        WHERE m.source = ? AND m.time_bucket = ? AND m.rating = ?
-    """
-    params = [source, time_bucket, rating]
+    cache = _load_cn_cache()
+    species_cn = cache.get("species", {})
+
+    # Build query (no JOIN — Chinese names applied in Python)
     if search:
-        query += " AND (m.name LIKE ? OR nm.chinese LIKE ?)"
-        params.extend([f"%{search}%", f"%{search}%"])
-    query += " ORDER BY m.usage DESC LIMIT ? OFFSET ?"
-    params.extend([limit, offset])
+        query = """
+            SELECT m.name, m.usage, m.viability_ceiling
+            FROM mon m
+            WHERE m.source = ? AND m.time_bucket = ? AND m.rating = ?
+              AND (m.name LIKE ?)
+            ORDER BY m.usage DESC LIMIT ? OFFSET ?
+        """
+        params = [source, time_bucket, rating, f"%{search}%", limit, offset]
+    else:
+        query = """
+            SELECT m.name, m.usage, m.viability_ceiling
+            FROM mon m
+            WHERE m.source = ? AND m.time_bucket = ? AND m.rating = ?
+            ORDER BY m.usage DESC LIMIT ? OFFSET ?
+        """
+        params = [source, time_bucket, rating, limit, offset]
     cur.execute(query, params)
     results = [dict(r) for r in cur.fetchall()]
     conn.close()
+
+    # Add Chinese names
+    for r in results:
+        r["chinese_name"] = species_cn.get((r.get("name") or "").lower().strip(), "")
     return results
 
 
@@ -117,11 +138,10 @@ def get_pokemon_detail(
     conn = _get_conn(db_path)
     cur = conn.cursor()
 
-    # 1. Main info
+    # 1. Main info (Chinese name applied in Python)
     cur.execute("""
-        SELECT m.name, m.usage, m.viability_ceiling, nm.chinese AS chinese_name
+        SELECT m.name, m.usage, m.viability_ceiling
         FROM mon m
-        LEFT JOIN name_mapping nm ON m.name = nm.english
         WHERE m.name = ? AND m.source = ? AND m.time_bucket = ? AND m.rating = ?
     """, (name, source, time_bucket, rating))
     mon_row = cur.fetchone()
@@ -129,6 +149,8 @@ def get_pokemon_detail(
         conn.close()
         return None
     info = dict(mon_row)
+    species_cn = _load_cn_cache().get("species", {})
+    info["chinese_name"] = species_cn.get((info.get("name") or "").lower().strip(), "")
 
     # Helper
     def fetch_related(table, select="name, usage", order="usage DESC"):
@@ -146,25 +168,27 @@ def get_pokemon_detail(
     teras = fetch_related("tera", select="type, usage")
     spreads = fetch_related("spread", select="nature, evs, usage")
 
-    # Teammates with Chinese names
+    # Teammates (Chinese names applied in Python)
     cur.execute("""
-        SELECT t.mate, t.usage, nm.chinese AS chinese_name
+        SELECT t.mate, t.usage
         FROM team t
-        LEFT JOIN name_mapping nm ON t.mate = nm.english
         WHERE t.mon = ? AND t.source = ? AND t.time_bucket = ? AND t.rating = ?
         ORDER BY t.usage DESC
     """, (name, source, time_bucket, rating))
     teammates = [dict(r) for r in cur.fetchall()]
+    for t in teammates:
+        t["chinese_name"] = species_cn.get((t.get("mate") or "").lower().strip(), "")
 
-    # Checks & Counters
+    # Checks & Counters (Chinese names applied in Python)
     cur.execute("""
-        SELECT c.opp, c.percentage, c.stddev, nm.chinese AS chinese_name
+        SELECT c.opp, c.percentage, c.stddev
         FROM cc c
-        LEFT JOIN name_mapping nm ON c.opp = nm.english
         WHERE c.mon = ? AND c.source = ? AND c.time_bucket = ? AND c.rating = ?
         ORDER BY c.percentage DESC
     """, (name, source, time_bucket, rating))
     ccs = [dict(r) for r in cur.fetchall()]
+    for c in ccs:
+        c["chinese_name"] = species_cn.get((c.get("opp") or "").lower().strip(), "")
 
     conn.close()
     return {

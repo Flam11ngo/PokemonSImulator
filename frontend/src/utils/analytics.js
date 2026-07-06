@@ -167,6 +167,14 @@ export function trackAbility(speciesId, side, abilityName) {
   })
 }
 
+export function trackTurnAction(action) {
+  track('turn_action', {
+    battle_id: battleCtx?.battle_id || '',
+    turn: battleCtx?._turn || 0,
+    action,
+  })
+}
+
 export function setTurn(turn) {
   if (battleCtx) battleCtx._turn = turn
 }

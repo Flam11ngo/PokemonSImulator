@@ -1084,6 +1084,13 @@ async def rest_get_player(player_id: str):
         return {"ok": False, "error": "Player not found"}
     return {"ok": True, "data": dict(row)}
 
+@app.get("/api/v1/data/species")
+async def rest_species_list():
+    """REST endpoint for species list — fast HTTP, no WebSocket handshake needed."""
+    results = [{"id": s["id"], "name": s["name"], "chineseName": s.get("chineseName", "")} for s in _species_list]
+    return {"ok": True, "data": results}
+
+
 @app.post("/api/v1/players")
 async def rest_create_player(body: dict):
     conn = sqlite3.connect(str(DATA_DIR / "pokemon.db"))

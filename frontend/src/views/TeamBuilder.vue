@@ -265,6 +265,7 @@ import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { TYPES } from '../utils/enums'
 import { connect, request, send, getPlayerId } from '../api/wsClient'
 import { trackTeamSave, setPlayerState } from '../utils/analytics'
+import { useSpeciesStore } from '../stores/speciesStore'
 import IconSprite from '../components/shared/IconSprite.vue'
 import { ITEM_SHEET } from '../utils/itemSheet'
 import { smogonAPI } from '../api/smogon'
@@ -639,8 +640,9 @@ function loadItems() {
 onMounted(async () => {
   setPlayerState('teambuilding')
   await connect('TeamBuilder')
-  const all = await request('get_species',{search:'',limit:1100}).catch(()=>[])
-  allSpeciesCache.value = all || []
+  const { speciesList, load } = useSpeciesStore()
+  if (!speciesList.value.length) await load()
+  allSpeciesCache.value = speciesList.value
   speciesResults.value = allSpeciesCache.value
   await loadSavedTeams()
   // Preload items + Smogon usage for pick rate column
