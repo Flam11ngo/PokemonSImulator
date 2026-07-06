@@ -12,12 +12,30 @@ async function ensure() {
   }
 }
 
-const cache = { species: {}, moves: {}, abilities: {} }
+const STORE_KEY = 'pokemon_data_cache'
+
+function loadStore() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {} }
+  catch { return {} }
+}
+function saveStore(s) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(s)) } catch {}
+}
+
+const cache = { species: {}, moves: {}, abilities: {}, items: {}, ...loadStore() }
+
+// Persist to localStorage after every cache update (debounced)
+let _saveTimer = null
+function scheduleSave() {
+  clearTimeout(_saveTimer)
+  _saveTimer = setTimeout(() => saveStore(cache), 1000)
+}
 
 export async function searchSpecies(query = '') {
   await ensure()
   const data = await request('get_species', { search: query || '', limit: 15 })
   data.forEach(s => { cache.species[s.id] = s })
+  scheduleSave()
   return data
 }
 
@@ -27,6 +45,7 @@ export async function searchMoves(query = '', learnset = null) {
   if (learnset && learnset.length > 0) params.learnset = learnset
   const data = await request('get_moves', params)
   data.forEach(m => { cache.moves[m.id] = m })
+  scheduleSave()
   return data
 }
 
@@ -34,7 +53,7 @@ export async function getMove(id) {
   if (cache.moves[id]) return cache.moves[id]
   await ensure()
   const data = await request('get_move', { id })
-  cache.moves[id] = data
+  if (data) { cache.moves[id] = data; scheduleSave() }
   return data
 }
 
@@ -48,7 +67,7 @@ export async function getAbility(id) {
   if (cache.abilities[id]) return cache.abilities[id]
   await ensure()
   const data = await request('get_ability', { id })
-  cache.abilities[id] = data
+  if (data) { cache.abilities[id] = data; scheduleSave() }
   return data
 }
 
@@ -64,6 +83,14 @@ export async function searchAbilities(query = '') {
   return data
 }
 
+export async function searchItems(query = '') {
+  await ensure()
+  const data = await request('get_items', { search: query || '', limit: 15 })
+  data.forEach(it => { cache.items[it.id] = it })
+  scheduleSave()
+  return data
+}
+
 // Sprite URL cache (fetched from server)
 const spriteUrlCache = {}
 export async function getSpriteUrl(speciesId) {
@@ -72,9 +99,9 @@ export async function getSpriteUrl(speciesId) {
   await ensure()
   try {
     const data = await request('get_sprite_url', { id: speciesId })
-    spriteUrlCache[speciesId] = data.url || `/sprites/icons/${speciesId}.png`
+    spriteUrlCache[speciesId] = data.url || `/icons/${speciesId}.png`
   } catch {
-    spriteUrlCache[speciesId] = `/sprites/icons/${speciesId}.png`
+    spriteUrlCache[speciesId] = `/icons/${speciesId}.png`
   }
   return spriteUrlCache[speciesId]
 }

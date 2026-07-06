@@ -30,13 +30,6 @@
         <p class="text-sm text-gray-500 mt-2">可视化组队 · 配招策略 · 努力值分配</p>
       </router-link>
 
-      <router-link to="/history"
-        class="glass-card glass-card-hover p-6 animate-slide-up animate-slide-up-3 group">
-        <div class="text-5xl mb-3">📋</div>
-        <h3 class="text-lg font-bold text-gray-800 group-hover:text-green-600 transition-colors">对战历史</h3>
-        <p class="text-sm text-gray-500 mt-2">回顾对战 · 复盘分析 · 持续进步</p>
-      </router-link>
-
       <router-link to="/data"
         class="glass-card glass-card-hover p-6 animate-slide-up animate-slide-up-4 group">
         <div class="text-5xl mb-3">📖</div>

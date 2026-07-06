@@ -3,9 +3,9 @@ from __future__ import annotations
 PokemonSimulator Standalone Server — WebSocket mode.
 One WebSocket connection handles all communication (battles, data, matchmaking).
 """
-import asyncio, json, os, sys, uuid, subprocess, tempfile, shutil, logging, threading, platform
+import asyncio, json, os, sys, uuid, subprocess, tempfile, shutil, logging, threading, platform, sqlite3
 from pathlib import Path
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -18,6 +18,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True,
 
 IS_WINDOWS = platform.system() == "Windows"
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "smogon_stats"))
 
 # Engine adapter — Node.js Showdown engine (drop-in replacement for C++ daemon)
 ENGINE_ADAPTER = PROJECT_ROOT / "engine-adapter" / "showdown_daemon.js"
@@ -27,130 +28,153 @@ DATA_DIR = PROJECT_ROOT / "data"
 # ============================================================
 # Game Data Cache
 # ============================================================
-_species: dict = {}
+_species_list: list = []          # base-form species only (no Mega/Gmax/regional), for search/display
+_species_all: list = []           # all species including forms, for battle lookups
+_species_by_id: dict = {}         # id → first entry (base form)
+_item_form_map: dict = {}         # (item_id, species_id) → {alias_name, sprite_name}
 _moves: dict = {}
 _abilities: dict = {}
 _items: dict = {}
-_ITEM_POKEAPI_TO_SHOWDOWN: dict = {}  # PokeAPI item id → Showdown item id
 
 def load_all_data():
-    """Load all game data from SQLite (fast, indexed queries)."""
-    global _species, _moves, _abilities, _items
-    import sqlite3
+    """Load species/moves/abilities/items from SQLite database (pokemon.db)."""
+    global _species_list, _species_all, _species_by_id, _moves, _abilities, _items
     db_path = DATA_DIR / "pokemon.db"
     if not db_path.exists():
-        logger.warning("pokemon.db not found, run: python3 scripts/migrate_json_to_sqlite.py")
+        logger.warning(f"pokemon.db not found at {db_path}. Run: python scripts/py/rebuild_db.py")
         return
     conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
 
-    # Species
-    for row in conn.execute("SELECT * FROM species"):
-        _species[row["id"]] = {
-            "id": row["id"], "name": row["name"],
-            "types": [row["type1"], row["type2"] if row["type2"] else ""],
-            "baseStats": [row["base_hp"], row["base_atk"], row["base_def"],
-                          row["base_spa"], row["base_spd"], row["base_spe"]],
-            "abilities": [], "hiddenAbilityID": row["hidden_ability"],
-            "learnableMoves": []}
-
-    # Species abilities
-    for row in conn.execute("SELECT * FROM species_abilities"):
-        sid = row["species_id"]
-        if sid in _species:
-            if row["is_hidden"]:
-                _species[sid]["hiddenAbilityID"] = row["ability_id"]
-            else:
-                _species[sid]["abilities"].append(row["ability_id"])
-
-    # Learnsets
-    for row in conn.execute("SELECT species_id, move_id FROM learnsets ORDER BY species_id, move_id"):
-        sid = row["species_id"]
-        if sid in _species:
-            _species[sid]["learnableMoves"].append(row["move_id"])
-
-    # Moves
+    # ── Moves ──
     for row in conn.execute("SELECT * FROM moves"):
-        _moves[row["id"]] = {"id": row["id"], "name": row["name"],
-            "type": row["type"], "category": row["category"],
-            "power": row["power"], "accuracy": row["accuracy"], "pp": row["pp"],
-            "description": row["description"]}
+        _moves[row["id"]] = {
+            "id": row["id"], "name": row["name"],
+            "chineseName": row["chinese_name"] or "",
+            "type": row["type"], "category": row["category"] or "",
+            "power": row["power"] or 0, "accuracy": row["accuracy"] or 0,
+            "pp": row["pp"] or 0, "description": row["description"] or "",
+            "chineseDesc": row["chinese_desc"] or ""}
 
-    # Populate ability names for species
-    for sid in _species:
-        sp = _species[sid]
-        sp["abilityNames"] = [_abilities[aid]["name"] for aid in sp["abilities"] if aid in _abilities]
-        hid = sp.get("hiddenAbilityID", 0)
-        sp["hiddenAbilityName"] = _abilities[hid]["name"] if hid and hid in _abilities else ""
-
-    # Abilities
+    # ── Abilities ──
     for row in conn.execute("SELECT * FROM abilities"):
-        _abilities[row["id"]] = {"id": row["id"], "name": row["name"]}
+        _abilities[row["id"]] = {"id": row["id"], "name": row["name"],
+            "chineseName": row["chinese_name"] or ""}
 
-    # Items
+    # ── Items ──
     for row in conn.execute("SELECT * FROM items"):
         _items[row["id"]] = {"id": row["id"], "name": row["name"],
-            "description": row["description"]}
+            "chineseName": row["chinese_name"] or "", "description": row["description"] or ""}
+
+    # ── Species (base forms from species table) ──
+    _species_list = []
+    _species_all = []
+    _species_by_id = {}
+
+    # Pre-load all learnsets into memory for fast access
+    learnset_map = {}
+    for row in conn.execute("SELECT species_id, move_id FROM learnsets ORDER BY species_id"):
+        learnset_map.setdefault(row["species_id"], []).append(row["move_id"])
+
+    # Pre-load all species abilities
+    ability_map = {}  # species_id → [(ability_id, is_hidden), ...]
+    for row in conn.execute("SELECT * FROM species_abilities"):
+        ability_map.setdefault(row["species_id"], []).append(
+            (row["ability_id"], row["is_hidden"]))
+
+    # ── Chinese name mappings ──
+    _cn_names = {}
+    for row in conn.execute("SELECT english, chinese FROM name_mapping"):
+        _cn_names[row["english"]] = row["chinese"]
+
+    for row in conn.execute("SELECT * FROM species WHERE id > 0 ORDER BY id"):
+        sid = row["id"]
+        abilities_list = []
+        hidden_id = 0
+        for aid, is_hidden in ability_map.get(sid, []):
+            if is_hidden:
+                hidden_id = aid
+            else:
+                if aid not in abilities_list:
+                    abilities_list.append(aid)
+
+        entry = {
+            "id": sid, "name": row["name"],
+            "chineseName": _cn_names.get(row["name"], ""),
+            "types": [t for t in [row["type1"], row["type2"]] if t],
+            "baseStats": [row["base_hp"], row["base_atk"], row["base_def"],
+                          row["base_spa"], row["base_spd"], row["base_spe"]],
+            "abilities": abilities_list,
+            "hiddenAbilityID": hidden_id or row["hidden_ability"] or 0,
+            "learnableMoves": learnset_map.get(sid, []),
+            "abilityNames": [_abilities[aid]["name"] for aid in abilities_list if aid in _abilities],
+            "hiddenAbilityName": _abilities[hidden_id]["name"] if hidden_id and hidden_id in _abilities else "",
+        }
+        _species_list.append(entry)
+        _species_all.append(entry)
+        if sid not in _species_by_id:
+            _species_by_id[sid] = entry
+
+    # ── Species aliases (form mappings) ──
+    alias_count = 0
+    for row in conn.execute("SELECT * FROM species_aliases WHERE show_in_list IS NULL OR show_in_list = 1"):
+        base_sid = row["species_id"]
+        base = _species_by_id.get(base_sid)
+        if not base: continue
+        alias_id = base_sid + 100000  # virtual ID for form variants
+        entry = {
+            "id": alias_id,
+            "name": row["alias_name"],
+            "chineseName": _cn_names.get(row["alias_name"], base.get("chineseName", "")),
+            "spriteName": row["sprite_name"],
+            "baseSpeciesId": base_sid,
+            "types": base["types"],
+            "baseStats": base["baseStats"],
+            "abilities": base["abilities"],
+            "hiddenAbilityID": base["hiddenAbilityID"],
+            "learnableMoves": base["learnableMoves"],
+            "abilityNames": base["abilityNames"],
+            "hiddenAbilityName": base["hiddenAbilityName"],
+        }
+        _species_list.append(entry)
+        _species_all.append(entry)
+        _species_by_id[alias_id] = entry
+        alias_count += 1
+
+    # ── Item → Form mapping (for battle sprite switching) ──
+    global _item_form_map
+    _item_form_map.clear()
+    for row in conn.execute("SELECT * FROM item_form_map"):
+        key = (row["item_id"], row["species_id"])
+        _item_form_map[key] = {"alias_name": row["alias_name"], "sprite_name": row["sprite_name"]}
+
+    # Load ALL aliases into _species_by_id for battle sprite lookup (even hidden ones)
+    for row in conn.execute("SELECT * FROM species_aliases"):
+        base = _species_by_id.get(row["species_id"])
+        if not base: continue
+        alias_id = row["species_id"] + 100000
+        if alias_id not in _species_by_id:
+            _species_by_id[alias_id] = {**base, "id": alias_id,
+                "name": row["alias_name"], "chineseName": _cn_names.get(row["alias_name"], base.get("chineseName", "")),
+                "spriteName": row["sprite_name"], "baseSpeciesId": row["species_id"]}
 
     conn.close()
+    logger.info(f"Loaded {len(_species_list)} species ({alias_count} form aliases visible, {len(_item_form_map)} item-form mappings), {len(_moves)} moves, {len(_abilities)} abilities, {len(_items)} items from SQLite")
 
 load_all_data()
 
-# Build PokeAPI → Showdown item ID mapping
-def _build_item_id_map():
-    global _ITEM_POKEAPI_TO_SHOWDOWN
-    try:
-        import subprocess as _sp
-        node_code = """
-const { Dex } = require('pokemon-showdown');
-const ids = process.argv.slice(2).map(Number);
-const map = {};
-for (const id of ids) {
-    for (const item of Dex.items.all()) {
-        if (item.num === id) { map[id] = item.num; break; }
-    }
-}
-// Also find by name for items that don't match by PokeAPI num
-const names = process.argv.slice(2);
-for (const name of names) {
-    const item = Dex.items.get(name);
-    if (item) map[name] = item.num;
-}
-console.log(JSON.stringify(map));
-"""
-        poke_ids = [str(iid) for iid in _items.keys()]
-        result = _sp.run(
-            ["node", "-e", node_code] + poke_ids,
-            capture_output=True, text=True, timeout=15,
-            cwd=str(PROJECT_ROOT)
-        )
-        id_map = json.loads(result.stdout)
-        # Map PokeAPI num → Showdown num for exact matches, plus name lookups
-        for iid_str, sd_num in id_map.items():
-            try:
-                _ITEM_POKEAPI_TO_SHOWDOWN[int(iid_str)] = sd_num
-            except ValueError:
-                # name-based lookup: find PokeAPI ID by name
-                for poke_id, item in _items.items():
-                    if item.get("name", "").lower() == iid_str.lower():
-                        _ITEM_POKEAPI_TO_SHOWDOWN[poke_id] = sd_num
-                        break
-        logger.info(f"Item ID map built: {len(_ITEM_POKEAPI_TO_SHOWDOWN)} PokeAPI→Showdown mappings")
-    except Exception as e:
-        logger.warning(f"Item ID map failed: {e} — items will use PokeAPI IDs (may mismatch)")
-
-_build_item_id_map()
-
-def to_showdown_item(pokeapi_id: int) -> int:
-    """Convert PokeAPI item ID to Showdown item ID."""
-    return _ITEM_POKEAPI_TO_SHOWDOWN.get(pokeapi_id, pokeapi_id)
+def to_showdown_item(item_id: int) -> int:
+    """Item IDs are now Showdown-native — identity mapping (was PokeAPI->Showdown bridge)."""
+    return item_id
 
 def convert_team_items(team: dict) -> dict:
-    """Convert all Pokemon item IDs in a team from PokeAPI to Showdown numbering."""
+    """Convert team item IDs (now Showdown-native, kept for compatibility)."""
     for p in team.get("pokemon", []):
         if p.get("item"):
             p["item"] = to_showdown_item(p["item"])
     return team
+
+def fuzzy_match(query: str, name: str) -> bool:
     """Characters-in-order fuzzy match. 'pik' matches 'Pikachu', 'chr' matches 'Charizard'."""
     q = query.lower(); n = name.lower(); qi = 0
     for c in n:
@@ -215,14 +239,29 @@ class BattleEngine:
     def _wait_output(self, turn_num, timeout=30, suffix=""):
         """Poll for output_N.json or output_N_force.json on filesystem."""
         f = self.work_dir / "cache" / "output" / f"output_{turn_num}{suffix}.json"
+        logger.info(f"[Engine:{self.battle_id}] _wait_output: polling {f}")
         dl = time.time() + timeout
         while time.time() < dl:
             if f.exists():
-                time.sleep(0.05)
-                with open(f, encoding='utf-8') as fh: return enrich_events(json.load(fh))
+                st = f.stat()
+                if st.st_size > 0:
+                    time.sleep(0.02)
+                    with open(f, encoding='utf-8') as fh: return enrich_events(json.load(fh))
+                else:
+                    logger.warning(f"[Engine:{self.battle_id}] output file exists but empty: {f}")
             if self._proc and self._proc.poll() is not None:
-                raise RuntimeError(f"Engine exited (code {self._proc.returncode})")
+                rc = self._proc.returncode
+                # Check daemon log for errors
+                dlog = self.work_dir / "daemon.log"
+                tail = ""
+                if dlog.exists():
+                    lines = dlog.read_text(encoding='utf-8').split('\n')[-5:]
+                    tail = "\n  daemon tail: " + " | ".join(lines)
+                raise RuntimeError(f"Engine exited (code {rc}) at turn {turn_num}{suffix}{tail}")
             time.sleep(0.1)
+        # List files before timeout for debugging
+        out_files = list((self.work_dir / "cache" / "output").glob("*.json"))
+        logger.error(f"[Engine:{self.battle_id}] TIMEOUT waiting {f.name}. Output files: {[x.name for x in out_files]}")
         raise TimeoutError(f"Timeout waiting output_{turn_num}{suffix}")
 
     def get_state(self):
@@ -233,14 +272,20 @@ class BattleEngine:
             {"name": self.init_json.get("side_a",{}).get("name","A"), "pokemons": [], "active": 0},
             {"name": self.init_json.get("side_b",{}).get("name","B"), "pokemons": [], "active": 0}]}}
 
-    def process_force_switch(self, side, switch_index):
-        """Process a forced switch after KO. Writes _force suffix file (doesn't consume next turn)."""
+    def write_force_switch_file(self, side, switch_index):
+        """Write force switch input file WITHOUT waiting for output.
+        Used when both sides need to switch — write both files, then wait once."""
         with self._lock:
             prefix = "1" if side in ("a", "A") else "2"
             tfile = self.work_dir / f"cache/input/{prefix}_input_{self.turn}_force.json"
-            logger.info(f"[Engine:{self.battle_id}] force_switch: side={side} idx={switch_index} file={tfile.name}")
+            logger.info(f"[Engine:{self.battle_id}] write_force_switch_file: side={side} idx={switch_index} file={tfile.name}")
             with open(tfile, "w") as f:
                 json.dump({"type": "switch", "switch_index": switch_index}, f)
+
+    def process_force_switch(self, side, switch_index):
+        """Process a forced switch after KO. Writes _force suffix file and waits for output."""
+        self.write_force_switch_file(side, switch_index)
+        with self._lock:
             logger.info(f"[Engine:{self.battle_id}] waiting force switch output (turn {self.turn})")
             result = self._wait_output(self.turn, timeout=15, suffix="_force")
             if result:
@@ -287,8 +332,29 @@ def enrich_events(data):
             pending_sides.append(sd.get("name", "?"))
         for p in sd.get("pokemons", []):
             sid = p.get("speciesId", 0)
-            if sid and sid in _species:
-                p["_speciesName"] = _species[sid]["name"]
+            if sid and sid in _species_by_id:
+                sp = _species_by_id[sid]
+                p["_speciesName"] = sp["name"]
+                # Check item → form mapping for sprite switching
+                item_id = p.get("item") or p.get("itemId") or 0
+                form_key = (item_id, sid)
+                if form_key in _item_form_map:
+                    fm = _item_form_map[form_key]
+                    p["_speciesName"] = fm["alias_name"]
+                    p["_formSpriteId"] = sid + 100000
+                    p["_formSpriteName"] = fm["sprite_name"]
+                    logger.info(f"[form] {sp['name']} + item#{item_id} → {fm['alias_name']}")
+                elif p.get("details"):
+                    # Fallback: parse details string e.g. "Ogerpon-Wellspring, L50, F"
+                    detail_name = p["details"].split(",")[0].strip()
+                    if detail_name != sp["name"]:
+                        for alias_sid, entry in _species_by_id.items():
+                            if alias_sid >= 100000 and entry["name"] == detail_name:
+                                p["_speciesName"] = detail_name
+                                p["_formSpriteId"] = alias_sid
+                                p["_formSpriteName"] = entry.get("spriteName", "")
+                                logger.info(f"[form] detail match: {detail_name} → sprite #{alias_sid}")
+                                break
     data["_hasPendingSwitch"] = len(pending_sides) > 0
 
     # Weather/field — keep adapter's labels if present, otherwise use maps
@@ -362,9 +428,19 @@ async def ws_endpoint(ws: WebSocket):
                     battle_engines[bid] = daemon
                     state = daemon.get_state()
                     battle = {"id": bid, "status": "active", "total_turns": 0,
-                              "init_json": json.dumps(init_json), "current_state": state}
+                              "init_json": json.dumps(init_json), "current_state": state, "turns": []}
                     battles_db[bid] = battle
-                    await send(ws, "battle_created", {"battle": battle, "state": state})
+                    battle["turns"].append({"turn": 0, "state": state})
+                    # Build form alias lookup: name → (virtual_id, sprite_name)
+                    form_aliases = {}
+                    for sid, entry in _species_by_id.items():
+                        if sid >= 100000 and entry.get("spriteName"):
+                            form_aliases[entry["name"]] = {"sid": sid, "spriteName": entry["spriteName"]}
+                    await send(ws, "battle_created", {
+                        "battle": battle, "state": state,
+                        "itemFormMap": {str(k[0])+"_"+str(k[1]): v for k, v in _item_form_map.items()},
+                        "formAliases": form_aliases,
+                    })
 
                 elif msg_type == "process_turn":
                     battle_id = data["battle_id"]
@@ -405,33 +481,22 @@ async def ws_endpoint(ws: WebSocket):
                         import random as _random
                         # Pick a random bot team from available species
                         bot_team = {"pokemon": []}
-                        all_ids = list(_species.keys())
+                        all_ids = list(_species_by_id.keys())
                         if all_ids:
                             picks = _random.sample(all_ids, min(3, len(all_ids)))
                             for i, sid in enumerate(picks):
-                                s = _species[sid]
+                                s = _species_by_id[sid]
                                 # Get 4 random moves for this species
                                 move_pool = s.get("learnableMoves", []) or [m["id"] for m in list(_moves.values())[:10]]
                                 bot_moves = _random.sample(move_pool, min(4, len(move_pool))) if len(move_pool) >= 4 else (move_pool[:4] if move_pool else [1,2,3,4])
-                                # All Showdown-mapped battle items (177 items, no balls/key items)
+                                # All Showdown-mapped battle items (PokeAPI IDs, converted later)
                                 _battle_items = [
-                                    80,81,82,83,84,85,106,107,108,109,110,112,135,136,
-                                    149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,
-                                    169,170,171,172,173,174,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,
-                                    201,202,203,204,205,206,207,208,209,210,211,212,
+                                    184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,
+                                    201,202,203,204,205,206,207,208,209,210,211,  # berries + leftovers(211)
                                     213,214,217,219,220,221,222,225,230,232,233,234,235,236,237,238,239,
-                                    240,241,242,243,244,245,246,247,248,249,250,251,252,253,
+                                    240,241,242,243,244,245,246,247,248,249,250,251,252,253,254,255,
                                     265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,
                                     281,282,283,284,285,286,287,288,
-                                    289,290,291,292,293,294,295,296,297,298,299,300,
-                                    301,302,303,304,305,306,307,308,309,310,311,312,313,
-                                    321,322,323,324,325,326,327,
-                                    537,538,539,540,542,543,544,545,546,547,
-                                    639,640,644,648,650,
-                                    686,687,688,
-                                    795,796,
-                                    846,
-                                    879,880,881,882,883,884,
                                 ]
                                 bot_item = _random.choice(_battle_items)
                                 bot_team["pokemon"].append({
@@ -463,7 +528,7 @@ async def ws_endpoint(ws: WebSocket):
                                 state = daemon.get_state()
                                 battle = {"id": bid, "player_a_id": p1_id, "player_b_id": p2_id,
                                           "seed": 42, "status": "active", "total_turns": 0,
-                                          "init_json": json.dumps(init_json), "current_state": state}
+                                          "init_json": json.dumps(init_json), "current_state": state, "turns": [{"turn": 0, "state": state}]}
                                 battles_db[bid] = battle
                                 pending_matches[bid]["state"] = state
                                 w = connections.get(p1_id)
@@ -562,7 +627,7 @@ async def ws_endpoint(ws: WebSocket):
                     side = data.get("side", "a")
                     switch_index = data.get("switch_index", 0)
 
-                    # ---- VS BOT: auto-fill bot force switch too ----
+                    # ---- VS BOT: ensure bot force file is written (don't wait) ----
                     if bot_battles.get(battle_id):
                         bot_side = "b" if side == "a" else "a"
                         st = daemon.get_state()
@@ -574,14 +639,17 @@ async def ws_endpoint(ws: WebSocket):
                                     bot_idx = i; break
                             logger.info(f"Bot force switch: side={bot_side} idx={bot_idx}")
                             loop = asyncio.get_running_loop()
-                            await loop.run_in_executor(None, lambda: daemon.process_force_switch(bot_side, bot_idx))
+                            # write-only (no wait) — may already exist from submit_action
+                            await loop.run_in_executor(None, lambda: daemon.write_force_switch_file(bot_side, bot_idx))
 
-                    # Process human force switch via engine
+                    # Process human force switch (writes file + waits for daemon output)
                     loop = asyncio.get_running_loop()
                     state = await loop.run_in_executor(None, lambda: daemon.process_force_switch(side, switch_index))
                     battle = battles_db.get(battle_id)
                     if battle:
                         battle["current_state"] = state or battle.get("current_state")
+                        if state:
+                            battle.setdefault("turns", []).append({"turn": daemon.turn, "state": state, "phase": "force_switch"})
                     # Push to both players
                     for pid_s, info in match_battles.items():
                         if info.get("battle_id") == battle_id:
@@ -592,31 +660,37 @@ async def ws_endpoint(ws: WebSocket):
 
                 elif msg_type == "submit_action":
                     battle_id = data["battle_id"]
+                    logger.info(f"[submit_action] received: battle={battle_id} action={data.get('action',{})}")
                     battle = battles_db.get(battle_id)
                     daemon = battle_engines.get(battle_id)
                     if not battle or not daemon:
+                        logger.error(f"[submit_action] battle/daemon NOT FOUND: {battle_id}")
                         await send(ws, "error", {"message": "Battle not found"}, req_id); continue
                     action = data["action"]
                     side = action.get("side", "")
                     clean = {k: v for k, v in action.items() if v is not None and k != "side"}
                     pending = match_pending.setdefault(battle_id, {})
                     pending[side] = clean
+                    logger.info(f"[submit_action] pending: {list(pending.keys())} len={len(pending)}")
 
                     # ---- VS BOT: auto-fill bot action ----
                     if bot_battles.get(battle_id) and len(pending) == 1:
                         bot_side = "b" if side == "a" else "a"
-                        # Find bot's first available move (PP > 0)
+                        logger.info(f"Bot auto-fill triggered: pending={list(pending.keys())} bot_side={bot_side}")
+                        # Send feedback before auto-fill so player knows action was received
+                        await send(ws, "action_submitted", {"side": side})
                         try:
                             state = daemon.get_state()
                             bot_s = state["battle"]["sides"][0 if bot_side == "a" else 1]
                             active = bot_s["pokemons"][bot_s.get("active", 0)]
+                            logger.info(f"Bot active: {active.get('_speciesName','?')} hp={active.get('hp')} moves={[(m.get('id'),m.get('pp')) for m in active.get('moves',[])]}")
                             bot_idx = 0
                             for i, m in enumerate(active.get("moves", [])):
                                 if m.get("pp", 0) > 0:
                                     bot_idx = i
                                     break
                             pending[bot_side] = {"type": "attack", "move_index": bot_idx}
-                            logger.info(f"Bot auto-pick: side={bot_side} move_idx={bot_idx}")
+                            logger.info(f"Bot auto-pick: side={bot_side} move_idx={bot_idx} move_id={active.get('moves',[])[bot_idx].get('id') if active.get('moves') else '?'}")
                         except Exception as e:
                             logger.warning(f"Bot auto-pick failed, using pass: {e}")
                             pending[bot_side] = {"type": "pass"}
@@ -628,40 +702,56 @@ async def ws_endpoint(ws: WebSocket):
                         match_pending.pop(battle_id, None)
                         battle["total_turns"] = daemon.turn
                         battle["current_state"] = result or battle.get("current_state")
+                        battle.setdefault("turns", []).append({"turn": daemon.turn, "state": result or battle.get("current_state")})
                         if daemon.ended:
                             battle["status"] = "completed"
                             daemon.cleanup()
-                        # Push turn result FIRST (with faint/damage events, on OLD Pokemon)
-                        for pid_s, info in match_battles.items():
-                            if info.get("battle_id") == battle_id:
-                                w = connections.get(pid_s)
-                                if w: await send(w, "turn_processed", {"battle_id": battle_id,
-                                    "turn": daemon.turn, "status": battle["status"], "state": result or battle.get("current_state")})
 
-                        # ---- VS BOT: auto-handle bot force switch AFTER sending turn result ----
+                        # After turn: handle bot auto-force-switch and merge events
                         if bot_battles.get(battle_id) and not daemon.ended:
                             st = result or daemon.get_state()
                             sides_st = st.get("battle", {}).get("sides", [])
                             human_s = sides_st[0 if side == "a" else 1] if len(sides_st) > 1 else {}
                             bot_s   = sides_st[0 if side != "a" else 1] if len(sides_st) > 1 else {}
                             bot_side_tag = "b" if side == "a" else "a"
-                            if bot_s.get("need2switch") and not human_s.get("need2switch"):
+                            if bot_s.get("need2switch"):
                                 bot_idx = 0
                                 for i, p in enumerate(bot_s.get("pokemons", [])):
                                     if not p.get("fainted") and i != bot_s.get("active", -1):
                                         bot_idx = i; break
-                                logger.info(f"Bot auto-force-switch: side={bot_side_tag} idx={bot_idx}")
-                                loop2 = asyncio.get_running_loop()
-                                result2 = await loop2.run_in_executor(None, lambda: daemon.process_force_switch(bot_side_tag, bot_idx))
-                                if result2:
-                                    battle["current_state"] = result2
-                                    # Send force_switch_done SEPARATELY (on NEW Pokemon, no merge)
-                                    for pid_s, info in match_battles.items():
-                                        if info.get("battle_id") == battle_id:
-                                            w = connections.get(pid_s)
-                                            if w: await send(w, "force_switch_done", {"state": result2}, req_id="force_"+battle_id)
-                            # If both need switch, human's force_switch handler processes it
-                        continue  # already sent turn_processed above, don't send again
+                                if not human_s.get("need2switch"):
+                                    # Only bot fainted: auto-switch and merge events
+                                    logger.info(f"Bot auto-force-switch (bot-only): side={bot_side_tag} idx={bot_idx}")
+                                    loop2 = asyncio.get_running_loop()
+                                    result2 = await loop2.run_in_executor(None, lambda: daemon.process_force_switch(bot_side_tag, bot_idx))
+                                    if result2:
+                                        # Merge: keep turn events, append force switch events
+                                        turn_events = (result or {}).get("events", []) or []
+                                        fs_events = result2.get("events", []) or []
+                                        result2["events"] = turn_events + fs_events
+                                        battle["current_state"] = result2
+                                        result = result2
+                                        logger.info(f"[submit_action] merged events: {len(turn_events)} turn + {len(fs_events)} force-switch")
+                                else:
+                                    # Both fainted: write bot file now, human's force_switch handler will finish
+                                    logger.info(f"Bot auto-force-switch (both faint): side={bot_side_tag} idx={bot_idx}")
+                                    loop2 = asyncio.get_running_loop()
+                                    await loop2.run_in_executor(None, lambda: daemon.write_force_switch_file(bot_side_tag, bot_idx))
+
+                        logger.info(f"[submit_action] turn_processed: turn={daemon.turn} events={len((result or {}).get('events',[]))} sending to {list(match_battles.keys())}")
+                        for pid_s, info in match_battles.items():
+                            if info.get("battle_id") == battle_id:
+                                w = connections.get(pid_s)
+                                if w:
+                                    await send(w, "turn_processed", {"battle_id": battle_id,
+                                        "turn": daemon.turn, "status": battle["status"],
+                                        "state": result or battle.get("current_state")})
+                                    logger.info(f"[submit_action] sent turn_processed to {pid_s}")
+                                else:
+                                    # Buffer the state for when player reconnects
+                                    logger.warning(f"[submit_action] {pid_s} not connected, buffering state")
+                                    battle["pending_state"] = result or battle.get("current_state")
+                        continue
                     else:
                         await send(ws, "action_submitted", {"side": side})
 
@@ -670,9 +760,9 @@ async def ws_endpoint(ws: WebSocket):
                     q = data.get("search", "").strip()
                     limit = int(data.get("limit", 15))
                     if q:
-                        results = [s for s in _species.values() if fuzzy_match(q, s["name"])][:limit]
+                        results = [s for s in _species_list if fuzzy_match(q, s["name"])][:limit]
                     else:
-                        results = list(_species.values())[:limit]
+                        results = _species_list[:limit]
                     await send(ws, "species_list", results, req_id)
 
                 elif msg_type == "get_moves":
@@ -709,16 +799,58 @@ async def ws_endpoint(ws: WebSocket):
 
                 elif msg_type == "get_items":
                     q = data.get("search", "").strip()
-                    limit = int(data.get("limit", 200))
-                    # Filter battle-relevant items: skip pokeballs(-ball), potions, TMs, etc.
-                    skip_kw = ['-ball','potion','ether','elixir','revive','repel','tm','-mail',
-                               'shard','stone','plate','incense','mulch','nugget','pearl','shoal',
+                    limit = int(data.get("limit", 300))
+                    # Keep only battle-holdable items: held items with combat effects + berries
+                    skip_kw = ['ball','-ball','stone','-stone','mail','fossil',
+                               'shard','nugget','pearl','shoal',
                                'rare-candy','rare bone','big-mushroom','balm-mushroom',
                                'tiny-mushroom','stardust','star-piece','comet-shard',
-                               'rm-','pp-up','pp-max','heart-scale','honey',
-                               'growth-','stable-','gooey-','damp-','heat-','smooth-','icy-']
+                               'pp-up','pp-max','heart-scale','honey',
+                               'growth-','stable-','gooey-','damp-','heat-','smooth-','icy-',
+                               'ball','-ball','ball-','stone','-stone','mail',
+                               'fossil','-fossil','fossil-',
+                               'mega','-ite','ite','ium-z','ium z','z-crystal',
+                               'tr00','tr01','tr02','tr03','tr04','tr05','tr06','tr07','tr08','tr09',
+                               'tr10','tr11','tr12','tr13','tr14','tr15','tr16','tr17','tr18','tr19',
+                               'tr20','tr30','tr40','tr50','tr60','tr70','tr80','tr90',
+                               '-tm','hm','data-card','coupon',
+                               'key','ticket','pass','letter','parcel','scope',
+                               'bike','rod','flute','case','pouch','kit','sack',
+                               'album','goods','chip','capsule','card','candy',
+                               'mushroom','bone','pearl','nugget','stardust','comet',
+                               'vitamin','protein','iron','calcium','zinc','carbos',
+                               'hp-up','pp-up','pp-max','rare-candy','exp-share',
+                               'mulch','apricorn','doll','toy','contest','scarf',
+                               'sweet-apple','tart-apple','syrupy-apple',
+                               'cracked-pot','chipped-pot','whipped-dream','sachet',
+                               'galarica','malicious-armor','auspicious-armor',
+                               'teacup','metal-alloy',
+                               'deep-sea-tooth','deep-sea-scale',
+                               'electirizer','magmarizer','protector','reaper-cloth',
+                               'up-grade','dubious-disc','prism-scale',
+                               'dragon-scale','kings-rock','metal-coat',
+                               'bottle-cap','gold-bottle-cap',
+                               'macho-brace','power-bracer','power-belt','power-lens',
+                               'power-band','power-anklet','power-weight',
+                               '-drive','drive-','memory',
+                               'poke-doll','poke-toy','fluffy-tail',
+                               'old-gateau','lava-cookie','fresh-water','soda-pop',
+                               'lemonade','moomoo-milk','energy-root','heal-powder',
+                               'revival-herb','sacred-ash','full-restore','full-heal',
+                               'antidote','burn-heal','ice-heal','awakening',
+                               'escape-rope','max-mushrooms','berry-juice',
+                               'sweet-heart','rare bone','shoal-salt','shoal-shell',
+                               'red-orb','blue-orb','jade-orb',
+                               'clear-bell','tidal-bell','blue-card','red-scale',
+                               'lucky-punch','lucky-egg','amulet-coin',
+                               'silver-wing','rainbow-wing','soothe-bell','cleanse-tag',
+                               'vile-vial','crucibellite','fairy-feather']
+                    _whitelist = ['choice scarf','red card','safety goggles','snowball','scope lens',
+                                  'silver powder','silk scarf','iron ball','light ball','smoke ball',
+                                  'big root','black sludge']
                     def is_battle_item(it):
-                        name = it.get('name','').lower()
+                        name = it.get('name','').lower().replace(' ','-')
+                        if it.get('name','').lower().strip() in _whitelist: return True
                         for kw in skip_kw:
                             if kw in name: return False
                         return True
@@ -731,7 +863,7 @@ async def ws_endpoint(ws: WebSocket):
 
                 elif msg_type == "get_sprite_url":
                     sid = data.get("id", 0)
-                    sp = _species.get(sid, {})
+                    sp = _species_by_id.get(sid, {})
                     name = sp.get("name", "").lower().replace(" ", "").replace(".", "").replace("'", "").replace("-", "")
                     # Pokemon Showdown CDN (fast, optimized for sprites)
                     url = f"https://play.pokemonshowdown.com/sprites/ani/{name}.gif" if name else ""
@@ -828,7 +960,10 @@ async def ws_endpoint(ws: WebSocket):
                         await send(ws, "no_active_battle", {})
 
                 elif msg_type == "ping":
-                    await send(ws, "pong", {"engine": ENGINE_ADAPTER.exists(), "species": len(_species)})
+                    await send(ws, "pong", {"engine": ENGINE_ADAPTER.exists(), "species": len(_species_list)})
+
+                elif msg_type == "analytics_batch":
+                    _store_analytics(data.get("events", []))
 
                 else:
                     await send(ws, "error", {"message": f"Unknown type: {msg_type}"}, req_id)
@@ -904,12 +1039,225 @@ async def send(ws: WebSocket, msg_type: str, data, req_id: str = None):
 # ============================================================
 @app.get("/api/v1/health")
 def health():
-    return {"ok": True, "data": {"mode": "websocket", "species": len(_species),
+    return {"ok": True, "data": {"mode": "websocket", "species": len(_species_list),
             "moves": len(_moves), "abilities": len(_abilities), "engine": ENGINE_ADAPTER.exists()}}
+
+# ============================================================
+# REST API endpoints (for HistoryList, StatsDashboard, etc.)
+# ============================================================
+
+@app.get("/api/v1/health")
+async def rest_health():
+    return {"ok": True, "data": {"status": "healthy", "service": "pokemon-simulator-api", "version": "3.0.0"}}
+
+@app.get("/api/v1/battles")
+async def rest_list_battles(status: str = None, player_id: str = None, limit: int = 50, offset: int = 0):
+    blist = list(battles_db.values())
+    if status:
+        blist = [b for b in blist if b.get("status") == status]
+    blist.sort(key=lambda x: str(x.get("id","")), reverse=True)
+    result = blist[offset:offset+limit]
+    return {"ok": True, "data": result}
+
+@app.get("/api/v1/battles/{battle_id}")
+async def rest_get_battle(battle_id: str):
+    b = battles_db.get(battle_id)
+    if not b:
+        return {"ok": False, "error": "Battle not found"}
+    return {"ok": True, "data": b}
+
+@app.get("/api/v1/players")
+async def rest_list_players(limit: int = 50, offset: int = 0):
+    conn = sqlite3.connect(str(DATA_DIR / "pokemon.db"))
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("SELECT username as name, created_at FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?", (limit, offset)).fetchall()
+    conn.close()
+    return {"ok": True, "data": [dict(r) for r in rows]}
+
+@app.get("/api/v1/players/{player_id}")
+async def rest_get_player(player_id: str):
+    conn = sqlite3.connect(str(DATA_DIR / "pokemon.db"))
+    conn.row_factory = sqlite3.Row
+    row = conn.execute("SELECT username as name, created_at FROM users WHERE username = ?", (player_id,)).fetchone()
+    conn.close()
+    if not row:
+        return {"ok": False, "error": "Player not found"}
+    return {"ok": True, "data": dict(row)}
+
+@app.post("/api/v1/players")
+async def rest_create_player(body: dict):
+    conn = sqlite3.connect(str(DATA_DIR / "pokemon.db"))
+    conn.execute("INSERT OR IGNORE INTO users (username) VALUES (?)", (body.get("name", ""),))
+    conn.commit(); conn.close()
+    return {"ok": True, "data": {"name": body.get("name", "")}}
+
+@app.get("/api/v1/teams")
+async def rest_list_teams(player_id: str = None, limit: int = 50, offset: int = 0):
+    conn = sqlite3.connect(str(DATA_DIR / "pokemon.db"))
+    conn.row_factory = sqlite3.Row
+    if player_id:
+        rows = conn.execute("SELECT username, team_name as name, team_json as pokemon, updated_at FROM user_teams WHERE username = ? ORDER BY updated_at DESC LIMIT ? OFFSET ?", (player_id, limit, offset)).fetchall()
+    else:
+        rows = conn.execute("SELECT username, team_name as name, team_json as pokemon, updated_at FROM user_teams ORDER BY updated_at DESC LIMIT ? OFFSET ?", (limit, offset)).fetchall()
+    conn.close()
+    result = []
+    for r in rows:
+        d = dict(r)
+        d["pokemon"] = json.loads(d.get("pokemon", "[]"))
+        result.append(d)
+    return {"ok": True, "data": result}
+
+@app.get("/api/v1/teams/{team_id}")
+async def rest_get_team(team_id: str):
+    return {"ok": False, "error": "Use player_id query param instead"}
+
+@app.get("/api/v1/data/enums")
+async def rest_get_enums():
+    return {"ok": True, "data": ENUMS}
+
+@app.get("/api/v1/stats/global")
+async def rest_global_stats():
+    return {"ok": True, "data": {
+        "total_battles": len(battles_db),
+        "total_completed_battles": sum(1 for b in battles_db.values() if b.get("status")=="completed"),
+        "total_players": 0, "total_teams": 0
+    }}
+
+# ============================================================
+# Smogon Stats API — big data dashboard endpoints
+# ============================================================
+SMOGON_DB = str(PROJECT_ROOT / "smogon_stats" / "gen91v1_stats.sqlite")
+
+@app.get("/api/v1/smogon/filters")
+async def smogon_filters():
+    from queries import get_filters
+    try:
+        return {"ok": True, "data": get_filters(SMOGON_DB)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/pokemon")
+async def smogon_pokemon(source: str, time_bucket: str, rating: int,
+                          search: str = None, limit: int = 50, offset: int = 0):
+    from queries import get_pokemon_ranking
+    try:
+        return {"ok": True, "data": get_pokemon_ranking(
+            SMOGON_DB, source, time_bucket, rating, search, limit, offset)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/pokemon/{name}")
+async def smogon_pokemon_detail(name: str, source: str, time_bucket: str, rating: int):
+    from queries import get_pokemon_detail
+    try:
+        result = get_pokemon_detail(SMOGON_DB, name, source, time_bucket, rating)
+        if result is None:
+            return {"ok": False, "error": f"Pokemon '{name}' not found"}
+        return {"ok": True, "data": result}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/summary")
+async def smogon_summary(source: str, time_bucket: str, rating: int):
+    from queries import get_summary_stats
+    try:
+        return {"ok": True, "data": get_summary_stats(SMOGON_DB, source, time_bucket, rating)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/trend/{name}")
+async def smogon_trend(name: str, rating: int = 1760, source: str = "smogon"):
+    from queries import get_usage_trend
+    try:
+        return {"ok": True, "data": get_usage_trend(SMOGON_DB, name, source, rating)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/types")
+async def smogon_types(source: str, time_bucket: str, rating: int, limit: int = 20):
+    from queries import get_type_distribution
+    try:
+        return {"ok": True, "data": get_type_distribution(SMOGON_DB, source, time_bucket, rating, limit)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/items")
+async def smogon_items(source: str, time_bucket: str, rating: int, limit: int = 10):
+    from queries import get_top_items_abilities
+    try:
+        return {"ok": True, "data": get_top_items_abilities(SMOGON_DB, source, time_bucket, rating, limit)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+@app.get("/api/v1/smogon/moves")
+async def smogon_moves(source: str, time_bucket: str, rating: int, limit: int = 20):
+    from queries import get_meta_moves
+    try:
+        return {"ok": True, "data": get_meta_moves(SMOGON_DB, source, time_bucket, rating, limit)}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+# ═══════════════════════════════════════════
+# Analytics
+# ═══════════════════════════════════════════
+
+import threading
+_analytics_lock = threading.Lock()
+_analytics_buffer = []
+_analytics_dir = PROJECT_ROOT / "logs" / "analytics"
+_analytics_dir.mkdir(parents=True, exist_ok=True)
+
+def _store_analytics(events):
+    """Store analytics events. Writes to daily JSONL log file."""
+    if not events:
+        return
+    with _analytics_lock:
+        _analytics_buffer.extend(events)
+        if len(_analytics_buffer) >= 50:
+            _flush_analytics()
+
+def _flush_analytics():
+    if not _analytics_buffer:
+        return
+    batch = _analytics_buffer[:]
+    _analytics_buffer.clear()
+    date_str = time.strftime("%Y-%m-%d")
+    fpath = _analytics_dir / f"events_{date_str}.jsonl"
+    try:
+        with open(fpath, 'a', encoding='utf-8') as f:
+            for event in batch:
+                f.write(json.dumps(event, ensure_ascii=False) + '\n')
+    except Exception as e:
+        logger.error(f"Analytics write error: {e}")
+
+# Flush analytics every 30 seconds
+def _analytics_flush_loop():
+    while True:
+        time.sleep(30)
+        try:
+            with _analytics_lock:
+                _flush_analytics()
+        except Exception:
+            pass
+
+_analytics_thread = threading.Thread(target=_analytics_flush_loop, daemon=True)
+_analytics_thread.start()
+
+@app.post("/api/v1/analytics")
+async def rest_analytics(request: Request):
+    """REST endpoint for analytics via sendBeacon."""
+    try:
+        body = await request.json()
+        events = body.get("events", []) if isinstance(body, dict) else []
+        _store_analytics(events)
+    except Exception:
+        pass
+    return {"ok": True}
+
 
 if __name__ == "__main__":
     logger.info(f"Platform: {'Windows' if IS_WINDOWS else 'Linux'}")
     logger.info(f"Engine: {ENGINE_ADAPTER} — {'OK' if ENGINE_ADAPTER.exists() else 'MISSING (battles will simulate without C++ engine)'}")
-    logger.info(f"Data: {len(_species)} species, {len(_moves)} moves, {len(_abilities)} abilities")
+    logger.info(f"Data: {len(_species_list)} species, {len(_moves)} moves, {len(_abilities)} abilities")
     logger.info("Starting WebSocket server on ws://127.0.0.1:9000/ws ...")
-    uvicorn.run(app, host="127.0.0.1", port=9000)
+    uvicorn.run(app, host="0.0.0.0", port=9000)

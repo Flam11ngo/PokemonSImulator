@@ -44,10 +44,6 @@
               class="px-4 py-1.5 bg-pokedex-blue/10 text-pokedex-blue rounded-full text-xs font-medium hover:bg-pokedex-blue/20 transition-colors">
               👁️ 查看
             </router-link>
-            <router-link :to="`/battles/${battle.id}/replay`"
-              class="px-4 py-1.5 bg-green-100 text-green-600 rounded-full text-xs font-medium hover:bg-green-200 transition-colors">
-              ▶️ 回放
-            </router-link>
           </div>
         </div>
       </div>

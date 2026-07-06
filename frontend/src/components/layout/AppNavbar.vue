@@ -8,7 +8,6 @@
         <div class="flex items-center gap-0.5">
           <router-link to="/matchmaking" class="nav-link" active-class="nav-active">匹配</router-link>
           <router-link to="/teams" class="nav-link" active-class="nav-active">组队</router-link>
-          <router-link to="/history" class="nav-link" active-class="nav-active">历史</router-link>
           <router-link to="/stats" class="nav-link" active-class="nav-active">统计</router-link>
           <router-link to="/data" class="nav-link" active-class="nav-active">数据</router-link>
         </div>

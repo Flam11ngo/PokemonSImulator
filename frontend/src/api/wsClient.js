@@ -7,9 +7,25 @@ const WS_URL = `ws://${location.hostname}:${location.port}/ws`
 let ws = null
 let playerId = null
 let reconnectTimer = null
-const handlers = new Map()   // type → Set<callback>
-const pending = new Map()    // request id → resolve
+let pingTimer = null
+let missedState = null
+const handlers = new Map()
+const pending = new Map()
+const sendQueue = []  // queue messages during disconnect
 let msgId = 0
+
+function startHeartbeat() {
+  stopHeartbeat()
+  pingTimer = setInterval(() => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      sendRaw({ type: 'ping', data: {} })
+    }
+  }, 20000) // every 20s, before 30s timeout
+}
+
+function stopHeartbeat() {
+  if (pingTimer) { clearInterval(pingTimer); pingTimer = null }
+}
 
 export function getPlayerId() { return playerId }
 
@@ -39,9 +55,17 @@ export function connect(playerName = 'Trainer') {
     ws = new WebSocket(WS_URL)
 
     ws.onopen = () => {
-      // Use trainer name as persistent ID
+      startHeartbeat()
       playerId = localStorage.getItem('trainer_name') || playerName.replace(/\s+/g,'_')
       sendRaw({ type: 'handshake', data: { player_id: playerId } })
+      flushQueue()
+      if (missedState) {
+        console.log('[WS] replaying buffered state from reconnect')
+        const st = missedState; missedState = null
+        if (handlers.has('turn_processed')) {
+          handlers.get('turn_processed').forEach(fn => fn(st))
+        }
+      }
     }
 
     ws.onmessage = (event) => {
@@ -70,9 +94,9 @@ export function connect(playerName = 'Trainer') {
     }
 
     ws.onclose = () => {
-      console.log('[WS] disconnected');
-      // Auto reconnect
-      reconnectTimer = setTimeout(() => connect(playerName), 2000)
+      console.log('[WS] disconnected, reconnecting in 1s...');
+      stopHeartbeat()
+      reconnectTimer = setTimeout(() => connect(playerName), 1000)
     }
 
     ws.onerror = (e) => {
@@ -94,6 +118,15 @@ export function connect(playerName = 'Trainer') {
 function sendRaw(msg) {
   if (ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify(msg))
+  } else {
+    // Queue for reconnect (max 3 to avoid flooding)
+    if (sendQueue.length < 3) sendQueue.push(msg)
+  }
+}
+
+function flushQueue() {
+  while (sendQueue.length && ws && ws.readyState === WebSocket.OPEN) {
+    ws.send(JSON.stringify(sendQueue.shift()))
   }
 }
 
@@ -134,6 +167,7 @@ export function once(type, callback) {
 
 export function disconnect() {
   clearTimeout(reconnectTimer)
+  stopHeartbeat()
   if (ws) ws.close()
   ws = null
   playerId = null

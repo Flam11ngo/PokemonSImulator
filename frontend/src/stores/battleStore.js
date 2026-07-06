@@ -5,6 +5,7 @@ import { send, on, connect, getPlayerId } from '../api/wsClient'
 export const useBattleStore = defineStore('battle', () => {
   const currentBattle = ref(null)
   const battleState = ref(null)
+  const formAliases = ref({})     // alias_name → {sid, spriteName}
   const loading = ref(false)
   const error = ref(null)
   const connected = ref(false)
@@ -27,6 +28,7 @@ export const useBattleStore = defineStore('battle', () => {
       loading.value = false
       currentBattle.value = data.battle
       battleState.value = data.state
+      formAliases.value = data.formAliases || {}
     })
 
     on('turn_processed', (data) => {
@@ -90,7 +92,7 @@ export const useBattleStore = defineStore('battle', () => {
   }
 
   return {
-    currentBattle, battleState, loading, error, connected,
+    currentBattle, battleState, formAliases, loading, error, connected,
     isActive, turnNumber,
     ensureConnected, createBattle, processTurn, loadBattle, updateState, reset,
   }

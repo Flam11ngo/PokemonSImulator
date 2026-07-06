@@ -2,15 +2,15 @@
   <div class="text-center">
     <div class="flex justify-center mb-2">
       <img v-if="safePkm.speciesId && !gifFailed"
-           :src="'/sprites/'+safePkm.speciesId+'.gif'"
+           :src="'/ani/'+safePkm.speciesId+'.gif'"
            class="w-24 h-24 object-contain"
            @error="gifFailed = true" />
       <IconSprite v-else-if="safePkm.speciesId" :species-id="safePkm.speciesId" size="lg" />
     </div>
     <div :class="['text-sm font-bold', sideColor]">{{ safePkm._speciesName || ('#'+safePkm.speciesId) }}</div>
     <div class="flex justify-center gap-1 my-1">
-      <img v-if="safePkm.types?.[0]" :src="'/sprites/types/'+typeName(safePkm.types[0])+'.png'" class="h-4 w-auto" />
-      <img v-if="safePkm.types?.[1]" :src="'/sprites/types/'+typeName(safePkm.types[1])+'.png'" class="h-4 w-auto" />
+      <img v-if="safePkm.types?.[0]" :src="'/types/'+typeName(safePkm.types[0])+'.png'" class="h-4 w-auto" />
+      <img v-if="safePkm.types?.[1]" :src="'/types/'+typeName(safePkm.types[1])+'.png'" class="h-4 w-auto" />
     </div>
     <div class="text-xs text-gray-500 mt-1">特性: {{ abilityName || '...' }}</div>
     <div class="flex justify-center gap-2 my-1">
@@ -30,8 +30,8 @@
       <div v-for="(m,i) in (safePkm.moves||[])" :key="i"
         class="text-xs px-2 py-1 rounded bg-gray-700/50">
         <div class="flex items-center gap-1 mb-0.5">
-          <img v-if="moveInfo[m.id]?.type" :src="'/sprites/types/'+capitalize(moveInfo[m.id].type)+'.png'" class="h-3 w-auto" />
-          <img v-if="moveInfo[m.id]?.category" :src="'/sprites/categories/'+moveInfo[m.id].category+'.png'" class="h-3 w-auto" />
+          <img v-if="moveInfo[m.id]?.type" :src="'/types/'+capitalize(moveInfo[m.id].type)+'.png'" class="h-3 w-auto" />
+          <img v-if="moveInfo[m.id]?.category" :src="'/categories/'+moveInfo[m.id].category+'.png'" class="h-3 w-auto" />
           <span class="text-gray-500 ml-auto font-mono text-[10px]">{{ m.pp }}/{{ m.maxPp }}</span>
         </div>
         <div class="text-gray-300 font-medium truncate text-[11px]">{{ moveInfo[m.id]?.name || '#'+m.id }}</div>

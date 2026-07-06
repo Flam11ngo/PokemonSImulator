@@ -1,0 +1,92 @@
+# ============================================================
+# PokemonSimulator — Windows Makefile (nmake / gmake 兼容)
+# ============================================================
+# 用 nmake 或 gmake 运行:
+#   nmake /f Makefile.win build
+#   gmake -f Makefile.win frontend-dev
+# ============================================================
+
+.PHONY: help build test up down logs clean api frontend-dev frontend-build
+
+help:
+	@echo "PokemonSimulator — Windows Build Targets"
+	@echo ""
+	@echo "Build & Test (C++ Engine):"
+	@echo "  make build          Build C++ engine (MSVC)"
+	@echo "  make test           Run C++ tests"
+	@echo "  make clean-build    Clean build artifacts"
+	@echo ""
+	@echo "Docker (Windows Docker Desktop):"
+	@echo "  make up             Start services (PostgreSQL + API)"
+	@echo "  make up-frontend    Start services + Nginx frontend"
+	@echo "  make down           Stop all services"
+	@echo "  make logs           Tail container logs"
+	@echo ""
+	@echo "API Server:"
+	@echo "  make api            Start standalone WebSocket API server"
+	@echo ""
+	@echo "Frontend:"
+	@echo "  make frontend-dev   Start Vue dev server"
+	@echo "  make frontend-build Build Vue for production"
+	@echo ""
+	@echo "Quick Start (dev mode):"
+	@echo "  make dev             Start API + Frontend (recommended)"
+	@echo ""
+
+# ============================================================
+# Dev mode — start everything
+# ============================================================
+dev:
+	powershell -ExecutionPolicy Bypass -File scripts/restart.ps1
+
+# ============================================================
+# C++ Build (PowerShell wrapper)
+# ============================================================
+build:
+	powershell -ExecutionPolicy Bypass -File scripts/build.ps1
+
+test:
+	ctest --test-dir build -C Release --output-on-failure
+
+clean-build:
+	if exist build rmdir /s /q build
+
+# ============================================================
+# Docker (Windows Docker Desktop)
+# ============================================================
+up:
+	docker compose -f docker/docker-compose.windows.yml up -d
+
+up-frontend:
+	docker compose -f docker/docker-compose.windows.yml --profile frontend up -d
+
+down:
+	docker compose -f docker/docker-compose.windows.yml --profile '*' down
+
+logs:
+	docker compose -f docker/docker-compose.windows.yml logs -f --tail=50
+
+# ============================================================
+# API Server
+# ============================================================
+api:
+	cd api-server && python standalone_server.py
+
+# ============================================================
+# Frontend
+# ============================================================
+frontend-dev:
+	cd frontend && npx vite --host 0.0.0.0
+
+frontend-build:
+	cd frontend && npm run build
+
+# ============================================================
+# Quick Start (dev mode)
+# ============================================================
+quick-start:
+	@echo "Starting PokemonSimulator..."
+	start "PokemonSimulator-API" cmd /c "cd api-server && python standalone_server.py"
+	start "PokemonSimulator-Frontend" cmd /c "cd frontend && npx vite --host 0.0.0.0"
+	@echo "API:  http://localhost:8000"
+	@echo "Web:  http://localhost:5173"

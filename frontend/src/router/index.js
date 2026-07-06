@@ -7,8 +7,6 @@ const routes = [
   { path: '/teams/:id', name: 'team-edit', component: () => import('../views/TeamBuilder.vue') },
   { path: '/battles', redirect: '/matchmaking' },
   { path: '/matchmaking', name: 'matchmaking', component: () => import('../views/MatchmakingPage.vue') },
-  { path: '/battles/:id/replay', name: 'battle-replay', component: () => import('../views/BattleReplay.vue') },
-  { path: '/history', name: 'history', component: () => import('../views/HistoryList.vue') },
   { path: '/stats', name: 'stats', component: () => import('../views/StatsDashboard.vue') },
   { path: '/data', name: 'data', component: () => import('../views/DataExplorer.vue') },
 ]

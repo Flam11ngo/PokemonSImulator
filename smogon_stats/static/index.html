@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smogon Gen 9 1v1 数据分析看板</title>
+    
+    <!-- 引入 Google 字体与图标 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 引入 Lucide 图标 CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- 引入 Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- 样式设计 -->
+    <style>
+        :root {
+            --bg-base: #080c14;
+            --bg-surface: #0f1626;
+            --bg-card: #141f36;
+            --bg-card-hover: #1b2a47;
+            --border-color: rgba(99, 102, 241, 0.15);
+            --border-color-hover: rgba(99, 102, 241, 0.35);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+            --accent: #ec4899;
+            --accent-gradient: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+            --emerald: #10b981;
+            --amber: #f59e0b;
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, .font-display {
+            font-family: var(--font-display);
+        }
+
+        /* 布局容器 */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            background-color: var(--bg-surface);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-icon i {
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .logo-text h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* 过滤器表单 */
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .filter-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-input-wrapper i {
+            position: absolute;
+            left: 12px;
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 1rem;
+        }
+
+        .select-input, .text-input {
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.8rem 1rem 0.8rem 2.2rem;
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+        }
+
+        .text-input {
+            cursor: text;
+        }
+
+        .select-input:focus, .text-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+            background-color: var(--bg-card-hover);
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            position: absolute;
+            right: 15px;
+            pointer-events: none;
+        }
+
+        /* 侧边栏底部说明 */
+        .sidebar-footer {
+            margin-top: auto;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.25rem;
+        }
+
+        .sidebar-footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        /* 主体区域 */
+        .main-content {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* 顶部面板 */
+        .header-panel {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, var(--bg-surface) 0%, rgba(15, 22, 38, 0.4) 100%);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-title h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff 30%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .meta-pill {
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* 排行榜网格 */
+        .rankings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* 卡片样式 */
+        .mon-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mon-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .mon-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--border-color-hover);
+            box-shadow: var(--shadow-md);
+            background-color: var(--bg-card-hover);
+        }
+
+        .mon-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .mon-rank {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .mon-card:nth-child(1) .mon-rank {
+            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+            color: #78350f;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+        }
+        .mon-card:nth-child(2) .mon-rank {
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            color: #334155;
+            box-shadow: 0 0 10px rgba(203, 213, 225, 0.4);
+        }
+        .mon-card:nth-child(3) .mon-rank {
+            background: linear-gradient(135deg, #fdba74 0%, #f97316 100%);
+            color: #7c2d12;
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.4);
+        }
+
+        .mon-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.2px;
+        }
+
+        .mon-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-family: var(--font-display);
+        }
+
+        /* 进度条 */
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mon-card:hover .progress-bar {
+            filter: brightness(1.2);
+        }
+
+        /* 详情抽屉 (Detail Modal) */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -600px;
+            width: 600px;
+            height: 100vh;
+            background-color: var(--bg-surface);
+            border-left: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            z-index: 101;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        .drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 1.75rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(180deg, rgba(20, 31, 54, 0.6) 0%, rgba(15, 22, 38, 0) 100%);
+        }
+
+        .drawer-title-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .drawer-title-area h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: rotate(90deg);
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            scroll-behavior: smooth;
+        }
+
+        /* 详情数据网格 */
+        .detail-summary-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .summary-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 12px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .summary-card .value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-family: var(--font-display);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .summary-card .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 0.75rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title span.badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            background-color: rgba(99, 102, 241, 0.15);
+            color: var(--primary-light);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+        }
+
+        /* 折线/柱状排行条 */
+        .bar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .bar-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        .bar-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .bar-value {
+            color: var(--primary-light);
+            font-weight: 700;
+        }
+
+        .mini-progress {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .mini-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 2px;
+        }
+
+        /* 队友网格 */
+        .teammates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .teammate-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.75rem 0.5rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            align-items: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .teammate-btn:hover {
+            border-color: var(--primary);
+            background-color: var(--bg-card-hover);
+            transform: scale(1.05);
+        }
+
+        .teammate-pct {
+            font-size: 0.75rem;
+            color: var(--emerald);
+            font-weight: 700;
+        }
+
+        /* 针对与反制表格 */
+        .cc-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .cc-table th, .cc-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cc-table th {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .cc-table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .cc-table td.strong {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* 努力分配样式 */
+        .spread-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .spread-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .spread-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+
+        .spread-nature {
+            font-weight: 700;
+            color: var(--amber);
+        }
+
+        .spread-evs {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .spread-pct {
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        /* Chart Canvas */
+        .chart-box {
+            position: relative;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 220px;
+        }
+
+        /* 加载状态与空状态 */
+        .loading-state, .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 4rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(99, 102, 241, 0.1);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                position: relative;
+            }
+            .drawer {
+                width: 100vw;
+                right: -100vw;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="app-container">
+        
+        <!-- 侧边栏过滤器 -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>Smogon Stats</h2>
+                    <p>Gen 9 1v1 数据看板</p>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <!-- 数据源 -->
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i data-lucide="database"></i> 数据源
+                    </label>
+                    <div class="filter-input-wrapper select-wrapper">
+                        <i data-lucide="layers"></i>
+                        <select class="select-input" v-model="filters.source" @change="fetchPokemonList">
+                            <option v-for="src in filterOptions.sources" :key="src" :value="src">
+                                {{ src === 'smogon' ? 'Smogon (离线数据)' : src }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 时间段 -->
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i data-lucide="calendar"></i> 时间范围
+                    </label>
+                    <div class="filter-input-wrapper select-wrapper">
+                        <i data-lucide="clock"></i>
+                        <select class="select-input" v-model="filters.time_bucket" @change="fetchPokemonList">
+                            <option v-for="t in filterOptions.time_buckets" :key="t" :value="t">{{ t }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 评分区间 -->
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i data-lucide="trending-up"></i> 评分 (Rating)
+                    </label>
+                    <div class="filter-input-wrapper select-wrapper">
+                        <i data-lucide="shield-alert"></i>
+                        <select class="select-input" v-model="filters.rating" @change="fetchPokemonList">
+                            <option v-for="r in filterOptions.ratings" :key="r" :value="r">{{ r }} 区分度</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 搜索宝可梦 -->
+                <div class="filter-group" style="margin-top: 0.5rem; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+                    <label class="filter-label">
+                        <i data-lucide="search"></i> 快速检索
+                    </label>
+                    <div class="filter-input-wrapper">
+                        <i data-lucide="search"></i>
+                        <input type="text" class="text-input" placeholder="输入宝可梦中文/英文名..." v-model="filters.search" @input="debouncedSearch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <p>后端驱动：FastAPI</p>
+                <p>前端核心：Vue 3 + Chart.js</p>
+                <p>数据库管理：SQLite WAL</p>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 顶部状态栏 -->
+            <header class="header-panel">
+                <div class="header-title">
+                    <h1>{{ filters.time_bucket }} 宝可梦天梯排行</h1>
+                </div>
+                <div class="header-meta">
+                    <span class="meta-pill">
+                        <i data-lucide="activity"></i> 使用率上限排序
+                    </span>
+                    <span class="meta-pill" style="background-color: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2); color: var(--emerald);">
+                        <i data-lucide="shield-check"></i> 1v1 Metagame
+                    </span>
+                </div>
+            </header>
+
+            <!-- 加载状态 -->
+            <div v-if="loading.list" class="loading-state">
+                <div class="spinner"></div>
+                <p class="font-display">正在加载排行榜数据...</p>
+            </div>
+
+            <!-- 空状态 -->
+            <div v-else-if="pokemonList.length === 0" class="empty-state">
+                <i data-lucide="frown" style="width: 48px; height: 48px; color: var(--text-muted);"></i>
+                <p>未找到符合条件的宝可梦记录，请重新调整过滤器。</p>
+            </div>
+
+            <!-- 排行列表 -->
+            <div v-else class="rankings-grid">
+                <div class="mon-card" v-for="(mon, index) in pokemonList" :key="mon.name" @click="viewDetail(mon.name)">
+                    <div class="card-header">
+                        <h3 class="mon-title">
+                            {{ mon.chinese_name || mon.name }}
+                            <span v-if="mon.chinese_name" style="font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; display: block; margin-top: 4px;">{{ mon.name }}</span>
+                        </h3>
+                        <div class="mon-rank">{{ index + 1 }}</div>
+                    </div>
+                    
+                    <div class="mon-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">使用率 (Usage)</span>
+                            <span class="stat-value" style="color: var(--primary-light);">{{ formatPct(mon.usage) }}</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" :style="{ width: (mon.usage * 100) + '%' }"></div>
+                        </div>
+                        <div class="stat-row" style="margin-top: 4px;">
+                            <span class="stat-label">强度天花板 (Viability Ceiling)</span>
+                            <span class="stat-value" style="color: var(--accent);">{{ mon.viability_ceiling || 'N/A' }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 背景遮罩层 -->
+        <div class="drawer-overlay" :class="{ active: drawerActive }" @click="closeDrawer"></div>
+
+        <!-- 详细信息右侧抽屉 -->
+        <div class="drawer" :class="{ active: drawerActive }">
+            <div class="drawer-header">
+                <div class="drawer-title-area">
+                    <div>
+                        <h2 style="color: var(--text-primary)">
+                            {{ detailData ? (detailData.info.chinese_name || detailData.info.name) : selectedMon.name }}
+                        </h2>
+                        <p v-if="detailData && detailData.info.chinese_name" style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">{{ detailData.info.name }}</p>
+                    </div>
+                    <span class="meta-pill" style="font-size: 0.75rem; padding: 0.15rem 0.5rem; align-self: center;">详情透视</span>
+                </div>
+                <button class="close-btn" @click="closeDrawer">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <div v-if="loading.detail" class="drawer-body" style="justify-content: center; align-items: center;">
+                <div class="spinner"></div>
+                <p class="font-display" style="color: var(--text-secondary)">读取 {{ selectedMon.name }} 战术指标中...</p>
+            </div>
+
+            <div v-else-if="detailData" class="drawer-body">
+                <!-- 基本指标卡 -->
+                <div class="detail-summary-cards">
+                    <div class="summary-card">
+                        <div class="value">{{ formatPct(detailData.info.usage) }}</div>
+                        <div class="label">当前使用率</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="value">{{ detailData.info.viability_ceiling || 'N/A' }}</div>
+                        <div class="label">强度天花板 (VC)</div>
+                    </div>
+                </div>
+
+                <!-- 太晶化属性图表 -->
+                <div class="detail-section">
+                    <h3 class="section-title">太晶属性占比 (Tera Types)</h3>
+                    <div class="chart-box">
+                        <canvas id="teraChart" style="max-height: 200px; width: 100%"></canvas>
+                        <div v-if="!detailData.teras || detailData.teras.length === 0" style="position: absolute; color: var(--text-muted); font-size: 0.85rem">
+                            暂无太晶化数据记录
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 招式占比 (Top Moves) -->
+                <div class="detail-section">
+                    <h3 class="section-title">
+                        热门招式 (Top Moves) <span class="badge">前 5</span>
+                    </h3>
+                    <div class="bar-list">
+                        <div class="bar-item" v-for="move in detailData.moves.slice(0, 5)" :key="move.name">
+                            <div class="bar-header">
+                                <span class="bar-name">{{ move.name }}</span>
+                                <span class="bar-value">{{ formatPct(move.usage) }}</span>
+                            </div>
+                            <div class="mini-progress">
+                                <div class="mini-bar" :style="{ width: (move.usage * 100) + '%', background: 'var(--accent-gradient)' }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 特性与道具 -->
+                <div class="detail-section" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem">
+                    <div>
+                        <h3 class="section-title">热门特性</h3>
+                        <div class="bar-list">
+                            <div class="bar-item" v-for="ability in detailData.abilities.slice(0, 3)" :key="ability.name">
+                                <div class="bar-header">
+                                    <span class="bar-name" style="font-size: 0.8rem">{{ ability.name }}</span>
+                                    <span class="bar-value" style="font-size: 0.8rem">{{ formatPct(ability.usage) }}</span>
+                                </div>
+                                <div class="mini-progress">
+                                    <div class="mini-bar" :style="{ width: (ability.usage * 100) + '%' }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="section-title">携带道具</h3>
+                        <div class="bar-list">
+                            <div class="bar-item" v-for="item in detailData.items.slice(0, 3)" :key="item.name">
+                                <div class="bar-header">
+                                    <span class="bar-name" style="font-size: 0.8rem">{{ item.name }}</span>
+                                    <span class="bar-value" style="font-size: 0.8rem">{{ formatPct(item.usage) }}</span>
+                                </div>
+                                <div class="mini-progress">
+                                    <div class="mini-bar" :style="{ width: (item.usage * 100) + '%', background: 'linear-gradient(90deg, var(--amber) 0%, #f59e0b 100%)' }"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 推荐努力值配置 -->
+                <div class="detail-section">
+                    <h3 class="section-title">推荐性格与努力配置 (Spreads)</h3>
+                    <div class="spread-list">
+                        <div class="spread-item" v-for="spread in detailData.spreads.slice(0, 3)" :key="spread.nature + spread.evs">
+                            <div class="spread-info">
+                                <span class="spread-nature">{{ spread.nature }} 性格</span>
+                                <span class="spread-evs">{{ spread.evs || '无努力分配' }}</span>
+                            </div>
+                            <span class="spread-pct">{{ formatPct(spread.usage) }}</span>
+                        </div>
+                        <div v-if="!detailData.spreads || detailData.spreads.length === 0" style="color: var(--text-muted); font-size: 0.85rem">
+                            暂无分配数据
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 黄金队友 (Teammates) -->
+                <div class="detail-section">
+                    <h3 class="section-title">推荐队友 (Teammates)</h3>
+                    <div class="teammates-grid">
+                        <div class="teammate-btn" v-for="mate in detailData.teammates.slice(0, 4)" :key="mate.mate" @click="switchMon(mate.mate)">
+                            <span class="teammate-pct">{{ formatPct(mate.usage) }}</span>
+                            <span style="font-size: 0.85rem; font-weight: 600">{{ mate.chinese_name || mate.mate }}</span>
+                            <span v-if="mate.chinese_name" style="font-size: 0.7rem; color: var(--text-muted)">{{ mate.mate }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 针对与反制 (Checks and Counters) -->
+                <div class="detail-section">
+                    <h3 class="section-title">对抗克制关系 (Checks & Counters)</h3>
+                    <div style="overflow-x: auto; background-color: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color)">
+                        <table class="cc-table">
+                            <thead>
+                                <tr>
+                                    <th>天敌宝可梦</th>
+                                    <th>胜率/战损率</th>
+                                    <th>标准差</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="cc in detailData.ccs.slice(0, 5)" :key="cc.opp">
+                                    <td style="font-weight: 600">
+                                        <div>{{ cc.chinese_name || cc.opp }}</div>
+                                        <div v-if="cc.chinese_name" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400">{{ cc.opp }}</div>
+                                    </td>
+                                    <td class="strong">{{ (cc.percentage * 100).toFixed(1) }}%</td>
+                                    <td style="color: var(--text-muted)">{{ cc.stddev.toFixed(3) }}</td>
+                                </tr>
+                                <tr v-if="!detailData.ccs || detailData.ccs.length === 0">
+                                    <td colspan="3" style="text-align: center; color: var(--text-muted)">暂无克制系数数据</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 引入 Vue 3 与 Axios -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- 看板脚本核心逻辑 -->
+    <script>
+        const { createApp, ref, reactive, onMounted } = Vue;
+
+        createApp({
+            setup() {
+                // 状态列表
+                const filterOptions = reactive({
+                    sources: [],
+                    time_buckets: [],
+                    ratings: []
+                });
+
+                const filters = reactive({
+                    source: 'smogon',
+                    time_bucket: '',
+                    rating: 1500,
+                    search: ''
+                });
+
+                const pokemonList = ref([]);
+                const selectedMon = ref({ name: '' });
+                const detailData = ref(null);
+                const drawerActive = ref(false);
+                
+                const loading = reactive({
+                    list: false,
+                    detail: false
+                });
+
+                // 防抖搜索定时器
+                let searchTimeout = null;
+                // 图表对象引用
+                let chartInstance = null;
+
+                // 格式化百分比显示
+                const formatPct = (val) => {
+                    if (val === null || val === undefined) return '0.0%';
+                    return (val * 100).toFixed(2) + '%';
+                };
+
+                // 获取过滤器选项
+                const fetchFilters = async () => {
+                    try {
+                        const res = await axios.get('/api/filters');
+                        filterOptions.sources = res.data.sources;
+                        filterOptions.time_buckets = res.data.time_buckets;
+                        filterOptions.ratings = res.data.ratings;
+                        
+                        // 预设默认值
+                        if (res.data.sources.includes('smogon')) {
+                            filters.source = 'smogon';
+                        } else if (res.data.sources.length > 0) {
+                            filters.source = res.data.sources[0];
+                        }
+                        
+                        if (res.data.time_buckets.length > 0) {
+                            filters.time_bucket = res.data.time_buckets[0];
+                        }
+                        
+                        if (res.data.ratings.includes(1500)) {
+                            filters.rating = 1500;
+                        } else if (res.data.ratings.length > 0) {
+                            filters.rating = res.data.ratings[0];
+                        }
+                    } catch (e) {
+                        console.error("加载过滤器选项失败", e);
+                    }
+                };
+
+                // 获取宝可梦天梯排行
+                const fetchPokemonList = async () => {
+                    if (!filters.time_bucket) return;
+                    loading.list = true;
+                    try {
+                        const params = {
+                            source: filters.source,
+                            time_bucket: filters.time_bucket,
+                            rating: filters.rating,
+                            limit: 50
+                        };
+                        if (filters.search.trim()) {
+                            params.search = filters.search.trim();
+                        }
+                        const res = await axios.get('/api/pokemon', { params });
+                        pokemonList.value = res.data;
+                        
+                        // 重新刷新界面图标
+                        setTimeout(() => lucide.createIcons(), 50);
+                    } catch (e) {
+                        console.error("加载排行榜数据失败", e);
+                    } finally {
+                        loading.list = false;
+                    }
+                };
+
+                // 防抖搜索
+                const debouncedSearch = () => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        fetchPokemonList();
+                    }, 400);
+                };
+
+                // 打开详情抽屉并拉取对应宝可梦详情
+                const viewDetail = async (name) => {
+                    selectedMon.value.name = name;
+                    drawerActive.value = true;
+                    loading.detail = true;
+                    detailData.value = null;
+
+                    // 销毁旧图表
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                        chartInstance = null;
+                    }
+
+                    try {
+                        const res = await axios.get(`/api/pokemon/${name}`, {
+                            params: {
+                                source: filters.source,
+                                time_bucket: filters.time_bucket,
+                                rating: filters.rating
+                            }
+                        });
+                        detailData.value = res.data;
+                        
+                        // 等待 DOM 渲染后生成图表
+                        setTimeout(() => {
+                            renderTeraChart(res.data.teras);
+                            lucide.createIcons();
+                        }, 100);
+                    } catch (e) {
+                        console.error(`加载宝可梦 ${name} 详情失败`, e);
+                    } finally {
+                        loading.detail = false;
+                    }
+                };
+
+                // 关闭抽屉
+                const closeDrawer = () => {
+                    drawerActive.value = false;
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                        chartInstance = null;
+                    }
+                };
+
+                // 抽屉内切换其他宝可梦查看 (实现联动)
+                const switchMon = (name) => {
+                    viewDetail(name);
+                };
+
+                // 绘制太晶属性占比饼图
+                const renderTeraChart = (teras) => {
+                    const ctx = document.getElementById('teraChart');
+                    if (!ctx || !teras || teras.length === 0) return;
+
+                    // 取前 5 个加上其他
+                    let topTeras = teras.slice(0, 5);
+                    let otherUsage = teras.slice(5).reduce((sum, item) => sum + item.usage, 0);
+                    
+                    const labels = topTeras.map(t => t.type.toUpperCase());
+                    const data = topTeras.map(t => t.usage * 100);
+                    
+                    if (otherUsage > 0) {
+                        labels.push('其他');
+                        data.push(otherUsage * 100);
+                    }
+
+                    chartInstance = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: data,
+                                backgroundColor: [
+                                    '#6366f1', '#ec4899', '#10b981', '#f59e0b', '#3b82f6', '#8b5cf6'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        color: '#94a3b8',
+                                        font: {
+                                            family: 'Inter',
+                                            size: 11
+                                        }
+                                    }
+                                }
+                            },
+                            cutout: '65%'
+                        }
+                    });
+                };
+
+                onMounted(async () => {
+                    lucide.createIcons();
+                    await fetchFilters();
+                    await fetchPokemonList();
+                });
+
+                return {
+                    filterOptions,
+                    filters,
+                    pokemonList,
+                    selectedMon,
+                    detailData,
+                    drawerActive,
+                    loading,
+                    formatPct,
+                    fetchPokemonList,
+                    debouncedSearch,
+                    viewDetail,
+                    closeDrawer,
+                    switchMon
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

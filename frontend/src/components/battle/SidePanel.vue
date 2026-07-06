@@ -48,8 +48,8 @@
           class="text-xs px-2 py-1 rounded bg-gray-700"
         >
           <div class="flex items-center gap-1 mb-0.5">
-            <img v-if="moveInfo[move.id]?.type" :src="'/sprites/types/'+capitalize(moveInfo[move.id].type)+'.png'" class="h-3 w-auto" />
-            <img v-if="moveInfo[move.id]?.category" :src="'/sprites/categories/'+moveInfo[move.id].category+'.png'" class="h-3 w-auto" />
+            <img v-if="moveInfo[move.id]?.type" :src="'/types/'+capitalize(moveInfo[move.id].type)+'.png'" class="h-3 w-auto" />
+            <img v-if="moveInfo[move.id]?.category" :src="'/categories/'+moveInfo[move.id].category+'.png'" class="h-3 w-auto" />
             <span class="text-gray-500 ml-auto font-mono text-[10px]">{{ move.pp }}/{{ move.maxPp }}</span>
           </div>
           <div class="text-gray-300 font-medium truncate text-[11px]">{{ moveInfo[move.id]?.name || '#'+move.id }}</div>

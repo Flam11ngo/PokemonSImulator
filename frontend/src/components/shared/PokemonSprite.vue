@@ -29,7 +29,7 @@ const gifFailed = ref(false)
 // Reset when species changes
 watch(() => props.speciesId, () => { gifFailed.value = false })
 
-const gifUrl = computed(() => `/sprites/${props.speciesId}.gif`)
+const gifUrl = computed(() => `/${props.speciesId}.gif`)
 
 // Map PokemonSprite size to IconSprite size
 const spriteSheetSize = computed(() => {

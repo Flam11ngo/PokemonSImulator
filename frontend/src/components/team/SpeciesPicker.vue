@@ -18,7 +18,7 @@
           class="absolute z-30 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-xl max-h-48 overflow-y-auto">
           <div v-for="sp in slot.results" :key="sp.id" @mousedown.prevent="pickSpecies(idx, sp)"
             class="flex items-center gap-2 px-2 py-1.5 hover:bg-gray-700 cursor-pointer text-xs border-b border-gray-700/50">
-            <img :src="'/sprites/'+sp.id+'.gif'" class="w-8 h-8" @error="e=>e.target.style.display='none'" />
+            <img :src="'/ani/'+sp.id+'.gif'" class="w-8 h-8" @error="e=>e.target.style.display='none'" />
             <span class="text-white">#{{ sp.id }} {{ sp.name }}</span>
             <span v-for="t in (sp.types||[]).filter(Boolean)" :key="t"
               class="text-xs px-1 rounded text-white" :style="{background:typeColor(t)}">{{ typeLabel(t) }}</span>
@@ -29,7 +29,7 @@
       <!-- Selected Pokemon details -->
       <div v-if="slot.selected" class="mt-3 space-y-2">
         <div class="flex items-center gap-2">
-          <img :src="'/sprites/'+slot.selected.id+'.gif'" class="w-12 h-12" />
+          <img :src="'/ani/'+slot.selected.id+'.gif'" class="w-12 h-12" />
           <div>
             <span class="text-white font-bold text-sm">#{{ slot.selected.id }} {{ slot.selected.name }}</span>
             <div class="flex gap-1 mt-0.5">

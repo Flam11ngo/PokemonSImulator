@@ -1,0 +1,160 @@
+cmake_minimum_required(VERSION 3.14)
+project(PokemonSimulator)
+set(CMAKE_CXX_STANDARD 17)
+include(CTest)
+
+# ============================================================
+# Platform detection
+# ============================================================
+if(WIN32)
+    message(STATUS "Building on Windows (MSVC)")
+    # MSVC 需要显式指定 C++17 (标准是 C++14)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    # 多线程 DLL 运行时
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+else()
+    message(STATUS "Building on Linux/Unix")
+endif()
+
+# ============================================================
+# Dependencies: nlohmann_json
+# ============================================================
+# vcpkg 模式: toolchain 自动处理 find_package
+# 手动模式: 在 third_party/ 下放 header-only json.hpp
+find_package(nlohmann_json QUIET)
+if(NOT nlohmann_json_FOUND)
+    message(STATUS "nlohmann_json not found via find_package, checking third_party...")
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/third_party/json/single_include/nlohmann/json.hpp")
+        message(STATUS "Using bundled nlohmann_json from third_party/")
+        add_library(nlohmann_json INTERFACE)
+        target_include_directories(nlohmann_json INTERFACE
+            "${CMAKE_CURRENT_SOURCE_DIR}/third_party/json/single_include")
+    else()
+        message(FATAL_ERROR
+            "nlohmann_json not found!\n"
+            "  Option 1: vcpkg install nlohmann-json:x64-windows\n"
+            "  Option 2: git clone https://github.com/nlohmann/json.git third_party/json")
+    endif()
+endif()
+
+# ============================================================
+# Dependencies: CURL
+# ============================================================
+find_package(CURL QUIET)
+if(NOT CURL_FOUND)
+    if(WIN32)
+        message(STATUS "CURL not found via find_package — using Windows WinHTTP as fallback")
+        # WinHTTP 是 Windows 自带的 HTTP 库, 可以用作 CURL 的轻量替代
+    else()
+        message(FATAL_ERROR
+            "CURL not found!\n"
+            "  Ubuntu/Debian: sudo apt install libcurl4-openssl-dev\n"
+            "  vcpkg: vcpkg install curl:x64-windows")
+    endif()
+endif()
+
+# ============================================================
+# Include directories
+# ============================================================
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+if(CURL_FOUND)
+    include_directories(${CURL_INCLUDE_DIRS})
+endif()
+
+# ============================================================
+# SQLite3 (amalgamation — 单文件编译, 跨平台)
+# ============================================================
+add_library(sqlite3 STATIC third_party/sqlite3/sqlite3.c)
+target_include_directories(sqlite3 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/third_party/sqlite3)
+target_compile_definitions(sqlite3 PRIVATE SQLITE_THREADSAFE=1)
+if(MSVC)
+    # MSVC 对 SQLite3 amalgamation 的兼容选项
+    target_compile_options(sqlite3 PRIVATE /wd4996 /wd4146)
+endif()
+
+# ============================================================
+# Source files
+# ============================================================
+file(GLOB SOURCES CONFIGURE_DEPENDS src/*.cpp)
+file(GLOB SOURCES_BATTLE CONFIGURE_DEPENDS
+    src/battle/*.cpp
+    src/IO/*.cpp
+    src/tests/*.cpp
+)
+
+# Ensure critical battle data sources are always linked
+list(APPEND SOURCES_BATTLE
+    src/IO/MoveData.cpp
+    src/tests/MoveTestRunner.cpp
+    src/IO/AbilityData.cpp
+    src/IO/ItemData.cpp
+    src/tests/ItemTestRunner.cpp
+    src/IO/BattleSession.cpp
+    src/battle/GameRegistry.cpp
+)
+
+# ============================================================
+# Battle core library
+# ============================================================
+add_library(battle_core ${SOURCES_BATTLE})
+target_include_directories(battle_core PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+target_link_libraries(battle_core
+    nlohmann_json::nlohmann_json
+    sqlite3
+)
+if(CURL_FOUND)
+    target_link_libraries(battle_core CURL::libcurl)
+endif()
+
+# ============================================================
+# Main executable
+# ============================================================
+add_executable(PokemonSimulator ${SOURCES})
+
+target_link_libraries(PokemonSimulator
+    battle_core
+    nlohmann_json::nlohmann_json
+)
+
+# Windows: 输出名为 PokemonSimulator.exe
+if(WIN32)
+    set_target_properties(PokemonSimulator PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/Release"
+        RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/Debug"
+    )
+endif()
+
+# ============================================================
+# Tests (optional)
+# ============================================================
+if(BUILD_TESTING)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    )
+    # Windows: gtest 需要 shared CRT
+    if(WIN32)
+        set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    endif()
+    FetchContent_MakeAvailable(googletest)
+
+    add_executable(PokemonSimulatorTests
+        tests/battle_data_test.cpp
+    )
+
+    target_include_directories(PokemonSimulatorTests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+    )
+
+    target_link_libraries(PokemonSimulatorTests
+        battle_core
+        nlohmann_json::nlohmann_json
+        GTest::gtest_main
+    )
+
+    include(GoogleTest)
+    gtest_discover_tests(PokemonSimulatorTests)
+endif()

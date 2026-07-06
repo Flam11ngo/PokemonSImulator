@@ -4,3 +4,54 @@ deploy.tar.gz
 report.md
 Target.md
 
+# All node_modules at any depth
+**/node_modules/
+
+# Temp files
+nul
+logs/
+cache/
+.cache/
+battle_logs/
+temp_sprites/
+*.tmp
+/.vscode
+/.claude
+
+# Dependencies
+third_party/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Build output
+frontend/dist/
+*.zip
+
+# Database (generated)
+data/pokemon.db
+data/showdown_data.json
+*.sqlite
+smogon_stats/gen91v1_stats.sqlite
+
+# Analytics data (runtime)
+logs/analytics/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

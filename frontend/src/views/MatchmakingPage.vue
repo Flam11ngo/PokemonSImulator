@@ -5,14 +5,22 @@
       <div class="glass-card p-6">
         <h3 class="text-lg font-bold text-gray-800 mb-4">选择队伍</h3>
         <!-- Saved teams -->
-        <div v-if="savedTeams.length" class="space-y-2 mb-4">
-          <div v-for="t in savedTeams" :key="t.name" @click="selectTeam(t)"
+        <div v-if="savedTeams.length" class="mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs text-gray-400">已保存队伍</span>
+            <div class="flex gap-1">
+              <button @click="flipTeam(-1)" class="text-xs px-1.5 rounded hover:bg-gray-200 text-gray-500">◀</button>
+              <span class="text-xs text-gray-400">{{ teamPage + 1 }}/{{ savedTeams.length }}</span>
+              <button @click="flipTeam(1)" class="text-xs px-1.5 rounded hover:bg-gray-200 text-gray-500">▶</button>
+            </div>
+          </div>
+          <div v-if="savedTeams[teamPage]" @click="selectTeam(savedTeams[teamPage])"
             class="rounded-xl p-3 cursor-pointer border-2 transition-all duration-200"
-            :class="selectedTeam?.name===t.name
+            :class="selectedTeam?.name===savedTeams[teamPage].name
               ? 'bg-pokedex-blue/10 border-pokedex-blue shadow-sm'
               : 'bg-white/50 border-gray-200 hover:border-gray-400 hover:shadow-sm'">
-            <div class="text-sm text-gray-800 font-bold">{{ t.name }}</div>
-            <div class="text-xs text-gray-500 mt-1">{{ t.pokemon?.length||0 }} 只宝可梦</div>
+            <div class="text-sm text-gray-800 font-bold">{{ savedTeams[teamPage].name }}</div>
+            <div class="text-xs text-gray-500 mt-1">{{ savedTeams[teamPage].pokemon?.length||0 }} 只宝可梦</div>
           </div>
         </div>
         <div v-else class="text-center text-gray-400 text-sm py-4">
@@ -60,6 +68,7 @@
           :weather="battleState?._weather"
           :field="battleState?._field"
           :opp-side="mySide==='a' ? battleSideB : battleSideA"
+          :force-switch="forceSwitchActive"
           @confirm="onArenaConfirm"
           @leave="onArenaLeave"
           @switch-pokemon="onArenaSwitch"
@@ -75,6 +84,7 @@ import { ref, computed, onUnmounted, watch } from 'vue'
 import BattleField from '../components/battle/BattleField.vue'
 import { connect, send, on, getPlayerId, request } from '../api/wsClient'
 import { getMove } from '../api/dataWs'
+import { startSession, setBattleContext, clearBattleContext, trackTurnAction, trackMatchmake, trackMatchFound, trackBattleInit, trackBattleResult, trackTurnExecuted, trackMatchCancel } from '../utils/analytics'
 
 const inQueue = ref(false)
 const wsConnected = ref(false)
@@ -86,6 +96,13 @@ const submitting = ref(false)
 const actionType = ref('attack')  // 'attack' | 'switch' | 'pass'
 const moveInfo = ref({})
 const savedTeams = ref([])
+const teamPage = ref(0)
+function flipTeam(dir) {
+  const n = savedTeams.value.length
+  if (!n) return
+  teamPage.value = dir > 0 ? (teamPage.value + 1) % n : (teamPage.value > 0 ? teamPage.value - 1 : n - 1)
+  selectTeam(savedTeams.value[teamPage.value])
+}
 const selectedTeam = ref(null)
 const submittedMsg = ref('')
 // Type effectiveness chart (attacker type -> defender type -> multiplier)
@@ -115,6 +132,11 @@ function typeEffectiveness(moveType, defTypes) {
 
 const canJoin = computed(() => selectedTeam.value?.pokemon?.length > 0)
 const turnNumber = computed(() => battleState.value?.turn ?? 0)
+const forceSwitchActive = computed(() => {
+  const sidesArr = sides.value
+  const side = mySide.value === 'a' ? sidesArr[0] : sidesArr[1]
+  return side?.need2switch || false
+})
 const sides = computed(() => battleState.value?.battle?.sides || [])
 const battleSideA = computed(() => sides.value[0] || null)
 const battleSideB = computed(() => sides.value[1] || null)
@@ -157,6 +179,7 @@ const playerBenchForArena = computed(() => {
 
 function onArenaConfirm(action) {
   submitting.value = true
+  trackTurnAction(action)
   send('submit_action', {
     battle_id: activeBattle.value.id,
     action: { side: mySide.value, ...action }
@@ -216,25 +239,48 @@ async function setupWS() {
   unsubs.push(on('matched',(d)=>{
     inQueue.value=false; activeBattle.value={id:d.battle_id,status:'active'}; mySide.value=d.side
     battleState.value=d.state; loading.value=false
+    // Track full team init
+    const sides = d.state?.battle?.sides || []
+    const teamA = (sides[0]?.pokemons || []).map(p => ({ speciesID: p.speciesId, moves: (p.moves||[]).map(m=>m.id), item: p.item||p.itemId||0, ability: p.abilityId||0, nature: p.nature||3, level: p.level||50 }))
+    const teamB = (sides[1]?.pokemons || []).map(p => ({ speciesID: p.speciesId, moves: (p.moves||[]).map(m=>m.id), item: p.item||p.itemId||0, ability: p.abilityId||0, nature: p.nature||3, level: p.level||50 }))
+    const oppType = botBattles.value?.[d.battle_id] ? 'bot' : 'human'
+    trackBattleInit(d.battle_id, d.side, teamA, teamB, oppType)
   }))
   unsubs.push(on('battle_state_update',(d)=>{
     battleState.value=d.state; loading.value=false
   }))
   unsubs.push(on('turn_processed',(d)=>{
+    console.log('[WS] turn_processed received', {turn: d.turn, events: d.state?.events?.length, need2switch: d.state?.battle?.sides?.map(s=>s.need2switch)})
     battleState.value=d.state; submitting.value=false
     if(activeBattle.value)activeBattle.value.status=d.status
-    // Auto-show switch UI if our active Pokemon fainted
     const sides = d.state?.battle?.sides || []
     const ourSide = mySide.value==='a' ? sides[0] : sides[1]
+    // Track battle result if completed
+    if (d.status === 'completed' || d.game_over) {
+      const ourPkm = ourSide?.pokemons || []
+      const oppSide = mySide.value==='a' ? sides[1] : sides[0]
+      const oppPkm = oppSide?.pokemons || []
+      const ownAlive = ourPkm.filter(p => !p.fainted).length
+      const oppAlive = oppPkm.filter(p => !p.fainted).length
+      const winner = ownAlive > 0 && oppAlive === 0 ? 'win' : oppAlive > 0 && ownAlive === 0 ? 'loss' : 'draw'
+      trackBattleResult(winner === 'win' ? 'completed_win' : winner === 'loss' ? 'completed_loss' : 'draw', d.turn, ownAlive, oppAlive, winner)
+    }
     if (ourSide?.need2switch) {
+      console.log('[WS] need2switch detected, switching to switch mode')
       actionType.value = 'switch'
     }
   }))
   unsubs.push(on('force_switch_done',(d)=>{
-    battleState.value = d.state
+    console.log('[WS] force_switch_done received', {events: d.state?.events?.length})
+    // State already broadcast via turn_processed — just reset action type
     actionType.value = 'attack'
   }))
   unsubs.push(on('action_submitted',()=>{ submittedMsg.value = '已提交, 等待对手...' }))
+  // Reconnect: re-fetch battle state after handshake
+  unsubs.push(on('handshake_ok', (d) => {
+    const uid = d.player_id
+    if (uid) send('get_current_battle', { player_id: uid })
+  }))
   // Check if already in a battle (page re-entry)
   if (uid) {
     send('get_current_battle', { player_id: uid })
@@ -247,6 +293,7 @@ async function setupWS() {
     setTimeout(reset, 3000)
   }))
   unsubs.push(on('opponent_disconnected',(d)=>{
+    trackBattleResult('disconnected', turnNumber.value, -1, -1, null)
     alert(d.message || '对手已断开连接')
     reset()
   }))
@@ -259,14 +306,17 @@ setupWS()
 function selectTeam(t) { selectedTeam.value = t }
 async function joinQueue() {
   const teamJson = JSON.stringify({name:selectedTeam.value.name,pokemon:selectedTeam.value.pokemon})
+  trackMatchmake('human')
   send('join_matchmaking',{player_id:getPlayerId(),team_json:teamJson,opponent_type:'human'})
 }
 async function joinVsBot() {
   const teamJson = JSON.stringify({name:selectedTeam.value.name,pokemon:selectedTeam.value.pokemon})
+  trackMatchmake('bot')
   send('join_matchmaking',{player_id:getPlayerId(),team_json:teamJson,opponent_type:'bot'})
 }
-function leaveQueue(){inQueue.value=false}
+function leaveQueue(){ trackMatchCancel(); inQueue.value=false }
 function reset(){
+  clearBattleContext(activeBattle.value?.status === 'completed' ? 'completed' : 'abandoned')
   activeBattle.value=null;battleState.value=null;submitting.value=false;loading.value=false
   document.body.classList.remove('battle-mode')
 }

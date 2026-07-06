@@ -34,7 +34,7 @@ export function getIconStyle(speciesId, displaySize = 96) {
 
 // CDN fallback (rarely needed — sheet covers all 1-1025)
 const HOME_CDN = (id) =>
-  `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${id}.png`
+  `https://raw.githubusercontent.com/PokeAPI/master/pokemon/other/home/${id}.png`
 
 export function getIconSprite(speciesId) { return SHEET_URL }
 export function getHomeSprite(speciesId) { return HOME_CDN(speciesId) }

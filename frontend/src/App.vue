@@ -8,5 +8,15 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import AppNavbar from './components/layout/AppNavbar.vue'
+import { startSession, trackPageView } from './utils/analytics'
+
+const router = useRouter()
+onMounted(() => {
+  startSession()
+  trackPageView(router.currentRoute.value?.path || '/')
+})
+router.afterEach((to) => { trackPageView(to.path) })
 </script>

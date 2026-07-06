@@ -435,3 +435,2014 @@ Error: read ECONNRESET
   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
 [2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:37:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m892[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:40:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m08:40:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m923[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:40:26[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:40:28[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m08:47:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m08:50:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m08:54:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m08:55:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m08:55:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m08:55:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m08:56:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m08:56:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m08:56:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m08:56:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m08:59:02[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:00:02[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:04:26[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:05:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:05:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:06:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:06:36[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:08:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m09:10:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:10:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m09:11:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m09:15:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:15:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:16:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:19:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:20:04[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:24:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:26:56[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:31:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:31:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:32:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m09:33:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:33:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:35:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:37:22[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:41:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:41:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:42:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:42:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:46:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:46:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:47:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:48:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:48:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:48:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:48:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:48:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:48:48[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:49:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:49:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m09:52:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:52:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:54:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:55:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m09:56:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:56:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:56:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:59:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:59:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m09:59:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:01:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:03:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:03:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:03:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:06:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:06:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:06:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:06:51[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:07:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:07:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m10:07:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:07:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m10:07:48[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m10:09:38[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:43[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:49[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:55[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:09:58[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:05[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:08[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:12[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:25[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:27[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:31[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:31[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:36[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:37[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:37[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:42[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:45[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:50[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:10:56[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:08[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:51[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:54[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:11:58[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:07[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:45[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:55[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:12:59[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:04[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:08[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:37[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:41[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:13:53[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:04[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:14[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:19[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:26[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:36[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:38[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:42[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:44[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:47[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:49[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:14:57[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:06[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:19[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:45[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:51[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:15:55[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:06[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:19[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:35[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:50[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:16:56[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:04[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m10:17:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m10:17:17[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:20[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:17:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:17:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:42[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:47[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:17:57[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:05[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:14[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:20[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:26[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:37[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:41[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:44[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:46[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:48[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:50[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:54[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:57[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:18:59[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:05[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:07[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:10[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:12[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:19:17[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m813[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:21:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:23:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:24:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:24:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:24:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:24:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:24:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:29:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:29:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:30:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:32:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m779[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:37:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:37:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:37:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:39:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:44:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m10:45:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m10:48:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:48:51[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:01:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m11:01:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:11:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:11:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:15:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:15:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:16:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:36:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:36:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:36:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:36:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:36:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m11:37:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m11:43:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:44:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:44:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:44:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:48:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:48:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:48:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:51:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:53:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:56:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:57:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:59:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:59:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:59:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:59:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:01:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:01:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:01:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:02:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:03:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1050[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m22:24:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m22:24:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m22:24:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:24:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:25:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:30:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue, /src/views/MatchmakingPage.vue[22m
+[2m22:30:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m22:59:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:59:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:59:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m22:59:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m22:59:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m22:59:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m22:59:59[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m23:00:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/shared/PokemonSprite.vue[22m
+[2m23:01:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/battle/PokemonCard.vue[22m
+[2m23:01:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/battle/PokemonCard.vue[22m
+[2m23:01:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/team/SpeciesPicker.vue[22m
+[2m23:01:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/team/SpeciesPicker.vue[22m
+[2m23:02:03[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/team/SpeciesPicker.vue[22m
+[2m23:41:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m23:47:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m23:48:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m23:48:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m23:50:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m23:51:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m23:52:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m23:52:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m23:59:42[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1145[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:50:54[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:50:56[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:50:56[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:50:58[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:50:59[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:03[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:05[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:06[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:08[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:11[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:12[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:14[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:17[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:51:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m805[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:51:24[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m08:52:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m08:59:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m09:03:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:03:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m861[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m09:03:53[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:06:36[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m806[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m09:10:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:23:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:26:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:26:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:28:05[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:28:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Re-optimizing dependencies because lockfile has changed
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1092[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m09:36:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:40:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:52:45[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m931[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m09:58:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:59:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:59:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:01:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:01:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:01:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:01:51[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:02:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:04:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:06:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue, /src/components/battle/BattleField.vue[22m
+[2m10:06:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:06:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:06:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:07:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:07:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:07:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/shared/PokemonSprite.vue[22m
+[2m10:07:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/shared/PokemonSprite.vue[22m
+[2m10:07:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/shared/PokemonSprite.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue, /src/views/MatchmakingPage.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/team/SpeciesPicker.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/shared/IconSprite.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/battle/PokemonCard.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/shared/PokemonSprite.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css, /src/components/battle/BattleField.vue?vue&type=style&index=0&scoped=e5c05786&lang.css[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:11:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m10:11:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m10:11:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue, /src/components/battle/BattleField.vue[22m
+[2m10:11:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/WeatherField.vue, /src/style.css, /src/components/battle/WeatherField.vue?vue&type=style&index=0&scoped=adb5477e&lang.css[22m
+[2m10:12:23[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m836[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:13:06[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: Failed to resolve import "./WeatherField.vue" from "src/components/battle/BattleField.vue". Does the file exist?
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/battle/BattleField.vue[39m:221:29
+[33m  1  |  import { computed, ref, watch } from 'vue'
+  2  |  import IconSprite from '../shared/IconSprite.vue'
+  3  |  import WeatherField from './WeatherField.vue'
+     |                              ^
+  4  |  import BattleEvents from './BattleEvents.vue'
+  5  |  [39m
+[2m10:13:06[22m [31m[1m[vite][22m[39m [31mInternal server error: Failed to resolve import "./WeatherField.vue" from "src/components/battle/BattleField.vue". Does the file exist?[39m
+  Plugin: [35mvite:import-analysis[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/battle/BattleField.vue[39m:221:29
+[33m  1  |  import { computed, ref, watch } from 'vue'
+  2  |  import IconSprite from '../shared/IconSprite.vue'
+  3  |  import WeatherField from './WeatherField.vue'
+     |                              ^
+  4  |  import BattleEvents from './BattleEvents.vue'
+  5  |  [39m
+      at TransformPluginContext._formatLog (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42658:41)
+      at TransformPluginContext.error (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42655:16)
+      at normalizeUrl (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40634:23)
+      at async file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40753:37
+      at async Promise.all (index 2)
+      at async TransformPluginContext.transform (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:40680:7)
+      at async EnvironmentPluginContainer.transform (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:42453:18)
+      at async loadAndTransform (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35845:27)
+      at async viteTransformMiddleware (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:37369:24)
+[2m10:14:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m10:19:03[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:19:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:19:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:19:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:19:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:19:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m783[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:23:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css, /src/components/battle/BattleField.vue?vue&type=style&index=0&scoped=e5c05786&lang.css[22m
+[2m10:25:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:25:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:29:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m10:29:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:29:33[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:30:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m10:34:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:35:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m10:36:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:40:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:40:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:44:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:45:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:45:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:46:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:46:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:49:31[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:51:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css, /src/components/battle/BattleField.vue?vue&type=style&index=0&scoped=e5c05786&lang.css[22m
+[2m10:52:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:52:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:53:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:54:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css, /src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m10:54:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:54:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:55:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:56:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:56:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:57:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m10:57:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m757[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m11:00:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:00:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:02:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:02:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:03:10[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:03:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:03:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:05:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:05:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:06:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m769[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m11:20:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:20:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:28:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m11:30:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m11:31:56[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m11:32:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m11:32:20[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue, /src/style.css[22m
+[2m11:33:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleEvents.vue?vue&type=style&index=0&scoped=fff38468&lang.css[22m
+[2m11:36:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m12:01:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m870[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m12:05:58[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m803[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m12:06:03[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:07:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1205[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m879[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m14:14:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m14:23:57[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m846[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m14:26:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m14:26:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m14:30:17[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:30:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:30:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:30:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:31:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:31:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:31:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:32:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/MatchmakingPage.vue, /src/style.css[22m
+[2m14:33:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:34:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:34:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+[2m14:34:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/MatchmakingPage.vue[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1103[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1032[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m18:17:10[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m18:17:10[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:17:31[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m18:17:31[22m [36m[1m[vite][22m[39m server restarted.
+[2m18:18:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m18:18:27[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m18:18:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m18:18:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m18:32:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m18:46:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m18:46:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m18:49:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m18:49:11[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m940[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m18:52:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/StatsDashboard.vue, /src/components/stats/PokemonDetailModal.vue[22m
+[2m18:52:07[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/StatsDashboard.vue, /src/components/stats/PokemonDetailModal.vue[22m
+[2m18:55:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StatsDashboard.vue, /src/style.css[22m
+[2m18:55:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StatsDashboard.vue, /src/style.css[22m
+[2m18:55:55[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m18:56:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/StatsDashboard.vue, /src/style.css[22m
+[2m19:00:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:00:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:00:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:00:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:00:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:04:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:06:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:08:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:10:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m19:10:13[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+^C
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1107[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m08:39:20[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:42:52[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:42:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:42:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:43:02[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:43:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:47:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:47:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonRankTable.vue[22m
+[2m08:47:59[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m08:47:59[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m08:48:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:48:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:48:02[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:48:02[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m08:52:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:53:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:56:58[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:57:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m08:57:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonRankTable.vue[22m
+[2m08:57:25[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonDetailModal.vue[22m
+[2m09:00:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m09:06:51[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:06:51[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:06:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:06:52[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:06:53[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:06:53[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:09:17[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:09:17[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:09:19[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:09:19[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:09:20[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:15:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/stores/battleStore.js[22m
+[2m09:15:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/stores/battleStore.js[22m
+[2m09:15:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/stores/battleStore.js[22m
+[2m09:15:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:15:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:15:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:16:07[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:16:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:21:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/battle/BattleField.vue[22m
+[2m09:21:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonRankTable.vue[22m
+[2m09:22:01[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonRankTable.vue[22m
+[2m09:22:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonRankTable.vue[22m
+[2m09:22:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonDetailModal.vue[22m
+[2m09:22:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/components/stats/PokemonDetailModal.vue[22m
+[2m09:22:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m09:22:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m09:22:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:22:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:22:46[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/battle/BattleField.vue, /src/style.css[22m
+[2m09:22:55[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:22:57[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:23:27[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m09:23:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m09:26:22[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m09:26:27[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m09:26:27[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:27:00[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: v-else/v-else-if has no adjacent v-if or v-else-if.
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+[2m09:27:00[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:27:10[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:28:34[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m09:28:35[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: v-else/v-else-if has no adjacent v-if or v-else-if.
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+[2m09:28:35[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:28:39[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/battle/BattleField.vue, /src/components/stats/SmogonBuildModal.vue[22m
+[2m09:28:39[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: v-else/v-else-if has no adjacent v-if or v-else-if.
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+[2m09:28:39[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:28:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m09:28:45[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: v-else/v-else-if has no adjacent v-if or v-else-if.
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+[2m09:28:45[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:29:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:29:06[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: v-else/v-else-if has no adjacent v-if or v-else-if.
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+[2m09:29:06[22m [31m[1m[vite][22m[39m [31mInternal server error: v-else/v-else-if has no adjacent v-if or v-else-if.[39m
+  Plugin: [35mvite:vue[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/stats/SmogonBuildModal.vue[39m:40:19
+[33m  38 |                      @error="spriteFallback"
+  39 |                      class="w-20 h-20 object-contain drop-shadow-md" />
+  40 |                    <div v-else class="w-20 h-20 flex items-center justify-center text-gray-300 text-2xl">?</div>
+     |                     ^
+  41 |                  </div>
+  42 |                  <div class="text-xs font-bold text-gray-800 mt-1 text-center truncate w-full">{{ props.pokemon?.name || '?' }}</div>[39m
+      at createCompilerError (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:1378:17)
+      at processIf (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4782:11)
+      at E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:4684:12
+      at Array.<anonymous> (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3665:26)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3607:38)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+      at traverseNode (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3642:7)
+      at traverseChildren (E:\PokemonSImulator\frontend\node_modules\@vue\compiler-core\dist\compiler-core.cjs.js:3599:5)
+[2m09:29:26[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/stats/SmogonBuildModal.vue, /src/style.css[22m
+[2m09:30:40[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/components/battle/BattleField.vue, /src/components/stats/SmogonBuildModal.vue[22m
+[2m09:37:35[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:38:06[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:38:37[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:41:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m09:41:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/views/TeamBuilder.vue, /src/style.css[22m
+[2m09:46:09[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:04:14[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:30:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:30:15[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:31:38[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:35:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:35:45[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:39:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/style.css, /src/views/TeamBuilder.vue[22m
+[2m10:39:18[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m10:39:20[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:39:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m10:42:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:43:19[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+[2m10:43:28[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m10:43:28[22m [36m[1m[vite][22m[39m server restarted.
+[2m10:43:32[22m [31m[1m[vite][22m[39m [31mInternal server error: Header name must be a valid HTTP token ["/sprites/**"][39m
+      at ServerResponse.setHeader (node:_http_outgoing:644:3)
+      at send$1 (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35174:11)
+      at viteIndexHtmlMiddleware (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:37786:18)
+[2m10:43:32[22m [31m[1m[vite][22m[39m [31mws proxy socket error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m10:43:32[22m [31m[1m[vite][22m[39m [31mInternal server error: Header name must be a valid HTTP token ["/sprites/**"][39m
+      at ServerResponse.setHeader (node:_http_outgoing:644:3)
+      at send$1 (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35174:11)
+      at viteTransformMiddleware (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:37377:18)
+[2m10:43:32[22m [31m[1m[vite][22m[39m [31mInternal server error: Header name must be a valid HTTP token ["/sprites/**"][39m
+      at ServerResponse.setHeader (node:_http_outgoing:644:3)
+      at send$1 (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:35174:11)
+      at viteIndexHtmlMiddleware (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:37786:18)
+[2m10:43:54[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+[2m10:43:54[22m [36m[1m[vite][22m[39m server restarted.
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m944[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m930[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m10:58:11[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/components/shared/IconSprite.vue, /src/style.css[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m911[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m11:07:36[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  [39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+[2m11:09:11[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  [39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1357[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m11:36:30[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  import { FORM_ICON_SHEET } from '../../utils/iconSheetForms'[39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1413[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m14:54:11[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  import { FORM_ICON_SHEET } from '../../utils/iconSheetForms'[39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+[2m14:54:29[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  import { FORM_ICON_SHEET } from '../../utils/iconSheetForms'[39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+[2m14:59:00[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] E:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css:6:10: Unknown word computed[39m
+  Plugin: [35mvite:css[39m
+  File: [36mE:/PokemonSImulator/frontend/src/components/shared/IconSprite.vue?vue&type=style&index=0&scoped=01a7eb98&lang.css[39m:6:9
+[33m  4  |  
+  5  |  <script setup>
+  6  |  import { computed } from 'vue'
+     |           ^
+  7  |  import { ICON_SHEET } from '../../utils/iconSheet'
+  8  |  import { FORM_ICON_SHEET } from '../../utils/iconSheetForms'[39m
+      at Input.error (E:\PokemonSImulator\frontend\node_modules\postcss\lib\input.js:135:16)
+      at Parser.unknownWord (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:602:22)
+      at Parser.other (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:444:12)
+      at Parser.parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parser.js:479:16)
+      at parse (E:\PokemonSImulator\frontend\node_modules\postcss\lib\parse.js:11:12)
+      at new LazyResult (E:\PokemonSImulator\frontend\node_modules\postcss\lib\lazy-result.js:165:16)
+      at Processor.process (E:\PokemonSImulator\frontend\node_modules\postcss\lib\processor.js:53:14)
+      at runPostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43983:52)
+      at async compilePostCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43953:18)
+      at async compileCSS (file:///E:/PokemonSImulator/frontend/node_modules/vite/dist/node/chunks/dep-Dm0c1Wj2.js:43808:27)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1187[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://118.202.43.75:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m12:19:22[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:19:24[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:19:25[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:25:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:25:30[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:25:32[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:25:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:28:33[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:28:34[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:32:08[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:32:09[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:46:28[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:46:29[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:48:00[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:48:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:52:01[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:52:02[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:56:38[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:56:39[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:56:40[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m12:59:41[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m12:59:43[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m13:00:04[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m13:00:06[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m13:03:13[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+[2m13:03:14[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+[2m13:03:15[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1193:18)
+    at afterConnectMultiple (node:net:1783:7)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m884[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://118.202.43.75:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m3163[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m1040[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m889[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m09:09:21[22m [31m[1m[vite][22m[39m [31mws proxy error:[39m
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+
+  [32m[1mVITE[22m v6.4.3[39m  [2mready in [0m[1m933[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.121.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.88.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.22.21.21:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
