@@ -51,9 +51,9 @@ function convertTeam(list) {
 }
 
 // ---- Build our JSON state from Showdown Battle object ----
-function buildState(battle, st) {
+function buildState(battle, st, daemonTurn) {
   return {
-    turn: battle.turn||0,
+    turn: daemonTurn || battle.turn||0,
     battle: {sides: [buildSide(battle.p1,'Player',st), buildSide(battle.p2,'Opponent',st)]},
     events: parseLog(battle, st),
     _weather: weatherJson(battle),
@@ -75,8 +75,9 @@ function buildSide(side, name, st) {
       nature: natId(p.nature),
       moves: (p.moveSlots||[]).map(ms => {
         const m = ms?.move ? Dex.moves.get(ms.move) : null;
-        return { id: mvId(ms?.move||''), pp: ms?.pp||0, maxPp: ms?.maxpp||0, _type: (m?.type||'Normal') };
+        return { id: mvId(ms?.move||''), pp: ms?.pp||0, maxPp: ms?.maxpp||0, _type: (m?.type||'Normal'), disabled: ms?.disabled || false };
       }),
+      _volatiles: p?.volatiles ? Object.keys(p.volatiles) : [],  // debug: show active volatiles
       statStages: [p.boosts?.atk||0,p.boosts?.def||0,p.boosts?.spa||0,p.boosts?.spd||0,p.boosts?.spe||0,p.boosts?.accuracy||0,p.boosts?.evasion||0],
       inBattleStatus: p.status ? [{id:{brn:1,frz:2,par:3,psn:4,slp:5,tox:7}[p.status]||0,name:p.status}] : [],
       _charging: p?.volatiles?.twoturnmove?.move ? mvId(p.volatiles.twoturnmove.move) : null,
@@ -260,23 +261,37 @@ function formatEvent(kw, parts, st) {
   if (kw === '-status') {
     const statusNames = {brn:'烧伤🔥',frz:'冰冻❄️',par:'麻痹⚡',psn:'中毒☠️',tox:'剧毒☠️',slp:'睡眠💤'};
     const s = statusNames[rest[1]] || rest[1];
-    return { ...base, side: pokemonSide(rest[0]), event_type:'status_apply', description: s };
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
+    const prefix = mv ? `${mv.user} 使出 ${mv.move}！` : '';
+    return { ...base, side: pokemonSide(rest[0]), event_type:'status_apply', description: prefix + s };
   }
-  if (kw === '-curestatus') return { ...base, side: pokemonSide(rest[0]), event_type:'heal', description: '状态治愈 ✨' };
+  if (kw === '-curestatus') {
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
+    const prefix = mv ? `${mv.user} 使出 ${mv.move}！` : '';
+    return { ...base, side: pokemonSide(rest[0]), event_type:'heal', description: prefix + '状态治愈 ✨' };
+  }
 
   // ---- STAT CHANGE ----
   if (kw === '-boost') {
     const st = STAT_MAP[rest[1]] || rest[1];
     const amt = parseInt(rest[2]) || 1;
-    return { ...base, side: pokemonSide(rest[0]), event_type:'stat_raise', description: `${st} ▲`, stat: st, value: amt };
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
+    const prefix = mv ? `${mv.user} 使出 ${mv.move}！` : '';
+    return { ...base, side: pokemonSide(rest[0]), event_type:'stat_raise', description: prefix + `${st} ▲`, stat: st, value: amt };
   }
   if (kw === '-unboost') {
     const st = STAT_MAP[rest[1]] || rest[1];
-    return { ...base, side: pokemonSide(rest[0]), event_type:'stat_drop', description: `${st} ▼` };
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
+    const prefix = mv ? `${mv.user} 使出 ${mv.move}！` : '';
+    return { ...base, side: pokemonSide(rest[0]), event_type:'stat_drop', description: prefix + `${st} ▼` };
   }
 
   // ---- ABILITY ----
-  if (kw === '-ability') return { ...base, side: pokemonSide(rest[0]), event_type:'ability_trigger', description: `${rest[1]||'特性'} 发动` };
+  if (kw === '-ability') {
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
+    const prefix = mv ? `${mv.user} 使出 ${mv.move}！` : '';
+    return { ...base, side: pokemonSide(rest[0]), event_type:'ability_trigger', description: prefix + `${rest[1]||'特性'} 发动` };
+  }
   if (kw === '-activate') return { ...base, side: pokemonSide(rest[0]), event_type:'ability_trigger', description: rest[1] || '效果发动' };
 
   // ---- ITEM ----
@@ -285,7 +300,7 @@ function formatEvent(kw, parts, st) {
   // ---- MISS / IMMUNE / FAIL / BLOCK (merge move) ----
   if (kw === '-miss' || kw === '-immune' || kw === '-fail' || kw === '-block') {
     const who = pokemonLabel(rest[0]);
-    const mv = st._pendingMove; st._pendingMove = null;
+    const mv = st._pendingMove; st._pendingMove = null; st._pendingEff = '';
     const desc = mv ? `${mv.user} 使出 ${mv.move}！` : '';
     const msg = kw === '-miss' ? `${who} 的攻击未命中`
       : kw === '-immune' ? `${who} 不受影响`
@@ -367,15 +382,6 @@ function classifyEv(k) {
 function convAction(a, side, battle) {
   const t = a.type||'pass';
   if (t==='attack'||t==='move') {
-    // If Pokemon is locked into a charging move (Solar Beam etc), Showdown
-    // requires `move 1` on the follow-up turn regardless of slot position.
-    if (battle && side) {
-      const pkm = side === 'p1' ? battle?.p1?.active?.[0] : battle?.p2?.active?.[0];
-      if (pkm?.volatiles?.twoturnmove) {
-        log(`Charging lock: forcing move 1 (was slot ${(a.move_index||0)+1})`);
-        return 'move 1';
-      }
-    }
     return `move ${(a.move_index||0)+1}`;
   }
   if (t==='switch') return `switch ${(a.switch_index||0)+1}`;
@@ -488,7 +494,7 @@ async function main() {
   st.logIndex = battle.log.length;
 
   // Turn 0 output
-  const s0 = buildState(battle, st);
+  const s0 = buildState(battle, st, 0);
   wr(OUT('output_0.json'), s0);
   logPersistent('output', '0000_turn.json', s0);
   log('output_0.json written');
@@ -524,20 +530,46 @@ async function main() {
     logPersistent('input', `${tn.toString().padStart(4,'0')}_1_input.json`, rd(IN(`1_input_${tn}.json`))||{});
     logPersistent('input', `${tn.toString().padStart(4,'0')}_2_input.json`, rd(IN(`2_input_${tn}.json`))||{});
 
-    log(`turn ${tn}: p1=${a1} p2=${a2}`);
-    battle.choose('p1', a1);
-    battle.choose('p2', a2);
+    log(`turn ${tn}: p1=${a1} p2=${a2} | p1.active=${battle.p1?.active[0]?.species?.name||'?'} p2.active=${battle.p2?.active[0]?.species?.name||'?'}`);
+    let r1 = battle.choose('p1', a1);
+    if (!r1) {
+      log(`[choose-err] p1 rejected: "${battle.p1?.choice?.error||'no error msg'}" — auto-fallback`);
+      // Auto-pick a random valid move for the human when their choice is rejected
+      const p1moves = battle.p1?.active[0]?.moveSlots || [];
+      const validMoves = p1moves.filter(m => m?.pp > 0 && !m?.disabled);
+      if (validMoves.length > 0) {
+        const fallback = `move ${validMoves[Math.floor(Math.random() * validMoves.length)].id}`;
+        log(`[choose-err] p1 fallback: ${fallback}`);
+        r1 = battle.choose('p1', fallback);
+      } else {
+        // All moves disabled — pass
+        log(`[choose-err] p1 no valid moves, passing`);
+        r1 = battle.choose('p1', 'pass');
+      }
+    }
+    if (!r1) log(`[choose-err] p1 STILL rejected after fallback: "${battle.p1?.choice?.error||'no error msg'}"`);
+    const r2 = battle.choose('p2', a2);
+    if (!r2) log(`[choose-err] p2 rejected: "${battle.p2?.choice?.error||'no error msg'}" requestState=${battle.requestState}`);
+    log(`[debug] choose results: p1=${r1} p2=${r2} requestState=${battle.requestState} midTurn=${battle.midTurn} ended=${battle.ended} turn=${battle.turn} logLen=${battle.log?.length||0}`);
     // Let Showdown settle (U-turn etc. sets activeRequest.forceSwitch after choose)
     await slp(50);
 
-    let state = buildState(battle, st);
+    let state = buildState(battle, st, tn);
+    // Debug: log move disabled status for active Pokemon
+    const logSide = (side, label) => {
+      const s = side?.pokemons?.[side?.active||0];
+      if (!s) return `${label}: ?`;
+      const mvInfo = (s.moves||[]).map(m => `#${m.id} pp${m.pp}/${m.maxPp} disabled=${m.disabled||'-'}`).join(', ');
+      return `${label} ${s._speciesName} hp=${s.hp}/${s.maxHp} volatiles=[${(s._volatiles||[]).join(',')}] moves: ${mvInfo}`;
+    };
+    log(`[state] ${logSide(state.battle.sides[0], 'p1')} | ${logSide(state.battle.sides[1], 'p2')}`);
     wr(OUT(`output_${tn}.json`), state);
     logPersistent('output', `${tn.toString().padStart(4,'0')}_turn.json`, state);
-    log(`output_${tn}.json done (turn ${battle.turn}, need2switch: p1=${state.battle.sides[0]?.need2switch} p2=${state.battle.sides[1]?.need2switch})`);
+    log(`output_${tn}.json done (daemonTurn=${tn} engineTurn=${battle.turn}, events=${state.events?.length||0}, need2switch: p1=${state.battle.sides[0]?.need2switch} p2=${state.battle.sides[1]?.need2switch}, requestState=${battle.requestState}, midTurn=${battle.midTurn}, ended=${battle.ended})`);
 
     // Handle forced switches (Pokemon fainted)
     while (!battle.ended) {
-      state = buildState(battle, st);
+      state = buildState(battle, st, tn);
       const s1 = state.battle.sides[0];
       const s2 = state.battle.sides[1];
       const needP1 = s1.need2switch;
@@ -561,14 +593,22 @@ async function main() {
       logPersistent('input', `${tn.toString().padStart(4,'0')}_1_input_force.json`, rd(IN(`1_input_${tn}_force.json`))||{});
       logPersistent('input', `${tn.toString().padStart(4,'0')}_2_input_force.json`, rd(IN(`2_input_${tn}_force.json`))||{});
 
-      state = buildState(battle, st);
+      state = buildState(battle, st, tn);
+      // Debug: log move disabled after force switch
+      const logFsSide = (side, label) => {
+        const s = side?.pokemons?.[side?.active||0];
+        if (!s) return `${label}: ?`;
+        const mvInfo = (s.moves||[]).map(m => `#${m.id} pp${m.pp}/${m.maxPp} disabled=${m.disabled||'-'}`).join(', ');
+        return `${label} ${s._speciesName} hp=${s.hp}/${s.maxHp} volatiles=[${(s._volatiles||[]).join(',')}] moves: ${mvInfo}`;
+      };
+      log(`[state-fs] ${logFsSide(state.battle.sides[0], 'p1')} | ${logFsSide(state.battle.sides[1], 'p2')}`);
       wr(OUT(`output_${tn}_force.json`), state);
       logPersistent('output', `${tn.toString().padStart(4,'0')}_force.json`, state);
       log(`output_${tn}_force.json done`);
     }
   }
 
-  const finalState = buildState(battle, st);
+  const finalState = buildState(battle, st, battle.turn||0);
   wr(OUT('output_final.json'), finalState);
   logPersistent('output', 'final.json', finalState);
 

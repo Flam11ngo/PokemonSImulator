@@ -29,12 +29,13 @@ SIMULATOR_MODE = os.getenv("SIMULATOR_MODE", "standalone" if IS_WINDOWS else "cl
 # ============================================================
 # Kafka (外部物理机集群) — 仅 cluster 模式使用
 # ============================================================
-KAFKA_BROKER = os.getenv("KAFKA_BROKER", "100.107.105.99:9092,<node2-ip>:9092,<node3-ip>:9092")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER", "100.107.105.99:9092")
 
+KAFKA_TOPIC_UI_EVENTS = os.getenv("KAFKA_TOPIC_UI_EVENTS", "player.ui.events")
+KAFKA_TOPIC_BATTLE_LOG = os.getenv("KAFKA_TOPIC_BATTLE_LOG", "battle.logs")
 KAFKA_TOPIC_REQUESTS = os.getenv("KAFKA_TOPIC_REQUESTS", "battle.requests")
 KAFKA_TOPIC_RESULTS = os.getenv("KAFKA_TOPIC_RESULTS", "battle.results")
 KAFKA_TOPIC_EVENTS = os.getenv("KAFKA_TOPIC_EVENTS", "battle.events")
-KAFKA_TOPIC_ANALYTICS = os.getenv("KAFKA_TOPIC_ANALYTICS", "battle.analytics")
 
 KAFKA_CONSUMER_GROUP = os.getenv("KAFKA_CONSUMER_GROUP", "api-server-group")
 

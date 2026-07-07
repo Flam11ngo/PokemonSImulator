@@ -52,6 +52,7 @@
                 <template v-if="topMoves[i-1]">
                   <div class="flex items-center gap-1.5 mb-1">
                     <img :src="'/types/'+capitalize(topMoves[i-1].type||'Normal')+'.png'" class="h-4 w-auto" />
+                    <img :src="'/categories/'+capitalize(topMoves[i-1].category||'status')+'.png'" class="h-4 w-auto" />
                     <span class="ml-auto text-[10px] text-gray-400 font-mono">{{ topMoves[i-1].power||'-' }}·{{ topMoves[i-1].pp||'-' }}</span>
                   </div>
                   <div class="text-gray-700 font-semibold text-xs truncate">{{ topMoves[i-1].chinese_name || fmtName(topMoves[i-1].name) }}</div>
@@ -149,34 +150,34 @@ const props = defineProps({
   pokemon: { type: Object, default: null },
   smogonData: { type: Object, default: null },
   loading: { type: Boolean, default: false },
+  moveNameMeta: { type: Object, default: () => ({}) },
 })
 defineEmits(['close', 'build', 'selectTeammate', 'focusTab'])
 
 const imgFailed = ref(false)
 
-const topMoves = computed(() => (props.smogonData?.moves || []).slice(0, 4))
+// Normalize name for lookup: lowercase, strip non-alphanumeric
+function normName(n) { return (n || '').toLowerCase().replace(/[^a-z0-9]/g, '') }
+
+const topMoves = computed(() => {
+  return (props.smogonData?.moves || []).slice(0, 4).map(sm => {
+    const key = normName(sm.name)
+    const meta = props.moveNameMeta?.[key]
+    return {
+      ...sm,
+      type: meta?.type || 'Normal',
+      category: meta?.category || 'status',
+      power: meta?.power || 0,
+      pp: meta?.pp || 0,
+      chinese_name: sm.chinese_name || meta?.name || sm.name,
+    }
+  })
+})
 const topItem = computed(() => props.smogonData?.items?.[0] || null)
 const topSpread = computed(() => props.smogonData?.spreads?.[0] || null)
 
 import { frontSprite, cdnFrontSprite, cdnGen5Sprite, spriteFallback } from '../../utils/spriteUrl'
 import { ITEM_SHEET } from '../../utils/itemSheet'
-import { request } from '../../api/wsClient'
-
-// Cache for looking up move info from game data
-const moveInfoCache = ref({})
-
-function getMoveInfo(name) {
-  if (!name) return {}
-  const key = name.toLowerCase()
-  if (!moveInfoCache.value[key]) {
-    // Lazily fetch via WebSocket
-    request('get_moves', { search: name, limit: 1 }).then(list => {
-      if (list?.[0]) moveInfoCache.value[key] = list[0]
-    }).catch(() => {})
-    return {}
-  }
-  return moveInfoCache.value[key]
-}
 
 /** Format Showdown name: dragonpulse → Dragon Pulse */
 function fmtName(n) {

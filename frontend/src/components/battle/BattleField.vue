@@ -130,7 +130,7 @@
             <div class="flex-1 flex items-center justify-center px-1">
               <div class="font-bold truncate text-center" style="font-size:clamp(12px,1.8vw,18px)">
                 {{ m._name || '#'+m.id }}
-                <span v-if="m._disabled && m.pp > 0" class="text-yellow-400" style="font-size:clamp(8px,1vw,11px)">🔒充能中</span>
+                <span v-if="m._disabled && m.pp > 0" class="text-yellow-400" style="font-size:clamp(8px,1vw,11px)">{{ m.disabled === 'locked' ? '🔒' : m.disabled ? '🚫' : '🔒充能中' }}</span>
               </div>
             </div>
             <div class="flex justify-between items-end px-1.5 pb-1">
@@ -193,7 +193,8 @@
 
     <WeatherField :weather="weather" :field="field" />
     <div class="absolute top-2 right-2 z-30">
-      <span class="px-3 py-1 rounded-full text-gray-400 font-mono font-bold bg-black/80 backdrop-blur shadow"
+      <span class="px-3 py-1 rounded-full font-mono font-bold bg-black/80 backdrop-blur shadow transition-all duration-150"
+            :class="turnBump ? 'text-amber-300 scale-110' : 'text-gray-400'"
             style="font-size:clamp(10px,1.3vw,15px)">Turn {{ turn }}</span>
     </div>
   </div>
@@ -243,10 +244,12 @@ const playerHpFlash = ref(''), oppHpFlash = ref('')
 const playerDmgNum = ref(0), oppDmgNum = ref(0)
 const playerHealNum = ref(0), oppHealNum = ref(0)
 const spriteHidden = ref({ a: false, b: false })
+const turnBump = ref(false)  // brief flash when turn advances without HP change
 const animTimer = { a: null, b: null }
 
 // ═══════════ State-diff: detect changes, trigger CSS animations ═══════════
 const _prevA = ref(null), _prevB = ref(null)
+const _lastTurn = ref(0)  // track last processed turn to detect true duplicates
 
 function snapshot(p) {
   if (!p) return null
@@ -255,25 +258,38 @@ function snapshot(p) {
 
 let _baselineEstablished = false
 
-watch(() => [player.value, opponent.value], () => {
+watch(() => [player.value, opponent.value, props.turn], () => {
   const a = player.value; const b = opponent.value
   const snapA = snapshot(a); const snapB = snapshot(b)
-  console.log(`[diff] turn=${props.turn} player=${snapA?.speciesId||'?'}:${snapA?.hp||0}/${snapA?.maxHp||1} opp=${snapB?.speciesId||'?'}:${snapB?.hp||0}/${snapB?.maxHp||1}`,
-    `\n  prevA=${_prevA.value?.speciesId||'?'}:${_prevA.value?.hp||0} prevB=${_prevB.value?.speciesId||'?'}:${_prevB.value?.hp||0} baseline=${_baselineEstablished}`)
+  const curTurn = props.turn || 0
+  console.log(`[diff] turn=${curTurn} player=${snapA?.speciesId||'?'}:${snapA?.hp||0}/${snapA?.maxHp||1} opp=${snapB?.speciesId||'?'}:${snapB?.hp||0}/${snapB?.maxHp||1}`,
+    `\n  prevA=${_prevA.value?.speciesId||'?'}:${_prevA.value?.hp||0} prevB=${_prevB.value?.speciesId||'?'}:${_prevB.value?.hp||0} lastTurn=${_lastTurn.value} baseline=${_baselineEstablished}`)
 
   if (!_baselineEstablished && snapA && snapB) {
     // First time we have real data — set baseline, skip animations
-    _prevA.value = snapA; _prevB.value = snapB; _baselineEstablished = true
+    _prevA.value = snapA; _prevB.value = snapB; _lastTurn.value = curTurn; _baselineEstablished = true
     console.log(`[diff] baseline set: #${snapA.speciesId}:${snapA.hp} / #${snapB.speciesId}:${snapB.hp}`)
     return
   }
 
-  // Skip if state is identical (duplicate turn_processed from force_switch broadcasts)
-  if (snapA && _prevA.value &&
-      snapA.speciesId === _prevA.value.speciesId && snapA.hp === _prevA.value.hp &&
-      snapB && _prevB.value &&
-      snapB.speciesId === _prevB.value.speciesId && snapB.hp === _prevB.value.hp) {
-    console.log(`[diff] state identical — skipping (duplicate message)`)
+  const sameSpecies = snapA && _prevA.value &&
+    snapA.speciesId === _prevA.value.speciesId && snapA.hp === _prevA.value.hp &&
+    snapB && _prevB.value &&
+    snapB.speciesId === _prevB.value.speciesId && snapB.hp === _prevB.value.hp
+
+  // Only skip as duplicate if BOTH turn and state are identical
+  if (sameSpecies && curTurn === _lastTurn.value && curTurn > 0) {
+    console.log(`[diff] true duplicate (same turn=${curTurn}, same state) — skipping`)
+    return
+  }
+
+  // State changed OR turn advanced — always process
+  if (sameSpecies && curTurn !== _lastTurn.value) {
+    console.log(`[diff] turn advanced (${_lastTurn.value}→${curTurn}) but state unchanged — updating baseline only`)
+    // No HP/species change to animate, but flash the turn counter for feedback
+    turnBump.value = true
+    setTimeout(() => { turnBump.value = false }, 400)
+    _prevA.value = snapA; _prevB.value = snapB; _lastTurn.value = curTurn
     return
   }
 
@@ -282,6 +298,7 @@ watch(() => [player.value, opponent.value], () => {
   // Only snapshot non-null state — preserves previous state across intermediate nulls
   if (snapA) _prevA.value = snapA
   if (snapB) _prevB.value = snapB
+  _lastTurn.value = curTurn
 }, { immediate: true })
 
 function applyDiff(key, prev, curr) {
@@ -393,6 +410,8 @@ function doConfirm() {
     emit('switchPokemon', { switch_index: localSwitchTarget.value }); localShowSwitch.value = false
     console.log('[ui] doConfirm: emitted switchPokemon')
   } else if (selectedMoveIdx.value >= 0) {
+    const mv = props.moves?.[selectedMoveIdx.value]
+    if (mv?._disabled) { console.log(`[ui] doConfirm BLOCKED: move ${selectedMoveIdx.value} is disabled`); return }
     emit('confirm', { type: 'attack', move_index: selectedMoveIdx.value })
     console.log('[ui] doConfirm: emitted confirm')
   } else {

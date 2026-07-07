@@ -105,6 +105,8 @@ function flipTeam(dir) {
 }
 const selectedTeam = ref(null)
 const submittedMsg = ref('')
+const botBattles = ref({})   // battle_id → true for bot battles
+const _pendingBot = ref(false)
 // Type effectiveness chart (attacker type -> defender type -> multiplier)
 const TYPE_CHART = {
   Normal:{Rock:.5,Steel:.5,Ghost:0}, Fighting:{Normal:2,Rock:2,Steel:2,Ice:2,Dark:2,Flying:.5,Poison:.5,Bug:.5,Psychic:.5,Fairy:.5,Ghost:0},
@@ -131,7 +133,8 @@ function typeEffectiveness(moveType, defTypes) {
 }
 
 const canJoin = computed(() => selectedTeam.value?.pokemon?.length > 0)
-const turnNumber = computed(() => battleState.value?.turn ?? 0)
+const _serverTurn = ref(0)
+const turnNumber = computed(() => Math.max(battleState.value?.turn ?? 0, _serverTurn.value))
 const forceSwitchActive = computed(() => {
   const sidesArr = sides.value
   const side = mySide.value === 'a' ? sidesArr[0] : sidesArr[1]
@@ -148,7 +151,6 @@ const moveButtons = computed(() => {
   const p = side?.pokemons?.[side?.active||0]
   const opp = oppSide?.pokemons?.[oppSide?.active||0]
   const oppTypes = opp?.types || []
-  const chargingId = p?._charging || null  // locked into charging move
   return (p?.moves||[]).map((m) => {
     const moveType = m._type || 'Normal'
     if (m.id && !moveInfo.value[m.id]) {
@@ -158,8 +160,8 @@ const moveButtons = computed(() => {
     }
     const info = moveInfo.value[m.id] || { type: moveType }
     const eff = typeEffectiveness(info.type || moveType, oppTypes)
-    const locked = chargingId && m.id !== chargingId  // disable non-charging moves
-    return { ...m, _name: info.name || m._type || '#'+m.id, _type: info.type || moveType, _category: info.category || '', _disabled: m.pp <= 0 || locked, _eff: eff }
+    // Showdown's `disabled` field covers ALL lock reasons: two-turn charge, Disable, Encore, Taunt, Choice, etc.
+    return { ...m, _name: info.name || m._type || '#'+m.id, _type: info.type || moveType, _category: info.category || '', _disabled: m.pp <= 0 || (m.disabled || false), _eff: eff }
   })
 })
 // Bench data for arena switch mode
@@ -239,6 +241,8 @@ async function setupWS() {
   unsubs.push(on('matched',(d)=>{
     inQueue.value=false; activeBattle.value={id:d.battle_id,status:'active'}; mySide.value=d.side
     battleState.value=d.state; loading.value=false
+    // Track bot battles
+    if (_pendingBot.value) { botBattles.value[d.battle_id] = true; _pendingBot.value = false }
     // Track full team init
     const sides = d.state?.battle?.sides || []
     const teamA = (sides[0]?.pokemons || []).map(p => ({ speciesID: p.speciesId, moves: (p.moves||[]).map(m=>m.id), item: p.item||p.itemId||0, ability: p.abilityId||0, nature: p.nature||3, level: p.level||50 }))
@@ -250,7 +254,8 @@ async function setupWS() {
     battleState.value=d.state; loading.value=false
   }))
   unsubs.push(on('turn_processed',(d)=>{
-    console.log('[WS] turn_processed received', {turn: d.turn, events: d.state?.events?.length, need2switch: d.state?.battle?.sides?.map(s=>s.need2switch)})
+    console.log('[WS] turn_processed received', {serverTurn: d.turn, stateTurn: d.state?.turn, events: d.state?.events?.length, need2switch: d.state?.battle?.sides?.map(s=>s.need2switch)})
+    _serverTurn.value = d.turn || 0
     battleState.value=d.state; submitting.value=false
     if(activeBattle.value)activeBattle.value.status=d.status
     const sides = d.state?.battle?.sides || []
@@ -312,6 +317,7 @@ async function joinQueue() {
 async function joinVsBot() {
   const teamJson = JSON.stringify({name:selectedTeam.value.name,pokemon:selectedTeam.value.pokemon})
   trackMatchmake('bot')
+  _pendingBot.value = true
   send('join_matchmaking',{player_id:getPlayerId(),team_json:teamJson,opponent_type:'bot'})
 }
 function leaveQueue(){ trackMatchCancel(); inQueue.value=false }

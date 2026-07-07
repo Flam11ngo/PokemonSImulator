@@ -431,6 +431,8 @@ async def ws_endpoint(ws: WebSocket):
                               "init_json": json.dumps(init_json), "current_state": state, "turns": []}
                     battles_db[bid] = battle
                     battle["turns"].append({"turn": 0, "state": state})
+                    # Kafka: battle init
+                    _analytics.log_battle_init(battle.get("id",""), state)
                     # Build form alias lookup: name → (virtual_id, sprite_name)
                     form_aliases = {}
                     for sid, entry in _species_by_id.items():
@@ -456,6 +458,7 @@ async def ws_endpoint(ws: WebSocket):
                     battle["current_state"] = result
                     if daemon.ended:
                         battle["status"] = "completed"
+                        _analytics.log_battle_result(battle)
                         daemon.cleanup()
                     await send(ws, "turn_processed", {"battle_id": battle_id, "turn": daemon.turn,
                                 "status": battle["status"], "state": result})
@@ -650,6 +653,7 @@ async def ws_endpoint(ws: WebSocket):
                         battle["current_state"] = state or battle.get("current_state")
                         if state:
                             battle.setdefault("turns", []).append({"turn": daemon.turn, "state": state, "phase": "force_switch"})
+                            _analytics.log_battle_turn(battle.get("id",""), daemon.turn, state)
                     # Push to both players
                     for pid_s, info in match_battles.items():
                         if info.get("battle_id") == battle_id:
@@ -703,8 +707,11 @@ async def ws_endpoint(ws: WebSocket):
                         battle["total_turns"] = daemon.turn
                         battle["current_state"] = result or battle.get("current_state")
                         battle.setdefault("turns", []).append({"turn": daemon.turn, "state": result or battle.get("current_state")})
+                        # Send battle log to Kafka
+                        _analytics.log_battle_turn(battle.get("id",""), daemon.turn, result or battle.get("current_state"))
                         if daemon.ended:
                             battle["status"] = "completed"
+                            _analytics.log_battle_result(battle)
                             daemon.cleanup()
 
                         # After turn: handle bot auto-force-switch and merge events
@@ -963,7 +970,8 @@ async def ws_endpoint(ws: WebSocket):
                     await send(ws, "pong", {"engine": ENGINE_ADAPTER.exists(), "species": len(_species_list)})
 
                 elif msg_type == "analytics_batch":
-                    _store_analytics(data.get("events", []))
+                    for ev in (data.get("events") or []):
+                        _analytics.track(ev.get("event",""), ev.get("data",{}), player_id=ev.get("player_id",""))
 
                 else:
                     await send(ws, "error", {"message": f"Unknown type: {msg_type}"}, req_id)
@@ -1135,6 +1143,55 @@ async def rest_global_stats():
 # ============================================================
 SMOGON_DB = str(PROJECT_ROOT / "smogon_stats" / "gen91v1_stats.sqlite")
 
+@app.get("/api/species-ids")
+async def smogon_species_ids():
+    """Return name→id mapping for sprite sheet lookup (includes all forms)."""
+    mapping = {}
+    for sp in _species_all:
+        name = sp["name"]
+        mapping[name] = sp["id"]
+        # Also map Showdown-format name (Title Case, special chars preserved)
+        # e.g. "hoopa-unbound" → "Hoopa-Unbound"
+        title = name.title().replace('- ', '-')  # basic title case
+        if title != name:
+            mapping[title] = sp["id"]
+    # Add form alias mappings from _species_by_id
+    for sid, sp in _species_by_id.items():
+        if sid >= 100000:
+            name = sp["name"]
+            mapping[name] = sid
+            # Also map Showdown format
+            title = name.title()
+            if title != name:
+                mapping[title] = sid
+    return mapping
+
+def _showdown_id(name):
+    """Convert name to Showdown format: lowercase, strip non-alphanumeric."""
+    import re
+    return re.sub(r'[^a-z0-9]', '', name.lower()) if name else ''
+
+@app.get("/api/smogon/chinese-names")
+async def smogon_chinese_names():
+    """Return Chinese name mappings, keyed by both proper name AND Showdown format."""
+    moves = {}; items = {}; abilities = {}
+    for m in _moves.values():
+        if m.get("name"):
+            cn = m["chineseName"] or m["name"]
+            moves[m["name"]] = cn
+            moves[_showdown_id(m["name"])] = cn
+    for i in _items.values():
+        if i.get("name"):
+            cn = i["chineseName"] or i["name"]
+            items[i["name"]] = cn
+            items[_showdown_id(i["name"])] = cn
+    for a in _abilities.values():
+        if a.get("name"):
+            cn = a["chineseName"] or a["name"]
+            abilities[a["name"]] = cn
+            abilities[_showdown_id(a["name"])] = cn
+    return {"moves": moves, "items": items, "abilities": abilities}
+
 @app.get("/api/v1/smogon/filters")
 async def smogon_filters():
     from queries import get_filters
@@ -1205,58 +1262,38 @@ async def smogon_moves(source: str, time_bucket: str, rating: int, limit: int = 
         return {"ok": False, "error": str(e)}
 
 # ═══════════════════════════════════════════
-# Analytics
+# Real-time Stats API (proxy to VM stats server)
 # ═══════════════════════════════════════════
 
-import threading
-_analytics_lock = threading.Lock()
-_analytics_buffer = []
-_analytics_dir = PROJECT_ROOT / "logs" / "analytics"
-_analytics_dir.mkdir(parents=True, exist_ok=True)
+import httpx
+STATS_BACKEND = os.getenv("STATS_BACKEND", "http://100.107.105.99:8080")
 
-def _store_analytics(events):
-    """Store analytics events. Writes to daily JSONL log file."""
-    if not events:
-        return
-    with _analytics_lock:
-        _analytics_buffer.extend(events)
-        if len(_analytics_buffer) >= 50:
-            _flush_analytics()
-
-def _flush_analytics():
-    if not _analytics_buffer:
-        return
-    batch = _analytics_buffer[:]
-    _analytics_buffer.clear()
-    date_str = time.strftime("%Y-%m-%d")
-    fpath = _analytics_dir / f"events_{date_str}.jsonl"
+@app.get("/api/v1/stats/{path:path}")
+async def rest_stats_proxy(path: str, request: Request):
+    """Proxy stats API requests to the VM's stats server."""
     try:
-        with open(fpath, 'a', encoding='utf-8') as f:
-            for event in batch:
-                f.write(json.dumps(event, ensure_ascii=False) + '\n')
+        async with httpx.AsyncClient(timeout=10) as client:
+            url = f"{STATS_BACKEND}/api/v1/stats/{path}"
+            params = dict(request.query_params)
+            resp = await client.get(url, params=params)
+            return resp.json()
     except Exception as e:
-        logger.error(f"Analytics write error: {e}")
+        return {"ok": False, "error": str(e)}
 
-# Flush analytics every 30 seconds
-def _analytics_flush_loop():
-    while True:
-        time.sleep(30)
-        try:
-            with _analytics_lock:
-                _flush_analytics()
-        except Exception:
-            pass
+# ═══════════════════════════════════════════
+# Analytics service (data collection)
+# ═══════════════════════════════════════════
 
-_analytics_thread = threading.Thread(target=_analytics_flush_loop, daemon=True)
-_analytics_thread.start()
+from services.analytics_service import get_analytics
+_analytics = get_analytics()
 
 @app.post("/api/v1/analytics")
 async def rest_analytics(request: Request):
     """REST endpoint for analytics via sendBeacon."""
     try:
         body = await request.json()
-        events = body.get("events", []) if isinstance(body, dict) else []
-        _store_analytics(events)
+        for ev in (body.get("events", []) if isinstance(body, dict) else []):
+            _analytics.track(ev.get("event",""), ev.get("data",{}), player_id=ev.get("player_id",""))
     except Exception:
         pass
     return {"ok": True}

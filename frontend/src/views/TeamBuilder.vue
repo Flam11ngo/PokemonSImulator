@@ -254,6 +254,7 @@
     :pokemon="modalPokemon"
     :smogon-data="smogonData"
     :loading="loadingSmogon"
+    :move-name-meta="moveNameMeta"
     @close="showSmogonModal = false"
     @build="oneClickBuild"
     @select-teammate="onSelectTeammate"
@@ -280,6 +281,7 @@ const speciesSearch = ref(''); const speciesResults = ref([])
 const moveSearch = ref(''); const mvResults = ref([]); const editMoveSlot = ref(-1)
 const itemSearch = ref(''); const itemResults = ref([])
 const moveNamesCache = ref({}); const itemNamesCache = ref({}); const abilityNamesCache = ref({})
+const moveMetaCache = ref({})  // Persistent id→{type,category,power,pp,name} — survives mvResults replacement
 const savedTeams = ref([])
 const teamPage = ref(0)
 let timers = {}
@@ -340,11 +342,22 @@ async function oneClickBuild() {
   const s = activeSlot.value
   if (!d || !s.pkm) return
 
-  // Top 4 moves
-  const topMoves = (d.moves || []).slice(0, 4).map(m => {
-    const mv = mvResults.value.find(x => normName(x.name) === normName(m.name))
-    return mv ? mv.id : null
-  }).filter(Boolean)
+  // Top 4 moves (with server fallback like items)
+  const topMoves = []
+  for (const smogonMove of (d.moves || []).slice(0, 4)) {
+    let mv = mvResults.value.find(x => normName(x.name) === normName(smogonMove.name))
+    if (!mv) {
+      const found = await request('get_moves', { search: smogonMove.name, limit: 50 })
+      mv = found?.find(x => normName(x.name) === normName(smogonMove.name))
+      if (mv) {
+        // Persist to both caches so type/category survive any mvResults replacement
+        moveMetaCache.value[mv.id] = { type: mv.type, category: mv.category, power: mv.power, pp: mv.pp, name: mv.name }
+        moveNamesCache.value[mv.id] = mv.chineseName || mv.name
+        if (!mvResults.value.find(x => x.id === mv.id)) mvResults.value.push(mv)
+      }
+    }
+    if (mv) topMoves.push(mv.id)
+  }
   if (topMoves.length) s.pkm.moves = topMoves.slice(0, 4)
 
   // Top item
@@ -389,15 +402,21 @@ async function oneClickBuild() {
     }
   }
 
-  // Refresh display — fetch move/item names if not cached
-  const uncachedMoves = (s.pkm.moves || []).filter(mid => mid && !moveNamesCache.value[mid])
-  await Promise.all(uncachedMoves.map(mid =>
-    request('get_move', { id: mid }).then(r => { moveNamesCache.value[mid] = r?.chineseName || r?.name || '#' + mid })
-  ))
+  // Refresh display — fetch full move info if not in mvResults
+  const uncachedMoves = (s.pkm.moves || []).filter(mid => mid && !mvResults.value.find(m => m.id === mid))
+  if (uncachedMoves.length) {
+    const loaded = await Promise.all(uncachedMoves.map(mid =>
+      request('get_move', { id: mid }).then(r => {
+        moveNamesCache.value[mid] = r?.chineseName || r?.name || '#' + mid
+        moveMetaCache.value[mid] = { type: r?.type, category: r?.category, power: r?.power, pp: r?.pp, name: r?.name }
+        return r ? { id: mid, name: r.name, type: r.type, category: r.category, power: r.power, pp: r.pp, chineseName: r.chineseName } : null
+      })
+    ))
+    loaded.filter(Boolean).forEach(m => { if (m && !mvResults.value.find(x => x.id === m.id)) mvResults.value.push(m) })
+  }
   s._moveNames = (s.pkm.moves || []).map(mid => moveNamesCache.value[mid] || '#' + mid)
   const it = itemResults.value.find(x => x.id === s.pkm.item)
   s._itemName = it?.chineseName || it?.name || ''
-  loadSlotData()
 }
 
 function addTeammate(mateName) {
@@ -439,6 +458,14 @@ const tabs = [{key:'species',label:'🔍 宝可梦'},{key:'moves',label:'⚔️ 
 
 const slots = reactive(Array.from({length:6}, () => ({ pkm: null, _name: '', _types: [], _species: null, _moveNames: [], _itemName: '' })))
 const activeSlot = computed(() => slots[activeIdx.value])
+// Move name→meta lookup for Smogon modal — normName → {type, category, power, pp, chineseName}
+const moveNameMeta = computed(() => {
+  const map = {}
+  for (const [id, m] of Object.entries(moveMetaCache.value)) {
+    if (m.name) map[normName(m.name)] = { type: m.type, category: m.category, power: m.power, pp: m.pp, name: m.name, id: Number(id) }
+  }
+  return map
+})
 const dragIdx = ref(-1)
 const dragOverIdx = ref(-1)
 const evTotal = computed(() => activeSlot.value.pkm?.evs ? Object.values(activeSlot.value.pkm.evs).reduce((a,b)=>a+b,0) : 0)
@@ -534,15 +561,27 @@ function statColor(k, v) {
 
 function capitalize(s) { return s ? s.charAt(0).toUpperCase()+s.slice(1).toLowerCase() : '' }
 function moveType(mid) {
+  const cached = moveMetaCache.value[mid]
+  if (cached) return cached.type || 'Normal'
   const mv = mvResults.value.find(m=>m.id===mid); return mv?.type||'Normal'
 }
 function moveCat(mid) {
+  const cached = moveMetaCache.value[mid]
+  if (cached) { const c = cached.category || 'status'; return c.charAt(0).toUpperCase()+c.slice(1) }
   const mv = mvResults.value.find(m=>m.id===mid)
   const c = mv?.category||'status'
   return c.charAt(0).toUpperCase()+c.slice(1)
 }
-function movePower(mid) { const mv = mvResults.value.find(m=>m.id===mid); return mv?.power||0 }
-function movePP(mid) { const mv = mvResults.value.find(m=>m.id===mid); return mv?.pp||0 }
+function movePower(mid) {
+  const cached = moveMetaCache.value[mid]
+  if (cached) return cached.power||0
+  const mv = mvResults.value.find(m=>m.id===mid); return mv?.power||0
+}
+function movePP(mid) {
+  const cached = moveMetaCache.value[mid]
+  if (cached) return cached.pp||0
+  const mv = mvResults.value.find(m=>m.id===mid); return mv?.pp||0
+}
 function isValidType(t) { return t !== undefined && t !== null && t !== '' && TYPES[t] !== undefined }
 function typeColor(n) {
   if (!n) return '#666'
@@ -628,7 +667,14 @@ function loadSlotData() {
     if (sp) activeSlot.value._species = sp
   }
   if (sp && (sp.learnableMoves||[]).length > 0) {
-    request('get_moves',{learnset:sp.learnableMoves,limit:200}).then(r=>{mvResults.value=r})
+    request('get_moves',{learnset:sp.learnableMoves,limit:200}).then(r=>{
+      mvResults.value = r
+      // Persist move metadata so types survive mvResults replacement
+      for (const m of r) {
+        moveMetaCache.value[m.id] = { type: m.type, category: m.category, power: m.power, pp: m.pp, name: m.name }
+        moveNamesCache.value[m.id] = m.chineseName || m.name
+      }
+    })
   } else {
     mvResults.value = []
   }
@@ -664,7 +710,13 @@ function pickSpecies(sp) {
   s._spriteId = sp.id  // Use alias ID for sprite
   activeTab.value = 'moves'
   const ls = sp.learnableMoves||[]
-  if (ls.length) request('get_moves',{learnset:ls,limit:200}).then(r=>{mvResults.value=r})
+  if (ls.length) request('get_moves',{learnset:ls,limit:200}).then(r=>{
+    mvResults.value = r
+    for (const m of r) {
+      moveMetaCache.value[m.id] = { type: m.type, category: m.category, power: m.power, pp: m.pp, name: m.name }
+      moveNamesCache.value[m.id] = m.chineseName || m.name
+    }
+  })
   const allAb = [...(sp.abilities||[]), sp.hiddenAbilityID].filter(Boolean)
   allAb.forEach(aid => request('get_ability',{id:aid}).then(r=>{abilityNamesCache.value[aid]=r?.chineseName||r?.name||'#'+aid}))
   request('get_items',{search:'',limit:200}).then(r=>{itemResults.value=r})
@@ -676,7 +728,14 @@ function pickSpecies(sp) {
 async function onMoveSearch() {
   clearTimeout(timers.mv); timers.mv = setTimeout(async () => {
     const ls = activeSlot.value._species?.learnableMoves||[]
-    try { mvResults.value = await request('get_moves',{search:moveSearch.value,learnset:ls,limit:200}) } catch { mvResults.value = [] }
+    try {
+      const r = await request('get_moves',{search:moveSearch.value,learnset:ls,limit:200})
+      mvResults.value = r
+      for (const m of r) {
+        moveMetaCache.value[m.id] = { type: m.type, category: m.category, power: m.power, pp: m.pp, name: m.name }
+        moveNamesCache.value[m.id] = m.chineseName || m.name
+      }
+    } catch { mvResults.value = [] }
   }, 150)
 }
 function toggleMove(mv) {
@@ -751,7 +810,11 @@ async function loadTeam(t) {
     slots[i]._name = sp?.chineseName || sp?.name||'#'+p.speciesID
     slots[i]._cnName = slots[i]._name; slots[i]._types = sp?.types||[]; slots[i]._species = sp||null
     if (p.moves) p.moves.forEach(mid => {
-      if (mid) promises.push(request('get_move',{id:mid}).then(r=>{ moveNamesCache.value[mid] = r?.chineseName||r?.name||'#'+mid; slots[i]._moveNames = (slots[i].pkm.moves||[]).map(mid=>moveNamesCache.value[mid]||'?') }))
+      if (mid) promises.push(request('get_move',{id:mid}).then(r=>{
+        moveNamesCache.value[mid] = r?.chineseName||r?.name||'#'+mid
+        moveMetaCache.value[mid] = { type: r?.type, category: r?.category, power: r?.power, pp: r?.pp, name: r?.name }
+        slots[i]._moveNames = (slots[i].pkm.moves||[]).map(mid=>moveNamesCache.value[mid]||'?')
+      }))
     })
     if (p.item) promises.push(request('get_items',{search:''}).then(r=>{ const it = r.find(x=>x.id===p.item); if (it) { slots[i]._itemName = it.chineseName||it.name; itemNamesCache.value[p.item] = it.chineseName||it.name } }))
     if (sp) {
@@ -767,7 +830,7 @@ async function loadTeam(t) {
 function saveTeam() {
   const pokemon = slots.filter(s=>s.pkm).map(s=>({speciesID:s.pkm.speciesID, level:50,ability:s.pkm.ability||0,nature:s.pkm.nature||3,moves:(s.pkm.moves||[]).filter(m=>m!==0),item:s.pkm.item||0,evs:s.pkm.evs||{hp:0,atk:0,def:0,spa:0,spd:0,spe:0}}))
   if (!pokemon.length) return
-  trackTeamSave(teamName.value, pokemon.length)
+  trackTeamSave(teamName.value, pokemon)
   send('save_team',{user_id:getPlayerId(),name:teamName.value,pokemon})
   setTimeout(loadSavedTeams, 500)
 }
