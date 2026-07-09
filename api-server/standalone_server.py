@@ -534,6 +534,7 @@ async def ws_endpoint(ws: WebSocket):
                                           "init_json": json.dumps(init_json), "current_state": state, "turns": [{"turn": 0, "state": state}]}
                                 battles_db[bid] = battle
                                 pending_matches[bid]["state"] = state
+                                _analytics.log_battle_init(bid, state)
                                 w = connections.get(p1_id)
                                 if w: await send(w, "matched", {"battle_id": bid, "side": "a", "state": state})
                                 pending_matches.pop(bid, None)
@@ -971,7 +972,22 @@ async def ws_endpoint(ws: WebSocket):
 
                 elif msg_type == "analytics_batch":
                     for ev in (data.get("events") or []):
-                        _analytics.track(ev.get("event",""), ev.get("data",{}), player_id=ev.get("player_id",""))
+                        etype = ev.get("event","")
+                        edata = ev.get("data",{}) or {}
+                        pid = ev.get("player_id","")
+                        # Route: battle events → battle.logs, UI events → player.ui.events
+                        if etype in ("battle_init","battle_result","turn_executed","turn_damage","turn_faint","turn_switch","turn_heal","turn_ability"):
+                            from services.kafka_producer import send_battle_log
+                            bid = edata.get("battle_id","")
+                            ts = ev.get("timestamp","")
+                            edata["timestamp"] = ts
+                            send_battle_log({
+                                "event": etype, "battle_id": bid,
+                                "data": edata, "timestamp": ts,
+                                "player_id": pid,
+                            })
+                        else:
+                            _analytics.track(etype, edata, player_id=pid)
 
                 else:
                     await send(ws, "error", {"message": f"Unknown type: {msg_type}"}, req_id)

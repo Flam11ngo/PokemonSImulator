@@ -194,12 +194,15 @@ function formatEvent(kw, parts, st) {
     st._lastSwitch[side] = switchFingerprint;
     st._lastHp[side] = null;
     const who = pokemonLabel(rest[0]);
-    return { ...base, side, event_type:'switch_in', description: `${who} 换上 ${name}` };
+    const switchSp = Dex.species.get(name);
+    return { ...base, side, event_type:'switch_in', description: `${who} 换上 ${name}`, _speciesId: switchSp?.num||0, _speciesName: name };
   }
 
   // ---- FAINT (Major Action per Showdown protocol — independent of -damage) ----
   if (kw === 'faint') {
-    return { ...base, side: pokemonSide(rest[0]), event_type:'faint', description: `${pokemonLabel(rest[0])} 倒下 💀` };
+    const faintedName = rest[0].split(':').pop()||'?';
+    const faintSp = Dex.species.get(faintedName);
+    return { ...base, side: pokemonSide(rest[0]), event_type:'faint', description: `${pokemonLabel(rest[0])} 倒下`, _speciesId: faintSp?.num||0, _speciesName: faintedName };
   }
 
   // ---- DAMAGE (Minor Action — merge move + effectiveness + crit for UX) ----
@@ -233,8 +236,10 @@ function formatEvent(kw, parts, st) {
     } else {
       desc = '受到攻击 ';  // fallback when no move context available
     }
+    const dmgTarget = (rest[0]||'').split(':').pop()||'?';
+    const dmgSp = Dex.species.get(dmgTarget);
     const val = isNaN(dmg) ? 0 : dmg;
-    return { ...base, side: sideKey, event_type: isDot ? 'dot' : 'damage', description: desc + eff + `-${val} HP` + (fnt ? ' 💀' : ''), value: val };
+    return { ...base, side: sideKey, event_type: isDot ? 'dot' : 'damage', _speciesId: dmgSp?.num||0, _speciesName: dmgTarget, value: val, description: desc + eff + `-${val} HP` + (fnt ? ' 💀' : ''), value: val };
   }
   // Store effectiveness hint for next damage event
   if (kw === '-supereffective') { st._pendingEff = '💥 效果拔群 '; return null; }

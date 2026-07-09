@@ -11,6 +11,8 @@ export default defineConfig({
       'Cache-Control': 'no-store',
     },
     proxy: {
+      '/api/v1/stats': { target: 'http://100.107.105.99:8080', changeOrigin: true },
+      '/api/v1/smogon': { target: 'http://100.107.105.99:8080', changeOrigin: true },
       '/api': { target: 'http://localhost:9000', changeOrigin: true },
       '/ws': { target: 'http://localhost:9000', ws: true, changeOrigin: true },
     },

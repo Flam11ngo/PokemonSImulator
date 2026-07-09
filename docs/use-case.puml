@@ -1,0 +1,177 @@
+@startuml 核心对战系统
+title PokemonSimulator — 核心对战系统用例图
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor 玩家 as Player
+
+rectangle "对战系统" {
+  usecase "VS Bot 对战" as VS_Bot
+  usecase "PvP 匹配对战" as PvP
+  usecase "选择技能" as SelectMove
+  usecase "切换宝可梦" as Switch
+  usecase "查看战斗日志" as ViewLog
+  usecase "回合结果展示" as TurnResult
+
+  usecase "队伍创建" as CreateTeam
+  usecase "保存队伍" as SaveTeam
+  usecase "宝可梦搜索" as SearchPokemon
+}
+
+Player --> VS_Bot
+Player --> PvP
+Player --> CreateTeam
+Player --> SaveTeam
+Player --> SearchPokemon
+
+VS_Bot ..> SelectMove : include
+VS_Bot ..> Switch : include
+VS_Bot ..> ViewLog : include
+PvP ..> SelectMove : include
+PvP ..> Switch : include
+SelectMove ..> TurnResult : trigger
+Switch ..> TurnResult : trigger
+
+CreateTeam ..> SearchPokemon : extend
+
+@enduml
+
+
+
+@startuml 数据分析管道
+title PokemonSimulator — 数据埋点与分析用例图
+
+actor "玩家(浏览器)" as Player
+actor 数据管理员 as Admin
+actor "Data Daemon\n(模拟数据源)" as Daemon
+
+rectangle "数据产生" {
+  usecase "前端埋点\n(页面浏览/点击)" as TrackUI
+  usecase "对战打点\n(精灵/伤害/换人)" as TrackBattle
+  usecase "模拟生成\n(daemon 自动)" as MockData
+}
+
+rectangle "数据管道" as Pipeline {
+  usecase "Kafka 消息队列" as Kafka
+  usecase "ADS Bridge\n聚合写入" as Bridge
+  usecase "Stats API\n查询服务" as StatsAPI
+}
+
+rectangle "数据可视化" {
+  usecase "实时对战看板" as RealTime
+  usecase "Smogon 排名分析" as SmogonStats
+  usecase "用户行为分析" as Analytics
+  usecase "玩家活跃追踪" as PlayerTracking
+}
+
+Player --> TrackUI
+Player --> TrackBattle
+Daemon --> MockData
+
+TrackUI --> Kafka
+TrackBattle --> Kafka
+MockData --> Kafka
+Kafka --> Bridge
+Bridge --> StatsAPI
+
+Admin --> RealTime
+Admin --> SmogonStats
+Admin --> Analytics
+Admin --> PlayerTracking
+
+RealTime ..> StatsAPI : query
+SmogonStats ..> StatsAPI : query
+Analytics ..> StatsAPI : query
+PlayerTracking ..> StatsAPI : query
+
+@enduml
+
+
+
+@startuml Smogon数据集成
+title PokemonSimulator — Smogon 数据集成与组队用例图
+
+actor 玩家 as Player
+
+rectangle "Smogon 数据服务" {
+  usecase "精灵排名查询\n(模拟器/Smogon)" as Ranking
+  usecase "精灵详情\n(技能/道具/特性/天敌)" as Detail
+  usecase "趋势分析\n(月度使用率)" as Trend
+  usecase "数据源切换\n(smogon/模拟器)" as SourceSwitch
+  usecase "分级筛选\n(0/1500/1630/1760)" as RatingFilter
+  usecase "月份筛选" as MonthFilter
+}
+
+rectangle "组队工具" {
+  usecase "Smogon 一键构建\n(推荐配置)" as OneClick
+  usecase "手动配招" as ManualBuild
+  usecase "使用率排序\n(pick rate)" as PickRate
+  usecase "精灵搜索" as Search
+}
+
+Player --> Ranking
+Player --> Detail
+Player --> OneClick
+Player --> ManualBuild
+
+Ranking ..> SourceSwitch : include
+Ranking ..> RatingFilter : include
+Ranking ..> MonthFilter : include
+Detail ..> SourceSwitch : include
+Detail ..> RatingFilter : include
+
+OneClick ..> Ranking : extend
+OneClick ..> Detail : extend
+ManualBuild ..> Search : include
+Ranking ..> PickRate : extend
+
+@enduml
+
+
+
+@startuml 系统部署与运维
+title PokemonSimulator — 系统运维用例图
+
+actor 运维人员 as Ops
+
+rectangle "云服务器管理" {
+  usecase "一键部署\n(deploy.sh)" as Deploy
+  usecase "服务启停\n(systemd)" as ServiceControl
+  usecase "健康检查" as HealthCheck
+  usecase "Nginx 配置\n(代理路由)" as Nginx
+}
+
+rectangle "VM 集群管理" {
+  usecase "Kafka 管理\n(topic/offset)" as KafkaMgmt
+  usecase "桥进程管理\n(kafka_to_sqlite)" as BridgeMgmt
+  usecase "Stats API 管理\n(stats_server)" as StatsMgmt
+  usecase "数据清理\n(按日期截断)" as DataClean
+  usecase "Smogon DB 同步" as SmogonSync
+  usecase "Consumer Group\n重置" as CgReset
+}
+
+rectangle "监控" {
+  usecase "Kafka 消息监控\n(console-consumer)" as KafkaWatch
+  usecase "数据量监控\n(deep/summary)" as DataWatch
+  usecase "日志查看" as LogWatch
+}
+
+Ops --> Deploy
+Ops --> ServiceControl
+Ops --> HealthCheck
+Ops --> Nginx
+Ops --> KafkaMgmt
+Ops --> BridgeMgmt
+Ops --> StatsMgmt
+Ops --> DataClean
+Ops --> SmogonSync
+Ops --> KafkaWatch
+Ops --> DataWatch
+Ops --> LogWatch
+
+DataClean ..> CgReset : include
+Deploy ..> Nginx : include
+Deploy ..> ServiceControl : include
+
+@enduml

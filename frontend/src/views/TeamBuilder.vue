@@ -691,8 +691,9 @@ onMounted(async () => {
   allSpeciesCache.value = speciesList.value
   speciesResults.value = allSpeciesCache.value
   await loadSavedTeams()
-  // Preload items + Smogon usage for pick rate column
+  // Preload items + Smogon usage for pick rate column (use latest time_bucket)
   request('get_items',{search:'',limit:200}).then(r=>{itemResults.value=r})
+  // smogon source: latest monthly bucket (2026-05); simulator uses daily format
   smogonAPI.ranking({source:'smogon',time_bucket:'2026-05',rating:1760,limit:200}).then(list => {
     const map = {}
     list.forEach(item => { map[item.name.toLowerCase()] = item.usage * 100 })

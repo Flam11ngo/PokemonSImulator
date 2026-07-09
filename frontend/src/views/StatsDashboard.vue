@@ -5,6 +5,10 @@
 
     <!-- Filter Bar -->
     <div class="flex gap-3 mb-6 flex-wrap items-center">
+      <select v-model="selSource" @change="onSourceChange"
+        class="bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-rose-400/30">
+        <option v-for="s in sources" :key="s" :value="s">{{ s === 'smogon' ? '📡 Smogon' : '🤖 模拟器' }}</option>
+      </select>
       <select v-model="selTimeBucket" @change="refreshAll"
         class="bg-white border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-600 focus:outline-none focus:ring-2 focus:ring-rose-400/30">
         <option value="">选择月份</option>
@@ -95,9 +99,9 @@
     <PokemonDetailModal
       :pokemon-name="selectedName"
       :visible="showDetail"
-      :source="'smogon'"
+      :source="selSource"
       :time-bucket="selTimeBucket"
-      :rating="selRating || 1760"
+      :rating="selRating"
       @close="showDetail = false"
       @select-teammate="openDetail" />
   </div>
@@ -111,6 +115,8 @@ import PokemonRankTable from '../components/stats/PokemonRankTable.vue'
 import PokemonDetailModal from '../components/stats/PokemonDetailModal.vue'
 
 // Filters
+const sources = ref(['smogon', 'simulator'])
+const selSource = ref('simulator')
 const timeBuckets = ref([])
 const ratings = ref([0, 1500, 1630, 1760])
 const selTimeBucket = ref('')
@@ -132,8 +138,11 @@ const showDetail = ref(false)
 
 const timeBucketLabel = computed(() => {
   if (!selTimeBucket.value) return '最新数据'
-  const m = selTimeBucket.value.match(/^(\d{4})-(\d{2})$/)
-  if (m) return `${m[1]}年${m[2]}月`
+  const m = selTimeBucket.value.match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/)
+  if (m) {
+    if (m[3]) return `${m[1]}年${m[2]}月${m[3]}日`
+    return `${m[1]}年${m[2]}月`
+  }
   return selTimeBucket.value
 })
 const rating = computed(() => selRating.value || 1760)
@@ -144,18 +153,33 @@ async function loadFilters() {
   try {
     const f = await smogonAPI.filters()
     timeBuckets.value = f.time_buckets || []
+    // sources from API if available
+    if (f.sources?.length) sources.value = f.sources
+    // Auto-select latest time_bucket for simulator source
     if (!selTimeBucket.value && timeBuckets.value.length) {
-      selTimeBucket.value = timeBuckets.value[0]
+      // Pick the time bucket that matches the selected source
+      onSourceChange()
+    } else if (selTimeBucket.value) {
+      refreshAll()
     }
   } catch (e) {
     console.error('Failed to load filters:', e)
   }
 }
 
+async function onSourceChange() {
+  // simulator data only has rating=1500
+  if (selSource.value === 'simulator') selRating.value = 1500
+  if (timeBuckets.value.length) {
+    selTimeBucket.value = timeBuckets.value[0]
+    refreshAll()
+  }
+}
+
 async function refreshAll() {
   if (!selTimeBucket.value) return
   const params = {
-    source: 'smogon',
+    source: selSource.value,
     time_bucket: selTimeBucket.value,
     rating: selRating.value || 1760,
     limit: 100,

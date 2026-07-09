@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "kafkajs": "^2.2.4",
+    "pokemon-showdown": "^0.11.10",
+    "vue-chartjs": "^5.3.3"
+  }
+}

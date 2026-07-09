@@ -183,7 +183,9 @@ export function setTurn(turn) {
 // UI / navigation
 // ═══════════════════════════════════════════
 
+const SKIP = ['/test', '/login', '/realtime']
 export function trackPageView(page) {
+  if (SKIP.includes(page)) return
   track('page_view', { page })
 }
 

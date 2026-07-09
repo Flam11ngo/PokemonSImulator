@@ -84,7 +84,7 @@ import { ref, computed, onUnmounted, watch } from 'vue'
 import BattleField from '../components/battle/BattleField.vue'
 import { connect, send, on, getPlayerId, request } from '../api/wsClient'
 import { getMove } from '../api/dataWs'
-import { startSession, trackTurnAction, trackMatchmake, trackMatchFound, trackBattleInit, trackBattleResult, trackTurnExecuted, trackMatchCancel } from '../utils/analytics'
+import { startSession, trackTurnAction, trackMatchmake, trackMatchFound, trackBattleInit, trackBattleResult, trackTurnExecuted, trackMatchCancel, trackDamage, trackFaint, trackSwitch } from '../utils/analytics'
 
 const inQueue = ref(false)
 const wsConnected = ref(false)
@@ -213,6 +213,26 @@ function onArenaSwitch(action) {
   }
 }
 const events = computed(() => battleState.value?.events||[])
+
+// Track in-battle events (switch, faint, damage) for analytics
+const _trackedEvents = new Set()
+function trackBattleEvents(newEvents) {
+  if (!activeBattle.value?.id) return
+  for (const ev of (newEvents || [])) {
+    const key = `${ev.event_type || ''}-${ev.side || ''}-${ev._speciesId || ''}-${ev.value || ''}`
+    if (_trackedEvents.has(key)) continue
+    _trackedEvents.add(key)
+    const sid = ev._speciesId || 0
+    const side = ev.side || ''
+    if (ev.event_type === 'switch_in') trackSwitch(sid, side, 'manual')
+    else if (ev.event_type === 'faint') trackFaint(sid, side)
+    else if (ev.event_type === 'damage' || ev.event_type === 'dot') {
+      const moveName = (ev.description || '').includes('使出') ? (ev.description.match(/使出 (.+?)！/)||[])[1] || '' : ''
+      trackDamage(side, sid, moveName, ev.value || 0, (ev.description || '').includes('💀'))
+    }
+  }
+}
+watch(events, trackBattleEvents, { deep: false })
 
 // Battle messages for display (last 3 events, auto-fading)
 const battleMessages = computed(() => {

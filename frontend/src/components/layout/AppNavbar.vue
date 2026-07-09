@@ -6,10 +6,12 @@
           PokemonSimulator
         </router-link>
         <div class="flex items-center gap-0.5">
-          <router-link to="/matchmaking" class="nav-link" active-class="nav-active">匹配</router-link>
-          <router-link to="/teams" class="nav-link" active-class="nav-active">组队</router-link>
-          <router-link to="/stats" class="nav-link" active-class="nav-active">统计</router-link>
-          <router-link to="/data" class="nav-link" active-class="nav-active">数据</router-link>
+          <router-link to="/matchmaking" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_matchmaking')">匹配</router-link>
+          <router-link to="/teams" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_teams')">组队</router-link>
+          <router-link to="/realtime" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_realtime')">实时</router-link>
+          <router-link to="/analytics" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_analytics')">分析</router-link>
+          <router-link to="/stats" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_stats')">统计</router-link>
+          <router-link to="/data" class="nav-link" active-class="nav-active" @click.native="trackClick('nav_data')">数据</router-link>
         </div>
         <div class="flex items-center gap-2">
           <span v-if="username" class="text-sm text-gray-500">{{ username }}</span>
@@ -24,6 +26,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { trackClick } from '../../utils/track'
 const router = useRouter()
 const username = ref('')
 onMounted(() => { username.value = localStorage.getItem('trainer_name') || '' })
